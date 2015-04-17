@@ -35,6 +35,19 @@
     NSLog(@"Memory Warning Received.");
 }
 
+#pragma mark - Swipe View Delegates
+
+-(NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
+{
+    return 2;
+}
+
+-(UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
+{
+    
+    return NULL;
+}
+
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
