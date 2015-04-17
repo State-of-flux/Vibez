@@ -39,6 +39,7 @@
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24C1AE086340078154E /* ViewTicketsViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
+		6C37D2531AE08AD60078154E /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2521AE08AD60078154E /* SwipeView.m */; };
 		6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E041ADED8B800CDBC29 /* Social.framework */; };
 		6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E061ADED8BD00CDBC29 /* Accounts.framework */; };
 /* End PBXBuildFile section */
@@ -101,6 +102,8 @@
 		6C37D24C1AE086340078154E /* ViewTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTicketsViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
+		6C37D2511AE08AD60078154E /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		6C37D2521AE08AD60078154E /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		6CD58E041ADED8B800CDBC29 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		6CD58E061ADED8BD00CDBC29 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 		6C37D2391AE079540078154E /* Reusable Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6C37D2511AE08AD60078154E /* SwipeView.h */,
+				6C37D2521AE08AD60078154E /* SwipeView.m */,
 				6C37D23A1AE079820078154E /* GlobalViewController.h */,
 				6C37D23B1AE079820078154E /* GlobalViewController.m */,
 			);
@@ -474,6 +479,7 @@
 				6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
+				6C37D2531AE08AD60078154E /* SwipeView.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,

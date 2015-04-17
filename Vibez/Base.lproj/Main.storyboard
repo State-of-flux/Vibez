@@ -29,6 +29,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gNz-59-b5r"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zyd-A0-A5a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -36,23 +37,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yP-14-Hst" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="252" y="-512.25"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="aRY-ha-bs5">
-            <objects>
-                <viewController id="sJN-ft-gwN" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Kvw-3b-uog"/>
-                        <viewControllerLayoutGuide type="bottom" id="wsk-5I-YkD"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="G6f-lJ-KyJ">
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mHG-ER-xup" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1023" y="-512.25"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="kZu-NN-TgH">
@@ -63,6 +47,7 @@
                         <viewControllerLayoutGuide type="bottom" id="W5i-H9-jIQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QHX-TG-gpv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -85,6 +70,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Sm5-55-dw6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ej2-qf-x0O">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -105,6 +91,7 @@
                         <viewControllerLayoutGuide type="bottom" id="6m3-yA-yfq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5v9-NM-sLf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -122,6 +109,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wYD-eW-baL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="DIs-h3-UTf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -141,82 +129,7 @@
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RDY-af-alf">
-                                <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="162" id="dBG-45-ka6"/>
-                                    <constraint firstAttribute="height" constant="48" id="hJs-cb-rzN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="dBG-45-ka6"/>
-                                        <exclude reference="hJs-cb-rzN"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="dBG-45-ka6"/>
-                                        <include reference="hJs-cb-rzN"/>
-                                    </mask>
-                                </variation>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="asdasd" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ehz-Ko-xis">
-                                <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="5KA-mq-5Wy"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="5KA-mq-5Wy"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="5KA-mq-5Wy"/>
-                                    </mask>
-                                </variation>
-                            </textField>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="RDY-af-alf" firstAttribute="centerX" secondItem="ehz-Ko-xis" secondAttribute="centerX" id="4Po-Sb-zJB"/>
-                            <constraint firstAttribute="centerY" secondItem="ehz-Ko-xis" secondAttribute="centerY" id="6R8-F8-5jS"/>
-                            <constraint firstAttribute="centerX" secondItem="RDY-af-alf" secondAttribute="centerX" id="TtV-J2-W4U"/>
-                            <constraint firstAttribute="centerX" secondItem="ehz-Ko-xis" secondAttribute="centerX" id="U5H-c3-iIO"/>
-                            <constraint firstItem="ehz-Ko-xis" firstAttribute="top" secondItem="RDY-af-alf" secondAttribute="bottom" constant="38" id="fte-Ki-EFb"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="RDY-af-alf"/>
-                                <exclude reference="ehz-Ko-xis"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="4Po-Sb-zJB"/>
-                                <exclude reference="TtV-J2-W4U"/>
-                                <exclude reference="6R8-F8-5jS"/>
-                                <exclude reference="U5H-c3-iIO"/>
-                                <exclude reference="fte-Ki-EFb"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=regular">
-                            <mask key="subviews">
-                                <include reference="RDY-af-alf"/>
-                                <include reference="ehz-Ko-xis"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="4Po-Sb-zJB"/>
-                                <include reference="TtV-J2-W4U"/>
-                                <include reference="6R8-F8-5jS"/>
-                                <include reference="U5H-c3-iIO"/>
-                                <include reference="fte-Ki-EFb"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="KbO-A3-tAg"/>
                     <connections>
@@ -237,6 +150,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gcO-qJ-EBg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="a1o-HH-wLE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
