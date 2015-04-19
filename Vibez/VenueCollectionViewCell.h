@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface VenueCollectionViewCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet NSString *venueName;
+@property (weak, nonatomic) IBOutlet NSString *venueDescription;
+@property (weak, nonatomic) IBOutlet NSString *eventVenue;
+@property (weak, nonatomic) IBOutlet NSDate *eventDate;
+@property (weak, nonatomic) IBOutlet NSData *eventPicture;
+@property (weak, nonatomic) IBOutlet CLLocation *eventCLLocation;
 
 @end

@@ -7,12 +7,11 @@
 //
 
 #import "GlobalViewController.h"
-#import "SwipeView.h"
 #import "EventCollectionViewCell.h"
 #import "VenueCollectionViewCell.h"
 
-@interface HomeViewController : GlobalViewController <UICollectionViewDataSource, UICollectionViewDelegate, SwipeViewDataSource, SwipeViewDelegate>
+@interface HomeViewController : GlobalViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, strong) IBOutlet SwipeView *swipeView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *eventsVenuesSegmentedControl;
 
 @end

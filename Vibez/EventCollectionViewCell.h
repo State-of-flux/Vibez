@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface EventCollectionViewCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet NSString *eventName;
+@property (weak, nonatomic) IBOutlet NSString *eventDescription;
+@property (weak, nonatomic) IBOutlet NSString *eventGenres;
+@property (weak, nonatomic) IBOutlet NSString *eventVenueName;
+@property (weak, nonatomic) IBOutlet NSDate *eventDate;
+@property (weak, nonatomic) IBOutlet NSData *eventPicture;
+@property (weak, nonatomic) IBOutlet CLLocation *eventCLLocation;
 
 @end

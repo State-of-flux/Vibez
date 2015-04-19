@@ -9,7 +9,10 @@
 #import "HomeViewController.h"
 
 @interface HomeViewController ()
-
+{
+    NSString* eventReuseIdentifier;// = @"EventCell";
+    NSString* venueReuseIdentifier;// = @"VenueCell";
+}
 @end
 
 @implementation HomeViewController
@@ -18,6 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    eventReuseIdentifier = @"EventCell";
+    venueReuseIdentifier = @"VenueCell";
     
     //FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
     
@@ -53,19 +59,6 @@
     NSLog(@"Memory Warning Received.");
 }
 
-#pragma mark - Swipe View Delegates
-
--(NSInteger)numberOfItemsInSwipeView:(SwipeView *)swipeView
-{
-    return 2;
-}
-
--(UIView *)swipeView:(SwipeView *)swipeView viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
-{
-    
-    return NULL;
-}
-
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -98,10 +91,41 @@
     return 1;
 }
 
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"" forIndexPath:indexPath];
+    if(self.eventsVenuesSegmentedControl.selectedSegmentIndex == 1)
+    {
+        EventCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:eventReuseIdentifier forIndexPath:indexPath];
+        
+        cell = [self displayEvents:collectionView withCell:cell cellForItemAtIndexPath:indexPath];
+        
+        return cell;
+        
+    }
+    else if(self.eventsVenuesSegmentedControl.selectedSegmentIndex == 2)
+    {
+        VenueCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:venueReuseIdentifier forIndexPath:indexPath];
+        
+        cell = [self displayVenues:collectionView withCell:cell cellForItemAtIndexPath:indexPath];
+        
+        return cell;
+    }
+
+    return NULL;
+}
+
+-(EventCollectionViewCell *)displayEvents:(UICollectionView *)collectionView withCell:(EventCollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    
+    return cell;
+}
+
+-(VenueCollectionViewCell *)displayVenues:(UICollectionView *)collectionView withCell:(VenueCollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
     
     return cell;
 }

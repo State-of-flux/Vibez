@@ -10,4 +10,9 @@
 
 @implementation EventCollectionViewCell
 
+//-(instancetype)initWithFrame:(CGRect)frame
+//{
+//    
+//}
+
 @end
