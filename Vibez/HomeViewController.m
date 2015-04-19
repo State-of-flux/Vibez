@@ -18,6 +18,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
+    
+    [self setTopBarButtons];
+
+}
+
+-(void)setTopBarButtons
+{
+    UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
+    
+    UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
+    
+    UIFont *customFont = [UIFont fontWithName:@"Helvetica" size:24.0];
+    NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
+    [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
+    
+    self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -56,6 +74,16 @@
     {
             
     }
+}
+
+-(void)searchAction
+{
+    NSLog(@"search button clicked");
+}
+
+-(void)settingsAction
+{
+    NSLog(@"settings button clicked");
 }
 
 #pragma mark - UICollectionView Delegates
