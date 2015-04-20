@@ -7,15 +7,15 @@
 //
 
 #import "GlobalViewController.h"
+#import "TextFieldValidator.h"
 
 @interface SignUpViewController : GlobalViewController
 
-@property (weak, nonatomic) IBOutlet UITextField *firstNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *lastNameTextField;
-@property (weak, nonatomic) IBOutlet UITextField *emailAddressTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
-@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
-@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (weak, nonatomic) IBOutlet TextFieldValidator *usernameTextField;
+@property (weak, nonatomic) IBOutlet TextFieldValidator *emailAddressTextField;
+@property (weak, nonatomic) IBOutlet TextFieldValidator *passwordTextField;
+@property (weak, nonatomic) IBOutlet TextFieldValidator *confirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet TextFieldValidator *submitButton;
 
 - (IBAction)submitButtonTapped:(id)sender;
 

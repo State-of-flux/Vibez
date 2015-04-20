@@ -36,7 +36,7 @@
     // Override point for customization after application launch.
     
     [Parse setApplicationId:@"parseAppId" clientKey:@"parseClientKey"];
-    //[PFFacebookUtils initializeFacebookWithLaunchOptions:launchOptions];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 

@@ -27,6 +27,9 @@
 		6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55C11ACF08D9003965A0 /* Images.xcassets */; };
 		6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55C31ACF08D9003965A0 /* LaunchScreen.xib */; };
 		6C1E55D11ACF08D9003965A0 /* VibezTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55D01ACF08D9003965A0 /* VibezTests.m */; };
+		6C34715D1AE46F2500FC789A /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C34715C1AE46F2500FC789A /* AccountController.m */; };
+		6C3471611AE4818A00FC789A /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C34715E1AE4818A00FC789A /* error@2x.png */; };
+		6C3471621AE4818A00FC789A /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3471601AE4818A00FC789A /* TextFieldValidator.m */; };
 		6C37D22E1AE062920078154E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D22D1AE062920078154E /* LoginViewController.m */; };
 		6C37D2331AE078840078154E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2321AE078840078154E /* SignUpViewController.m */; };
 		6C37D2361AE078990078154E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2351AE078990078154E /* HomeViewController.m */; };
@@ -84,6 +87,11 @@
 		6C1E55CA1ACF08D9003965A0 /* VibezTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibezTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55CF1ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55D01ACF08D9003965A0 /* VibezTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VibezTests.m; sourceTree = "<group>"; };
+		6C34715B1AE46F2500FC789A /* AccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountController.h; sourceTree = "<group>"; };
+		6C34715C1AE46F2500FC789A /* AccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountController.m; sourceTree = "<group>"; };
+		6C34715E1AE4818A00FC789A /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
+		6C34715F1AE4818A00FC789A /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
+		6C3471601AE4818A00FC789A /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		6C37D22C1AE062920078154E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6C37D22D1AE062920078154E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6C37D2311AE078840078154E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -181,8 +189,10 @@
 		6C1E55B31ACF08D9003965A0 /* Vibez */ = {
 			isa = PBXGroup;
 			children = (
+				6C3471631AE481A100FC789A /* Images */,
 				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
 				6C37D2381AE079240078154E /* Cells */,
+				6C3471591AE46EEC00FC789A /* Classes */,
 				6C37D2371AE079180078154E /* Objects */,
 				6CD58E091ADED90400CDBC29 /* Interface */,
 				6CD58E0A1ADED90D00CDBC29 /* View Controllers */,
@@ -216,6 +226,41 @@
 				6C1E55CF1ACF08D9003965A0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6C3471591AE46EEC00FC789A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				6C3471641AE481B700FC789A /* Validation */,
+				6C34715A1AE46EF300FC789A /* Account */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		6C34715A1AE46EF300FC789A /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				6C34715B1AE46F2500FC789A /* AccountController.h */,
+				6C34715C1AE46F2500FC789A /* AccountController.m */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
+		6C3471631AE481A100FC789A /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				6C34715E1AE4818A00FC789A /* error@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		6C3471641AE481B700FC789A /* Validation */ = {
+			isa = PBXGroup;
+			children = (
+				6C34715F1AE4818A00FC789A /* TextFieldValidator.h */,
+				6C3471601AE4818A00FC789A /* TextFieldValidator.m */,
+			);
+			name = Validation;
 			sourceTree = "<group>";
 		};
 		6C37D22F1AE078470078154E /* Profile Controllers */ = {
@@ -439,6 +484,7 @@
 				6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */,
 				6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
+				6C3471611AE4818A00FC789A /* error@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,9 +539,11 @@
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */,
+				6C3471621AE4818A00FC789A /* TextFieldValidator.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
 				6C37D2531AE08AD60078154E /* SwipeView.m in Sources */,
+				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
