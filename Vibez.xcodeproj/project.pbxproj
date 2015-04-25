@@ -29,7 +29,6 @@
 		6C1E55D11ACF08D9003965A0 /* VibezTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55D01ACF08D9003965A0 /* VibezTests.m */; };
 		6C34715D1AE46F2500FC789A /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C34715C1AE46F2500FC789A /* AccountController.m */; };
 		6C3471611AE4818A00FC789A /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C34715E1AE4818A00FC789A /* error@2x.png */; };
-		6C3471621AE4818A00FC789A /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3471601AE4818A00FC789A /* TextFieldValidator.m */; };
 		6C37D22E1AE062920078154E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D22D1AE062920078154E /* LoginViewController.m */; };
 		6C37D2331AE078840078154E /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2321AE078840078154E /* SignUpViewController.m */; };
 		6C37D2361AE078990078154E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2351AE078990078154E /* HomeViewController.m */; };
@@ -40,7 +39,9 @@
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24C1AE086340078154E /* ViewTicketsViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
-		6C37D2531AE08AD60078154E /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2521AE08AD60078154E /* SwipeView.m */; };
+		6C7BD75D1AEB31290092483F /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD75C1AEB31290092483F /* Validator.m */; };
+		6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD7621AEC2A5B0092483F /* EventDataSource.m */; };
+		6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */; };
 		6C7C971B1AE45A93001EE1FD /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C97181AE45A93001EE1FD /* Bolts.framework */; };
 		6C7C971C1AE45A93001EE1FD /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C97191AE45A93001EE1FD /* Parse.framework */; };
 		6C7C971D1AE45A93001EE1FD /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971A1AE45A93001EE1FD /* ParseFacebookUtilsV4.framework */; };
@@ -90,8 +91,6 @@
 		6C34715B1AE46F2500FC789A /* AccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountController.h; sourceTree = "<group>"; };
 		6C34715C1AE46F2500FC789A /* AccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountController.m; sourceTree = "<group>"; };
 		6C34715E1AE4818A00FC789A /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
-		6C34715F1AE4818A00FC789A /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldValidator.h; sourceTree = "<group>"; };
-		6C3471601AE4818A00FC789A /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldValidator.m; sourceTree = "<group>"; };
 		6C37D22C1AE062920078154E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		6C37D22D1AE062920078154E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		6C37D2311AE078840078154E /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -112,8 +111,12 @@
 		6C37D24C1AE086340078154E /* ViewTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewTicketsViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
-		6C37D2511AE08AD60078154E /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
-		6C37D2521AE08AD60078154E /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
+		6C7BD75B1AEB31290092483F /* Validator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Validator.h; sourceTree = "<group>"; };
+		6C7BD75C1AEB31290092483F /* Validator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Validator.m; sourceTree = "<group>"; };
+		6C7BD7611AEC2A5B0092483F /* EventDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventDataSource.h; sourceTree = "<group>"; };
+		6C7BD7621AEC2A5B0092483F /* EventDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDataSource.m; sourceTree = "<group>"; };
+		6C7BD7651AEC2C9D0092483F /* VenueDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueDataSource.h; sourceTree = "<group>"; };
+		6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueDataSource.m; sourceTree = "<group>"; };
 		6C7C97181AE45A93001EE1FD /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C7C97191AE45A93001EE1FD /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		6C7C971A1AE45A93001EE1FD /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
@@ -257,8 +260,8 @@
 		6C3471641AE481B700FC789A /* Validation */ = {
 			isa = PBXGroup;
 			children = (
-				6C34715F1AE4818A00FC789A /* TextFieldValidator.h */,
-				6C3471601AE4818A00FC789A /* TextFieldValidator.m */,
+				6C7BD75B1AEB31290092483F /* Validator.h */,
+				6C7BD75C1AEB31290092483F /* Validator.m */,
 			);
 			name = Validation;
 			sourceTree = "<group>";
@@ -277,6 +280,7 @@
 		6C37D2371AE079180078154E /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				6C7BD7641AEC2BC00092483F /* DataSources */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -295,8 +299,6 @@
 		6C37D2391AE079540078154E /* Reusable Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6C37D2511AE08AD60078154E /* SwipeView.h */,
-				6C37D2521AE08AD60078154E /* SwipeView.m */,
 				6C37D23A1AE079820078154E /* GlobalViewController.h */,
 				6C37D23B1AE079820078154E /* GlobalViewController.m */,
 			);
@@ -325,6 +327,17 @@
 				6C37D24C1AE086340078154E /* ViewTicketsViewController.m */,
 			);
 			name = General;
+			sourceTree = "<group>";
+		};
+		6C7BD7641AEC2BC00092483F /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				6C7BD7611AEC2A5B0092483F /* EventDataSource.h */,
+				6C7BD7621AEC2A5B0092483F /* EventDataSource.m */,
+				6C7BD7651AEC2C9D0092483F /* VenueDataSource.h */,
+				6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */,
+			);
+			name = DataSources;
 			sourceTree = "<group>";
 		};
 		6CD58E081ADED8FA00CDBC29 /* App Delegate */ = {
@@ -539,12 +552,13 @@
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */,
-				6C3471621AE4818A00FC789A /* TextFieldValidator.m in Sources */,
+				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
-				6C37D2531AE08AD60078154E /* SwipeView.m in Sources */,
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
+				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
+				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
 				6C37D2361AE078990078154E /* HomeViewController.m in Sources */,

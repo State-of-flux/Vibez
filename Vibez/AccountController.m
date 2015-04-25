@@ -38,6 +38,7 @@
         if(user)
         {
             NSLog(@"Login Successful");
+            
         }
         else
         {
@@ -64,18 +65,21 @@
 {
     PFUser *user = [PFUser user];
     user.username = username;
-    user.password = @"";
-    user.email = @"email@example.com";
-    
-    // other fields can be set just like with PFObject
-    user[@"phone"] = @"415-392-0202";
+    user.password = password;
+    user.email = emailAddress;
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             // Hooray! Let them use the app now.
-        } else {
+           
+        }
+        else
+        {
             currentErrorMessage = [error userInfo][@"error"];
-            // Show the errorString somewhere and let the user try again.
+            NSLog(@"%@", error);
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+            [alert show];
         }
     }];
 }

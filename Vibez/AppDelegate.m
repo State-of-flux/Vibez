@@ -34,8 +34,6 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Override point for customization after application launch.
-    
-    [Parse setApplicationId:@"parseAppId" clientKey:@"parseClientKey"];
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];

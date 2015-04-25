@@ -12,7 +12,7 @@
 @interface AccountController : NSObject
 
 -(NSArray *)FacebookPermissions;
--(void)LoginWithUsername:(NSString *)username andPassword:(NSString *)password
+-(void)LoginWithUsername:(NSString *)username andPassword:(NSString *)password;
 -(void)LoginWithFacebook;
 -(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password;
 -(void)SignUpWithFacebook;

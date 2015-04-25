@@ -15,20 +15,23 @@
 }
 @end
 
+//FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
+
 @implementation HomeViewController
 
 #pragma mark - General Methods
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTopBarButtons];
     
     eventReuseIdentifier = @"EventCell";
     venueReuseIdentifier = @"VenueCell";
     
-    //FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
+    //[self.collectionView setDataSource:self];
+    [self.collectionView setDelegate:self];
     
-    [self setTopBarButtons];
-
+    NSMutableArray* data = [[NSMutableArray alloc] initWithCapacity:self.eventDataSource.d];
 }
 
 -(void)setTopBarButtons
@@ -42,16 +45,8 @@
     [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
     
     self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -65,7 +60,7 @@
 {
     if([segue.identifier isEqualToString:@""])
     {
-            
+        
     }
 }
 
@@ -79,60 +74,86 @@
     NSLog(@"settings button clicked");
 }
 
-#pragma mark - UICollectionView Delegates
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+-(void)SwapCollectionViewOut
 {
-    return 1;
+    //NSArray *newData = [[NSArray alloc] initWithObjects:@"otherData", nil];
+    
+    [self.collectionView performBatchUpdates:^
+     {
+         //[self.collectionView deleteItemsAtIndexPaths:itemsToRemove];
+         //[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:indexPath.section]]];
+         //[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+         
+         //int resultsSize = [self.data count]; //data is the previous array of data
+         //[self.data addObjectsFromArray:newData];
+         //NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+         
+         //for (int i = resultsSize; i < resultsSize + newData.count; i++) {
+         //    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i
+         //                                                      inSection:0]];
+         //}
+         //[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+     } completion:nil];
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 1;
-}
+//-(void)deleteItemsFromDataSourceAtIndexPaths:(NSArray *)itemPaths
+//{
+//    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+//    
+//    for (NSIndexPath *itemPath  in itemPaths)
+//    {
+//        [indexSet addIndex:itemPath.row];
+//    }
+//    
+//    [self.apps removeObjectsAtIndexes:indexSet];
+//}
+//
+//-(void)insertItems:(NSArray*)items ToDataSourceAtIndexPaths:(NSArray  *)itemPaths
+//{
+//    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
+//    
+//    for (NSIndexPath *itemPath  in itemPaths)
+//    {
+//        [indexSet addIndex:itemPath.row];
+//    }
+//    
+//    [self.apps insertObjects:items atIndexes:indexSet];
+//}
+//
+//-(void)reloadDataSmooth
+//{
+//    [self.collectionView performBatchUpdates:^
+//    {
+//        NSMutableArray *arrayWithIndexPathsDelete = [NSMutableArray array];
+//        NSMutableArray *arrayWithIndexPathsInsert = [NSMutableArray array];
+//        
+//        int itemCount = [self.items count];
+//        
+//        for (int d = 0; d<itemCount; d++)
+//        {
+//            [arrayWithIndexPathsDelete addObject:[NSIndexPath indexPathForRow:d inSection:0]];
+//        }
+//        
+//        [self deleteItemsFromDataSourceAtIndexPaths:arrayWithIndexPathsDelete];
+//        [self.collectionView deleteItemsAtIndexPaths:arrayWithIndexPathsDelete];
+//        
+//        int newItemCount = [newItems count];
+//        
+//        for (int i=0; i < newAppCount; i++)
+//        {
+//            [arrayWithIndexPathsInsert addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+//        }
+//        
+//        [self insertItems:newItems ToDataSourceAtIndexPaths:arrayWithIndexPathsInsert];
+//        
+//        [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPathsInsert];
+//    }
+//                                  completion:nil];
+//}
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    if(self.eventsVenuesSegmentedControl.selectedSegmentIndex == 1)
-    {
-        EventCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:eventReuseIdentifier forIndexPath:indexPath];
-        
-        cell = [self displayEvents:collectionView withCell:cell cellForItemAtIndexPath:indexPath];
-        
-        return cell;
-        
-    }
-    else if(self.eventsVenuesSegmentedControl.selectedSegmentIndex == 2)
-    {
-        VenueCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:venueReuseIdentifier forIndexPath:indexPath];
-        
-        cell = [self displayVenues:collectionView withCell:cell cellForItemAtIndexPath:indexPath];
-        
-        return cell;
-    }
-
-    return NULL;
-}
-
--(EventCollectionViewCell *)displayEvents:(UICollectionView *)collectionView withCell:(EventCollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    
-    return cell;
-}
-
--(VenueCollectionViewCell *)displayVenues:(UICollectionView *)collectionView withCell:(VenueCollectionViewCell *)cell cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    
-    
-    return cell;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
+//-(void)RefreshData:(UISwipeGestureRecognizer *)downGesture
+//{
+//    
+//}
 
 @end

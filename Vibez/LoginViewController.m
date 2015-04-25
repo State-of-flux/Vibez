@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     accountController = [[AccountController alloc] init];
     self.FacebookLoginButton.readPermissions = [accountController FacebookPermissions];
 }
@@ -27,42 +28,61 @@
     [super didReceiveMemoryWarning];
 }
 
-- (IBAction)loginButtonTapped:(id)sender {
-    //[accountController Login];
-    [self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+- (IBAction)loginButtonTapped:(id)sender
+{
+    [self Login];
 }
 
-- (IBAction)signUpButtonTapped:(id)sender {
+- (IBAction)signUpButtonTapped:(id)sender
+{
     [self performSegueWithIdentifier:@"loginToSignUpSegue" sender:self];
 }
 
-- (IBAction)FacebookLoginButtonTapped:(id)sender {
+- (IBAction)FacebookLoginButtonTapped:(id)sender
+{
     //[accountController LoginWithFacebook];
 }
 
 -(void)Login
 {
     NSString *emailIdentifier = @"@";
-    NSString *usernameOrEmailText = self.emailAddressTextField.text;
+    NSString *usernameOrEmailString = self.emailAddressTextField.text;
+    NSString *passwordString = self.passwordTextField.text;
     
-    if ([usernameOrEmailText rangeOfString:emailIdentifier].location != NSNotFound) {
+    if ([usernameOrEmailString rangeOfString:emailIdentifier].location != NSNotFound) {
         //"username" contains the email identifier @, therefore this is an email. Pull down the username.
         PFQuery *query = [PFUser query];
-        [query whereKey:@"email" equalTo:usernameOrEmailText];
+        [query whereKey:@"email" equalTo:usernameOrEmailString];
         NSArray *foundUsers = [query findObjects];
         
         if([foundUsers count]  == 1) {
             for (PFUser *foundUser in foundUsers) {
-                usernameOrEmailText = [foundUser username];
+                usernameOrEmailString = [foundUser username];
+                [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
             }
         }
     }
     else
     {
-        //[accountController LoginWithUsername: andPassword:];
+        [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
     }
 }
 
+-(void)LoginWithUsernameParse:(NSString *)username andPassword:(NSString *)password
+{
+    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
+     {
+         if(user)
+         {
+             [self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+         }
+         else
+         {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+             [alert show];
 
+         }
+     }];
+}
 
 @end

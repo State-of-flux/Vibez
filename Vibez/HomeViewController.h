@@ -9,9 +9,16 @@
 #import "GlobalViewController.h"
 #import "EventCollectionViewCell.h"
 #import "VenueCollectionViewCell.h"
+#import "EventDataSource.h"
+#import "VenueDataSource.h"
 
-@interface HomeViewController : GlobalViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface HomeViewController : GlobalViewController <UICollectionViewDelegate>
+
+@property (strong, nonatomic) NSMutableArray* apps;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsVenuesSegmentedControl;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
+@property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
 
 @end
