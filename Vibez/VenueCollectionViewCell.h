@@ -11,11 +11,12 @@
 
 @interface VenueCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet NSString *venueName;
-@property (weak, nonatomic) IBOutlet NSString *venueDescription;
-@property (weak, nonatomic) IBOutlet NSString *eventVenue;
-@property (weak, nonatomic) IBOutlet NSDate *eventDate;
-@property (weak, nonatomic) IBOutlet NSData *eventPicture;
-@property (weak, nonatomic) IBOutlet CLLocation *eventCLLocation;
+@property (weak, nonatomic) IBOutlet UILabel *venueNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *venueDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImage *venueImage;
+@property (weak, nonatomic) IBOutlet CLLocation *venueCLLocation;
+
+-(void)setModel:(NSString *)venueName venueDescription:(NSString *)venueDescription venueImageData:(NSData *)venueImageData venueLocation:(NSString *)venueLocation;
+-(id)initWithFrame:(CGRect)frame;
 
 @end

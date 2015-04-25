@@ -11,12 +11,16 @@
 
 @interface EventCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet NSString *eventName;
-@property (weak, nonatomic) IBOutlet NSString *eventDescription;
-@property (weak, nonatomic) IBOutlet NSString *eventGenres;
-@property (weak, nonatomic) IBOutlet NSString *eventVenueName;
-@property (weak, nonatomic) IBOutlet NSDate *eventDate;
-@property (weak, nonatomic) IBOutlet NSData *eventPicture;
+@property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventGenresLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventVenueNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eventDateLabel;
+@property (weak, nonatomic) IBOutlet UIImage *eventPictureImage;
 @property (weak, nonatomic) IBOutlet CLLocation *eventCLLocation;
+
+-(id)initWithFrame:(CGRect)frame;
+-(void)setModel:(NSString *)eventName eventDescription:(NSString *)eventDescription eventGenres:(NSString *)eventGenres eventVenueName:(NSString *)eventVenueName eventDate:(NSString *)eventDate eventImageData:(NSData *)eventImageData eventLocation:(NSString *)eventLocation;
+
 
 @end

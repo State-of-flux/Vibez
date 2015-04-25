@@ -10,8 +10,7 @@
 
 @interface HomeViewController ()
 {
-    NSString* eventReuseIdentifier;// = @"EventCell";
-    NSString* venueReuseIdentifier;// = @"VenueCell";
+
 }
 @end
 
@@ -21,17 +20,16 @@
 
 #pragma mark - General Methods
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
     [self setTopBarButtons];
-    
-    eventReuseIdentifier = @"EventCell";
-    venueReuseIdentifier = @"VenueCell";
-    
-    //[self.collectionView setDataSource:self];
     [self.collectionView setDelegate:self];
     
-    NSMutableArray* data = [[NSMutableArray alloc] initWithCapacity:self.eventDataSource.d];
+    self.isEventDataDisplayed = YES;
+    
+    //NSMutableArray* data = [[NSMutableArray alloc] initWithCapacity:[self.eventDataSource.data count]];
 }
 
 -(void)setTopBarButtons
@@ -54,47 +52,41 @@
     NSLog(@"Memory Warning Received.");
 }
 
-#pragma mark - Navigation
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)SwapData
 {
-    if([segue.identifier isEqualToString:@""])
+    if(self.isEventDataDisplayed)
     {
-        
+        [self.collectionView setDataSource:self.venueDataSource];
     }
-}
-
--(void)searchAction
-{
-    NSLog(@"search button clicked");
-}
-
--(void)settingsAction
-{
-    NSLog(@"settings button clicked");
-}
-
--(void)SwapCollectionViewOut
-{
-    //NSArray *newData = [[NSArray alloc] initWithObjects:@"otherData", nil];
+    else if(!self.isEventDataDisplayed)
+    {
+        [self.collectionView setDataSource:self.eventDataSource];
+    }
     
-    [self.collectionView performBatchUpdates:^
-     {
-         //[self.collectionView deleteItemsAtIndexPaths:itemsToRemove];
-         //[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:indexPath.section]]];
-         //[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-         
-         //int resultsSize = [self.data count]; //data is the previous array of data
-         //[self.data addObjectsFromArray:newData];
-         //NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
-         
-         //for (int i = resultsSize; i < resultsSize + newData.count; i++) {
-         //    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i
-         //                                                      inSection:0]];
-         //}
-         //[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
-     } completion:nil];
+    [self.collectionView reloadData];
 }
+
+//-(void)SwapCollectionViewOut
+//{
+//    //NSArray *newData = [[NSArray alloc] initWithObjects:@"otherData", nil];
+//    
+//    [self.collectionView performBatchUpdates:^
+//     {
+//         //[self.collectionView deleteItemsAtIndexPaths:itemsToRemove];
+//         //[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:indexPath.section]]];
+//         //[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
+//         
+//         //int resultsSize = [self.data count]; //data is the previous array of data
+//         //[self.data addObjectsFromArray:newData];
+//         //NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
+//         
+//         //for (int i = resultsSize; i < resultsSize + newData.count; i++) {
+//         //    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i
+//         //                                                      inSection:0]];
+//         //}
+//         //[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
+//     } completion:nil];
+//}
 
 //-(void)deleteItemsFromDataSourceAtIndexPaths:(NSArray *)itemPaths
 //{
@@ -155,5 +147,25 @@
 //{
 //    
 //}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@""])
+    {
+        
+    }
+}
+
+-(void)searchAction
+{
+    NSLog(@"search button clicked");
+}
+
+-(void)settingsAction
+{
+    NSLog(@"settings button clicked");
+}
 
 @end

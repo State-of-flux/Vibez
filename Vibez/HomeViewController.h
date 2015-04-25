@@ -15,7 +15,7 @@
 @interface HomeViewController : GlobalViewController <UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray* apps;
-
+@property (strong, nonatomic) BOOL isEventDataDisplayed;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsVenuesSegmentedControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
