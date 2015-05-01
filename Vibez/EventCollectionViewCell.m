@@ -27,6 +27,7 @@
     if(self)
     {
         [self setBackgroundColor:[UIColor blackColor]];
+        //self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, 20)];
     }
     
     return self;

@@ -25,6 +25,11 @@
     if(self)
     {
         [self setBackgroundColor:[UIColor purpleColor]];
+        
+//        CGRect cellFrame = self.frame; // use objc dot syntax to get frame
+//        cellFrame.size.height = 75;   // use C struct accessors
+//        cellFrame.size.width = 75;
+//        self.frame = cellFrame;
     }
     
     return self;

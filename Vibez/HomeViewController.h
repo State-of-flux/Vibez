@@ -12,13 +12,14 @@
 #import "EventDataSource.h"
 #import "VenueDataSource.h"
 
-@interface HomeViewController : GlobalViewController <UICollectionViewDelegate>
+@interface HomeViewController : GlobalViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (strong, nonatomic) NSMutableArray* apps;
-@property (strong, nonatomic) BOOL isEventDataDisplayed;
+@property BOOL isEventDataDisplayed;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *eventsVenuesSegmentedControl;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
 @property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
+- (IBAction)segmentedControlTapped:(id)sender;
 
 @end

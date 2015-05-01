@@ -11,10 +11,10 @@
 
 @interface VenueCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *venueNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *venueDescriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImage *venueImage;
-@property (weak, nonatomic) IBOutlet CLLocation *venueCLLocation;
+@property (strong, nonatomic) IBOutlet UILabel *venueNameLabel;
+@property (strong, nonatomic) IBOutlet UILabel *venueDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UIImage *venueImage;
+@property (strong, nonatomic) IBOutlet CLLocation *venueCLLocation;
 
 -(void)setModel:(NSString *)venueName venueDescription:(NSString *)venueDescription venueImageData:(NSData *)venueImageData venueLocation:(NSString *)venueLocation;
 -(id)initWithFrame:(CGRect)frame;

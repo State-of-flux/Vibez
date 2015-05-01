@@ -30,7 +30,11 @@
 
 - (IBAction)loginButtonTapped:(id)sender
 {
-    [self Login];
+    //[self Login];
+    
+    
+    // TEMP SEGUE
+    [self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender

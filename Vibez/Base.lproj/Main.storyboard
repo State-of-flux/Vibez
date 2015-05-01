@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tsq-vG-woO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tsq-vG-woO">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -40,7 +40,7 @@
                                     <constraint firstAttribute="width" constant="200" id="4HO-iY-pHE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zoU-Qq-2ma">
@@ -174,8 +174,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="462" id="EKO-jQ-QbB"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="pme-sK-IEF">
-                                    <size key="itemSize" width="168" height="141"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="TfV-ha-3Yx">
+                                    <size key="itemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -202,6 +202,9 @@
                                             <segment title="Events"/>
                                             <segment title="Venues"/>
                                         </segments>
+                                        <connections>
+                                            <action selector="segmentedControlTapped:" destination="tjU-pU-N26" eventType="valueChanged" id="IJT-BP-xL1"/>
+                                        </connections>
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -229,6 +232,7 @@
                             <constraint firstItem="HHZ-Df-4Sc" firstAttribute="top" secondItem="0bv-KA-Ne8" secondAttribute="bottom" id="VCh-wQ-qo9"/>
                             <constraint firstItem="HHZ-Df-4Sc" firstAttribute="top" secondItem="0bv-KA-Ne8" secondAttribute="bottom" id="WXp-sn-csN"/>
                             <constraint firstItem="HHZ-Df-4Sc" firstAttribute="leading" secondItem="QHX-TG-gpv" secondAttribute="leading" id="bEp-ZT-13j"/>
+                            <constraint firstItem="HHZ-Df-4Sc" firstAttribute="top" secondItem="0bv-KA-Ne8" secondAttribute="bottom" id="fje-Ze-evp"/>
                             <constraint firstItem="HHZ-Df-4Sc" firstAttribute="leading" secondItem="dgc-WI-HBS" secondAttribute="leading" id="hy5-eR-f4k"/>
                             <constraint firstAttribute="trailing" secondItem="HHZ-Df-4Sc" secondAttribute="trailing" id="rXE-b4-LzU"/>
                         </constraints>
@@ -355,7 +359,7 @@
                                     <constraint firstAttribute="height" constant="21" id="Ui9-br-4aD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfi-x4-Esp">

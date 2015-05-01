@@ -192,7 +192,6 @@
 		6C1E55B31ACF08D9003965A0 /* Vibez */ = {
 			isa = PBXGroup;
 			children = (
-				6C3471631AE481A100FC789A /* Images */,
 				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
 				6C37D2381AE079240078154E /* Cells */,
 				6C3471591AE46EEC00FC789A /* Classes */,
@@ -208,6 +207,7 @@
 		6C1E55B41ACF08D9003965A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6C3471631AE481A100FC789A /* Images */,
 				6C1E55B51ACF08D9003965A0 /* Info.plist */,
 				6C1E55B61ACF08D9003965A0 /* main.m */,
 			);

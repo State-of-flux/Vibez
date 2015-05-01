@@ -7,6 +7,8 @@
 //
 
 #import "HomeViewController.h"
+#import "EventCollectionViewCell.h"
+#import "VenueCollectionViewCell.h"
 
 @interface HomeViewController ()
 {
@@ -23,8 +25,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self setTopBarButtons];
+    
+    static NSString *eventCellIdentifier = @"EventCell";
+    static NSString *venueCellIdentifier = @"VenueCell";
+    
+    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:eventCellIdentifier];
+    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
     [self.collectionView setDelegate:self];
     
     self.isEventDataDisplayed = YES;
@@ -52,101 +59,25 @@
     NSLog(@"Memory Warning Received.");
 }
 
--(void)SwapData
+-(void)SwapCellsToEventData
 {
-    if(self.isEventDataDisplayed)
-    {
-        [self.collectionView setDataSource:self.venueDataSource];
-    }
-    else if(!self.isEventDataDisplayed)
-    {
-        [self.collectionView setDataSource:self.eventDataSource];
-    }
-    
+    [self.collectionView setDataSource:self.eventDataSource];
     [self.collectionView reloadData];
 }
 
-//-(void)SwapCollectionViewOut
-//{
-//    //NSArray *newData = [[NSArray alloc] initWithObjects:@"otherData", nil];
-//    
-//    [self.collectionView performBatchUpdates:^
-//     {
-//         //[self.collectionView deleteItemsAtIndexPaths:itemsToRemove];
-//         //[self.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:indexPath.section]]];
-//         //[self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]];
-//         
-//         //int resultsSize = [self.data count]; //data is the previous array of data
-//         //[self.data addObjectsFromArray:newData];
-//         //NSMutableArray *arrayWithIndexPaths = [NSMutableArray array];
-//         
-//         //for (int i = resultsSize; i < resultsSize + newData.count; i++) {
-//         //    [arrayWithIndexPaths addObject:[NSIndexPath indexPathForRow:i
-//         //                                                      inSection:0]];
-//         //}
-//         //[self.collectionView insertItemsAtIndexPaths:arrayWithIndexPaths];
-//     } completion:nil];
-//}
+-(void)SwapCellsToVenueData
+{
+    [self.collectionView setDataSource:self.venueDataSource];
+    [self.collectionView reloadData];
+}
 
-//-(void)deleteItemsFromDataSourceAtIndexPaths:(NSArray *)itemPaths
-//{
-//    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-//    
-//    for (NSIndexPath *itemPath  in itemPaths)
-//    {
-//        [indexSet addIndex:itemPath.row];
-//    }
-//    
-//    [self.apps removeObjectsAtIndexes:indexSet];
-//}
-//
-//-(void)insertItems:(NSArray*)items ToDataSourceAtIndexPaths:(NSArray  *)itemPaths
-//{
-//    NSMutableIndexSet *indexSet = [NSMutableIndexSet indexSet];
-//    
-//    for (NSIndexPath *itemPath  in itemPaths)
-//    {
-//        [indexSet addIndex:itemPath.row];
-//    }
-//    
-//    [self.apps insertObjects:items atIndexes:indexSet];
-//}
-//
-//-(void)reloadDataSmooth
-//{
-//    [self.collectionView performBatchUpdates:^
-//    {
-//        NSMutableArray *arrayWithIndexPathsDelete = [NSMutableArray array];
-//        NSMutableArray *arrayWithIndexPathsInsert = [NSMutableArray array];
-//        
-//        int itemCount = [self.items count];
-//        
-//        for (int d = 0; d<itemCount; d++)
-//        {
-//            [arrayWithIndexPathsDelete addObject:[NSIndexPath indexPathForRow:d inSection:0]];
-//        }
-//        
-//        [self deleteItemsFromDataSourceAtIndexPaths:arrayWithIndexPathsDelete];
-//        [self.collectionView deleteItemsAtIndexPaths:arrayWithIndexPathsDelete];
-//        
-//        int newItemCount = [newItems count];
-//        
-//        for (int i=0; i < newAppCount; i++)
-//        {
-//            [arrayWithIndexPathsInsert addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-//        }
-//        
-//        [self insertItems:newItems ToDataSourceAtIndexPaths:arrayWithIndexPathsInsert];
-//        
-//        [self.collectionView insertItemsAtIndexPaths:arrayWithIndexPathsInsert];
-//    }
-//                                  completion:nil];
-//}
-
-//-(void)RefreshData:(UISwipeGestureRecognizer *)downGesture
-//{
-//    
-//}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat width = collectionView.frame.size.width/2;
+    CGFloat height = width;
+    
+    return CGSizeMake(width, height);
+}
 
 #pragma mark - Navigation
 
@@ -168,4 +99,15 @@
     NSLog(@"settings button clicked");
 }
 
+- (IBAction)segmentedControlTapped:(id)sender
+{
+    if([sender selectedSegmentIndex] == 0)
+    {
+        [self SwapCellsToEventData];
+    }
+    else if ([sender selectedSegmentIndex] == 1)
+    {
+        [self SwapCellsToVenueData];
+    }
+}
 @end
