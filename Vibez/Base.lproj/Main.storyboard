@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tsq-vG-woO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tsq-vG-woO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -29,6 +29,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gNz-59-b5r"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="zyd-A0-A5a">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -46,6 +47,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wsk-5I-YkD"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="G6f-lJ-KyJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -63,6 +65,7 @@
                         <viewControllerLayoutGuide type="bottom" id="W5i-H9-jIQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="QHX-TG-gpv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -85,6 +88,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Sm5-55-dw6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ej2-qf-x0O">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -105,6 +109,7 @@
                         <viewControllerLayoutGuide type="bottom" id="6m3-yA-yfq"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5v9-NM-sLf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -122,6 +127,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wYD-eW-baL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="DIs-h3-UTf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -237,6 +243,7 @@
                         <viewControllerLayoutGuide type="bottom" id="gcO-qJ-EBg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="a1o-HH-wLE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
