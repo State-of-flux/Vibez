@@ -6,8 +6,17 @@
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GlobalViewController.h"
 
-@interface SignUpViewController : UIViewController
+@interface SignUpViewController : GlobalViewController
+
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *emailAddressTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
+
+- (IBAction)submitButtonTapped:(id)sender;
+
 
 @end

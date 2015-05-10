@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Parse/Parse.h>
+#import <FontAwesomeKit/FontAwesomeKit.h>
 
-@interface GlobalViewController : UIViewController
+@interface GlobalViewController : UIViewController <UINavigationBarDelegate, UINavigationControllerDelegate>
 
 @end
