@@ -17,8 +17,10 @@
 
 @implementation LoginViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     accountController = [[AccountController alloc] init];
     self.FacebookLoginButton.readPermissions = [accountController FacebookPermissions];
@@ -87,6 +89,15 @@
 
          }
      }];
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 @end

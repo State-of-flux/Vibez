@@ -13,4 +13,6 @@
 
 @property(strong, nonatomic) NSMutableArray* data;
 
+-(void)setData:(NSMutableArray *)data;
+
 @end

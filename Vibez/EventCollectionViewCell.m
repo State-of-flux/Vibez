@@ -16,7 +16,7 @@
     self.eventDescriptionLabel.text = eventDescription;
     self.eventGenresLabel.text = eventGenres;
     self.eventDateLabel.text = eventDate;
-    self.eventPictureImage = [UIImage imageWithData:eventImageData];
+    self.eventPictureImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:eventImageData]];
     self.eventCLLocation = [self locationStringToCLLocation:eventLocation];
 }
 
@@ -26,8 +26,9 @@
     
     if(self)
     {
-        [self setBackgroundColor:[UIColor blackColor]];
-        //self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, 20)];
+        [self setBackgroundColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
+        self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:0.8f].CGColor;
+        self.layer.borderWidth = 0.5f;
     }
     
     return self;

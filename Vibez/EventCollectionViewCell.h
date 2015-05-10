@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import <CoreLocation/CoreLocation.h>
 
 @interface EventCollectionViewCell : UICollectionViewCell
@@ -16,7 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventGenresLabel;
 @property (strong, nonatomic) IBOutlet UILabel *eventVenueNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *eventDateLabel;
-@property (strong, nonatomic) IBOutlet UIImage *eventPictureImage;
+@property (strong, nonatomic) IBOutlet UIImageView *eventPictureImage;
 @property (strong, nonatomic) IBOutlet CLLocation *eventCLLocation;
 
 -(id)initWithFrame:(CGRect)frame;

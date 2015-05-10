@@ -36,7 +36,7 @@
     
     self.isEventDataDisplayed = YES;
     
-    //NSMutableArray* data = [[NSMutableArray alloc] initWithCapacity:[self.eventDataSource.data count]];
+    
 }
 
 -(void)setTopBarButtons
@@ -45,11 +45,27 @@
     
     UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
     
-    UIFont *customFont = [UIFont fontWithName:@"Helvetica" size:24.0];
+    UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
     NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
     [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
     
-    self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
+    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
+    
+    self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    
+    UILabel* titleLabel = [[UILabel alloc] init];
+    [titleLabel setText:@"Find Your Vibe"];
+    [titleLabel setBackgroundColor:[UIColor clearColor]];
+    [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
+    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
+    [titleLabel setTextAlignment:NSTextAlignmentLeft];
+    [titleLabel sizeToFit];
+    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
+    
+    self.navigationItem.titleView = titleLabel;
+    
+    [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
     
     [self.navigationItem setHidesBackButton:YES];
 }
@@ -99,13 +115,19 @@
     NSLog(@"settings button clicked");
 }
 
-- (IBAction)segmentedControlTapped:(id)sender
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+#pragma mark - UISegmentedControl
+
+- (IBAction)advsegmentedControlTapped:(id)sender
 {
-    if([sender selectedSegmentIndex] == 0)
+    if([sender selectedIndex] == 0)
     {
         [self SwapCellsToEventData];
     }
-    else if ([sender selectedSegmentIndex] == 1)
+    else if ([sender selectedIndex] == 1)
     {
         [self SwapCellsToVenueData];
     }

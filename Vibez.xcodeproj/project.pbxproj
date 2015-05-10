@@ -27,6 +27,7 @@
 		6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55C11ACF08D9003965A0 /* Images.xcassets */; };
 		6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55C31ACF08D9003965A0 /* LaunchScreen.xib */; };
 		6C1E55D11ACF08D9003965A0 /* VibezTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55D01ACF08D9003965A0 /* VibezTests.m */; };
+		6C288E921AF5814A001D44C1 /* plug.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6C288E911AF5814A001D44C1 /* plug.jpg */; };
 		6C34715D1AE46F2500FC789A /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C34715C1AE46F2500FC789A /* AccountController.m */; };
 		6C3471611AE4818A00FC789A /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C34715E1AE4818A00FC789A /* error@2x.png */; };
 		6C37D22E1AE062920078154E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D22D1AE062920078154E /* LoginViewController.m */; };
@@ -48,6 +49,7 @@
 		6C7C97211AE45AC4001EE1FD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */; };
 		6C7C97221AE45AC4001EE1FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */; };
 		6C7C97231AE45AC4001EE1FD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */; };
+		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
 		6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E041ADED8B800CDBC29 /* Social.framework */; };
 		6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E061ADED8BD00CDBC29 /* Accounts.framework */; };
 /* End PBXBuildFile section */
@@ -88,6 +90,7 @@
 		6C1E55CA1ACF08D9003965A0 /* VibezTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VibezTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55CF1ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55D01ACF08D9003965A0 /* VibezTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VibezTests.m; sourceTree = "<group>"; };
+		6C288E911AF5814A001D44C1 /* plug.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plug.jpg; sourceTree = "<group>"; };
 		6C34715B1AE46F2500FC789A /* AccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountController.h; sourceTree = "<group>"; };
 		6C34715C1AE46F2500FC789A /* AccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountController.m; sourceTree = "<group>"; };
 		6C34715E1AE4818A00FC789A /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
@@ -123,6 +126,8 @@
 		6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vibez-Bridging-Header.h"; sourceTree = "<group>"; };
+		6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		6CD58E041ADED8B800CDBC29 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		6CD58E061ADED8BD00CDBC29 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -193,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
-				6C37D2381AE079240078154E /* Cells */,
+				6C37D2381AE079240078154E /* Customs */,
 				6C3471591AE46EEC00FC789A /* Classes */,
 				6C37D2371AE079180078154E /* Objects */,
 				6CD58E091ADED90400CDBC29 /* Interface */,
@@ -252,6 +257,7 @@
 		6C3471631AE481A100FC789A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6C288E911AF5814A001D44C1 /* plug.jpg */,
 				6C34715E1AE4818A00FC789A /* error@2x.png */,
 			);
 			name = Images;
@@ -285,15 +291,17 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
-		6C37D2381AE079240078154E /* Cells */ = {
+		6C37D2381AE079240078154E /* Customs */ = {
 			isa = PBXGroup;
 			children = (
 				6C37D23D1AE07A5F0078154E /* EventCollectionViewCell.h */,
 				6C37D23E1AE07A5F0078154E /* EventCollectionViewCell.m */,
 				6C37D2401AE07A720078154E /* VenueCollectionViewCell.h */,
 				6C37D2411AE07A720078154E /* VenueCollectionViewCell.m */,
+				6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */,
+				6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */,
 			);
-			name = Cells;
+			name = Customs;
 			sourceTree = "<group>";
 		};
 		6C37D2391AE079540078154E /* Reusable Classes */ = {
@@ -498,6 +506,7 @@
 				6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C3471611AE4818A00FC789A /* error@2x.png in Resources */,
+				6C288E921AF5814A001D44C1 /* plug.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +569,7 @@
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
+				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
 				6C37D2361AE078990078154E /* HomeViewController.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
@@ -624,6 +634,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -642,6 +653,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_MODULE_NAME = Vibez;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -665,6 +677,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -676,6 +689,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_MODULE_NAME = Vibez;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -686,6 +700,7 @@
 			baseConfigurationReference = 1F3B4DCC358B802FE7FB6BBF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -695,6 +710,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -703,6 +720,7 @@
 			baseConfigurationReference = 6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -712,6 +730,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 			};
 			name = Release;
 		};
