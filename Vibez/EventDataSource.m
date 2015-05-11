@@ -18,31 +18,17 @@
     
     //[cell setModel:[self.data objectForKey:@"eventName"] eventDescription:[self.data objectForKey:@"eventDescription"] eventGenres:[self.data objectForKey:@"eventGenres"] eventVenueName:[self.data objectForKey:@"eventVenueName"] eventDate:[self.data objectForKey:@"eventDate"] eventImageData:[self.data objectForKey:@"eventImageData"] eventLocation:[self.data objectForKey:@"eventLocation"]];
     
-    cell.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.frame.size.height/2 - 30.0f, cell.frame.size.width - 5, 25)];
-    [cell.eventNameLabel setTextAlignment:NSTextAlignmentCenter];
-    cell.eventNameLabel.font = [UIFont fontWithName:@"Futura-Medium" size:20.0f];
-    cell.eventNameLabel.textColor = [UIColor whiteColor];
     NSMutableArray* allData = [[NSMutableArray alloc] initWithArray:[self getData]];
     
     NSMutableArray* artistNames = [[NSMutableArray alloc] initWithArray:[allData objectAtIndex:0]];
     NSMutableArray* artistDates = [[NSMutableArray alloc] initWithArray:[allData objectAtIndex:1]];
-    cell.eventNameLabel.text = [artistNames objectAtIndex:indexPath.row];
     
-    cell.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.frame.size.height/2, cell.frame.size.width - 5, 25)];
-    [cell.eventDateLabel setTextAlignment:NSTextAlignmentCenter];
-    cell.eventDateLabel.font = [UIFont fontWithName:@"Futura-Medium" size:12.0f];
-    cell.eventDateLabel.textColor = [UIColor whiteColor];
+    cell.eventNameLabel.text = [artistNames objectAtIndex:indexPath.row];
     cell.eventDateLabel.text = [artistDates objectAtIndex:indexPath.row];
     
     //cell.eventPictureImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-    
     cell.eventPictureImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
-    
     cell.backgroundView = cell.eventPictureImage;
-
-    [cell.contentView addSubview:cell.eventNameLabel];
-    [cell.contentView addSubview:cell.eventVenueNameLabel];
-    [cell.contentView addSubview:cell.eventDateLabel];
     
     return cell;
 }

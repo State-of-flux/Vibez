@@ -15,22 +15,14 @@
 {
     VenueCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VenueCell" forIndexPath:indexPath];
     
-    cell.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, cell.frame.size.height/2 - 30.0f, cell.frame.size.width - 5, 25)];
-    [cell.venueNameLabel setTextAlignment:NSTextAlignmentCenter];
-    cell.venueNameLabel.font = [UIFont fontWithName:@"Futura-Medium" size:20];
-    cell.venueNameLabel.textColor = [UIColor whiteColor];
-    
     NSMutableArray* allData = [[NSMutableArray alloc] initWithArray:[self getData]];
-    
     NSMutableArray* artistNames = [[NSMutableArray alloc] initWithArray:[allData objectAtIndex:0]];
     cell.venueNameLabel.text = [artistNames objectAtIndex:indexPath.row];
     
     cell.venueImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
     
     cell.backgroundView = cell.venueImage;
-    
-    [cell.contentView addSubview:cell.venueNameLabel];
-    
+   
     return cell;
 }
 

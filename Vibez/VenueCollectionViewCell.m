@@ -28,11 +28,14 @@
         self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:0.8f].CGColor;
         self.layer.borderWidth = 0.5f;
         
+        self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2 - 30.0f, self.frame.size.width - 5, 25)];
+        [self.venueNameLabel setTextAlignment:NSTextAlignmentCenter];
+        self.venueNameLabel.font = [UIFont fontWithName:@"Futura-Medium" size:20];
+        self.venueNameLabel.textColor = [UIColor whiteColor];
         
-//        CGRect cellFrame = self.frame; // use objc dot syntax to get frame
-//        cellFrame.size.height = 75;   // use C struct accessors
-//        cellFrame.size.width = 75;
-//        self.frame = cellFrame;
+        
+        
+        [self.contentView addSubview:self.venueNameLabel];
     }
     
     return self;

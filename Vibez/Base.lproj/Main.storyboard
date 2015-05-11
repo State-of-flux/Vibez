@@ -19,7 +19,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eMi-1D-FEB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-511.5" y="207.75"/>
+            <point key="canvasLocation" x="-1414" y="207"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="lyW-rg-owz">
@@ -240,8 +240,8 @@
                                 <rect key="frame" x="0.0" y="507" width="600" height="49"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem systemItem="featured" id="ppP-bH-TiS"/>
-                                    <tabBarItem systemItem="bookmarks" id="mi7-Wd-L8M"/>
+                                    <tabBarItem title="What's On" image="error" id="ppP-bH-TiS"/>
+                                    <tabBarItem title="Tickets" image="error" id="mi7-Wd-L8M"/>
                                 </items>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" white="0.0" alpha="0.40000000000000002" colorSpace="calibratedWhite"/>
@@ -527,7 +527,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="252" y="207"/>
+            <point key="canvasLocation" x="-650" y="207"/>
         </scene>
         <!--View Tickets View Controller-->
         <scene sceneID="fwT-kD-X6O">
@@ -547,36 +547,12 @@
             </objects>
             <point key="canvasLocation" x="1023" y="973.5"/>
         </scene>
-        <!--Table View Controller-->
-        <scene sceneID="Y7x-Gc-Hea">
-            <objects>
-                <tableViewController id="Dd5-OG-GQM" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qdH-i6-jaM">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="H2n-6w-gUv">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H2n-6w-gUv" id="SR9-IV-Hfl">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Dd5-OG-GQM" id="OhX-c8-b6M"/>
-                            <outlet property="delegate" destination="Dd5-OG-GQM" id="Brd-ei-iyd"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LNi-28-yxM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
+        <image name="error" width="28" height="27"/>
         <image name="plug.jpg" width="400" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="23j-v1-VaX"/>
+        <segue reference="3to-Zy-BnA"/>
     </inferredMetricsTieBreakers>
 </document>
