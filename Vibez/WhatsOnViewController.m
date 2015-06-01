@@ -1,24 +1,18 @@
 //
-//  HomeViewController.m
+//  WhatsOnViewController.m
 //  Vibez
 //
-//  Created by Harry Liddell on 17/04/2015.
+//  Created by Harry Liddell on 01/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "EventCollectionViewCell.h"
-#import "VenueCollectionViewCell.h"
+#import "WhatsOnViewController.h"
 
-@interface HomeViewController ()
-{
+@interface WhatsOnViewController ()
 
-}
 @end
 
-//FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
-
-@implementation HomeViewController
+@implementation WhatsOnViewController
 
 #pragma mark - General Methods
 
@@ -26,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    [self setTopBarButtons];
+    [self setTopBarButtons:@"Find Your Vibe"];
     
     static NSString *eventCellIdentifier = @"EventCell";
     static NSString *venueCellIdentifier = @"VenueCell";
@@ -36,9 +30,37 @@
     [self.collectionView setDelegate:self];
     
     self.isEventDataDisplayed = YES;
+    
+    [self setupSwipeGestures];
 }
 
--(void)setTopBarButtons
+-(void)setupSwipeGestures
+{
+    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedRightButton:)];
+    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.view addGestureRecognizer:swipeLeft];
+    
+    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLeftButton:)];
+    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
+    [self.view addGestureRecognizer:swipeRight];
+}
+
+
+- (IBAction)tappedRightButton:(id)sender
+{
+    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
+    
+    [self.tabBarController setSelectedIndex:selectedIndex + 1];
+}
+
+- (IBAction)tappedLeftButton:(id)sender
+{
+    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
+    
+    [self.tabBarController setSelectedIndex:selectedIndex - 1];
+}
+
+-(void)setTopBarButtons:(NSString*)titleText
 {
     UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
     
@@ -54,17 +76,17 @@
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Find Your Vibe"];
+    [titleLabel setText:titleText];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
     
     self.navigationItem.titleView = titleLabel;
     
-    [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
+    // [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
     
     [self.navigationItem setHidesBackButton:YES];
 }
@@ -138,4 +160,5 @@
         [self SwapCellsToVenueData];
     }
 }
+
 @end

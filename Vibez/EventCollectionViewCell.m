@@ -16,7 +16,7 @@
     self.eventDescriptionLabel.text = eventDescription;
     self.eventGenresLabel.text = eventGenres;
     self.eventDateLabel.text = eventDate;
-    self.eventPictureImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:eventImageData]];
+    self.eventImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:eventImageData]];
     self.eventCLLocation = [self locationStringToCLLocation:eventLocation];
 }
 
@@ -26,7 +26,7 @@
     
     if(self)
     {
-        [self setBackgroundColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
+        //[self setBackgroundColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
         self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:0.8f].CGColor;
         self.layer.borderWidth = 0.5f;
         
@@ -40,9 +40,14 @@
         self.eventDateLabel.font = [UIFont fontWithName:@"Futura-Medium" size:12.0f];
         self.eventDateLabel.textColor = [UIColor whiteColor];
     
+        self.eventImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
+        self.backgroundView = self.eventImage;
+        
+        UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.6f];
+        [self.contentView addSubview:darkOverlay];
         [self.contentView addSubview:self.eventNameLabel];
         [self.contentView addSubview:self.eventDateLabel];
-
     }
     
     return self;

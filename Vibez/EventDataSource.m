@@ -27,8 +27,8 @@
     cell.eventDateLabel.text = [artistDates objectAtIndex:indexPath.row];
     
     //cell.eventPictureImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-    cell.eventPictureImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
-    cell.backgroundView = cell.eventPictureImage;
+    //cell.eventPictureImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
+    //cell.backgroundView = cell.eventPictureImage;
     
     return cell;
 }
