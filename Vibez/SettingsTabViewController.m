@@ -7,6 +7,7 @@
 //
 
 #import "SettingsTabViewController.h"
+#import "AppDelegate.h"
 
 @interface SettingsTabViewController ()
 
@@ -18,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setupSwipeGestures];
+    //[self setupSwipeGestures];
     [self setTopBarButtons];
 }
 
@@ -49,6 +50,19 @@
     self.navigationItem.titleView = titleLabel;
     
     [self.navigationItem setHidesBackButton:YES];
+}
+
+- (IBAction)actionLogout:(id)sender {
+    
+    // Delete User credential from NSUserDefaults and other data related to user
+    
+    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+    
+    UIViewController* rootController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    
+    UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:rootController];
+    appDelegateTemp.window.rootViewController = navigation;
+    
 }
 
 -(void)setupSwipeGestures

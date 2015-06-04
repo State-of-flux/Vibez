@@ -90,13 +90,13 @@
                         @"Gorgon City",
                         nil];
     
-    NSArray* artistDates = [NSArray arrayWithObjects: @"21/09/2015",
-                        @"23/09/2015",
-                        @"25/09/2015",
-                        @"26/09/2015",
-                        @"30/09/2015",
-                        @"01/10/2015",
-                        @"17/11/2015",
+    NSArray* artistDates = [NSArray arrayWithObjects: @"Thursday 15th June",
+                        @"Friday 16th June",
+                        @"Monday 19th June",
+                        @"Tuesday 20th June",
+                        @"Tuesday 20th June",
+                        @"Thursday 22nd June",
+                        @"Friday 23rd June",
                         nil];
   
     NSMutableArray* arrayData = [[NSMutableArray alloc] initWithObjects:artistNames, artistDates, nil];

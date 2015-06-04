@@ -31,6 +31,7 @@
 		6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FD01B1BAEEF009EA34D /* third_selected.png */; };
 		6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FD11B1BAEEF009EA34D /* third_selected@2x.png */; };
 		6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */; };
+		6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */; };
 		6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */; };
 		6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A161ACF1107004818F1 /* CFNetwork.framework */; };
 		6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */; };
@@ -115,6 +116,8 @@
 		6C066FD11B1BAEEF009EA34D /* third_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_selected@2x.png"; sourceTree = "<group>"; };
 		6C066FE61B1CA960009EA34D /* WhatsOnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsOnViewController.h; sourceTree = "<group>"; };
 		6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsOnViewController.m; sourceTree = "<group>"; };
+		6C066FE91B1CD684009EA34D /* TransitionTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionTabBarController.h; sourceTree = "<group>"; };
+		6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionTabBarController.m; sourceTree = "<group>"; };
 		6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6C0A4A161ACF1107004818F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -369,6 +372,8 @@
 				6C37D2411AE07A720078154E /* VenueCollectionViewCell.m */,
 				6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */,
 				6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */,
+				6C066FE91B1CD684009EA34D /* TransitionTabBarController.h */,
+				6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */,
 			);
 			name = Customs;
 			sourceTree = "<group>";
@@ -654,6 +659,7 @@
 			files = (
 				6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */,
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
+				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C37D24D1AE086340078154E /* ViewTicketsViewController.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,

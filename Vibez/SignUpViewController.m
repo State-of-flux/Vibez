@@ -9,6 +9,7 @@
 #import "SignUpViewController.h"
 #import "AccountController.h"
 #import "Validator.h"
+#import "AppDelegate.h"
 
 @interface SignUpViewController ()
 {
@@ -31,6 +32,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)actionSignup:(id)sender
+{
+    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+    
+    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
 }
 
 - (IBAction)submitButtonTapped:(id)sender

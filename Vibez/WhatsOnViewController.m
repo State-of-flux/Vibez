@@ -20,7 +20,7 @@
 {
     [super viewDidLoad];
     
-    [self setTopBarButtons:@"Find Your Vibe"];
+    [self setTopBarButtons:@"Harry"];
     
     static NSString *eventCellIdentifier = @"EventCell";
     static NSString *venueCellIdentifier = @"VenueCell";
@@ -31,7 +31,7 @@
     
     self.isEventDataDisplayed = YES;
     
-    [self setupSwipeGestures];
+    //[self setupSwipeGestures];
 }
 
 -(void)setupSwipeGestures
