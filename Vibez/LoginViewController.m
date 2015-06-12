@@ -8,6 +8,8 @@
 
 #import "LoginViewController.h"
 #import "AccountController.h"
+#import "AppDelegate.h"
+#import "UIColor+Piktu.h"
 
 @interface LoginViewController ()
 {
@@ -22,8 +24,23 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
+    self.bgImageView.layer.zPosition = -100;
+    
+    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor pku_placeHolderTextColor]};
+    
+    self.emailAddressTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.emailAddressTextField.placeholder
+                                                                                       attributes:attributes];
+    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.passwordTextField.placeholder
+                                                                                   attributes:attributes];
+    
     accountController = [[AccountController alloc] init];
     self.FacebookLoginButton.readPermissions = [accountController FacebookPermissions];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,9 +51,8 @@
 {
     //[self Login];
     
-    
-    // TEMP SEGUE
-    [self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender
@@ -86,7 +102,7 @@
          {
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
              [alert show];
-
+             
          }
      }];
 }

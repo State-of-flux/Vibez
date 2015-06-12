@@ -52,7 +52,10 @@
     }
 }
 
-
+-(void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"selectedViewController"];
+}
 
 - (id <UIViewControllerAnimatedTransitioning>)tabBarController:(UITabBarController *)tabBarController
             animationControllerForTransitionFromViewController:(UIViewController *)fromVC

@@ -7,6 +7,7 @@
 //
 
 #import "TicketsTabViewController.h"
+#import "UIImage+MDQRCode.h"
 
 @interface TicketsTabViewController ()
 
@@ -17,8 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //[self setupSwipeGestures];
     [self setTopBarButtons];
+    
+    [self performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
 }
 
 -(void)setTopBarButtons
@@ -53,31 +55,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void)setupSwipeGestures
-{
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedRightButton:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.view addGestureRecognizer:swipeLeft];
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLeftButton:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:swipeRight];
-}
-
-- (IBAction)tappedRightButton:(id)sender
-{
-    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
-    
-    [self.tabBarController setSelectedIndex:selectedIndex + 1];
-}
-
-- (IBAction)tappedLeftButton:(id)sender
-{
-    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
-    
-    [self.tabBarController setSelectedIndex:selectedIndex - 1];
 }
 
 -(void)searchAction

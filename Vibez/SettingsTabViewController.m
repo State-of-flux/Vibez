@@ -52,7 +52,7 @@
     [self.navigationItem setHidesBackButton:YES];
 }
 
-- (IBAction)actionLogout:(id)sender {
+- (IBAction)Logout:(id)sender {
     
     // Delete User credential from NSUserDefaults and other data related to user
     

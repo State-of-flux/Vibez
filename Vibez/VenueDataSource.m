@@ -38,7 +38,8 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    UIViewController *currentVc = [(UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController topViewController];
+    [currentVc performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
 
 

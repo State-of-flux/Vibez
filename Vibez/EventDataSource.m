@@ -26,10 +26,6 @@
     cell.eventNameLabel.text = [artistNames objectAtIndex:indexPath.row];
     cell.eventDateLabel.text = [artistDates objectAtIndex:indexPath.row];
     
-    //cell.eventPictureImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-    //cell.eventPictureImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
-    //cell.backgroundView = cell.eventPictureImage;
-    
     return cell;
 }
 
@@ -72,11 +68,6 @@
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
 }
 
 -(NSMutableArray *)getData

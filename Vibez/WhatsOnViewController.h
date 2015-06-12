@@ -13,7 +13,7 @@
 #import "VenueDataSource.h"
 #import "Vibez-Swift.h"
 
-@interface WhatsOnViewController : GlobalViewController <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITabBarDelegate, UITabBarControllerDelegate>
+@interface WhatsOnViewController : GlobalViewController <UICollectionViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray* apps;
 @property BOOL isEventDataDisplayed;

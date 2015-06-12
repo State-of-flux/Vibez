@@ -30,34 +30,6 @@
     [self.collectionView setDelegate:self];
     
     self.isEventDataDisplayed = YES;
-    
-    //[self setupSwipeGestures];
-}
-
--(void)setupSwipeGestures
-{
-    UISwipeGestureRecognizer *swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedRightButton:)];
-    [swipeLeft setDirection:UISwipeGestureRecognizerDirectionLeft];
-    [self.view addGestureRecognizer:swipeLeft];
-    
-    UISwipeGestureRecognizer *swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(tappedLeftButton:)];
-    [swipeRight setDirection:UISwipeGestureRecognizerDirectionRight];
-    [self.view addGestureRecognizer:swipeRight];
-}
-
-
-- (IBAction)tappedRightButton:(id)sender
-{
-    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
-    
-    [self.tabBarController setSelectedIndex:selectedIndex + 1];
-}
-
-- (IBAction)tappedLeftButton:(id)sender
-{
-    NSUInteger selectedIndex = [self.tabBarController selectedIndex];
-    
-    [self.tabBarController setSelectedIndex:selectedIndex - 1];
 }
 
 -(void)setTopBarButtons:(NSString*)titleText
@@ -98,12 +70,14 @@
 
 -(void)SwapCellsToEventData
 {
+    self.isEventDataDisplayed = true;
     [self.collectionView setDataSource:self.eventDataSource];
     [self.collectionView reloadData];
 }
 
 -(void)SwapCellsToVenueData
 {
+    self.isEventDataDisplayed = false;
     [self.collectionView setDataSource:self.venueDataSource];
     [self.collectionView reloadData];
 }
@@ -116,13 +90,29 @@
     return CGSizeMake(width, height);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.isEventDataDisplayed)
+    {
+        [self performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+    }
+    else if (!self.isEventDataDisplayed)
+    {
+        [self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
+    }
+}
+
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@""])
+    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
-        
+    
+    }
+    else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
+    {
+        //VenueCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     }
 }
 
@@ -138,13 +128,6 @@
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
-}
-
-#pragma mark - UITabBarDelegate
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    //int i = 0;
 }
 
 #pragma mark - UISegmentedControl

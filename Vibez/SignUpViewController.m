@@ -34,19 +34,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)actionSignup:(id)sender
-{
-    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-    
-    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-}
-
 - (IBAction)submitButtonTapped:(id)sender
 {
     if([self SignUpValidation])
     {
         [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
         
+        AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+        appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
     }
 }
 
