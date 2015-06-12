@@ -8,6 +8,7 @@
 
 #import "TicketsTabViewController.h"
 #import "UIImage+MDQRCode.h"
+#import "TicketTableViewCell.h"
 
 @interface TicketsTabViewController ()
 
@@ -20,7 +21,11 @@
     // Do any additional setup after loading the view.
     [self setTopBarButtons];
     
-    [self performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
+    static NSString *ticketCellIdentifier = @"TicketCell";
+    
+    [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:ticketCellIdentifier];
+    [self.tableView setDelegate:self];
+    
 }
 
 -(void)setTopBarButtons
@@ -39,7 +44,7 @@
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"View Tickets"];
+    [titleLabel setText:@"Your Tickets"];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
@@ -66,6 +71,12 @@
 {
     NSLog(@"settings button clicked");
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
+}
+
 
 /*
 #pragma mark - Navigation

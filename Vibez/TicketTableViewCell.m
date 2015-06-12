@@ -11,6 +11,8 @@
 @implementation TicketTableViewCell
 
 - (void)awakeFromNib {
+    
+    
     // Initialization code
 }
 

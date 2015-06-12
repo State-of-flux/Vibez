@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TicketDataSource.h"
 
-@interface TicketsTabViewController : UIViewController
+@interface TicketsTabViewController : UIViewController <UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet TicketDataSource *ticketDataSource;
 
 @end

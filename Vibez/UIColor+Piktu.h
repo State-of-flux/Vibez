@@ -11,5 +11,8 @@
 @interface UIColor (Piktu)
 
 + (UIColor *)pku_placeHolderTextColor;
++ (UIColor *)pku_purpleColor;
++ (UIColor *)pku_blackColor;
+
 
 @end

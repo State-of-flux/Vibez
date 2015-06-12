@@ -8,6 +8,7 @@
 
 #import "TicketDataSource.h"
 #import "TicketTableViewCell.h"
+#import "UIColor+Piktu.h"
 
 @implementation TicketDataSource
 
@@ -25,6 +26,7 @@
     cell.ticketVenueLabel.text = [artistDates objectAtIndex:indexPath.row];
     cell.ticketDateLabel.text = [artistDates objectAtIndex:indexPath.row];
     cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
+    cell.contentView.backgroundColor = [UIColor pku_blackColor];
     
     return cell;
 }
