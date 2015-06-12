@@ -9,6 +9,7 @@
 #import "SignUpViewController.h"
 #import "AccountController.h"
 #import "Validator.h"
+#import "AppDelegate.h"
 
 @interface SignUpViewController ()
 {
@@ -39,6 +40,8 @@
     {
         [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
         
+        AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+        appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
     }
 }
 

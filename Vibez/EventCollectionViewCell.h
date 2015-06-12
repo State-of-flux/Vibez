@@ -17,7 +17,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventGenresLabel;
 @property (strong, nonatomic) IBOutlet UILabel *eventVenueNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *eventDateLabel;
-@property (strong, nonatomic) IBOutlet UIImageView *eventPictureImage;
+@property (strong, nonatomic) IBOutlet UIImageView *eventImage;
 @property (strong, nonatomic) IBOutlet CLLocation *eventCLLocation;
 
 -(id)initWithFrame:(CGRect)frame;

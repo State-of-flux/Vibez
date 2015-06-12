@@ -1,18 +1,18 @@
 //
-//  ViewTicketsViewController.m
+//  SearchViewController.m
 //  Vibez
 //
-//  Created by Harry Liddell on 17/04/2015.
+//  Created by Harry Liddell on 10/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "ViewTicketsViewController.h"
+#import "SearchViewController.h"
 
-@interface ViewTicketsViewController ()
+@interface SearchViewController ()
 
 @end
 
-@implementation ViewTicketsViewController
+@implementation SearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

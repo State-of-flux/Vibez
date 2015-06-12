@@ -1,31 +1,26 @@
 //
-//  HomeViewController.m
+//  WhatsOnViewController.m
 //  Vibez
 //
-//  Created by Harry Liddell on 17/04/2015.
+//  Created by Harry Liddell on 01/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "EventCollectionViewCell.h"
-#import "VenueCollectionViewCell.h"
+#import "WhatsOnViewController.h"
 
-@interface HomeViewController ()
-{
+@interface WhatsOnViewController ()
 
-}
 @end
 
-//FAKFontAwesome *starIcon = [FAKFontAwesome starIconWithSize:15];
-
-@implementation HomeViewController
+@implementation WhatsOnViewController
 
 #pragma mark - General Methods
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTopBarButtons];
+    
+    [self setTopBarButtons:@"Harry"];
     
     static NSString *eventCellIdentifier = @"EventCell";
     static NSString *venueCellIdentifier = @"VenueCell";
@@ -35,11 +30,9 @@
     [self.collectionView setDelegate:self];
     
     self.isEventDataDisplayed = YES;
-    
-    
 }
 
--(void)setTopBarButtons
+-(void)setTopBarButtons:(NSString*)titleText
 {
     UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
     
@@ -51,11 +44,11 @@
     
     //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
     
-    self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Find Your Vibe"];
+    [titleLabel setText:titleText];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
@@ -65,7 +58,7 @@
     
     self.navigationItem.titleView = titleLabel;
     
-    [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
+    // [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
     
     [self.navigationItem setHidesBackButton:YES];
 }
@@ -77,12 +70,14 @@
 
 -(void)SwapCellsToEventData
 {
+    self.isEventDataDisplayed = true;
     [self.collectionView setDataSource:self.eventDataSource];
     [self.collectionView reloadData];
 }
 
 -(void)SwapCellsToVenueData
 {
+    self.isEventDataDisplayed = false;
     [self.collectionView setDataSource:self.venueDataSource];
     [self.collectionView reloadData];
 }
@@ -95,13 +90,29 @@
     return CGSizeMake(width, height);
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.isEventDataDisplayed)
+    {
+        [self performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+    }
+    else if (!self.isEventDataDisplayed)
+    {
+        [self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
+    }
+}
+
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@""])
+    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
-        
+    
+    }
+    else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
+    {
+        //VenueCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     }
 }
 
@@ -132,4 +143,5 @@
         [self SwapCellsToVenueData];
     }
 }
+
 @end
