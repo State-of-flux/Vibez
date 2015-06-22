@@ -12,8 +12,14 @@
 
 - (void)awakeFromNib {
     
+    [super awakeFromNib];
     
-    // Initialization code
+   // if (self) {
+        self.ticketNameLabel = [[UILabel alloc] init];
+        self.ticketVenueLabel = [[UILabel alloc] init];
+        self.ticketDateLabel = [[UILabel alloc] init];
+        self.ticketImage = [[UIImageView alloc] init];
+    //}
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

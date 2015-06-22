@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Event" syncable="YES">
+        <attribute name="eventDate" attributeType="Date" syncable="YES"/>
+        <attribute name="eventDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="eventEnd" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventLastEntry" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventName" attributeType="String" syncable="YES"/>
+        <attribute name="eventVenue" attributeType="String" syncable="YES"/>
+        <relationship name="tickets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ticket" inverseName="events" inverseEntity="Ticket" syncable="YES"/>
+        <relationship name="venue" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
+    </entity>
+    <entity name="Ticket" syncable="YES">
+        <attribute name="ticketReferenceNumber" attributeType="String" syncable="YES"/>
+        <relationship name="events" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Event" inverseName="tickets" inverseEntity="Event" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="User" inverseName="tickets" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" syncable="YES">
+        <attribute name="emailAddress" attributeType="String" syncable="YES"/>
+        <attribute name="username" attributeType="String" syncable="YES"/>
+        <relationship name="tickets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Ticket" inverseName="user" inverseEntity="Ticket" syncable="YES"/>
+    </entity>
+    <entity name="Venue" syncable="YES">
+        <attribute name="venueDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="venueLocation" attributeType="String" syncable="YES"/>
+        <attribute name="venueName" attributeType="String" syncable="YES"/>
+        <relationship name="events" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Event" inverseName="venue" inverseEntity="Event" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Event" positionX="-254" positionY="-225" width="128" height="163"/>
+        <element name="Ticket" positionX="-252" positionY="-9" width="128" height="88"/>
+        <element name="User" positionX="-63" positionY="-9" width="128" height="88"/>
+        <element name="Venue" positionX="-65" positionY="-165" width="128" height="103"/>
+    </elements>
+</model>

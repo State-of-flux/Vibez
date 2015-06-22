@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchViewController : UIViewController
+@interface SearchViewController : UITableViewController
 
+@property (nonatomic, strong) NSArray *products;
 @end

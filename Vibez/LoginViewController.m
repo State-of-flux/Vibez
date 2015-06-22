@@ -10,10 +10,11 @@
 #import "AccountController.h"
 #import "AppDelegate.h"
 #import "UIColor+Piktu.h"
+#import "Event.h"
 
 @interface LoginViewController ()
 {
-    AccountController* accountController;
+    
 }
 @end
 
@@ -22,19 +23,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self tapOffKeyboardGestureSetup];
+    [self placeholderTextColor];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
-    self.bgImageView.layer.zPosition = -100;
-    
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor pku_placeHolderTextColor]};
-    
-    self.emailAddressTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.emailAddressTextField.placeholder
-                                                                                       attributes:attributes];
-    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.passwordTextField.placeholder
-                                                                                   attributes:attributes];
-    
-    accountController = [[AccountController alloc] init];
-    self.FacebookLoginButton.readPermissions = [accountController FacebookPermissions];
+    self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -43,16 +37,13 @@
     [self.navigationController setNavigationBarHidden:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
+#pragma mark - Button Event Handling
 
 - (IBAction)loginButtonTapped:(id)sender
 {
-    //[self Login];
+    [self Login];
+    //[Event getEventsInBackground];
     
-    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender
@@ -60,10 +51,7 @@
     [self performSegueWithIdentifier:@"loginToSignUpSegue" sender:self];
 }
 
-- (IBAction)FacebookLoginButtonTapped:(id)sender
-{
-    //[accountController LoginWithFacebook];
-}
+#pragma mark - Parse Login
 
 -(void)Login
 {
@@ -96,24 +84,58 @@
      {
          if(user)
          {
-             [self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+             //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
          }
          else
          {
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
              [alert show];
-             
          }
      }];
+}
+
+#pragma mark - Facebook Login
+
+- (IBAction)FacebookLoginButtonTapped:(id)sender
+{
+    //[accountController LoginWithFacebook];
+}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+#pragma mark - UI Stuff
+
+-(void)placeholderTextColor
+{
+    NSDictionary *attributes = @{NSForegroundColorAttributeName : [UIColor pku_placeHolderTextColor]};
+    self.emailAddressTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.emailAddressTextField.placeholder attributes:attributes];
+    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.passwordTextField.placeholder attributes:attributes];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+#pragma mark - Keyboard Dismissal
+
+-(void)tapOffKeyboardGestureSetup
 {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    UIGestureRecognizer *tapOffKeyboard = [[UITapGestureRecognizer alloc]
+                      initWithTarget:self action:@selector(handleSingleTap:)];
+    tapOffKeyboard.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOffKeyboard];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
 }
 
 @end

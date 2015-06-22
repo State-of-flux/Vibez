@@ -62,6 +62,10 @@
 		6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2441AE083ED0078154E /* VenueInfoViewController.m */; };
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
+		6C60B09D1B310003004632C0 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B09C1B310003004632C0 /* Product.m */; };
+		6C60B0A01B320E2E004632C0 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B09F1B320E2E004632C0 /* Event.m */; };
+		6C60B0A31B320E6C004632C0 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A21B320E6C004632C0 /* Venue.m */; };
+		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6B1B28954E006293C9 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF6A1B28954E006293C9 /* SearchViewController.m */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -176,6 +180,13 @@
 		6C37D2471AE085130078154E /* EventInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInfoViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
+		6C60B09B1B310003004632C0 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		6C60B09C1B310003004632C0 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
+		6C60B09E1B320E2E004632C0 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C60B09F1B320E2E004632C0 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C60B0A11B320E6C004632C0 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C60B0A21B320E6C004632C0 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF691B28954E006293C9 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		6C79FF6A1B28954E006293C9 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -300,6 +311,7 @@
 				6CD58E0A1ADED90D00CDBC29 /* View Controllers */,
 				6C1E55C11ACF08D9003965A0 /* Images.xcassets */,
 				6C1E55B41ACF08D9003965A0 /* Supporting Files */,
+				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
 			);
 			path = Vibez;
 			sourceTree = "<group>";
@@ -403,7 +415,13 @@
 		6C37D2371AE079180078154E /* Objects */ = {
 			isa = PBXGroup;
 			children = (
+				6C60B09B1B310003004632C0 /* Product.h */,
+				6C60B09C1B310003004632C0 /* Product.m */,
 				6C7BD7641AEC2BC00092483F /* DataSources */,
+				6C60B09E1B320E2E004632C0 /* Event.h */,
+				6C60B09F1B320E2E004632C0 /* Event.m */,
+				6C60B0A11B320E6C004632C0 /* Venue.h */,
+				6C60B0A21B320E6C004632C0 /* Venue.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -458,6 +476,26 @@
 			name = General;
 			sourceTree = "<group>";
 		};
+		6C60B0991B2F906D004632C0 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				6C79FF881B2A66F2006293C9 /* TicketDataSource.h */,
+				6C79FF891B2A66F2006293C9 /* TicketDataSource.m */,
+			);
+			name = Table;
+			sourceTree = "<group>";
+		};
+		6C60B09A1B2F9073004632C0 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				6C7BD7611AEC2A5B0092483F /* EventDataSource.h */,
+				6C7BD7621AEC2A5B0092483F /* EventDataSource.m */,
+				6C7BD7651AEC2C9D0092483F /* VenueDataSource.h */,
+				6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */,
+			);
+			name = Collection;
+			sourceTree = "<group>";
+		};
 		6C79FF681B28940A006293C9 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,12 +537,8 @@
 		6C7BD7641AEC2BC00092483F /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				6C7BD7611AEC2A5B0092483F /* EventDataSource.h */,
-				6C7BD7621AEC2A5B0092483F /* EventDataSource.m */,
-				6C7BD7651AEC2C9D0092483F /* VenueDataSource.h */,
-				6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */,
-				6C79FF881B2A66F2006293C9 /* TicketDataSource.h */,
-				6C79FF891B2A66F2006293C9 /* TicketDataSource.m */,
+				6C60B0991B2F906D004632C0 /* Table */,
+				6C60B09A1B2F9073004632C0 /* Collection */,
 			);
 			name = DataSources;
 			sourceTree = "<group>";
@@ -796,6 +830,7 @@
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6C79FF6B1B28954E006293C9 /* SearchViewController.m in Sources */,
+				6C60B0A01B320E2E004632C0 /* Event.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
@@ -807,13 +842,16 @@
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
+				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
 				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
+				6C60B0A31B320E6C004632C0 /* Venue.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
+				6C60B09D1B310003004632C0 /* Product.m in Sources */,
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
@@ -1051,6 +1089,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */,
+			);
+			currentVersion = 6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */;
+			path = Vibez.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6C1E55A91ACF08D9003965A0 /* Project object */;
 }

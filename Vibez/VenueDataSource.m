@@ -36,13 +36,6 @@
     return 1;
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UIViewController *currentVc = [(UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController topViewController];
-    [currentVc performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
-}
-
-
 -(UIImage *)filledImageFrom:(UIImage *)source withColor:(UIColor *)color{
     
     // begin a new image context, to draw our colored image onto with the right scale

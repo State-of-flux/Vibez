@@ -11,24 +11,31 @@
 #import "TicketTableViewCell.h"
 
 @interface TicketsTabViewController ()
-
+{
+    PFUser* user;
+}
 @end
 
 @implementation TicketsTabViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
     // Do any additional setup after loading the view.
-    [self setTopBarButtons];
     
-    static NSString *ticketCellIdentifier = @"TicketCell";
+    user = [PFUser currentUser];
+    [self setTopBarButtons:user.username];
     
-    [self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:ticketCellIdentifier];
+    //static NSString *ticketCellIdentifier = @"TicketCell";
+    
+    //[self.tableView registerClass:[TicketTableViewCell class] forCellReuseIdentifier:ticketCellIdentifier];
+    
+    [self.tableView setDataSource:self.ticketDataSource];
     [self.tableView setDelegate:self];
-    
 }
 
--(void)setTopBarButtons
+-(void)setTopBarButtons:(NSString*)titleText
 {
     UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
     
@@ -44,13 +51,13 @@
     self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Your Tickets"];
+    [titleLabel setText:[titleText stringByAppendingString:@"'s Tickets"]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor whiteColor]];
+    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
     
     self.navigationItem.titleView = titleLabel;
     

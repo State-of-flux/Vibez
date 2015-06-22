@@ -15,4 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *ticketVenueLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *ticketImage;
 
+-(void)awakeFromNib;
+
 @end

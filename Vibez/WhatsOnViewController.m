@@ -8,8 +8,10 @@
 
 #import "WhatsOnViewController.h"
 
-@interface WhatsOnViewController ()
-
+@interface WhatsOnViewController () <UISearchBarDelegate>
+{
+    PFUser* user;
+}
 @end
 
 @implementation WhatsOnViewController
@@ -20,7 +22,18 @@
 {
     [super viewDidLoad];
     
-    [self setTopBarButtons:@"Harry"];
+    // create the magnifying glass button
+    _searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButtonTapped:)];
+    self.navigationItem.rightBarButtonItem = _searchBarButtonItem;
+    
+    self.searchBar = [[UISearchBar alloc] init];
+    _searchBar.showsCancelButton = YES;
+    _searchBar.delegate = self;
+    
+    user = [PFUser currentUser];
+    
+    self.navigationItem.titleView = [self setTopBarButtons:user.username];
+    [self.navigationItem setHidesBackButton:YES];
     
     static NSString *eventCellIdentifier = @"EventCell";
     static NSString *venueCellIdentifier = @"VenueCell";
@@ -32,23 +45,23 @@
     self.isEventDataDisplayed = YES;
 }
 
--(void)setTopBarButtons:(NSString*)titleText
+-(UIView*)setTopBarButtons:(NSString*)titleText
 {
-    UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
-    
-    UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
-    
-    UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
-    NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
-    [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
-    
-    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
-    
-    //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
-    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+//    UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
+//    
+//    UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
+//    
+//    UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
+//    NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
+//    [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
+//    
+//    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
+//    
+//    //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+//    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:titleText];
+    [titleLabel setText:[titleText stringByAppendingString:@"'s Vibes"]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
     [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
@@ -56,11 +69,9 @@
     [titleLabel sizeToFit];
     [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
     
-    self.navigationItem.titleView = titleLabel;
-    
     // [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
     
-    [self.navigationItem setHidesBackButton:YES];
+    return titleLabel;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,15 +127,47 @@
     }
 }
 
--(void)searchAction
-{
-    NSLog(@"search button clicked");
+- (void)searchButtonTapped:(id)sender {
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        _searchButton.alpha = 0.0f;
+        
+    } completion:^(BOOL finished) {
+        
+        // remove the search button
+        self.navigationItem.rightBarButtonItem = nil;
+        // add the search bar (which will start out hidden).
+        self.navigationItem.titleView = _searchBar;
+        _searchBar.alpha = 0.0;
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             _searchBar.alpha = 1.0;
+                         } completion:^(BOOL finished) {
+                             [_searchBar becomeFirstResponder];
+                         }];
+        
+    }];
 }
 
--(void)settingsAction
-{
-    NSLog(@"settings button clicked");
-}
+#pragma mark UISearchBarDelegate methods
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+   
+    [UIView animateWithDuration:0.5f animations:^{
+        _searchBar.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        self.navigationItem.titleView = [self setTopBarButtons:user.username];
+        self.navigationItem.rightBarButtonItem = _searchBarButtonItem;
+        _searchButton.alpha = 0.0;
+        
+        // set this *after* adding it back
+        [UIView animateWithDuration:0.5f animations:^ {
+            _searchButton.alpha = 1.0;
+            //_searchBar.text = @"";
+        }];
+    }];
+    
+}// called when cancel button pressed
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;

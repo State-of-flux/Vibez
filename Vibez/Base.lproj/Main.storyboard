@@ -197,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZB-Vo-aJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="991"/>
+            <point key="canvasLocation" x="1152" y="973"/>
         </scene>
         <!--Venue Info View Controller-->
         <scene sceneID="o3r-lL-VCN">
@@ -215,7 +215,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EqY-E9-UGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1152" y="1773"/>
+            <point key="canvasLocation" x="1152" y="1689"/>
         </scene>
         <!--Buy Ticket View Controller-->
         <scene sceneID="CzI-WB-jaq">
@@ -254,7 +254,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vibez" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKS-hM-pWb">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vibes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKS-hM-pWb">
                                 <rect key="frame" x="16" y="97" width="568" height="139"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -492,24 +492,6 @@
             </objects>
             <point key="canvasLocation" x="-396" y="2467"/>
         </scene>
-        <!--Search View Controller-->
-        <scene sceneID="68b-Gl-rEC">
-            <objects>
-                <viewController id="S3R-pT-t9g" customClass="SearchViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="W5t-bO-SQS"/>
-                        <viewControllerLayoutGuide type="bottom" id="uRI-vT-v23"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="zAN-In-zX0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PZb-X9-aOf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1304" y="4117"/>
-        </scene>
         <!--Item-->
         <scene sceneID="jVa-G1-JbL">
             <objects>
@@ -559,9 +541,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Top Rated" image="first_selected.png" id="QRO-b1-7ol"/>
                     <navigationItem key="navigationItem" id="c2B-4c-mkD"/>
-                    <connections>
-                        <segue destination="S3R-pT-t9g" kind="show" id="IfL-9v-6lU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n61-g3-p9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -582,9 +561,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="more" id="o4h-t1-25W" userLabel="Settings"/>
                     <navigationItem key="navigationItem" id="hnv-jx-zJg"/>
-                    <connections>
-                        <segue destination="S3R-pT-t9g" kind="show" id="l68-HG-f65"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cvu-LS-1k1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -608,7 +584,7 @@
                                 <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TicketCell" id="R22-x5-TnD" customClass="TicketTableViewCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="TicketCell" id="R22-x5-TnD" customClass="TicketTableViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R22-x5-TnD" id="wMx-uh-DY8">
@@ -667,7 +643,6 @@
                         <outlet property="tableView" destination="ygt-1B-qku" id="gsG-Md-gIE"/>
                         <outlet property="ticketDataSource" destination="W5k-XV-eSa" id="ouB-pA-SeW"/>
                         <segue destination="9ky-lQ-xpy" kind="show" identifier="showTicketToDisplayTicketSegue" id="eCU-2D-6aK"/>
-                        <segue destination="S3R-pT-t9g" kind="show" id="ufa-2w-DEu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v8B-g9-uux" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -692,6 +667,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnd-xq-mHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1136" y="3201"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="cA7-NZ-Sb3">
+            <objects>
+                <tableViewController id="1qw-Mn-mzB" customClass="SearchViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GMd-M4-7n8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="azs-lt-n3e">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="azs-lt-n3e" id="ziv-ZZ-XTE">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1qw-Mn-mzB" id="Le6-EK-Ufd"/>
+                            <outlet property="delegate" destination="1qw-Mn-mzB" id="MsF-bH-U1s"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g9G-eD-hLE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="973"/>
         </scene>
         <!--What's On-->
         <scene sceneID="rnx-tw-hmW">
@@ -784,7 +785,6 @@
                         <outlet property="venueDataSource" destination="1Kn-B1-jb5" id="93T-u4-d37"/>
                         <segue destination="vEC-Gg-kRV" kind="show" identifier="eventToEventInfoSegue" id="lgc-ZY-hNF"/>
                         <segue destination="CHJ-L9-Zt1" kind="show" identifier="venueToVenueInfoSegue" id="WRz-Xp-CWC"/>
-                        <segue destination="S3R-pT-t9g" kind="show" id="s7O-Cb-bQp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8dI-jI-YSt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -808,7 +808,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="DCY-2A-iXq" kind="relationship" relationship="viewControllers" id="ppG-6L-GEt"/>
-                        <segue destination="20d-WQ-4N3" kind="relationship" relationship="viewControllers" id="HlB-Wh-bCh"/>
                         <segue destination="6sE-C9-WmR" kind="relationship" relationship="viewControllers" id="ad5-Q7-Fro"/>
                         <segue destination="hfO-U9-VRo" kind="relationship" relationship="viewControllers" id="pc7-Nq-hiV"/>
                     </connections>
@@ -842,7 +841,4 @@
         <image name="second_selected.png" width="30" height="30"/>
         <image name="third_selected.png" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="ufa-2w-DEu"/>
-    </inferredMetricsTieBreakers>
 </document>
