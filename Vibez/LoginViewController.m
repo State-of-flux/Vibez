@@ -10,7 +10,7 @@
 #import "AccountController.h"
 #import "AppDelegate.h"
 #import "UIColor+Piktu.h"
-#import "Event.h"
+#import "PIKContextManager.h"
 
 @interface LoginViewController ()
 {
@@ -35,6 +35,11 @@
 {
     [super viewDidAppear:YES];
     [self.navigationController setNavigationBarHidden:YES];
+    
+    self.emailAddressTextField.text = @"123";
+    self.passwordTextField.text = @"123456";
+
+    
 }
 
 #pragma mark - Button Event Handling
@@ -87,6 +92,25 @@
              //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
              AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
              appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+             
+             [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects) {
+                 
+                 NSError *error;
+                 
+                 NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+                 [Venue importVenues:objects intoContext:newPrivateContext];
+                 [Venue deleteInvalidVenuesInContext:newPrivateContext];
+                 [newPrivateContext save:&error];
+                 
+                 if(error)
+                 {
+                     NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                 }
+             }
+                                       failureBlock:^(NSError *error) {
+                                           
+                                       }];
+             
          }
          else
          {
@@ -128,7 +152,7 @@
 -(void)tapOffKeyboardGestureSetup
 {
     UIGestureRecognizer *tapOffKeyboard = [[UITapGestureRecognizer alloc]
-                      initWithTarget:self action:@selector(handleSingleTap:)];
+                                           initWithTarget:self action:@selector(handleSingleTap:)];
     tapOffKeyboard.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapOffKeyboard];
 }

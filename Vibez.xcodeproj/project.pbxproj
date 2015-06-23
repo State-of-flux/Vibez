@@ -62,9 +62,6 @@
 		6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2441AE083ED0078154E /* VenueInfoViewController.m */; };
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
-		6C60B09D1B310003004632C0 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B09C1B310003004632C0 /* Product.m */; };
-		6C60B0A01B320E2E004632C0 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B09F1B320E2E004632C0 /* Event.m */; };
-		6C60B0A31B320E6C004632C0 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A21B320E6C004632C0 /* Venue.m */; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6B1B28954E006293C9 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF6A1B28954E006293C9 /* SearchViewController.m */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
@@ -90,6 +87,18 @@
 		6C8A74201B24D70100AAD04E /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74171B24D70100AAD04E /* rscode.c */; };
 		6C8A74211B24D70100AAD04E /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74191B24D70100AAD04E /* split.c */; };
 		6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */; };
+		6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C64F1B38717100C82735 /* PIKContextManager.m */; };
+		6C90C6541B3875F700C82735 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6531B3875F700C82735 /* User+Additions.m */; };
+		6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6561B3876AA00C82735 /* PFObject+PIK.m */; };
+		6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6591B3877BD00C82735 /* PIKParseManager.m */; };
+		6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6621B38787E00C82735 /* Venue+Additions.m */; };
+		6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */; };
+		6C90C66F1B38865E00C82735 /* WhatsOnTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C66E1B38865E00C82735 /* WhatsOnTestViewController.m */; };
+		6C90C6841B38E38C00C82735 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6831B38E38C00C82735 /* Venue.m */; };
+		6C90C6871B38E38C00C82735 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6861B38E38C00C82735 /* Event.m */; };
+		6C90C68A1B38E38C00C82735 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6891B38E38C00C82735 /* User.m */; };
+		6C90C68D1B38E38C00C82735 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C68C1B38E38C00C82735 /* Order.m */; };
+		6C90C6901B38E38C00C82735 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C68F1B38E38C00C82735 /* Ticket.m */; };
 		6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0F7801B212C3900DF867D /* loginBG.jpg */; };
 		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
 		6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E041ADED8B800CDBC29 /* Social.framework */; };
@@ -180,12 +189,6 @@
 		6C37D2471AE085130078154E /* EventInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInfoViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
-		6C60B09B1B310003004632C0 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
-		6C60B09C1B310003004632C0 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
-		6C60B09E1B320E2E004632C0 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6C60B09F1B320E2E004632C0 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6C60B0A11B320E6C004632C0 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6C60B0A21B320E6C004632C0 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF691B28954E006293C9 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
 		6C79FF6A1B28954E006293C9 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
@@ -228,6 +231,30 @@
 		6C8A741A1B24D70100AAD04E /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
 		6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayTicketViewController.h; sourceTree = "<group>"; };
 		6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayTicketViewController.m; sourceTree = "<group>"; };
+		6C90C64E1B38717100C82735 /* PIKContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKContextManager.h; sourceTree = "<group>"; };
+		6C90C64F1B38717100C82735 /* PIKContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKContextManager.m; sourceTree = "<group>"; };
+		6C90C6521B3875F700C82735 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
+		6C90C6531B3875F700C82735 /* User+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+Additions.m"; sourceTree = "<group>"; };
+		6C90C6551B3876AA00C82735 /* PFObject+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+PIK.h"; sourceTree = "<group>"; };
+		6C90C6561B3876AA00C82735 /* PFObject+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+PIK.m"; sourceTree = "<group>"; };
+		6C90C6581B3877BD00C82735 /* PIKParseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKParseManager.h; sourceTree = "<group>"; };
+		6C90C6591B3877BD00C82735 /* PIKParseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKParseManager.m; sourceTree = "<group>"; };
+		6C90C6611B38787E00C82735 /* Venue+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Venue+Additions.h"; sourceTree = "<group>"; };
+		6C90C6621B38787E00C82735 /* Venue+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Venue+Additions.m"; sourceTree = "<group>"; };
+		6C90C66A1B38861E00C82735 /* FetchedCollectionViewContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchedCollectionViewContainerViewController.h; sourceTree = "<group>"; };
+		6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
+		6C90C66D1B38865E00C82735 /* WhatsOnTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsOnTestViewController.h; sourceTree = "<group>"; };
+		6C90C66E1B38865E00C82735 /* WhatsOnTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsOnTestViewController.m; sourceTree = "<group>"; };
+		6C90C6821B38E38C00C82735 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C90C6831B38E38C00C82735 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C90C6851B38E38C00C82735 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C90C6861B38E38C00C82735 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C90C6881B38E38C00C82735 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6C90C6891B38E38C00C82735 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6C90C68B1B38E38C00C82735 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6C90C68C1B38E38C00C82735 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6C90C68E1B38E38C00C82735 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6C90C68F1B38E38C00C82735 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		6CA0F7801B212C3900DF867D /* loginBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginBG.jpg; sourceTree = "<group>"; };
 		6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vibez-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
@@ -302,6 +329,9 @@
 		6C1E55B31ACF08D9003965A0 /* Vibez */ = {
 			isa = PBXGroup;
 			children = (
+				6C90C6581B3877BD00C82735 /* PIKParseManager.h */,
+				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
+				6C90C64C1B38708C00C82735 /* Core Data */,
 				6C79FF721B28B3D9006293C9 /* Categories */,
 				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
 				6C37D2381AE079240078154E /* Customs */,
@@ -311,7 +341,6 @@
 				6CD58E0A1ADED90D00CDBC29 /* View Controllers */,
 				6C1E55C11ACF08D9003965A0 /* Images.xcassets */,
 				6C1E55B41ACF08D9003965A0 /* Supporting Files */,
-				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
 			);
 			path = Vibez;
 			sourceTree = "<group>";
@@ -415,13 +444,7 @@
 		6C37D2371AE079180078154E /* Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6C60B09B1B310003004632C0 /* Product.h */,
-				6C60B09C1B310003004632C0 /* Product.m */,
 				6C7BD7641AEC2BC00092483F /* DataSources */,
-				6C60B09E1B320E2E004632C0 /* Event.h */,
-				6C60B09F1B320E2E004632C0 /* Event.m */,
-				6C60B0A11B320E6C004632C0 /* Venue.h */,
-				6C60B0A21B320E6C004632C0 /* Venue.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -458,6 +481,10 @@
 		6C37D24A1AE0858A0078154E /* General */ = {
 			isa = PBXGroup;
 			children = (
+				6C90C66D1B38865E00C82735 /* WhatsOnTestViewController.h */,
+				6C90C66E1B38865E00C82735 /* WhatsOnTestViewController.m */,
+				6C90C66A1B38861E00C82735 /* FetchedCollectionViewContainerViewController.h */,
+				6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */,
 				6C066FE61B1CA960009EA34D /* WhatsOnViewController.h */,
 				6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */,
 				6C37D2461AE085130078154E /* EventInfoViewController.h */,
@@ -510,6 +537,8 @@
 			children = (
 				6C79FF731B28B40C006293C9 /* UIColor+Piktu.h */,
 				6C79FF741B28B40C006293C9 /* UIColor+Piktu.m */,
+				6C90C6551B3876AA00C82735 /* PFObject+PIK.h */,
+				6C90C6561B3876AA00C82735 /* PFObject+PIK.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -590,6 +619,46 @@
 				6C8A741A1B24D70100AAD04E /* split.h */,
 			);
 			name = libqrencode;
+			sourceTree = "<group>";
+		};
+		6C90C64C1B38708C00C82735 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				6C90C6511B3875D100C82735 /* Categories */,
+				6C90C64E1B38717100C82735 /* PIKContextManager.h */,
+				6C90C64F1B38717100C82735 /* PIKContextManager.m */,
+				6C90C64D1B38709A00C82735 /* Managed Objects */,
+				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
+			isa = PBXGroup;
+			children = (
+				6C90C68E1B38E38C00C82735 /* Ticket.h */,
+				6C90C68F1B38E38C00C82735 /* Ticket.m */,
+				6C90C68B1B38E38C00C82735 /* Order.h */,
+				6C90C68C1B38E38C00C82735 /* Order.m */,
+				6C90C6881B38E38C00C82735 /* User.h */,
+				6C90C6891B38E38C00C82735 /* User.m */,
+				6C90C6851B38E38C00C82735 /* Event.h */,
+				6C90C6861B38E38C00C82735 /* Event.m */,
+				6C90C6821B38E38C00C82735 /* Venue.h */,
+				6C90C6831B38E38C00C82735 /* Venue.m */,
+			);
+			name = "Managed Objects";
+			sourceTree = "<group>";
+		};
+		6C90C6511B3875D100C82735 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				6C90C6521B3875F700C82735 /* User+Additions.h */,
+				6C90C6531B3875F700C82735 /* User+Additions.m */,
+				6C90C6611B38787E00C82735 /* Venue+Additions.h */,
+				6C90C6621B38787E00C82735 /* Venue+Additions.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		6CD58E081ADED8FA00CDBC29 /* App Delegate */ = {
@@ -830,10 +899,13 @@
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6C79FF6B1B28954E006293C9 /* SearchViewController.m in Sources */,
-				6C60B0A01B320E2E004632C0 /* Event.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
+				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
+				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
+				6C90C68D1B38E38C00C82735 /* Order.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
+				6C90C68A1B38E38C00C82735 /* User.m in Sources */,
 				6C066FBA1B1B9CF4009EA34D /* TicketsTabViewController.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
@@ -844,22 +916,28 @@
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
+				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
+				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
 				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
-				6C60B0A31B320E6C004632C0 /* Venue.m in Sources */,
+				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
-				6C60B09D1B310003004632C0 /* Product.m in Sources */,
+				6C90C6871B38E38C00C82735 /* Event.m in Sources */,
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
 				6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */,
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
+				6C90C66F1B38865E00C82735 /* WhatsOnTestViewController.m in Sources */,
+				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
+				6C90C6901B38E38C00C82735 /* Ticket.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
+				6C90C6841B38E38C00C82735 /* Venue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

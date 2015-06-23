@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "Event.h"
+
 #import "EventDataSource.h"
 #import "EventCollectionViewCell.h"
 #import <Parse/Parse.h>
@@ -23,18 +23,18 @@
     //NSMutableArray* allEvents = [[NSMutableArray alloc] initWithArray:[Event getEventsInBackground]];
     //NSMutableArray* event = [[NSMutableArray alloc] initWithArray:[allEvents objectAtIndex:indexPath.row]];
     
-    PFQuery* query = [PFQuery queryWithClassName:@"Event"];
-    [query fromLocalDatastore];
-    [[query getObjectInBackgroundWithId:@"xWMyZ4YEGZ"] continueWithBlock:^id(BFTask *task) {
-        if (task.error) {
-            // something went wrong;
-            return task;
-        }
-        
-        
-        // task.result will be your game score
-        return task;
-    }];
+//    PFQuery* query = [PFQuery queryWithClassName:@"Event"];
+//    [query fromLocalDatastore];
+//    [[query getObjectInBackgroundWithId:@"xWMyZ4YEGZ"] continueWithBlock:^id(BFTask *task) {
+//        if (task.error) {
+//            // something went wrong;
+//            return task;
+//        }
+//        
+//        
+//        // task.result will be your game score
+//        return task;
+//    }];
     
     //cell.eventNameLabel.text = [event objectAtIndex:0];
     //cell.eventDateLabel.text = [artistDates objectAtIndex:indexPath.row];

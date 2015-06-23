@@ -668,6 +668,42 @@
             </objects>
             <point key="canvasLocation" x="1136" y="3201"/>
         </scene>
+        <!--Item-->
+        <scene sceneID="834-u7-zTE">
+            <objects>
+                <navigationController id="ajO-nK-hgl" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="DOb-dC-Evp"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7Sx-oT-kow">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7kO-MJ-Pb7" kind="relationship" relationship="rootViewController" id="DJD-Qg-idx"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3kg-qX-hek" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1040" y="448"/>
+        </scene>
+        <!--Fetched Collection View Container View Controller-->
+        <scene sceneID="Fws-4R-r0u">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kbS-tQ-ovB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="7kO-MJ-Pb7" customClass="FetchedCollectionViewContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XjO-qQ-sq2"/>
+                        <viewControllerLayoutGuide type="bottom" id="B8C-qO-Jej"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gug-BR-Eba">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="pWI-cU-8Vz"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-318" y="448"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="cA7-NZ-Sb3">
             <objects>
@@ -810,6 +846,7 @@
                         <segue destination="DCY-2A-iXq" kind="relationship" relationship="viewControllers" id="ppG-6L-GEt"/>
                         <segue destination="6sE-C9-WmR" kind="relationship" relationship="viewControllers" id="ad5-Q7-Fro"/>
                         <segue destination="hfO-U9-VRo" kind="relationship" relationship="viewControllers" id="pc7-Nq-hiV"/>
+                        <segue destination="ajO-nK-hgl" kind="relationship" relationship="viewControllers" id="a2w-Xn-Q71"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p0T-en-sgt" userLabel="First Responder" sceneMemberID="firstResponder"/>

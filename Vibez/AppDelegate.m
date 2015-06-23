@@ -28,7 +28,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupParse:launchOptions];
-    [self setupContextManager];
+    //[self setupContextManager];
     [self setupAppearance];
     [self monitorReachability];
     
@@ -169,15 +169,15 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 }
 
-- (void)setupContextManager
-{
-    if (!self.contextManager) {
-        NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];
-        self.contextManager = [[SQKContextManager alloc] initWithStoreType:NSSQLiteStoreType
-                                                        managedObjectModel:model
-                                            orderedManagedObjectModelNames:@[ @"Vibez" ]
-                                                                  storeURL:nil];
-    }
-}
+//- (void)setupContextManager
+//{
+//    if (!self.contextManager) {
+//        NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];
+//        self.contextManager = [[SQKContextManager alloc] initWithStoreType:NSSQLiteStoreType
+//                                                        managedObjectModel:model
+//                                            orderedManagedObjectModelNames:@[ @"Vibez" ]
+//                                                                  storeURL:nil];
+//    }
+//}
 
 @end

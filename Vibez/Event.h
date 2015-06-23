@@ -2,28 +2,25 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 17/06/2015.
+//  Created by Harry Liddell on 23/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "Venue.h"
+#import <CoreData/CoreData.h>
 
-@interface Event : NSObject
+@class Venue;
 
-@property (nonatomic, retain) NSMutableArray* events;
+@interface Event : NSManagedObject
 
-@property (nonatomic, copy) NSString *eventName;
-@property (nonatomic, copy) NSString *eventDescription;
-@property (nonatomic, copy) NSDate *eventDate;
-@property (nonatomic, copy) Venue *eventVenue;
-@property (nonatomic, copy) NSDate *eventLastEntry;
-@property (nonatomic, copy) NSDate *eventEnd;
-//@property (nonatomic, copy) NSString *eventGenre;
-
-@property (nonatomic, copy) NSMutableArray *allEvents;
-
-+ (void)getEventsInBackground;
-+ (instancetype)eventWithName:(NSString *)name description:(NSString *)description date:(NSDate *)date lastEntry:(NSDate *)lastEntry end:(NSDate *)end;
+@property (nonatomic, retain) NSDate * startDate;
+@property (nonatomic, retain) NSString * eventDescription;
+@property (nonatomic, retain) NSDate * endDate;
+@property (nonatomic, retain) NSDate * lastEntry;
+@property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * eventVenue;
+@property (nonatomic, retain) NSString * eventID;
+@property (nonatomic, retain) NSData * image;
+@property (nonatomic, retain) Venue *venue;
 
 @end
