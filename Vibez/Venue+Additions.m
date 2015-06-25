@@ -50,7 +50,7 @@
                   managedObject.venueID = dictionary[@"objectId"];
                   managedObject.venueDescription = dictionary[@"venueDescription"];
                   managedObject.name = dictionary[@"venueName"];
-                  //managedObject.location = dictionary[@"location"];
+                  managedObject.location = dictionary[@"location"];
                   managedObject.hasBeenUpdated = @YES;
                   
               }
@@ -127,7 +127,8 @@
     return [PFObject objectWithClassName:NSStringFromClass([self class])
                               dictionary:@{@"objectId" : self.venueID,
                                            @"venueDescription" : self.venueDescription,
-                                           @"venueName" : self.name}];
+                                           @"venueName" : self.name,
+                                           @"location" : self.location}];
 }
 
 @end

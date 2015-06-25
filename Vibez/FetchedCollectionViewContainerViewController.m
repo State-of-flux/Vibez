@@ -25,6 +25,7 @@
     if (self)
     {
         
+       
     }
     
     return self;
@@ -36,9 +37,43 @@
     
     [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:@"venueCell"];
     
-    NSArray *test = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
+    //NSArray *test = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
     
     self.showsSectionsWhenSearching = NO;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh:)
+                  forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)refresh:(id)sender
+{
+    [self.refreshControl beginRefreshing];
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects)
+    {
+        NSError *error;
+        
+        NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+        [Venue importVenues:objects intoContext:newPrivateContext];
+        [Venue deleteInvalidVenuesInContext:newPrivateContext];
+        [newPrivateContext save:&error];
+        
+        [weakSelf.refreshControl endRefreshing];
+        
+        if(error)
+        {
+            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+        }
+    }
+    failureBlock:^(NSError *error)
+    {
+        NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+        [weakSelf.refreshControl endRefreshing];
+    }];
 }
 
 #pragma mark -
@@ -72,8 +107,10 @@
     Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
     cell.venueNameLabel.text = venue.name;
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:venue.image]];
-
+    cell.venueLocationLabel.text = venue.location;
+    //NSData* data = venue.image;
+    //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:venue.image]];
+    
     
     return cell;
 }
@@ -102,6 +139,20 @@
     CGFloat height = width;
     
     return CGSizeMake(width, height);
+}
+
+#pragma mark - UISegmentedControl
+
+- (IBAction)advsegmentedControlTapped:(id)sender
+{
+    if([sender selectedIndex] == 0)
+    {
+        //[self SwapCellsToEventData];
+    }
+    else if ([sender selectedIndex] == 1)
+    {
+        //[self SwapCellsToVenueData];
+    }
 }
 
 @end

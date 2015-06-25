@@ -7,7 +7,10 @@
 //
 
 #import "SQKFetchedCollectionViewController.h"
+#import "Vibez-Swift.h"
 
 @interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController
+
+@property (strong, nonatomic) ADVSegmentedControl *advSegmentedControl;
 
 @end

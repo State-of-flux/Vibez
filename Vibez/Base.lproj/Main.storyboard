@@ -685,11 +685,10 @@
             </objects>
             <point key="canvasLocation" x="-1040" y="448"/>
         </scene>
-        <!--Fetched Collection View Container View Controller-->
+        <!--Whats On Test View Controller-->
         <scene sceneID="Fws-4R-r0u">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kbS-tQ-ovB" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="7kO-MJ-Pb7" customClass="FetchedCollectionViewContainerViewController" sceneMemberID="viewController">
+                <viewController id="7kO-MJ-Pb7" customClass="WhatsOnTestViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XjO-qQ-sq2"/>
                         <viewControllerLayoutGuide type="bottom" id="B8C-qO-Jej"/>
@@ -697,38 +696,75 @@
                     <view key="view" contentMode="scaleToFill" id="gug-BR-Eba">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjd-KN-KSf">
+                                <rect key="frame" x="0.0" y="107" width="600" height="444"/>
+                                <connections>
+                                    <segue destination="pYv-b9-goj" kind="embed" id="w6p-YO-T5V"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cL3-ui-Vgf">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqd-3b-eK5" customClass="ADVSegmentedControl" customModule="Vibez" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                                <color key="value" red="0.72156862749999995" green="0.1647058824" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
+                                                <color key="value" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="advsegmentedControlTapped:" destination="sjg-4J-D1J" eventType="valueChanged" id="tes-Uv-1ZM"/>
+                                        </connections>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="bqd-3b-eK5" secondAttribute="bottom" id="Ecj-aQ-YOQ"/>
+                                    <constraint firstItem="bqd-3b-eK5" firstAttribute="leading" secondItem="cL3-ui-Vgf" secondAttribute="leading" id="YaL-Aj-ed2"/>
+                                    <constraint firstAttribute="trailing" secondItem="bqd-3b-eK5" secondAttribute="trailing" id="eQa-GR-rsM"/>
+                                    <constraint firstItem="bqd-3b-eK5" firstAttribute="top" secondItem="cL3-ui-Vgf" secondAttribute="top" id="ekA-ah-Op9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="trailing" secondItem="cL3-ui-Vgf" secondAttribute="trailing" id="5N0-JR-3eG"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="leading" secondItem="gug-BR-Eba" secondAttribute="leading" id="OBa-hZ-ts5"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="top" secondItem="XjO-qQ-sq2" secondAttribute="bottom" constant="43" id="OKx-QM-QlU"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="leading" secondItem="cL3-ui-Vgf" secondAttribute="leading" id="QG3-0s-cf7"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="bottom" secondItem="B8C-qO-Jej" secondAttribute="top" id="Vda-JS-w8y"/>
+                            <constraint firstAttribute="trailing" secondItem="Pjd-KN-KSf" secondAttribute="trailing" id="cz0-Sy-bRk"/>
+                            <constraint firstItem="B8C-qO-Jej" firstAttribute="top" secondItem="cL3-ui-Vgf" secondAttribute="bottom" constant="443" id="qje-U7-odL"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="top" secondItem="XjO-qQ-sq2" secondAttribute="bottom" constant="43" id="sAa-2s-MCb"/>
+                            <constraint firstItem="cL3-ui-Vgf" firstAttribute="top" secondItem="XjO-qQ-sq2" secondAttribute="bottom" id="uBi-v5-RAB"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="top" secondItem="bqd-3b-eK5" secondAttribute="bottom" constant="-1" id="uIp-VB-mbd"/>
+                            <constraint firstItem="Pjd-KN-KSf" firstAttribute="top" secondItem="bqd-3b-eK5" secondAttribute="bottom" constant="-1" id="yGY-5X-Zxt"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="sAa-2s-MCb"/>
+                                <exclude reference="uIp-VB-mbd"/>
+                                <exclude reference="yGY-5X-Zxt"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="pWI-cU-8Vz"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kbS-tQ-ovB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-318" y="448"/>
-        </scene>
-        <!--Search View Controller-->
-        <scene sceneID="cA7-NZ-Sb3">
-            <objects>
-                <tableViewController id="1qw-Mn-mzB" customClass="SearchViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="GMd-M4-7n8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="azs-lt-n3e">
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="azs-lt-n3e" id="ziv-ZZ-XTE">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="1qw-Mn-mzB" id="Le6-EK-Ufd"/>
-                            <outlet property="delegate" destination="1qw-Mn-mzB" id="MsF-bH-U1s"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g9G-eD-hLE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="372" y="973"/>
         </scene>
         <!--What's On-->
         <scene sceneID="rnx-tw-hmW">
@@ -869,6 +905,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgq-8M-E3Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-404" y="1689"/>
+        </scene>
+        <!--Fetched Collection View Container View Controller-->
+        <scene sceneID="kPv-Ir-jSt">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pYv-b9-goj" customClass="FetchedCollectionViewContainerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xcq-NM-Dsp"/>
+                        <viewControllerLayoutGuide type="bottom" id="oW2-YY-tzN"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Q5x-R5-T5A">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="444"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HU7-T3-me6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="366" y="370"/>
         </scene>
     </scenes>
     <resources>

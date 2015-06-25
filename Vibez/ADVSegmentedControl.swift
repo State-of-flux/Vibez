@@ -80,6 +80,7 @@ import UIKit
         layer.borderColor = UIColor(white: 1.0, alpha: 0.5).CGColor
         layer.borderWidth = 2
         
+        
         backgroundColor = UIColor.clearColor()
         
         setupLabels()
@@ -119,10 +120,10 @@ import UIKit
         var selectFrame = self.bounds
         let newWidth = CGRectGetWidth(selectFrame) / CGFloat(items.count)
         selectFrame.size.width = newWidth
+        //selectFrame.size.height = 0.1
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
         thumbView.layer.cornerRadius = 0//thumbView.frame.height / 2
-        
         displayNewSelectedIndex()
         
     }
@@ -155,7 +156,7 @@ import UIKit
         var label = labels[selectedIndex]
         label.textColor = selectedLabelColor
         
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.8, options: nil, animations: {
+        UIView.animateWithDuration(0.4, delay: 0.0, usingSpringWithDamping: 1.5, initialSpringVelocity: 0.8, options: nil, animations: {
             
             self.thumbView.frame = label.frame
             

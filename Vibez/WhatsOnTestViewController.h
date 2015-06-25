@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GlobalViewController.h"
 
-@interface WhatsOnTestViewController : UIViewController
+@interface WhatsOnTestViewController : GlobalViewController
 
 @end

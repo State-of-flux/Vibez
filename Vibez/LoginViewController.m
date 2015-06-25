@@ -47,7 +47,8 @@
 - (IBAction)loginButtonTapped:(id)sender
 {
     [self Login];
-    //[Event getEventsInBackground];
+    //AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+    //appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
     
 }
 
