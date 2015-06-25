@@ -40,8 +40,7 @@
     {
         [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
         
-        AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-        appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        
     }
 }
 
@@ -72,7 +71,8 @@
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            [self performSegueWithIdentifier:@"signUpToHomeSegue" sender:self];
+            AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+            appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         }
         else
         {

@@ -11,8 +11,6 @@
 
 @interface EventDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
-@property(strong, nonatomic) NSMutableArray* data;
-
--(void)setData:(NSMutableArray *)data;
+//-(void)setData:(NSMutableArray *)data;
 
 @end

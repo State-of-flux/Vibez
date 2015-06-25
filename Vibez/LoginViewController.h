@@ -7,10 +7,14 @@
 //
 
 #import "GlobalViewController.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <Bolts/Bolts.h>
+#import <Parse/Parse.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import <Foundation/Foundation.h>
 
-@interface LoginViewController : GlobalViewController
+@interface LoginViewController : GlobalViewController <FBSDKLoginTooltipViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UITextField *emailAddressTextField;

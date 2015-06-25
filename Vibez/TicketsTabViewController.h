@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GlobalViewController.h"
 #import "TicketDataSource.h"
 
-@interface TicketsTabViewController : UIViewController <UITableViewDelegate>
+@interface TicketsTabViewController : GlobalViewController <UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet TicketDataSource *ticketDataSource;

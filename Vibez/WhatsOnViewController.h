@@ -15,6 +15,11 @@
 
 @interface WhatsOnViewController : GlobalViewController <UICollectionViewDelegate>
 
+@property (nonatomic, strong) UIButton *searchButton;
+@property (nonatomic, strong) UIBarButtonItem *searchBarButtonItem;
+@property (nonatomic, strong) UISearchBar *searchBar;
+
+
 @property (strong, nonatomic) NSMutableArray* apps;
 @property BOOL isEventDataDisplayed;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;

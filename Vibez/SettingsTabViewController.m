@@ -21,22 +21,25 @@
     
     //[self setupSwipeGestures];
     [self setTopBarButtons];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [appDelegate logout];
 }
 
 -(void)setTopBarButtons
 {
-    UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
+    //UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
     
-    UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
+    //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
     
-    UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
-    NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
-    [settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
+    //UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
+    //NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
+    //[settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
     
     //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
     
     //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
-    self.navigationItem.rightBarButtonItem = searchBarButtonItem;
+    //self.navigationItem.rightBarButtonItem = searchBarButtonItem;
     
     UILabel* titleLabel = [[UILabel alloc] init];
     [titleLabel setText:@"Settings"];

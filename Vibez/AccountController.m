@@ -7,11 +7,7 @@
 //
 
 #import "AccountController.h"
-#import <Bolts/Bolts.h>
-#import <Parse/Parse.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+
 
 @interface AccountController ()
 {
@@ -21,7 +17,7 @@
 
 @implementation AccountController
 
--(NSArray *)FacebookPermissions
++(NSArray *)FacebookPermissions
 {
     return @[@"public_profile", @"email", @"user_friends"];
 }
@@ -50,7 +46,7 @@
 
 -(void)LoginWithFacebook
 {
-    [PFFacebookUtils logInInBackgroundWithReadPermissions:[self FacebookPermissions] block:^(PFUser *user, NSError *error) {
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:[AccountController FacebookPermissions] block:^(PFUser *user, NSError *error) {
         if (!user) {
             NSLog(@"Uh oh. The user cancelled the Facebook login.");
         } else if (user.isNew) {
@@ -80,19 +76,6 @@
             
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
             [alert show];
-        }
-    }];
-}
-
--(void)SignUpWithFacebook
-{
-    [PFFacebookUtils logInInBackgroundWithReadPermissions:[self FacebookPermissions] block:^(PFUser *user, NSError *error) {
-        if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
-        } else {
-            NSLog(@"User logged in through Facebook!");
         }
     }];
 }
@@ -133,5 +116,8 @@
 {
     [PFUser logOut];
 }
+
+
+
 
 @end
