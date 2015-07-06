@@ -7,8 +7,6 @@
 //
 
 #import "FetchedCollectionViewContainerViewController.h"
-#import "PIKContextManager.h"
-#import "VenueCollectionViewCell.h"
 
 @interface FetchedCollectionViewContainerViewController ()
 
@@ -25,7 +23,6 @@
     if (self)
     {
         
-       
     }
     
     return self;
@@ -35,10 +32,18 @@
 {
     [super viewDidLoad];
     
-    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:@"venueCell"];
+    static NSString *eventCellIdentifier = @"eventCell";
+    static NSString *venueCellIdentifier = @"venueCell";
     
-    //NSArray *test = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
+    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:eventCellIdentifier];
+    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
+    [self.collectionView setDelegate:self];
+    [self.collectionView setDataSource:self.eventDataSource];
     
+    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+    //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
+    
+    self.isEventDataDisplayed = YES;
     self.showsSectionsWhenSearching = NO;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -74,13 +79,68 @@
         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
         [weakSelf.refreshControl endRefreshing];
     }];
+    
+    [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+    {
+         NSError *error;
+         
+         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+         [Event importEvents:objects intoContext:newPrivateContext];
+         [Event deleteInvalidEventsInContext:newPrivateContext];
+         [newPrivateContext save:&error];
+         
+         [weakSelf.refreshControl endRefreshing];
+         
+         if(error)
+         {
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+     }
+                              failureBlock:^(NSError *error)
+     {
+         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         [weakSelf.refreshControl endRefreshing];
+     }];
 }
 
-#pragma mark -
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    //venue.venueDescription = @"Updated";
+    //[[venue managedObjectContext] save:nil];
+    //[venue saveToParse];
+    
+    //NSLog(@"Name : %@", venue.name);
+    
+    //[self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
+    
+    if(self.isEventDataDisplayed)
+    {
+        //[self performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+    }
+    else
+    {
+        //[self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
+    }
+}
+
+#pragma mark - Fetched Request
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
-    NSFetchRequest *request = [Venue sqk_fetchRequest];
+    NSFetchRequest *request;
+    
+    if(self.isEventDataDisplayed)
+    {
+        request = [Event sqk_fetchRequest];
+    }
+    else
+    {
+        request = [Venue sqk_fetchRequest];
+    }
+    
+    request = [Event sqk_fetchRequest];
+    
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
@@ -96,23 +156,8 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)theItemCell atIndexPath:(NSIndexPath *)indexPath
 {
-    VenueCollectionViewCell *itemCell = (VenueCollectionViewCell *)theItemCell;
-    Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    VenueCollectionViewCell *cell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
-    
-    Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    
-    cell.venueNameLabel.text = venue.name;
-    cell.venueLocationLabel.text = venue.location;
-    //NSData* data = venue.image;
-    //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:venue.image]];
-    
-    
-    return cell;
+    //VenueCollectionViewCell *itemCell = (VenueCollectionViewCell *)theItemCell;
+    //Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -122,15 +167,69 @@
                        atIndexPath:indexPath];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)SwapCellsToEventData
 {
-    Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    
-    venue.venueDescription = @"Updated";
-    [[venue managedObjectContext] save:nil];
-    [venue saveToParse];
-    
-    NSLog(@"Name : %@", venue.name);
+    self.isEventDataDisplayed = true;
+    [self.collectionView setDataSource:self.eventDataSource];
+    [self.collectionView reloadData];
+}
+
+-(void)SwapCellsToVenueData
+{
+    self.isEventDataDisplayed = false;
+    [self.collectionView setDataSource:self.venueDataSource];
+    [self.collectionView reloadData];
+}
+
+#pragma mark - Collection View Flow Layout
+
+//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if(self.isEventDataDisplayed)
+//    {
+//        EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+//        
+//        Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setDateFormat:@"EEE dd MMM"];
+//        
+//        NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
+//        
+//        [dateFormatString insertString:[self daySuffixForDate:event.startDate] atIndex:6];
+//        
+//        eventCell.eventNameLabel.text = event.name;
+//        eventCell.eventDateLabel.text = dateFormatString;
+//        
+//        return eventCell;
+//    }
+//    else
+//    {
+//        VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
+//        
+//        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//        
+//        venueCell.venueNameLabel.text = venue.name;
+//        NSString *uppercase = [venueCell.venueNameLabel.text uppercaseString];
+//        venueCell.venueNameLabel.text =  uppercase;
+//        venueCell.venueLocationLabel.text = venue.location;
+//        
+//        return venueCell;
+//    }
+//}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -141,18 +240,20 @@
     return CGSizeMake(width, height);
 }
 
-#pragma mark - UISegmentedControl
-
-- (IBAction)advsegmentedControlTapped:(id)sender
-{
-    if([sender selectedIndex] == 0)
-    {
-        //[self SwapCellsToEventData];
-    }
-    else if ([sender selectedIndex] == 1)
-    {
-        //[self SwapCellsToVenueData];
+- (NSString *)daySuffixForDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger dayOfMonth = [calendar component:NSDayCalendarUnit fromDate:date];
+    switch (dayOfMonth) {
+        case 1:
+        case 21:
+        case 31: return @"st";
+        case 2:
+        case 22: return @"nd";
+        case 3:
+        case 23: return @"rd";
+        default: return @"th";
     }
 }
+
 
 @end

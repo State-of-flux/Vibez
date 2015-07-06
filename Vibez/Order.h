@@ -2,7 +2,7 @@
 //  Order.h
 //  Vibez
 //
-//  Created by Harry Liddell on 23/06/2015.
+//  Created by Harry Liddell on 26/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -15,8 +15,8 @@
 
 @property (nonatomic, retain) NSString * orderID;
 @property (nonatomic, retain) NSString * total;
-@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) NSSet *tickets;
+@property (nonatomic, retain) User *user;
 @end
 
 @interface Order (CoreDataGeneratedAccessors)

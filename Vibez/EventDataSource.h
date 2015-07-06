@@ -8,9 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "SQKFetchedCollectionViewController.h"
 
 @interface EventDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-
-//-(void)setData:(NSMutableArray *)data;
 
 @end

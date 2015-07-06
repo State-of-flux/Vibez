@@ -9,6 +9,7 @@
 #import "TicketsTabViewController.h"
 #import "UIImage+MDQRCode.h"
 #import "TicketTableViewCell.h"
+#import "UIFont+PIK.h"
 
 @interface TicketsTabViewController ()
 {
@@ -53,7 +54,7 @@
     UILabel* titleLabel = [[UILabel alloc] init];
     [titleLabel setText:[titleText stringByAppendingString:@"'s Tickets"]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
+    [titleLabel setFont:[UIFont pik_montserratRegWithSize:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];

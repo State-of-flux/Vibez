@@ -1,20 +1,20 @@
 //
-//  Venue+Additions.m
+//  Event+Additions.m
 //  Vibez
 //
-//  Created by Harry Liddell on 22/06/2015.
+//  Created by Harry Liddell on 26/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "Venue+Additions.h"
+#import "Event+Additions.h"
 
-@implementation Venue (Additions)
+@implementation Event (Additions)
 
-+(void)importVenues:(NSArray *)venues intoContext:(NSManagedObjectContext *)context
++(void)importEvents:(NSArray *)events intoContext:(NSManagedObjectContext *)context
 {
     NSError* error;
     
-    NSArray* allObjects = [Venue allVenuesInContext:context];
+    NSArray* allObjects = [Event allEventsInContext:context];
     
     [allObjects makeObjectsPerformSelector:@selector(setHasBeenUpdated:) withObject:@NO];
     
@@ -24,31 +24,34 @@
     }
     else
     {
-        NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:venues];
+        NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:events];
         
-        [Venue sqk_insertOrUpdate:parseObjects
-                   uniqueModelKey:@"venueID"
+        [Event sqk_insertOrUpdate:parseObjects
+                   uniqueModelKey:@"eventID"
                   uniqueRemoteKey:@"objectId"
-              propertySetterBlock:^(NSDictionary *dictionary, Venue *managedObject) {
+              propertySetterBlock:^(NSDictionary *dictionary, Event *managedObject) {
                   
-//                  PFFile* imageFile = dictionary[@"venueImage"];
-//                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
-//                  {
-//                      if(!error)
-//                      {
-//                          managedObject.image = result;
-//                          NSLog(@"completed image data");
-//                      }
-//                      else
-//                      {
-//                          NSLog(@"error : %@", error.localizedDescription);
-//                      }
-//                  }];
+                  //                  PFFile* imageFile = dictionary[@"venueImage"];
+                  //                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
+                  //                  {
+                  //                      if(!error)
+                  //                      {
+                  //                          managedObject.image = result;
+                  //                          NSLog(@"completed image data");
+                  //                      }
+                  //                      else
+                  //                      {
+                  //                          NSLog(@"error : %@", error.localizedDescription);
+                  //                      }
+                  //                  }];
                   
-                  managedObject.venueID = dictionary[@"objectId"];
-                  managedObject.venueDescription = dictionary[@"venueDescription"];
-                  managedObject.name = dictionary[@"venueName"];
-                  managedObject.location = dictionary[@"location"];
+                  managedObject.eventID = dictionary[@"objectId"];
+                  managedObject.name = dictionary[@"eventName"];
+                  managedObject.eventDescription = dictionary[@"eventDescription"];
+                  managedObject.eventVenue = dictionary[@"eventVenue"];
+                  managedObject.startDate = dictionary[@"eventDate"];
+                  managedObject.lastEntry = dictionary[@"eventLastEntry"];
+                  managedObject.endDate = dictionary[@"eventEnd"];
                   managedObject.hasBeenUpdated = @YES;
                   
               }
@@ -63,11 +66,11 @@
     
 }
 
-+(void)deleteInvalidVenuesInContext:(NSManagedObjectContext *)context
++(void)deleteInvalidEventsInContext:(NSManagedObjectContext *)context
 {
     NSError *error;
     
-    [Venue sqk_deleteAllObjectsInContext:context
+    [Event sqk_deleteAllObjectsInContext:context
                            withPredicate:[NSPredicate predicateWithFormat:@"hasBeenUpdated == NO"]
                                    error:&error];
 }
@@ -88,11 +91,11 @@
     
 }
 
-+(NSArray *)allVenuesInContext:(NSManagedObjectContext *)context
++(NSArray *)allEventsInContext:(NSManagedObjectContext *)context
 {
     NSError* error;
     
-    NSArray* allObjects = [context executeFetchRequest:[Venue sqk_fetchRequest]
+    NSArray* allObjects = [context executeFetchRequest:[Event sqk_fetchRequest]
                                                  error:&error];
     
     if(error)
@@ -111,7 +114,7 @@
     [PIKParseManager insertOrUpdatePFObject:[self pfObject]
                               withClassName:NSStringFromClass([self class])
                             remoteUniqueKey:@"objectId"
-                                uniqueValue:self.venueID
+                                uniqueValue:self.eventID
                                     success:^(PFObject *pfObject) {
                                         NSLog(@"Uploaded");
                                     }
@@ -123,10 +126,9 @@
 - (PFObject *)pfObject
 {
     return [PFObject objectWithClassName:NSStringFromClass([self class])
-                              dictionary:@{@"objectId" : self.venueID,
-                                           @"venueDescription" : self.venueDescription,
-                                           @"venueName" : self.name,
-                                           @"location" : self.location}];
+                              dictionary:@{@"objectId" : self.eventID,
+                                           @"eventDescription" : self.eventDescription,
+                                           @"eventName" : self.name}];
 }
 
 @end

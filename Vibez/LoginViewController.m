@@ -38,14 +38,14 @@
     
     self.emailAddressTextField.text = @"123";
     self.passwordTextField.text = @"123456";
-
-    
 }
 
 #pragma mark - Button Event Handling
 
 - (IBAction)loginButtonTapped:(id)sender
 {
+    self.loginButton.enabled = false;
+    self.signUpButton.enabled = false;
     [self Login];
     //AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
     //appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
@@ -95,9 +95,7 @@
              appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
              
              [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects) {
-                 
                  NSError *error;
-                 
                  NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
                  [Venue importVenues:objects intoContext:newPrivateContext];
                  [Venue deleteInvalidVenuesInContext:newPrivateContext];
@@ -108,16 +106,40 @@
                      NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
                  }
              }
-                                       failureBlock:^(NSError *error) {
-                                           
-                                       }];
+             failureBlock:^(NSError *error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+            }];
+             
+             
+             
+             [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+             {
+                 NSError *error;
+                 NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+                 [Event importEvents:objects intoContext:newPrivateContext];
+                 [Event deleteInvalidEventsInContext:newPrivateContext];
+                 [newPrivateContext save:&error];
+                 
+                 if(error)
+                 {
+                     NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                 }
+             }
+             failureBlock:^(NSError *error)
+             {
+                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }];
              
          }
          else
          {
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
              [alert show];
          }
+         
+         self.loginButton.enabled = true;
+         self.signUpButton.enabled = true;
      }];
 }
 
@@ -132,7 +154,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    //[self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 #pragma mark - UI Stuff
@@ -161,6 +183,9 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *) sender
 {
     [self.view endEditing:YES];
+}
+
+-(IBAction)prepareForUnwindToLogin:(UIStoryboardSegue *)segue {
 }
 
 @end

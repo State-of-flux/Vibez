@@ -5,11 +5,12 @@
         <attribute name="eventDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventVenue" attributeType="String" syncable="YES"/>
+        <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="lastEntry" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="startDate" attributeType="Date" syncable="YES"/>
-        <relationship name="venue" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
+        <relationship name="venues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
         <attribute name="orderID" optional="YES" attributeType="String" syncable="YES"/>
@@ -35,13 +36,13 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueID" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="venue" inverseEntity="Event" syncable="YES"/>
+        <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="venues" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-261" positionY="-190" width="128" height="178"/>
+        <element name="Event" positionX="-288" positionY="-190" width="128" height="193"/>
+        <element name="Order" positionX="-261" positionY="90" width="128" height="103"/>
         <element name="Ticket" positionX="-436" positionY="75" width="128" height="103"/>
         <element name="User" positionX="-81" positionY="105" width="128" height="88"/>
         <element name="Venue" positionX="-65" positionY="-160" width="128" height="148"/>
-        <element name="Order" positionX="-261" positionY="90" width="128" height="103"/>
     </elements>
 </model>

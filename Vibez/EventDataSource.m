@@ -8,6 +8,7 @@
 
 
 #import "EventDataSource.h"
+#import "Event.h"
 #import "EventCollectionViewCell.h"
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
@@ -16,35 +17,39 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EventCell" forIndexPath:indexPath];
+    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     
-    //[cell setModel:[self.data objectForKey:@"eventName"] eventDescription:[self.data objectForKey:@"eventDescription"] eventGenres:[self.data objectForKey:@"eventGenres"] eventVenueName:[self.data objectForKey:@"eventVenueName"] eventDate:[self.data objectForKey:@"eventDate"] eventImageData:[self.data objectForKey:@"eventImageData"] eventLocation:[self.data objectForKey:@"eventLocation"]];
+    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+
+//    Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"EEE dd MMM"];
+//    
+//    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
+//    
+//    [dateFormatString insertString:[self daySuffixForDate:event.startDate] atIndex:6];
+//    
+//    eventCell.eventNameLabel.text = event.name;
+//    eventCell.eventDateLabel.text = dateFormatString;
     
-    //NSMutableArray* allEvents = [[NSMutableArray alloc] initWithArray:[Event getEventsInBackground]];
-    //NSMutableArray* event = [[NSMutableArray alloc] initWithArray:[allEvents objectAtIndex:indexPath.row]];
+    return eventCell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    //Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    //event.venueDescription = @"Updated";
+    //[[event managedObjectContext] save:nil];
+    //[event saveToParse];
     
-//    PFQuery* query = [PFQuery queryWithClassName:@"Event"];
-//    [query fromLocalDatastore];
-//    [[query getObjectInBackgroundWithId:@"xWMyZ4YEGZ"] continueWithBlock:^id(BFTask *task) {
-//        if (task.error) {
-//            // something went wrong;
-//            return task;
-//        }
-//        
-//        
-//        // task.result will be your game score
-//        return task;
-//    }];
+    NSLog(@"Cell selected");
     
-    //cell.eventNameLabel.text = [event objectAtIndex:0];
-    //cell.eventDateLabel.text = [artistDates objectAtIndex:indexPath.row];
-    
-    return cell;
+    //[self performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 7;//[self.data count];
+    return 4;//[self.data count];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -52,30 +57,20 @@
     return 1;
 }
 
--(NSMutableArray *)getData
+- (NSString *)daySuffixForDate:(NSDate *)date
 {
-//    NSArray* artistNames = [NSArray arrayWithObjects: @"SBTRKT",
-//                        @"Ella Henderson",
-//                        @"Daft Punk",
-//                        @"Caribou",
-//                        @"Madeon",
-//                        @"Tchami",
-//                        @"Gorgon City",
-//                        nil];
-//    
-//    NSArray* artistDates = [NSArray arrayWithObjects: @"Thursday 15th June",
-//                        @"Friday 16th June",
-//                        @"Monday 19th June",
-//                        @"Tuesday 20th June",
-//                        @"Tuesday 20th June",
-//                        @"Thursday 22nd June",
-//                        @"Friday 23rd June",
-//                        nil];
-//  
-//    NSMutableArray* arrayData = [[NSMutableArray alloc] initWithObjects:artistNames, artistDates, nil];
-    //NSMutableArray* arrayData = [Event getEventsInBackground];
-    
-    return nil;
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger dayOfMonth = [calendar component:NSDayCalendarUnit fromDate:date];
+    switch (dayOfMonth) {
+        case 1:
+        case 21:
+        case 31: return @"st";
+        case 2:
+        case 22: return @"nd";
+        case 3:
+        case 23: return @"rd";
+        default: return @"th";
+    }
 }
 
 @end

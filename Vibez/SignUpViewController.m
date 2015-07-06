@@ -10,6 +10,7 @@
 #import "AccountController.h"
 #import "Validator.h"
 #import "AppDelegate.h"
+#import "LoginViewController.h"
 
 @interface SignUpViewController ()
 {
@@ -42,6 +43,15 @@
         
         
     }
+}
+
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
 }
 
 #pragma mark - Sign Up Validation
@@ -80,6 +90,18 @@
             [alert show];
         }
     }];
+}
+
+- (IBAction)signInButtonTapped:(id)sender {
+}
+
+- (IBAction)unwindToLoginViewController:(UIStoryboardSegue*)sender
+{
+    LoginViewController *sourceViewController = sender.sourceViewController;
+    // Pull any data from the view controller which initiated the unwind segue.
+
+    [self performSegueWithIdentifier:@"unwindToLoginViewSegue" sender:self];
+    
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {

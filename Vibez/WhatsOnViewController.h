@@ -13,18 +13,9 @@
 #import "VenueDataSource.h"
 #import "Vibez-Swift.h"
 
-@interface WhatsOnViewController : GlobalViewController <UICollectionViewDelegate>
+@interface WhatsOnViewController : GlobalViewController
 
-@property (nonatomic, strong) UIButton *searchButton;
-@property (nonatomic, strong) UIBarButtonItem *searchBarButtonItem;
-@property (nonatomic, strong) UISearchBar *searchBar;
-
-
-@property (strong, nonatomic) NSMutableArray* apps;
 @property BOOL isEventDataDisplayed;
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
-@property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
 @property (weak, nonatomic) IBOutlet ADVSegmentedControl *advSegmentedControl;
 
 - (IBAction)advsegmentedControlTapped:(id)sender;
