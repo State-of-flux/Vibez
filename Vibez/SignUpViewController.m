@@ -95,15 +95,6 @@
 - (IBAction)signInButtonTapped:(id)sender {
 }
 
-- (IBAction)unwindToLoginViewController:(UIStoryboardSegue*)sender
-{
-    LoginViewController *sourceViewController = sender.sourceViewController;
-    // Pull any data from the view controller which initiated the unwind segue.
-
-    [self performSegueWithIdentifier:@"unwindToLoginViewSegue" sender:self];
-    
-}
-
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }

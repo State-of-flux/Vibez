@@ -28,11 +28,10 @@
     fetchVC = self.childViewControllers[0];
     
     user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setTopBarButtons:user.username];
-    [self.navigationItem setHidesBackButton:YES];
+    self.navigationItem.titleView = [self setNavBar:user.username];
 }
 
--(UIView*)setTopBarButtons:(NSString*)titleText
+-(UIView*)setNavBar:(NSString*)titleText
 {
     UILabel* titleLabel = [[UILabel alloc] init];
     [titleLabel setText:[titleText stringByAppendingString:@"'s Vibes"]];
@@ -42,9 +41,7 @@
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];
     [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    
-    // [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
-    
+
     return titleLabel;
 }
 

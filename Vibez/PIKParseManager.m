@@ -108,8 +108,8 @@
     }];
 }
 
-//+ (void)reloadDataSuccess:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock
-//{
++ (void)reloadDataSuccess:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock
+{
 //    [PIKParseManager getAllForClassName:@"ProductCategory"
 //                                success:^(NSArray *objects) {
 //                                    
@@ -142,6 +142,6 @@
 //                                        failureBlock(error);
 //                                    }
 //                                }];
-//}
+}
 
 @end

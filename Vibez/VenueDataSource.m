@@ -39,7 +39,7 @@
 
 - (NSString *)daySuffixForDate:(NSDate *)date {
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSInteger dayOfMonth = [calendar component:NSDayCalendarUnit fromDate:date];
+    NSInteger dayOfMonth = [calendar component:NSCalendarUnitDay fromDate:date];
     switch (dayOfMonth) {
         case 1:
         case 21:

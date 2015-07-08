@@ -106,6 +106,9 @@
 		6CEF066E1B49B057001F1E7C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */; };
 		6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */; };
 		6CEF06771B4A1E48001F1E7C /* VibezTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06761B4A1E48001F1E7C /* VibezTabBarController.m */; };
+		6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */; };
+		6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */; };
+		6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,6 +270,11 @@
 		6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+PIK.m"; sourceTree = "<group>"; };
 		6CEF06751B4A1E48001F1E7C /* VibezTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VibezTabBarController.h; sourceTree = "<group>"; };
 		6CEF06761B4A1E48001F1E7C /* VibezTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VibezTabBarController.m; sourceTree = "<group>"; };
+		6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketsFetchedTableViewController.h; sourceTree = "<group>"; };
+		6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsFetchedTableViewController.m; sourceTree = "<group>"; };
+		6CEF067B1B4CA0C0001F1E7C /* NSString+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PIK.h"; sourceTree = "<group>"; };
+		6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PIK.m"; sourceTree = "<group>"; };
+		6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ticket.jpg; sourceTree = "<group>"; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B17B9CC57D0D36B97F73DA76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -402,6 +410,7 @@
 		6C3471631AE481A100FC789A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */,
 				6CA0F7801B212C3900DF867D /* loginBG.jpg */,
 				6C066FBE1B1BAEEF009EA34D /* first_normal.png */,
 				6C066FBF1B1BAEEF009EA34D /* first_normal@2x.png */,
@@ -503,6 +512,8 @@
 				6C066FBC1B1B9EB3009EA34D /* SettingsTabViewController.m */,
 				6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */,
 				6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */,
+				6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */,
+				6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */,
 			);
 			name = General;
 			sourceTree = "<group>";
@@ -545,6 +556,8 @@
 				6C90C6561B3876AA00C82735 /* PFObject+PIK.m */,
 				6CEF06721B49B0EB001F1E7C /* UIFont+PIK.h */,
 				6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */,
+				6CEF067B1B4CA0C0001F1E7C /* NSString+PIK.h */,
+				6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -855,6 +868,7 @@
 				6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
+				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
 				6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */,
 				6C066FD41B1BAEEF009EA34D /* first_selected.png in Resources */,
@@ -929,6 +943,8 @@
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CB4A4451B3CD97800121975 /* Event.m in Sources */,
 				6C066FBA1B1B9CF4009EA34D /* TicketsTabViewController.m in Sources */,
+				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
+				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
 				6C066FBD1B1B9EB3009EA34D /* SettingsTabViewController.m in Sources */,

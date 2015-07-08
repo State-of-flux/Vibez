@@ -7,6 +7,8 @@
 //
 
 #import "FetchedCollectionViewContainerViewController.h"
+#import "UIColor+Piktu.h"
+#import "NSString+PIK.h"
 
 @interface FetchedCollectionViewContainerViewController ()
 
@@ -22,7 +24,7 @@
     
     if (self)
     {
-        
+        self.view.backgroundColor = [UIColor pku_blackColor];
     }
     
     return self;
@@ -183,39 +185,39 @@
 
 #pragma mark - Collection View Flow Layout
 
-//-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if(self.isEventDataDisplayed)
-//    {
-//        EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
-//        
-//        Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-//        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setDateFormat:@"EEE dd MMM"];
-//        
-//        NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-//        
-//        [dateFormatString insertString:[self daySuffixForDate:event.startDate] atIndex:6];
-//        
-//        eventCell.eventNameLabel.text = event.name;
-//        eventCell.eventDateLabel.text = dateFormatString;
-//        
-//        return eventCell;
-//    }
-//    else
-//    {
-//        VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
-//        
-//        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-//        
-//        venueCell.venueNameLabel.text = venue.name;
-//        NSString *uppercase = [venueCell.venueNameLabel.text uppercaseString];
-//        venueCell.venueNameLabel.text =  uppercase;
-//        venueCell.venueLocationLabel.text = venue.location;
-//        
-//        return venueCell;
-//    }
-//}
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if(self.isEventDataDisplayed)
+    {
+        EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+        
+        Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE dd MMM"];
+        
+        NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
+        
+        [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
+        
+        eventCell.eventNameLabel.text = event.name;
+        eventCell.eventDateLabel.text = dateFormatString;
+        
+        return eventCell;
+    }
+    else
+    {
+        VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
+        
+        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+        
+        venueCell.venueNameLabel.text = venue.name;
+        NSString *uppercase = [venueCell.venueNameLabel.text uppercaseString];
+        venueCell.venueNameLabel.text =  uppercase;
+        venueCell.venueLocationLabel.text = venue.location;
+        
+        return venueCell;
+    }
+}
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -238,21 +240,6 @@
     CGFloat height = width;
     
     return CGSizeMake(width, height);
-}
-
-- (NSString *)daySuffixForDate:(NSDate *)date {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSInteger dayOfMonth = [calendar component:NSDayCalendarUnit fromDate:date];
-    switch (dayOfMonth) {
-        case 1:
-        case 21:
-        case 31: return @"st";
-        case 2:
-        case 22: return @"nd";
-        case 3:
-        case 23: return @"rd";
-        default: return @"th";
-    }
 }
 
 

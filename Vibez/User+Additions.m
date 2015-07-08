@@ -12,7 +12,7 @@
 
 -(void)currentUser
 {
-    PFUser* user = [PFUser currentUser];
+    //PFUser* user = [PFUser currentUser];
     
     
 }

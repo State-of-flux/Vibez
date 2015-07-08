@@ -21,7 +21,7 @@ import UIKit
     private var labels = [UILabel]()
     var thumbView = UIView()
     
-    var items: [String] = ["EVENTS", "VENUES"] {
+    var items: [String] = ["Events", "Venues"] {
         didSet {
             setupLabels()
         }
@@ -104,7 +104,7 @@ import UIKit
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clearColor()
             label.textAlignment = .Center
-            label.font = UIFont(name: "Montserrat-Bold", size: 15)
+            label.font = UIFont(name: "Montserrat-Bold", size: 18)
             label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             label.setTranslatesAutoresizingMaskIntoConstraints(false)
             self.addSubview(label)
@@ -123,7 +123,7 @@ import UIKit
         //selectFrame.size.height = 0.1
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
-        thumbView.layer.cornerRadius = 0//thumbView.frame.height / 2
+        thumbView.layer.cornerRadius = thumbView.frame.height / 2
         displayNewSelectedIndex()
         
     }
