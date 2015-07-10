@@ -2,7 +2,7 @@
 //  Venue.m
 //  Vibez
 //
-//  Created by Harry Liddell on 23/06/2015.
+//  Created by Harry Liddell on 26/06/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -12,12 +12,12 @@
 
 @implementation Venue
 
-@dynamic venueDescription;
+@dynamic hasBeenUpdated;
+@dynamic image;
 @dynamic location;
 @dynamic name;
-@dynamic hasBeenUpdated;
+@dynamic venueDescription;
 @dynamic venueID;
-@dynamic image;
 @dynamic events;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "Venue.h"
 #import "PIKParseManager.h"
+#import <SQKDataKit/SQKDataKit.h>
 
 @interface Venue (Additions)
 

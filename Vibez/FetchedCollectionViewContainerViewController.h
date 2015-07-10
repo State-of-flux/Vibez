@@ -8,9 +8,19 @@
 
 #import "SQKFetchedCollectionViewController.h"
 #import "Vibez-Swift.h"
+#import "PIKContextManager.h"
+#import "VenueCollectionViewCell.h"
+#import "EventCollectionViewCell.h"
+#import "EventDataSource.h"
+#import "VenueDataSource.h"
 
 @interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController
 
-@property (strong, nonatomic) ADVSegmentedControl *advSegmentedControl;
+@property BOOL isEventDataDisplayed;
+@property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
+@property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
+
+-(void)SwapCellsToEventData;
+-(void)SwapCellsToVenueData;
 
 @end

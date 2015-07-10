@@ -15,6 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *ticketVenueLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *ticketImage;
 
--(void)awakeFromNib;
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;
 
 @end

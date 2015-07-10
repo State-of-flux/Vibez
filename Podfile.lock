@@ -61,6 +61,12 @@ PODS:
     - SQKDataKit/Core
   - SQKDataKit/ManagedObjectExtensions (0.6.0):
     - SQKDataKit/Core
+  - Stripe (4.0.3):
+    - Stripe/Checkout (= 4.0.3)
+    - Stripe/Core (= 4.0.3)
+  - Stripe/Checkout (4.0.3):
+    - Stripe/Core
+  - Stripe/Core (4.0.3)
   - VCTransitionsLibrary (1.5.0)
 
 DEPENDENCIES:
@@ -70,6 +76,7 @@ DEPENDENCIES:
   - RDVTabBarController
   - Reachability
   - SQKDataKit
+  - Stripe
   - VCTransitionsLibrary
 
 SPEC CHECKSUMS:
@@ -79,6 +86,7 @@ SPEC CHECKSUMS:
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SQKDataKit: 529742619985d0902d6e361b3088bce0991a8684
+  Stripe: 43a4307dc789483a61668d187c4a917d1348b0b6
   VCTransitionsLibrary: d61fd9b7b6721942f0d583bcc0e7f8c31ec9271b
 
 COCOAPODS: 0.36.4

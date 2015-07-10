@@ -7,33 +7,49 @@
 //
 
 #import "VenueDataSource.h"
+#import "Venue.h"
+#import "Venue+Additions.h"
 #import "VenueCollectionViewCell.h"
 
 @implementation VenueDataSource
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VenueCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"VenueCell" forIndexPath:indexPath];
+    VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
+//    
+//    Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+//    
+//    venueCell.venueNameLabel.text = venue.name;
+//    NSString *uppercase = [venueCell.venueNameLabel.text uppercaseString];
+//    venueCell.venueNameLabel.text =  uppercase;
+//    venueCell.venueLocationLabel.text = venue.location;
     
-    NSMutableArray* allData = [[NSMutableArray alloc] initWithArray:[self getData]];
-    NSMutableArray* artistNames = [[NSMutableArray alloc] initWithArray:[allData objectAtIndex:0]];
-    cell.venueNameLabel.text = [artistNames objectAtIndex:indexPath.row];
-    
-    cell.venueImage = [[UIImageView alloc] initWithImage:[self filledImageFrom:[UIImage imageNamed:@"plug.jpg"] withColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]]];
-    
-    cell.backgroundView = cell.venueImage;
-   
-    return cell;
+    return venueCell;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 7;//[self.data count];
+    return 5;//[self.data count];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
+}
+
+- (NSString *)daySuffixForDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger dayOfMonth = [calendar component:NSCalendarUnitDay fromDate:date];
+    switch (dayOfMonth) {
+        case 1:
+        case 21:
+        case 31: return @"st";
+        case 2:
+        case 22: return @"nd";
+        case 3:
+        case 23: return @"rd";
+        default: return @"th";
+    }
 }
 
 -(UIImage *)filledImageFrom:(UIImage *)source withColor:(UIColor *)color{
@@ -65,31 +81,6 @@
     
     //return the color-burned image
     return coloredImg;
-}
-
--(NSMutableArray *)getData
-{
-    NSArray* artistNames = [NSArray arrayWithObjects: @"Viper Rooms",
-                            @"Plug",
-                            @"Fez",
-                            @"Tank",
-                            @"Leadmill",
-                            @"DQ",
-                            @"Corporation",
-                            nil];
-    
-//    NSArray* artistDates = [NSArray arrayWithObjects: @"21/09/2015",
-//                            @"23/09/2015",
-//                            @"25/09/2015",
-//                            @"26/09/2015",
-//                            @"30/09/2015",
-//                            @"01/10/2015",
-//                            @"17/11/2015",
-//                            nil];
-    
-    NSMutableArray* arrayData = [[NSMutableArray alloc] initWithObjects:artistNames, nil];
-    
-    return arrayData;
 }
 
 

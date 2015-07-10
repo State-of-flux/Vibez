@@ -18,5 +18,7 @@
 
 - (IBAction)submitButtonTapped:(id)sender;
 
+- (IBAction)signInButtonTapped:(id)sender;
+
 
 @end

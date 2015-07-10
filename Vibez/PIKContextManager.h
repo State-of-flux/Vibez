@@ -10,6 +10,7 @@
 #import <SQKDataKit/SQKDataKit.h>
 #import "User+Additions.h"
 #import "Venue+Additions.h"
+#import "Event+Additions.h"
 
 @interface PIKContextManager : SQKContextManager
 

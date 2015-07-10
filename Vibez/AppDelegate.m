@@ -14,6 +14,7 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "LoginViewController.h"
+#import "UIFont+PIK.h"
 
 @interface AppDelegate ()
 {
@@ -152,7 +153,7 @@
      setTitleTextAttributes:
      @{NSForegroundColorAttributeName:[UIColor whiteColor],
        NSShadowAttributeName:shadow,
-       NSFontAttributeName:[UIFont fontWithName:@"Futura-Medium" size:16.0f]
+       NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]
        }
      forState:UIControlStateNormal];
     
