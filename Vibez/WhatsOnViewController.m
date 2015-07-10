@@ -10,7 +10,7 @@
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIFont+PIK.h"
 
-@interface WhatsOnViewController () <UISearchBarDelegate>
+@interface WhatsOnViewController () 
 {
     PFUser* user;
     FetchedCollectionViewContainerViewController *fetchVC;
@@ -28,15 +28,15 @@
     fetchVC = self.childViewControllers[0];
     
     user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setNavBar:user.username];
+    self.navigationItem.titleView = [self setNavBar:@"Hunt for Vibes"];
 }
 
 -(UIView*)setNavBar:(NSString*)titleText
 {
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@"'s Vibes"]];
+    [titleLabel setText:[titleText stringByAppendingString:@""]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_montserratRegWithSize:18.0f]];
+    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];

@@ -112,17 +112,13 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
-    //NSLog(@"Name : %@", venue.name);
-    
-    //[self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
-    
     if(self.isEventDataDisplayed)
     {
-        //[self performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+        [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
     }
     else
     {
-        //[self performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
+        [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
     }
 }
 
@@ -241,6 +237,5 @@
     
     return CGSizeMake(width, height);
 }
-
 
 @end

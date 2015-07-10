@@ -20,4 +20,14 @@
     return [UIFont fontWithName:@"Montserrat-Regular" size:fontSize];
 }
 
++ (UIFont *)pik_avenirNextBoldWithSize:(CGFloat)fontSize
+{
+    return [UIFont fontWithName:@"AvenirNext-Bold" size:fontSize];
+}
+
++ (UIFont *)pik_avenirNextRegWithSize:(CGFloat)fontSize
+{
+    return [UIFont fontWithName:@"AvenirNext-Regular" size:fontSize];
+}
+
 @end

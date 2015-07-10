@@ -18,7 +18,7 @@
 
 @implementation TicketsFetchedTableViewController
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
     
@@ -27,7 +27,7 @@
         self.view.backgroundColor = [UIColor pku_blackColor];
         
         NSFetchRequest *request = [Event sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO] ];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
         
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -40,6 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.titleView = [self setNavBar:@"Tickets"];
     
     [self.tableView registerClass:[TicketTableViewCell class]
            forCellReuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
@@ -56,18 +58,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setNavBar:user.username];
-
 }
 
 -(UIView*)setNavBar:(NSString*)titleText
 {
     UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@"'s Tickets"]];
+    [titleLabel setText:[titleText stringByAppendingString:@""]];
     [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_montserratRegWithSize:18.0f]];
+    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
     [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
     [titleLabel setTextAlignment:NSTextAlignmentLeft];
     [titleLabel sizeToFit];

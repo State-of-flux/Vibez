@@ -12,5 +12,7 @@
 
 + (UIFont *)pik_montserratRegWithSize:(CGFloat)fontSize;
 + (UIFont *)pik_montserratBoldWithSize:(CGFloat)fontSize;
++ (UIFont *)pik_avenirNextBoldWithSize:(CGFloat)fontSize;
++ (UIFont *)pik_avenirNextRegWithSize:(CGFloat)fontSize;
 
 @end

@@ -48,7 +48,7 @@
                   managedObject.venueID = dictionary[@"objectId"];
                   managedObject.venueDescription = dictionary[@"venueDescription"];
                   managedObject.name = dictionary[@"venueName"];
-                  managedObject.location = dictionary[@"location"];
+                  //managedObject.location = dictionary[@"location"];
                   managedObject.hasBeenUpdated = @YES;
                   
               }

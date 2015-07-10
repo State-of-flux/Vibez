@@ -17,7 +17,6 @@
 
 @property BOOL isEventDataDisplayed;
 @property (weak, nonatomic) IBOutlet ADVSegmentedControl *advSegmentedControl;
-
 - (IBAction)advsegmentedControlTapped:(id)sender;
 
 @end
