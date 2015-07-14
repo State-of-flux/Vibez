@@ -20,6 +20,8 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bohr (2.1.0)
+  - CLLocationManager-blocks (1.3.2)
   - FontAwesomeKit (2.1.8):
     - FontAwesomeKit/Core (= 2.1.8)
     - FontAwesomeKit/FontAwesome (= 2.1.8)
@@ -71,6 +73,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Bohr
+  - CLLocationManager-blocks
   - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD
   - RDVTabBarController
@@ -81,6 +85,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  Bohr: 08c66d64e8f14c2bb759d81074ebea9a3ae0024d
+  CLLocationManager-blocks: 3b0af033092491fcd3cd24ffddfeb13f65e52144
   FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a

@@ -10,6 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "SQKFetchedCollectionViewController.h"
 
-@interface EventDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface EventDataSource : NSObject <UICollectionViewDataSource>
 
 @end

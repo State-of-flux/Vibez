@@ -59,13 +59,13 @@
     // Event Date
     self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
     self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
-    self.eventDateLabel.textColor = [UIColor pku_greyColor];
+    self.eventDateLabel.textColor = [UIColor whiteColor];
     self.eventDateLabel.text = @"14th July 2015";
     
     // Event Date
     self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2 + doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width /2 - 32, 25)];
     self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
-    self.eventDateEndLabel.textColor = [UIColor pku_greyColor];
+    self.eventDateEndLabel.textColor = [UIColor whiteColor];
     self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
     self.eventDateEndLabel.text = @"8:00pm to 3:00am";
     
@@ -73,7 +73,7 @@
     self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventDateLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
     self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
     self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-    self.eventDescriptionTextView.textColor = [UIColor whiteColor];
+    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
     self.eventDescriptionTextView.text = @"This is the ultimate Saturday night party, with all the best singalong hits from the early Noughties, 90s and 80s in the Foundry! Plus in Room 2 every week, the best that the 50s rock n roll, 60s pop & soul & 70s rock & disco had to offer!";
     self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
     self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;

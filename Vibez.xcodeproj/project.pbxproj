@@ -98,6 +98,8 @@
 		6CB4A44B1B3CD97900121975 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A44A1B3CD97900121975 /* Venue.m */; };
 		6CB4A44E1B3CD97900121975 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A44D1B3CD97900121975 /* Ticket.m */; };
 		6CB4A4511B3CD97900121975 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A4501B3CD97900121975 /* Order.m */; };
+		6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864241B55BE5100E2838A /* MoreTabViewController.m */; };
+		6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864271B55BEA400E2838A /* MoreContainerViewController.m */; };
 		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
 		6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E041ADED8B800CDBC29 /* Social.framework */; };
 		6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E061ADED8BD00CDBC29 /* Accounts.framework */; };
@@ -259,6 +261,11 @@
 		6CB4A44D1B3CD97900121975 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		6CB4A44F1B3CD97900121975 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		6CB4A4501B3CD97900121975 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6CB8641F1B52189C00E2838A /* SheffieldLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SheffieldLocation.gpx; sourceTree = "<group>"; };
+		6CB864231B55BE5100E2838A /* MoreTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabViewController.h; sourceTree = "<group>"; };
+		6CB864241B55BE5100E2838A /* MoreTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabViewController.m; sourceTree = "<group>"; };
+		6CB864261B55BEA400E2838A /* MoreContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreContainerViewController.h; sourceTree = "<group>"; };
+		6CB864271B55BEA400E2838A /* MoreContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreContainerViewController.m; sourceTree = "<group>"; };
 		6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vibez-Bridging-Header.h"; sourceTree = "<group>"; };
 		6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		6CD58E041ADED8B800CDBC29 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -718,6 +725,7 @@
 			children = (
 				6C066FE61B1CA960009EA34D /* WhatsOnViewController.h */,
 				6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */,
+				6CB8641F1B52189C00E2838A /* SheffieldLocation.gpx */,
 				6C90C66A1B38861E00C82735 /* FetchedCollectionViewContainerViewController.h */,
 				6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */,
 				6C37D2461AE085130078154E /* EventInfoViewController.h */,
@@ -746,6 +754,10 @@
 			children = (
 				6C066FBB1B1B9EB3009EA34D /* SettingsTabViewController.h */,
 				6C066FBC1B1B9EB3009EA34D /* SettingsTabViewController.m */,
+				6CB864231B55BE5100E2838A /* MoreTabViewController.h */,
+				6CB864241B55BE5100E2838A /* MoreTabViewController.m */,
+				6CB864261B55BEA400E2838A /* MoreContainerViewController.h */,
+				6CB864271B55BEA400E2838A /* MoreContainerViewController.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1012,8 +1024,10 @@
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
 				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
+				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
+				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

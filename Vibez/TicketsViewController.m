@@ -24,14 +24,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setNavBar:@"Tickets"];
     
     fetchVC = self.childViewControllers[0];
     
     user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setNavBar:@"Tickets"];
+    
 }
 
--(UIView*)setNavBar:(NSString*)titleText
+-(void)setNavBar:(NSString*)titleText
 {
     UILabel* titleLabel = [[UILabel alloc] init];
     [titleLabel setText:[titleText stringByAppendingString:@""]];
@@ -42,7 +43,7 @@
     [titleLabel sizeToFit];
     [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
     
-    return titleLabel;
+    self.navigationItem.titleView = titleLabel;
 }
 
 #pragma mark - Navigation

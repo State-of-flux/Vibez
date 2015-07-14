@@ -12,11 +12,6 @@
             <string>Montserrat-Bold</string>
             <string>Montserrat-Bold</string>
             <string>Montserrat-Bold</string>
-            <string>Montserrat-Bold</string>
-        </mutableArray>
-        <mutableArray key="Montserrat-Regular.otf">
-            <string>Montserrat-Regular</string>
-            <string>Montserrat-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -725,12 +720,100 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="G25-FO-8OV" kind="relationship" relationship="rootViewController" id="IXN-9v-TDZ"/>
+                        <segue destination="YbI-NJ-DM0" kind="relationship" relationship="rootViewController" id="N9I-dj-bGr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Bk-Ai-lNC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-396" y="4117"/>
+        </scene>
+        <!--More Tab View Controller-->
+        <scene sceneID="nhc-LY-gUO">
+            <objects>
+                <viewController id="YbI-NJ-DM0" customClass="MoreTabViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qP0-KS-TnC"/>
+                        <viewControllerLayoutGuide type="bottom" id="PqH-hQ-BfA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kj3-Mi-YEm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BHJ-eh-FDx">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <connections>
+                                    <segue destination="clN-xz-zmf" kind="embed" id="iZs-uo-ZDO"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="BHJ-eh-FDx" secondAttribute="trailing" constant="-16" id="Adu-SF-WJ1"/>
+                            <constraint firstItem="BHJ-eh-FDx" firstAttribute="leading" secondItem="kj3-Mi-YEm" secondAttribute="leadingMargin" constant="-16" id="C5L-Va-mYh"/>
+                            <constraint firstItem="BHJ-eh-FDx" firstAttribute="top" secondItem="qP0-KS-TnC" secondAttribute="bottom" id="Mm7-ql-DgF"/>
+                            <constraint firstItem="PqH-hQ-BfA" firstAttribute="top" secondItem="BHJ-eh-FDx" secondAttribute="bottom" id="ztr-pr-rRD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="s99-G6-OlT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Li-R3-KrH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="392" y="4117"/>
+        </scene>
+        <!--More Container View Controller-->
+        <scene sceneID="XtJ-Lp-IXX">
+            <objects>
+                <tableViewController id="clN-xz-zmf" customClass="MoreContainerViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nq0-t2-ggT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.13333333333333333" green="0.13725490196078433" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                        <sections>
+                            <tableViewSection id="dRR-Ns-s1n">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="lxM-B5-v5t" customClass="BOButtonTableViewCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lxM-B5-v5t" id="iQc-lR-WO3">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.1803921568627451" green="0.18431372549019609" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="mainColor">
+                                                <color key="value" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="secondaryColor">
+                                                <color key="value" red="0.58039215686274503" green="0.13333333333333333" blue="0.80392156862745101" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Xvh-dl-1Wt" customClass="BOChoiceTableViewCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xvh-dl-1Wt" id="13f-E6-WE5">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hPc-aj-aZj" customClass="BOSwitchTableViewCell">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hPc-aj-aZj" id="THN-sH-Ho9">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="clN-xz-zmf" id="dEH-ea-wTz"/>
+                            <outlet property="delegate" destination="clN-xz-zmf" id="i44-b0-bb4"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="HVi-ha-6T2"/>
+                    <navigationItem key="navigationItem" id="qSv-dG-UAf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TXT-MZ-07b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="392" y="4853.5"/>
         </scene>
         <!--Item-->
         <scene sceneID="BmG-VC-pQu">
@@ -769,26 +852,6 @@
             </objects>
             <point key="canvasLocation" x="392" y="2467"/>
         </scene>
-        <!--Settings-->
-        <scene sceneID="5ga-ry-xcO">
-            <objects>
-                <viewController id="G25-FO-8OV" userLabel="Settings" customClass="SettingsTabViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vY0-1f-jlr"/>
-                        <viewControllerLayoutGuide type="bottom" id="hCe-O6-OeI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tHx-yY-BwA">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="o4h-t1-25W" userLabel="Settings"/>
-                    <navigationItem key="navigationItem" id="hnv-jx-zJg"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cvu-LS-1k1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="372" y="4117"/>
-        </scene>
         <!--Tickets-->
         <scene sceneID="qeG-5m-XEL">
             <objects>
@@ -803,12 +866,13 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lwt-Ki-Zmv">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <segue destination="rXl-qd-u5o" kind="embed" id="oVx-cg-nlY"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerY" secondItem="Lwt-Ki-Zmv" secondAttribute="centerY" id="LwZ-cz-kre"/>
                             <constraint firstItem="Lwt-Ki-Zmv" firstAttribute="leading" secondItem="StY-tM-Mk2" secondAttribute="leadingMargin" constant="-16" id="UAn-dx-8n2"/>
@@ -825,94 +889,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Tickets" image="third_normal.png" id="NyB-rk-w0a" userLabel="Settings"/>
                     <navigationItem key="navigationItem" id="mxN-v1-KFd"/>
+                    <connections>
+                        <segue destination="9ky-lQ-xpy" kind="show" identifier="showTicketToDisplayTicketSegue" id="Zkv-Cg-BgO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jqn-6L-ocg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1136" y="4117"/>
-        </scene>
-        <!--Tickets Tab-->
-        <scene sceneID="FL1-nm-Xiv">
-            <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="P0T-YY-3J7" userLabel="Tickets Tab" customClass="TicketsTabViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PYr-Cz-R3Y"/>
-                        <viewControllerLayoutGuide type="bottom" id="eFQ-OQ-z3P"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FW3-cG-C7h">
-                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ygt-1B-qku">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="sectionIndexBackgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="TicketCell" id="R22-x5-TnD">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R22-x5-TnD" id="wMx-uh-DY8">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ticket Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDX-51-of4">
-                                                    <rect key="frame" x="68" y="8" width="508" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="first_normal.png" translatesAutoresizingMaskIntoConstraints="NO" id="Y7z-CN-lXh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ticket Venue" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wxl-QG-RP2">
-                                                    <rect key="frame" x="68" y="30" width="250" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ticket Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iQ-lg-2JQ">
-                                                    <rect key="frame" x="275" y="30" width="250" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <outlet property="ticketDateLabel" destination="1iQ-lg-2JQ" id="4f0-OC-xoO"/>
-                                            <outlet property="ticketImage" destination="Y7z-CN-lXh" id="XxO-9s-LXk"/>
-                                            <outlet property="ticketNameLabel" destination="DDX-51-of4" id="x0p-Qq-Om1"/>
-                                            <outlet property="ticketVenueLabel" destination="Wxl-QG-RP2" id="kT8-M1-Q1l"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="W5k-XV-eSa" id="lKl-Uh-0bJ"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="ygt-1B-qku" secondAttribute="centerX" id="LPh-bd-pjk"/>
-                            <constraint firstAttribute="centerY" secondItem="ygt-1B-qku" secondAttribute="centerY" constant="56.5" id="MrJ-Yf-dQF"/>
-                            <constraint firstItem="ygt-1B-qku" firstAttribute="top" secondItem="PYr-Cz-R3Y" secondAttribute="bottom" constant="-20" id="VVo-D7-NIm"/>
-                            <constraint firstItem="ygt-1B-qku" firstAttribute="leading" secondItem="FW3-cG-C7h" secondAttribute="leading" id="bkc-sj-cvG"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <tabBarItem key="tabBarItem" title="Tickets" image="third_normal.png" id="W7r-DA-LnY" userLabel="Tickets"/>
-                    <navigationItem key="navigationItem" id="A1x-Sj-c1g"/>
-                    <connections>
-                        <outlet property="tableView" destination="ygt-1B-qku" id="gsG-Md-gIE"/>
-                        <outlet property="ticketDataSource" destination="W5k-XV-eSa" id="ouB-pA-SeW"/>
-                        <segue destination="9ky-lQ-xpy" kind="show" identifier="showTicketToDisplayTicketSegue" id="eCU-2D-6aK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="v8B-g9-uux" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="W5k-XV-eSa" customClass="TicketDataSource"/>
-            </objects>
-            <point key="canvasLocation" x="384" y="3201"/>
+            <point key="canvasLocation" x="392" y="3213"/>
         </scene>
         <!--Display Ticket View Controller-->
         <scene sceneID="CEi-iK-IZ4">
@@ -925,12 +908,12 @@
                     <view key="view" contentMode="scaleToFill" id="SPN-1S-vnm">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gnd-xq-mHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1136" y="3201"/>
+            <point key="canvasLocation" x="1122" y="2814"/>
         </scene>
         <!--Item-->
         <scene sceneID="834-u7-zTE">
@@ -1133,13 +1116,13 @@
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="V7o-Ma-8X3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JBs-ob-Ecz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1867" y="3797.5"/>
+            <point key="canvasLocation" x="1129" y="3455.5"/>
         </scene>
     </scenes>
     <resources>

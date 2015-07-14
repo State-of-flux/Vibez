@@ -10,4 +10,9 @@
 
 @interface DisplayTicketViewController : UIViewController
 
+@property (strong, nonatomic) UILabel* eventNameLabel;
+@property (strong, nonatomic) UILabel* eventReferenceNumberLabel;
+@property (strong, nonatomic) UIImageView* qrImageView;
+
+
 @end

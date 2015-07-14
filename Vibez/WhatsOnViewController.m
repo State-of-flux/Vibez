@@ -9,11 +9,13 @@
 #import "WhatsOnViewController.h"
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIFont+PIK.h"
+#import <CLLocationManager-blocks/CLLocationManager+blocks.h>
 
 @interface WhatsOnViewController () 
 {
     PFUser* user;
     FetchedCollectionViewContainerViewController *fetchVC;
+    CLLocationManager *manager;
 }
 @end
 
@@ -28,10 +30,27 @@
     fetchVC = self.childViewControllers[0];
     
     user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setNavBar:@"Hunt for Vibes"];
+    [self setNavBar:@"Hunt for Vibes"];
+    
+    manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
+    [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {
+        NSLog(@"Our new location: %@", location);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //NSString *lat = location.coordinate.latitude;
+        //NSString *lon = ;
+        
+        [defaults setValue:@"blahblah" forKey:@"currentLocation"];
+        [defaults synchronize];
+
+        NSString *thelocation = [defaults valueForKey:@"currentLocation"];
+        NSLog(@"Our new location: %@", thelocation);
+
+    }];
+    
 }
 
--(UIView*)setNavBar:(NSString*)titleText
+-(void)setNavBar:(NSString*)titleText
 {
     UILabel* titleLabel = [[UILabel alloc] init];
     [titleLabel setText:[titleText stringByAppendingString:@""]];
@@ -42,7 +61,7 @@
     [titleLabel sizeToFit];
     [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
 
-    return titleLabel;
+    self.navigationItem.titleView = titleLabel;
 }
 
 - (void)didReceiveMemoryWarning {
