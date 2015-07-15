@@ -6,8 +6,17 @@
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "BOTableViewController.h"
+#import <Bohr/Bohr.h>
 
 @interface MoreContainerViewController : BOTableViewController
+
+@property (weak, nonatomic) IBOutlet BOTableViewCell *usernameCell;
+@property (weak, nonatomic) IBOutlet BOTableViewCell *emailAddressCell;
+@property (weak, nonatomic) IBOutlet BOTableViewCell *passwordCell;
+@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *friendsCell;
+@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *locationCell;
+@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *priceCell;
+@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *logoutCell;
+@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *linkToFacebookCell;
 
 @end
