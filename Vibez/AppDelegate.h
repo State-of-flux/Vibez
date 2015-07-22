@@ -17,7 +17,8 @@
 @property (nonatomic, readonly) int networkStatus;
 
 - (BOOL)isParseReachable;
--(void)logout;
+- (void)logout;
+- (void)linkParseAccountToFacebook;
 
 @end
 

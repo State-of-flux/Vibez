@@ -14,7 +14,7 @@
 #import "EventDataSource.h"
 #import "VenueDataSource.h"
 
-@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController
+@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource>
 
 @property BOOL isEventDataDisplayed;
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;

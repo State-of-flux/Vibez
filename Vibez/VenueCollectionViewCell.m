@@ -7,6 +7,7 @@
 //
 
 #import "VenueCollectionViewCell.h"
+#import "UIFont+PIK.h"
 
 @implementation VenueCollectionViewCell
 
@@ -30,13 +31,13 @@
         
         self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2 - 30.0f, self.frame.size.width - 5, 25)];
         [self.venueNameLabel setTextAlignment:NSTextAlignmentCenter];
-        self.venueNameLabel.font = [UIFont fontWithName:@"Futura-Medium" size:20];
+        self.venueNameLabel.font = [UIFont pik_montserratBoldWithSize:20.0f];
         self.venueNameLabel.textColor = [UIColor whiteColor];
         
         
         self.venueLocationLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2, self.frame.size.width - 5, 25)];
         [self.venueLocationLabel setTextAlignment:NSTextAlignmentCenter];
-        self.venueLocationLabel.font = [UIFont fontWithName:@"Futura-Medium" size:14];
+        self.venueLocationLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
         self.venueLocationLabel.textColor = [UIColor whiteColor];
         
         self.venueImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];

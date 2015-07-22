@@ -19,4 +19,6 @@
 @property (weak, nonatomic) IBOutlet ADVSegmentedControl *advSegmentedControl;
 - (IBAction)advsegmentedControlTapped:(id)sender;
 
+@property (nonatomic, strong) UIViewController *currentVC;
+
 @end

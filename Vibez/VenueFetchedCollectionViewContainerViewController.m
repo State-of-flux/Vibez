@@ -1,20 +1,21 @@
 //
-//  VenuesCollectionViewController.m
+//  VenueFetchedCollectionViewContainerViewController.m
 //  Vibez
 //
-//  Created by Harry Liddell on 22/06/2015.
+//  Created by Harry Liddell on 21/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import "FetchedCollectionViewContainerViewController.h"
+#import "VenueFetchedCollectionViewContainerViewController.h"
+#import "VenueCollectionViewCell.h"
 #import "UIColor+Piktu.h"
-#import "NSString+PIK.h"
+#import "UIFont+PIK.h"
 
-@interface FetchedCollectionViewContainerViewController ()
+@interface VenueFetchedCollectionViewContainerViewController ()
 
 @end
 
-@implementation FetchedCollectionViewContainerViewController
+@implementation VenueFetchedCollectionViewContainerViewController
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
@@ -24,6 +25,8 @@
     
     if (self)
     {
+        
+        
         self.view.backgroundColor = [UIColor pku_blackColor];
     }
     
@@ -34,14 +37,18 @@
 {
     [super viewDidLoad];
     
-    static NSString *eventCellIdentifier = @"eventCell";
-    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:eventCellIdentifier];
+    CGRect otherFrame = [[self.parentViewController.childViewControllers[0] view] frame];
+    [self.view setFrame:CGRectMake(CGRectGetMaxX(otherFrame), 0, otherFrame.size.width, otherFrame.size.height)];
+
+    
+    static NSString *venueCellIdentifier = @"venueCell";
+    
+    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
     //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
     
-    self.isEventDataDisplayed = YES;
     self.showsSectionsWhenSearching = NO;
     
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -56,13 +63,13 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
-    {
+    [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects)
+     {
          NSError *error;
          
          NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Event importEvents:objects intoContext:newPrivateContext];
-         [Event deleteInvalidEventsInContext:newPrivateContext];
+         [Venue importVenues:objects intoContext:newPrivateContext];
+         [Venue deleteInvalidVenuesInContext:newPrivateContext];
          [newPrivateContext save:&error];
          
          [weakSelf.refreshControl endRefreshing];
@@ -86,20 +93,20 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
 
-    [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+    [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
+
+
 
 #pragma mark - Fetched Request
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
-    NSFetchRequest *request = [Event sqk_fetchRequest];
+    NSFetchRequest *request = [Venue sqk_fetchRequest];
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     request.fetchBatchSize = 10;
-    
     NSPredicate *filterPredicate = nil;
-    
     if (searchString.length)
     {
         filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
@@ -123,55 +130,43 @@
                        atIndexPath:indexPath];
 }
 
--(void)SwapCellsToEventData
-{
-    self.isEventDataDisplayed = true;
-    //[self.collectionView setDataSource:self.eventDataSource];
-    //[self.collectionView reloadData];
-}
-
--(void)SwapCellsToVenueData
-{
-    self.isEventDataDisplayed = false;
-    //[self.collectionView setDataSource:self.venueDataSource];
-    //[self.collectionView reloadData];
-}
-
 #pragma mark - UICollectionView Delegates
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+    VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
     
-    NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
     
-    Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
+        venueCell.venueNameLabel.text = [venue.name capitalizedString];
+        venueCell.venueLocationLabel.text = venue.location;
     
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-    
-    [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
-    
-    eventCell.eventNameLabel.text = event.name;
-    eventCell.eventDateLabel.text = dateFormatString;
-    
-    return eventCell;
+    return venueCell;
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (!self.view.clipsToBounds && !self.view.hidden && self.view.alpha > 0) {
-        for (UIView *subview in self.view.subviews.reverseObjectEnumerator) {
-            CGPoint subPoint = [subview convertPoint:point fromView:self.view];
-            UIView *result = [subview hitTest:subPoint withEvent:event];
-            if (result != nil) {
-                return result;
-            }
-        }
+    return [[[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil] count];
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSString *)daySuffixForDate:(NSDate *)date {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger dayOfMonth = [calendar component:NSCalendarUnitDay fromDate:date];
+    switch (dayOfMonth) {
+        case 1:
+        case 21:
+        case 31: return @"st";
+        case 2:
+        case 22: return @"nd";
+        case 3:
+        case 23: return @"rd";
+        default: return @"th";
     }
-    
-    return nil;
 }
 
 #pragma mark - Collection View Flow Layout

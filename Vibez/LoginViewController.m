@@ -90,9 +90,10 @@
      {
          if(user)
          {
-             //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
-             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             [defaults setObject:user.username forKey:@"username"];
+             [defaults setObject:user.username forKey:@"emailAddress"];
+             
              
              [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects) {
                  NSError *error;
@@ -110,8 +111,6 @@
              {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }];
-             
-             
              
              [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
              {
@@ -131,6 +130,9 @@
                   NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }];
              
+             //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
+             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
          }
          else
          {

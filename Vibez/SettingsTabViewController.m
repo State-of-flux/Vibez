@@ -20,38 +20,15 @@
     // Do any additional setup after loading the view.
     
     //[self setupSwipeGestures];
-    [self setTopBarButtons];
+    [self setTopBarButtons:@"Settings"];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     [appDelegate logout];
 }
 
--(void)setTopBarButtons
+-(void)setTopBarButtons:(NSString *)titleText
 {
-    //UIBarButtonItem *searchBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
-    
-    //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
-    
-    //UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
-    //NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
-    //[settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
-    
-    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
-    
-    //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
-    //self.navigationItem.rightBarButtonItem = searchBarButtonItem;
-    
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:@"Settings"];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    
-    self.navigationItem.titleView = titleLabel;
-    
+    self.navigationItem.title = titleText;
     [self.navigationItem setHidesBackButton:YES];
 }
 

@@ -10,11 +10,14 @@
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIFont+PIK.h"
 #import <CLLocationManager-blocks/CLLocationManager+blocks.h>
+#import "SQKFetchedCollectionViewController.h"
+#import "VenueFetchedCollectionViewContainerViewController.h"
 
 @interface WhatsOnViewController () 
 {
     PFUser* user;
-    FetchedCollectionViewContainerViewController *fetchVC;
+    FetchedCollectionViewContainerViewController *eventVC;
+    VenueFetchedCollectionViewContainerViewController *venueVC;
     CLLocationManager *manager;
 }
 @end
@@ -26,19 +29,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    fetchVC = self.childViewControllers[0];
+
+    eventVC = self.childViewControllers.lastObject;
+    venueVC = self.childViewControllers[0];
+    self.currentVC = eventVC;
     
     user = [PFUser currentUser];
-    [self setNavBar:@"Hunt for Vibes"];
+    self.navigationItem.title = @"Hunt for Vibes";
     
     manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
     [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {
         NSLog(@"Our new location: %@", location);
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        //NSString *lat = location.coordinate.latitude;
-        //NSString *lon = ;
         
         [defaults setValue:@"blahblah" forKey:@"currentLocation"];
         [defaults synchronize];
@@ -47,21 +50,21 @@
         NSLog(@"Our new location: %@", thelocation);
 
     }];
-    
 }
 
--(void)setNavBar:(NSString*)titleText
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@""]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-
-    self.navigationItem.titleView = titleLabel;
+    if (!self.view.clipsToBounds && !self.view.hidden && self.view.alpha > 0) {
+        for (UIView *subview in self.view.subviews.reverseObjectEnumerator) {
+            CGPoint subPoint = [subview convertPoint:point fromView:self.view];
+            UIView *result = [subview hitTest:subPoint withEvent:event];
+            if (result != nil) {
+                return result;
+            }
+        }
+    }
+    
+    return nil;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,14 +84,36 @@
 
 - (IBAction)advsegmentedControlTapped:(id)sender
 {
-    if([sender selectedIndex] == 0)
-    {
-        [fetchVC SwapCellsToEventData];
+    switch ([sender selectedIndex]) {
+        case 0:
+            if (self.currentVC == venueVC) {
+                [self addChildViewController:eventVC];
+                //eventVC.view.frame = self.container.bounds;
+                [self moveToNewController:eventVC];
+            }
+            break;
+        case 1:
+            if (self.currentVC == eventVC) {
+                [self addChildViewController:venueVC];
+                //venueVC.view.frame = self.container.bounds;
+                [self moveToNewController:venueVC];
+            }
+            break;
+        default:
+            break;
     }
-    else if ([sender selectedIndex] == 1)
-    {
-        [fetchVC SwapCellsToVenueData];
-    }
+}
+
+#pragma mark - Animate Container Views
+
+-(void)moveToNewController:(UIViewController *) newController {
+    [self.currentVC willMoveToParentViewController:nil];
+    [self transitionFromViewController:self.currentVC toViewController:newController duration:.6 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
+                            completion:^(BOOL finished) {
+                                [self.currentVC removeFromParentViewController];
+                                [newController didMoveToParentViewController:self];
+                                self.currentVC = newController;
+                            }];
 }
 
 #pragma mark - Navigation
@@ -108,10 +133,5 @@
     
     }
 }
-
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 
 @end

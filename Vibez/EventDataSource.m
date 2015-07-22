@@ -13,6 +13,7 @@
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
 #import "NSString+PIK.h"
+#import "SQKFetchedCollectionViewController.h"
 
 @implementation EventDataSource
 
@@ -20,8 +21,8 @@
 {
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     
-    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
-
+//    NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+//
 //    Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
 //    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
 //    [dateFormatter setDateFormat:@"EEE dd MMM"];

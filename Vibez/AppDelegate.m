@@ -15,6 +15,7 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
+#import <Stripe/Stripe.h>
 
 @interface AppDelegate ()
 {
@@ -23,13 +24,14 @@
 }
 @end
 
-@implementation AppDelegate
+NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 
+@implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupParse:launchOptions];
-    //[self setupContextManager];
+    [Stripe setDefaultPublishableKey:StripePublishableKey];
     [self setupAppearance];
     [self monitorReachability];
     
@@ -88,7 +90,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     [FBSDKAppEvents activateApp];
+    [FBSDKAppEvents activateApp];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -102,6 +104,8 @@
 - (void)logout
 {
     // clear NSUserDefaults
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     // Unsubscribe from push notifications by removing the user association from the current installation.
@@ -116,10 +120,27 @@
     // clear out cached data, view controllers, etc
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     //[navController popToRootViewControllerAnimated:YES];
-
+    
     loginViewController = nil;
     
     [self presentLoginView];
+}
+
+-(void)linkParseAccountToFacebook
+{
+    PFUser* user = [PFUser currentUser];
+    
+    if (![PFFacebookUtils isLinkedWithUser:user]) {
+        [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"Woohoo, user is linked with Facebook!");
+            }
+            else if(!succeeded && error)
+            {
+                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
+            }
+        }];
+    }
 }
 
 - (void)monitorReachability {
@@ -143,42 +164,29 @@
     [hostReach startNotifier];
 }
 
-- (void)setupAppearance
-{
-    NSShadow *shadow = [[NSShadow alloc] init];
-    shadow.shadowOffset = CGSizeMake(0.0, 0.0);
-    shadow.shadowColor = [UIColor whiteColor];
-    
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor whiteColor],
-       NSShadowAttributeName:shadow,
-       NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]
-       }
-     forState:UIControlStateNormal];
-    
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    [self.window setBackgroundColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    [[UINavigationBar appearance] setTranslucent:NO];
-    //[[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:1.0f]];
-    
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
-    
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    [[UINavigationBar appearance] setClipsToBounds:YES];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
-//- (void)setupContextManager
-//{
-//    if (!self.contextManager) {
-//        NSManagedObjectModel *model = [NSManagedObjectModel mergedModelFromBundles:nil];
-//        self.contextManager = [[SQKContextManager alloc] initWithStoreType:NSSQLiteStoreType
-//                                                        managedObjectModel:model
-//                                            orderedManagedObjectModelNames:@[ @"Vibez" ]
-//                                                                  storeURL:nil];
-//    }
-//}
+- (void)setupAppearance
+{
+    // BAR BUTTON
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]
+                              }
+     forState:UIControlStateNormal];
+    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
+    
+    // NAVIGATION BAR
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]}];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
+    //[[UINavigationBar appearance] setClipsToBounds:YES];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
+    // TAB BAR
+    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:184.0f/255.0f green:42.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
+    [UITabBarItem.appearance setTitleTextAttributes: @{NSFontAttributeName : [UIFont pik_montserratRegWithSize:10.0f]} forState:UIControlStateNormal];
+}
 
 @end

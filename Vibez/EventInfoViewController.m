@@ -10,6 +10,7 @@
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
 #import "RKDropdownAlert.h"
+#import "PaymentViewController.h"
 
 @interface EventInfoViewController ()
 
@@ -19,13 +20,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBarButtons:@"Vibesy Information"];
+    [self setTopBarButtons:@"Buy"];
     [self layoutSubviews];
 }
 
 -(void)layoutSubviews
 {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-200)];
     [self.view addSubview:self.scrollView];
     
     // Image
@@ -35,10 +36,10 @@
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/4)];
     darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
    
-//    self.eventImageView.contentMode = UIViewContentModeCenter;
-//    if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
-//        self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
-//    }
+    //self.eventImageView.contentMode = UIViewContentModeCenter;
+    //if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
+        //self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
+    //}
     
     CGFloat padding = 8;
     CGFloat doublePadding = 16;
@@ -103,34 +104,16 @@
 {
     UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkEventAction)];
     
-    // UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
-    
-    //UIFont *customFont = [UIFont fontWithName:@"Futura-Medium" size:24.0];
-    //NSDictionary *fontDictionary = @{NSFontAttributeName : customFont};
-    //[settingsBarButtonItem setTitleTextAttributes:fontDictionary forState:UIControlStateNormal];
-    
-    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
-    
-    //self.navigationItem.leftBarButtonItem = settingsBarButtonItem;
+    //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
+
     self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
-    
-    
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:titleText];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    
-    self.navigationItem.titleView = titleLabel;
-    
-    // [self.advSegmentedControl setFont:[UIFont fontWithName:@"Futura-Medium" size:14.0f]];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationItem.title = titleText;
     [self.navigationItem setHidesBackButton:NO];
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
+    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
+    [self presentViewController:paymentVC animated:NO completion:nil];
 }
+
 @end

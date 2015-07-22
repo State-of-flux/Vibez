@@ -29,21 +29,11 @@
     fetchVC = self.childViewControllers[0];
     
     user = [PFUser currentUser];
-    
 }
 
 -(void)setNavBar:(NSString*)titleText
 {
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@""]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    
-    self.navigationItem.titleView = titleLabel;
+    self.navigationItem.title = titleText;
 }
 
 #pragma mark - Navigation

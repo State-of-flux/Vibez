@@ -7,6 +7,7 @@
 //
 
 #import "EventCollectionViewCell.h"
+#import "UIFont+PIK.h"
 
 @implementation EventCollectionViewCell
 
@@ -32,12 +33,12 @@
         
         self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2 - 30.0f, self.frame.size.width - 5, 25)];
         [self.eventNameLabel setTextAlignment:NSTextAlignmentCenter];
-        self.eventNameLabel.font = [UIFont fontWithName:@"Futura-Medium" size:20.0f];
+        self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:20.0f];
         self.eventNameLabel.textColor = [UIColor whiteColor];
         
         self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2, self.frame.size.width - 5, 25)];
         [self.eventDateLabel setTextAlignment:NSTextAlignmentCenter];
-        self.eventDateLabel.font = [UIFont fontWithName:@"Futura-Medium" size:12.0f];
+        self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
         self.eventDateLabel.textColor = [UIColor whiteColor];
     
         self.eventImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];

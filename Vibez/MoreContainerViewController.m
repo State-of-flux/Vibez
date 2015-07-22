@@ -17,15 +17,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [self.logoutCell setTarget:self action:@selector(logout)];
-    
+    [self.linkToFacebookCell setTarget:self action:@selector(linkToFacebook)];
+
 }
 
 - (void)logout {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
     [appDelegate logout];
+}
+
+- (void)linkToFacebook {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication]delegate];
+    [appDelegate linkParseAccountToFacebook];
 }
 
 @end
