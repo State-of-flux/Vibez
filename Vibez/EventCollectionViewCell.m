@@ -41,11 +41,11 @@
         self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
         self.eventDateLabel.textColor = [UIColor whiteColor];
     
-        self.eventImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-        self.backgroundView = self.eventImage;
+        self.eventImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         
         UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+        [self.contentView addSubview:self.eventImage];
         [self.contentView addSubview:darkOverlay];
         [self.contentView addSubview:self.eventNameLabel];
         [self.contentView addSubview:self.eventDateLabel];

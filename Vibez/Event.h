@@ -2,7 +2,7 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 26/06/2015.
+//  Created by Harry Liddell on 23/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -17,11 +17,11 @@
 @property (nonatomic, retain) NSString * eventDescription;
 @property (nonatomic, retain) NSString * eventID;
 @property (nonatomic, retain) NSString * eventVenue;
-@property (nonatomic, retain) NSData * image;
+@property (nonatomic, retain) NSNumber * hasBeenUpdated;
+@property (nonatomic, retain) NSString * image;
 @property (nonatomic, retain) NSDate * lastEntry;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSNumber * hasBeenUpdated;
 @property (nonatomic, retain) NSSet *venues;
 @end
 

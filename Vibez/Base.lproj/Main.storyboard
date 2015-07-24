@@ -1208,7 +1208,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqd-3b-eK5" customClass="ADVSegmentedControl" customModule="Vibez" customModuleProvider="target">
                                         <rect key="frame" x="30" y="0.0" width="540" height="44"/>
-                                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="zZH-72-2UG"/>
                                         </constraints>
@@ -1244,7 +1244,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.18039215689999999" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Isg-Fp-oKm" firstAttribute="top" secondItem="V8e-fS-F2C" secondAttribute="bottom" id="09P-dF-9PA"/>
                             <constraint firstItem="Pjd-KN-KSf" firstAttribute="leading" secondItem="gug-BR-Eba" secondAttribute="leadingMargin" constant="-16" id="AN2-5k-EP5"/>
@@ -1305,6 +1305,7 @@
                     <navigationItem key="navigationItem" id="pWI-cU-8Vz"/>
                     <connections>
                         <outlet property="advSegmentedControl" destination="bqd-3b-eK5" id="Ef7-mC-Pf2"/>
+                        <outlet property="viewSegmentedControl" destination="V8e-fS-F2C" id="gb2-uF-zIF"/>
                         <segue destination="vEC-Gg-kRV" kind="show" identifier="eventToEventInfoSegue" id="RJh-2W-Riw"/>
                         <segue destination="CHJ-L9-Zt1" kind="show" identifier="venueToVenueInfoSegue" id="OgT-N1-DJR"/>
                     </connections>
@@ -1321,10 +1322,6 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MS1-bn-9vv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.72156862749999995" green="0.1647058824" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="selectedImageTintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="ajO-nK-hgl" kind="relationship" relationship="viewControllers" id="a2w-Xn-Q71"/>

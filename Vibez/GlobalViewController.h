@@ -10,6 +10,5 @@
 #import <Parse/Parse.h>
 #import <FontAwesomeKit/FontAwesomeKit.h>
 
-@interface GlobalViewController : UIViewController <UINavigationBarDelegate, UINavigationControllerDelegate>
-
+@interface GlobalViewController : UIViewController 
 @end

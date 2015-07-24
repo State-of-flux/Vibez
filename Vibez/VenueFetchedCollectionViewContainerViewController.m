@@ -10,8 +10,9 @@
 #import "VenueCollectionViewCell.h"
 #import "UIColor+Piktu.h"
 #import "UIFont+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
-@interface VenueFetchedCollectionViewContainerViewController ()
+@interface VenueFetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
 
 @end
 
@@ -25,9 +26,14 @@
     
     if (self)
     {
-        
-        
         self.view.backgroundColor = [UIColor pku_blackColor];
+        NSFetchRequest *request = [Venue sqk_fetchRequest];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
+        //request.fetchBatchSize = 25;
+        
+        self.controller =
+        [[SQKManagedObjectController alloc] initWithFetchRequest:request
+                                            managedObjectContext:[PIKContextManager mainContext]];
     }
     
     return self;
@@ -39,7 +45,7 @@
     
     CGRect otherFrame = [[self.parentViewController.childViewControllers[0] view] frame];
     [self.view setFrame:CGRectMake(CGRectGetMaxX(otherFrame), 0, otherFrame.size.width, otherFrame.size.height)];
-
+    
     
     static NSString *venueCellIdentifier = @"venueCell";
     
@@ -50,6 +56,8 @@
     //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
     
     self.showsSectionsWhenSearching = NO;
+    self.controller.delegate = self;
+    [self.controller performFetch:nil];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
@@ -92,7 +100,7 @@
     //venue.venueDescription = @"Updated";
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
-
+    
     [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
 
@@ -136,17 +144,37 @@
 {
     VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
     
-        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    Venue *venue = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
-        venueCell.venueNameLabel.text = [venue.name capitalizedString];
-        venueCell.venueLocationLabel.text = venue.location;
+    venueCell.venueNameLabel.text = [venue.name capitalizedString];
+    venueCell.venueLocationLabel.text = venue.location;
+    
+//    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:venue.image]];
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
+//     {
+//         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//         if (data) {
+//             venueCell.venueImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
+//             venueCell.backgroundView = venueCell.venueImage;
+//         }
+//     }];
+    
+    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
+                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         venueCell.backgroundView = [[UIImageView alloc] initWithImage:image];
+     }];
     
     return venueCell;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [[[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil] count];
+    return [self.controller.managedObjects count];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

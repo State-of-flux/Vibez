@@ -20,7 +20,6 @@
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
 @property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
 
--(void)SwapCellsToEventData;
--(void)SwapCellsToVenueData;
+@property (nonatomic, strong) SQKManagedObjectController *controller;
 
 @end

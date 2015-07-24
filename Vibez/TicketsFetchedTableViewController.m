@@ -9,6 +9,7 @@
 #import "TicketsFetchedTableViewController.h"
 #import "NSString+PIK.h"
 #import "UIFont+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface TicketsFetchedTableViewController () <SQKManagedObjectControllerDelegate>
 {
@@ -91,7 +92,10 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          [weakSelf.refreshControl endRefreshing];
-     }];}
+     }];
+    
+    //[self.tableView reloadData];
+}
 
 
 
@@ -105,6 +109,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
     TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class]) forIndexPath:theIndexPath];
+    
+    if (cell == nil) {
+        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
+    }
     
     [self configureCell:cell atIndexPath:theIndexPath];
     
@@ -176,7 +184,40 @@
     
     cell.ticketNameLabel.text = event.name;
     cell.ticketDateLabel.text = dateFormatString;
-    cell.ticketVenueLabel.text = event.name;
+    
+    //cell.ticketImage.image = [UIImage imageNamed:@"plug.jpg"];
+    // or cell.poster.image = [UIImage imageNamed:@"placeholder.png"];
+    
+    
+    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
+                      placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
+    
+//    if(cell.ticketImage.image == nil)
+//    {
+//        NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:event.image]];
+//        [NSURLConnection sendAsynchronousRequest:request
+//                                           queue:[NSOperationQueue mainQueue]
+//                               completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
+//         {
+//             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//             if (data) {
+//                 
+//                 dispatch_async(dispatch_get_main_queue(), ^{
+//                     cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
+//                 });
+//                 
+//                 
+//                 //cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
+//             }
+//         }];
+//    }
 }
+
+
 
 @end

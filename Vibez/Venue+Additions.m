@@ -31,20 +31,8 @@
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, Venue *managedObject) {
                   
-//                  PFFile* imageFile = dictionary[@"venueImage"];
-//                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
-//                  {
-//                      if(!error)
-//                      {
-//                          managedObject.image = result;
-//                          NSLog(@"completed image data");
-//                      }
-//                      else
-//                      {
-//                          NSLog(@"error : %@", error.localizedDescription);
-//                      }
-//                  }];
-                  
+                  PFFile* imageFile = dictionary[@"venueImage"];
+                  managedObject.image = imageFile.url;
                   managedObject.venueID = dictionary[@"objectId"];
                   managedObject.venueDescription = dictionary[@"venueDescription"];
                   managedObject.name = dictionary[@"venueName"];

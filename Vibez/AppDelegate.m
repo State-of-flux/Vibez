@@ -15,6 +15,7 @@
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
+#import "UIColor+Piktu.h"
 #import <Stripe/Stripe.h>
 
 @interface AppDelegate ()
@@ -170,23 +171,21 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 
 - (void)setupAppearance
 {
-    // BAR BUTTON
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]
-                              }
-     forState:UIControlStateNormal];
-    [[UIBarButtonItem appearance] setTintColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    
-    // NAVIGATION BAR
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]}];
-    [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
-    //[[UINavigationBar appearance] setClipsToBounds:YES];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTranslucent:NO];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]}];
+    //[[UINavigationBar appearance] setClipsToBounds:YES];
     
-    // TAB BAR
-    [[UITabBar appearance] setTintColor:[UIColor colorWithRed:184.0f/255.0f green:42.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-    [UITabBarItem.appearance setTitleTextAttributes: @{NSFontAttributeName : [UIFont pik_montserratRegWithSize:10.0f]} forState:UIControlStateNormal];
+    [[UITabBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
+    [[UITabBar appearance] setTintColor:[UIColor pku_purpleColor]];
+    [[UITabBar appearance] setTranslucent:NO];
+    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:12.0f]} forState:UIControlStateNormal];
+    
+    // BAR BUTTON
+    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
 }
 
 @end

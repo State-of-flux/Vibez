@@ -6,7 +6,7 @@
         <attribute name="eventID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventVenue" attributeType="String" syncable="YES"/>
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="lastEntry" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="startDate" attributeType="Date" syncable="YES"/>
@@ -31,7 +31,7 @@
     </entity>
     <entity name="Venue" representedClassName="Venue" syncable="YES">
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="image" optional="YES" attributeType="String" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venueDescription" optional="YES" attributeType="String" syncable="YES"/>

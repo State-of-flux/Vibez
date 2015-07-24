@@ -12,4 +12,6 @@
 
 @interface VenueFetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource>
 
+@property (nonatomic, strong) SQKManagedObjectController *controller;
+
 @end

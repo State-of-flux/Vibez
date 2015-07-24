@@ -31,20 +31,8 @@
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, Event *managedObject) {
                   
-                  //                  PFFile* imageFile = dictionary[@"venueImage"];
-                  //                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
-                  //                  {
-                  //                      if(!error)
-                  //                      {
-                  //                          managedObject.image = result;
-                  //                          NSLog(@"completed image data");
-                  //                      }
-                  //                      else
-                  //                      {
-                  //                          NSLog(@"error : %@", error.localizedDescription);
-                  //                      }
-                  //                  }];
-                  
+                  PFFile* imageFile = dictionary[@"eventImage"];
+                  managedObject.image = imageFile.url;
                   managedObject.eventID = dictionary[@"objectId"];
                   managedObject.name = dictionary[@"eventName"];
                   managedObject.eventDescription = dictionary[@"eventDescription"];
@@ -53,7 +41,6 @@
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
                   managedObject.hasBeenUpdated = @YES;
-                  
               }
                    privateContext:context
                             error:&error];

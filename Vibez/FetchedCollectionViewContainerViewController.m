@@ -9,8 +9,9 @@
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIColor+Piktu.h"
 #import "NSString+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
-@interface FetchedCollectionViewContainerViewController ()
+@interface FetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
 
 @end
 
@@ -25,6 +26,14 @@
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        
+        NSFetchRequest *request = [Event sqk_fetchRequest];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
+        //request.fetchBatchSize = 25;
+        
+        self.controller =
+        [[SQKManagedObjectController alloc] initWithFetchRequest:request
+                                            managedObjectContext:[PIKContextManager mainContext]];
     }
     
     return self;
@@ -40,9 +49,11 @@
     [self.collectionView setDataSource:self];
     
     //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
+
+    //self.showsSectionsWhenSearching = NO;
     
-    self.isEventDataDisplayed = YES;
-    self.showsSectionsWhenSearching = NO;
+    self.controller.delegate = self;
+    [self.controller performFetch:nil];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
@@ -93,11 +104,12 @@
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
-    NSFetchRequest *request = [Event sqk_fetchRequest];
+    NSFetchRequest *request;
+    
+    request = [Event sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     request.fetchBatchSize = 10;
-    
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
@@ -123,29 +135,15 @@
                        atIndexPath:indexPath];
 }
 
--(void)SwapCellsToEventData
-{
-    self.isEventDataDisplayed = true;
-    //[self.collectionView setDataSource:self.eventDataSource];
-    //[self.collectionView reloadData];
-}
-
--(void)SwapCellsToVenueData
-{
-    self.isEventDataDisplayed = false;
-    //[self.collectionView setDataSource:self.venueDataSource];
-    //[self.collectionView reloadData];
-}
-
 #pragma mark - UICollectionView Delegates
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
     
-    NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
     
-    Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
+    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
     
@@ -156,22 +154,20 @@
     eventCell.eventNameLabel.text = event.name;
     eventCell.eventDateLabel.text = dateFormatString;
     
+    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    [eventCell.eventImage sd_setImageWithURL:[NSURL URLWithString:event.image]
+                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         eventCell.backgroundView = [[UIImageView alloc] initWithImage:image];
+     }];
+    
     return eventCell;
 }
 
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if (!self.view.clipsToBounds && !self.view.hidden && self.view.alpha > 0) {
-        for (UIView *subview in self.view.subviews.reverseObjectEnumerator) {
-            CGPoint subPoint = [subview convertPoint:point fromView:self.view];
-            UIView *result = [subview hitTest:subPoint withEvent:event];
-            if (result != nil) {
-                return result;
-            }
-        }
-    }
-    
-    return nil;
+    return [self.controller.managedObjects count];
 }
 
 #pragma mark - Collection View Flow Layout

@@ -41,6 +41,9 @@ PODS:
   - PaymentKit (1.1.1)
   - RDVTabBarController (1.1.9)
   - Reachability (3.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SQKDataKit (0.6.0):
     - SQKDataKit/ContextManager (= 0.6.0)
     - SQKDataKit/Core (= 0.6.0)
@@ -81,6 +84,7 @@ DEPENDENCIES:
   - PaymentKit
   - RDVTabBarController
   - Reachability
+  - SDWebImage (~> 3.7)
   - SQKDataKit
   - Stripe
   - VCTransitionsLibrary
@@ -94,6 +98,7 @@ SPEC CHECKSUMS:
   PaymentKit: 323c25233af5060880daa0c31366d4b688c34487
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SQKDataKit: 529742619985d0902d6e361b3088bce0991a8684
   Stripe: 43a4307dc789483a61668d187c4a917d1348b0b6
   VCTransitionsLibrary: d61fd9b7b6721942f0d583bcc0e7f8c31ec9271b

@@ -12,8 +12,9 @@
 #import <CLLocationManager-blocks/CLLocationManager+blocks.h>
 #import "SQKFetchedCollectionViewController.h"
 #import "VenueFetchedCollectionViewContainerViewController.h"
+#import "UIColor+Piktu.h"
 
-@interface WhatsOnViewController () 
+@interface WhatsOnViewController ()
 {
     PFUser* user;
     FetchedCollectionViewContainerViewController *eventVC;
@@ -29,7 +30,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    self.viewSegmentedControl.clipsToBounds = YES;
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderColor = [UIColor pku_blackColor].CGColor;
+    bottomBorder.borderWidth = 1;
+    bottomBorder.frame = CGRectMake(-1, -1, CGRectGetWidth(self.viewSegmentedControl.frame), CGRectGetHeight(self.viewSegmentedControl.frame)+1);
+    
+    [self.viewSegmentedControl.layer addSublayer:bottomBorder];
+    
     eventVC = self.childViewControllers.lastObject;
     venueVC = self.childViewControllers[0];
     self.currentVC = eventVC;
@@ -45,10 +55,10 @@
         
         [defaults setValue:@"blahblah" forKey:@"currentLocation"];
         [defaults synchronize];
-
+        
         NSString *thelocation = [defaults valueForKey:@"currentLocation"];
         NSLog(@"Our new location: %@", thelocation);
-
+        
     }];
 }
 
@@ -67,11 +77,6 @@
     return nil;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    NSLog(@"Memory Warning Received.");
-}
-
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat width = collectionView.frame.size.width/2;
@@ -84,6 +89,7 @@
 
 - (IBAction)advsegmentedControlTapped:(id)sender
 {
+    
     switch ([sender selectedIndex]) {
         case 0:
             if (self.currentVC == venueVC) {
@@ -102,13 +108,14 @@
         default:
             break;
     }
+    
 }
 
 #pragma mark - Animate Container Views
 
 -(void)moveToNewController:(UIViewController *) newController {
     [self.currentVC willMoveToParentViewController:nil];
-    [self transitionFromViewController:self.currentVC toViewController:newController duration:.6 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
+    [self transitionFromViewController:self.currentVC toViewController:newController duration:.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
                             completion:^(BOOL finished) {
                                 [self.currentVC removeFromParentViewController];
                                 [newController didMoveToParentViewController:self];
@@ -126,11 +133,11 @@
     }
     else if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
-    
+        
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
-    
+        
     }
 }
 
