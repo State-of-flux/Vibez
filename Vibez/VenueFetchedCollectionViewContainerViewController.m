@@ -101,6 +101,11 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
+    VenueCollectionViewCell *eventCell = (VenueCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    self.imageSelected = [[UIImage alloc] init];
+    [self setImageSelected:eventCell.venueImage.image];
+    
     [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
 
@@ -149,24 +154,11 @@
     venueCell.venueNameLabel.text = [venue.name capitalizedString];
     venueCell.venueLocationLabel.text = venue.location;
     
-//    NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:venue.image]];
-//    [NSURLConnection sendAsynchronousRequest:request
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
-//     {
-//         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//         if (data) {
-//             venueCell.venueImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
-//             venueCell.backgroundView = venueCell.venueImage;
-//         }
-//     }];
-    
-    // Here we use the new provided sd_setImageWithURL: method to load the web image
     [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
                             placeholderImage:[UIImage imageNamed:@"plug.jpg"]
                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
-         venueCell.backgroundView = [[UIImageView alloc] initWithImage:image];
+         self.imageSelected = image;
      }];
     
     return venueCell;

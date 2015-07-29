@@ -13,6 +13,8 @@
 #import "SQKFetchedCollectionViewController.h"
 #import "VenueFetchedCollectionViewContainerViewController.h"
 #import "UIColor+Piktu.h"
+#import "EventInfoViewController.h"
+#import "VenueInfoViewController.h"
 
 @interface WhatsOnViewController ()
 {
@@ -89,7 +91,6 @@
 
 - (IBAction)advsegmentedControlTapped:(id)sender
 {
-    
     switch ([sender selectedIndex]) {
         case 0:
             if (self.currentVC == venueVC) {
@@ -108,7 +109,6 @@
         default:
             break;
     }
-    
 }
 
 #pragma mark - Animate Container Views
@@ -133,11 +133,14 @@
     }
     else if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
-        
+        EventInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.imageSelected = [self.childViewControllers.lastObject imageSelected];
+        [self.childViewControllers.lastObject setImageSelected:nil];
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
-        
+        VenueInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.imageSelected = [self.childViewControllers.firstObject imageSelected];
     }
 }
 

@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 
+@property (strong, nonatomic) UIImage *imageSelected;
+
 @end

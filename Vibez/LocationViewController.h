@@ -16,4 +16,7 @@
 @property (weak, nonatomic) NSString *pinTitle;
 @property (readwrite, nonatomic) CLLocationCoordinate2D coordinate;
 
+@property (assign, nonatomic) CLLocationDegrees latCoord;
+@property (assign, nonatomic) CLLocationDegrees longCoord;
+
 @end

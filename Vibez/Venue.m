@@ -2,13 +2,12 @@
 //  Venue.m
 //  Vibez
 //
-//  Created by Harry Liddell on 23/07/2015.
+//  Created by Harry Liddell on 29/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
 #import "Venue.h"
 #import "Event.h"
-
 
 @implementation Venue
 

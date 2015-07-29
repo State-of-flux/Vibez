@@ -2,20 +2,24 @@
 //  Ticket.h
 //  Vibez
 //
-//  Created by Harry Liddell on 23/07/2015.
+//  Created by Harry Liddell on 29/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Order;
+@class Event, Order;
 
 @interface Ticket : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * hasBeenUsed;
+@property (nonatomic, retain) NSString * owner;
 @property (nonatomic, retain) NSDecimalNumber * price;
 @property (nonatomic, retain) NSString * referenceNumber;
 @property (nonatomic, retain) NSString * ticketID;
+@property (nonatomic, retain) NSNumber * hasBeenUpdated;
 @property (nonatomic, retain) Order *order;
+@property (nonatomic, retain) Event *tickets;
 
 @end

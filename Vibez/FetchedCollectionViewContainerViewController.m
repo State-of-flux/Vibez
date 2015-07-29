@@ -10,6 +10,7 @@
 #import "UIColor+Piktu.h"
 #import "NSString+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "EventInfoViewController.h"
 
 @interface FetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
 
@@ -96,8 +97,24 @@
     //venue.venueDescription = @"Updated";
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
+    
+    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    
+    self.imageSelected = [[UIImage alloc] init];
+    [self setImageSelected:eventCell.eventImage.image];
 
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
+}
+
+#pragma mark - Navigation
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+//    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
+//    {
+//        EventInfoViewController *destinationVC = segue.destinationViewController;
+//        destinationVC.imageSelected = self.imageSelected;
+//    }
 }
 
 #pragma mark - Fetched Request
@@ -159,7 +176,7 @@
                         placeholderImage:[UIImage imageNamed:@"plug.jpg"]
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
-         eventCell.backgroundView = [[UIImageView alloc] initWithImage:image];
+         
      }];
     
     return eventCell;

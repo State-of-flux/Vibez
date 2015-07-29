@@ -17,17 +17,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CLLocationDegrees latCoord = 53.3764;
-    CLLocationDegrees longCoord = -1.4716;
+    //CLLocationDegrees latCoord = 53.3764;
+    //CLLocationDegrees longCoord = -1.4716;
+    
     self.pinTitle = @"Club";
     
-    self.coordinate = CLLocationCoordinate2DMake(latCoord, longCoord);
+    if(self.latCoord && self.longCoord)
+    {
+        [self setRegion];
+        [self setMapPin];
+    }
+    else
+    {
+        //UIAlertView;
+        //unwind segue
+    }
+}
+
+-(void)setRegion
+{
+    self.coordinate = CLLocationCoordinate2DMake(self.latCoord, self.longCoord);
     
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(self.coordinate, 500, 500);
     MKCoordinateRegion adjustedRegion = [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];
     self.mapView.showsUserLocation = YES;
-    
+}
+
+-(void)setMapPin
+{
     // Place a single pin
     MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
     [annotation setCoordinate:self.coordinate];

@@ -93,11 +93,7 @@
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          [weakSelf.refreshControl endRefreshing];
      }];
-    
-    //[self.tableView reloadData];
 }
-
-
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -185,10 +181,6 @@
     cell.ticketNameLabel.text = event.name;
     cell.ticketDateLabel.text = dateFormatString;
     
-    //cell.ticketImage.image = [UIImage imageNamed:@"plug.jpg"];
-    // or cell.poster.image = [UIImage imageNamed:@"placeholder.png"];
-    
-    
     // Here we use the new provided sd_setImageWithURL: method to load the web image
     [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
                       placeholderImage:[UIImage imageNamed:@"plug.jpg"]
@@ -217,7 +209,5 @@
 //         }];
 //    }
 }
-
-
 
 @end

@@ -11,6 +11,7 @@
 #import "UIColor+Piktu.h"
 #import "RKDropdownAlert.h"
 #import "PaymentViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface EventInfoViewController ()
 
@@ -26,21 +27,25 @@
 
 -(void)layoutSubviews
 {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-200)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y - 8)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
+    //[self.scrollView setBackgroundColor:[UIColor yellowColor]];
     [self.view addSubview:self.scrollView];
     
     // Image
-    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/4)];
-    self.eventImageView.image = [UIImage imageNamed:@"plug.jpg"];
+    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
+
+    [self.eventImageView setImage:self.imageSelected];
+     
+    self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
+    if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
+        self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    [self.eventImageView.layer setMasksToBounds:YES];
     
-    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/4)];
+    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
     darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
    
-    //self.eventImageView.contentMode = UIViewContentModeCenter;
-    //if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
-        //self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
-    //}
-    
     CGFloat padding = 8;
     CGFloat doublePadding = 16;
     
@@ -100,6 +105,14 @@
     [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        self.imageSelected = nil;
+    }
+}
+
 -(void)setTopBarButtons:(NSString*)titleText
 {
     UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkEventAction)];
@@ -113,7 +126,7 @@
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
     PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
-    [self presentViewController:paymentVC animated:NO completion:nil];
+    [self.navigationController pushViewController:paymentVC animated:YES];
 }
 
 @end
