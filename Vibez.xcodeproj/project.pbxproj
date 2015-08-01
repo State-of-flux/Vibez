@@ -99,11 +99,11 @@
 		6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57B1B5D93DE00EA9A09 /* PaymentViewController.m */; };
 		6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */; };
 		6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5C11B69717E00EA9A09 /* Ticket+Additions.m */; };
-		6CB5B5D41B697BAD00EA9A09 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5D31B697BAD00EA9A09 /* Order.m */; };
-		6CB5B5D71B697BAE00EA9A09 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5D61B697BAE00EA9A09 /* User.m */; };
-		6CB5B5DA1B697BAE00EA9A09 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5D91B697BAE00EA9A09 /* Ticket.m */; };
-		6CB5B5DD1B697BAE00EA9A09 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5DC1B697BAE00EA9A09 /* Event.m */; };
-		6CB5B5E01B697BAE00EA9A09 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5DF1B697BAE00EA9A09 /* Venue.m */; };
+		6CB5B62E1B6C1D8E00EA9A09 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B62D1B6C1D8E00EA9A09 /* User.m */; };
+		6CB5B6311B6C1D8E00EA9A09 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B6301B6C1D8E00EA9A09 /* Order.m */; };
+		6CB5B6341B6C1D8E00EA9A09 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B6331B6C1D8E00EA9A09 /* Ticket.m */; };
+		6CB5B6371B6C1D8E00EA9A09 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B6361B6C1D8E00EA9A09 /* Event.m */; };
+		6CB5B63A1B6C1D8F00EA9A09 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B6391B6C1D8F00EA9A09 /* Venue.m */; };
 		6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864241B55BE5100E2838A /* MoreTabViewController.m */; };
 		6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864271B55BEA400E2838A /* MoreContainerViewController.m */; };
 		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
@@ -268,16 +268,16 @@
 		6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueFetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
 		6CB5B5C01B69717E00EA9A09 /* Ticket+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+Additions.h"; sourceTree = "<group>"; };
 		6CB5B5C11B69717E00EA9A09 /* Ticket+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+Additions.m"; sourceTree = "<group>"; };
-		6CB5B5D21B697BAD00EA9A09 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6CB5B5D31B697BAD00EA9A09 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		6CB5B5D51B697BAE00EA9A09 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6CB5B5D61B697BAE00EA9A09 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		6CB5B5D81B697BAE00EA9A09 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6CB5B5D91B697BAE00EA9A09 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
-		6CB5B5DB1B697BAE00EA9A09 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6CB5B5DC1B697BAE00EA9A09 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6CB5B5DE1B697BAE00EA9A09 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6CB5B5DF1B697BAE00EA9A09 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6CB5B62C1B6C1D8E00EA9A09 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6CB5B62D1B6C1D8E00EA9A09 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6CB5B62F1B6C1D8E00EA9A09 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6CB5B6301B6C1D8E00EA9A09 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6CB5B6321B6C1D8E00EA9A09 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6CB5B6331B6C1D8E00EA9A09 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6CB5B6351B6C1D8E00EA9A09 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6CB5B6361B6C1D8E00EA9A09 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6CB5B6381B6C1D8F00EA9A09 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6CB5B6391B6C1D8F00EA9A09 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
 		6CB8641F1B52189C00E2838A /* SheffieldLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SheffieldLocation.gpx; sourceTree = "<group>"; };
 		6CB864231B55BE5100E2838A /* MoreTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabViewController.h; sourceTree = "<group>"; };
 		6CB864241B55BE5100E2838A /* MoreTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabViewController.m; sourceTree = "<group>"; };
@@ -676,16 +676,16 @@
 		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6CB5B5DE1B697BAE00EA9A09 /* Venue.h */,
-				6CB5B5DF1B697BAE00EA9A09 /* Venue.m */,
-				6CB5B5DB1B697BAE00EA9A09 /* Event.h */,
-				6CB5B5DC1B697BAE00EA9A09 /* Event.m */,
-				6CB5B5D81B697BAE00EA9A09 /* Ticket.h */,
-				6CB5B5D91B697BAE00EA9A09 /* Ticket.m */,
-				6CB5B5D51B697BAE00EA9A09 /* User.h */,
-				6CB5B5D61B697BAE00EA9A09 /* User.m */,
-				6CB5B5D21B697BAD00EA9A09 /* Order.h */,
-				6CB5B5D31B697BAD00EA9A09 /* Order.m */,
+				6CB5B6381B6C1D8F00EA9A09 /* Venue.h */,
+				6CB5B6391B6C1D8F00EA9A09 /* Venue.m */,
+				6CB5B6351B6C1D8E00EA9A09 /* Event.h */,
+				6CB5B6361B6C1D8E00EA9A09 /* Event.m */,
+				6CB5B6321B6C1D8E00EA9A09 /* Ticket.h */,
+				6CB5B6331B6C1D8E00EA9A09 /* Ticket.m */,
+				6CB5B62F1B6C1D8E00EA9A09 /* Order.h */,
+				6CB5B6301B6C1D8E00EA9A09 /* Order.m */,
+				6CB5B62C1B6C1D8E00EA9A09 /* User.h */,
+				6CB5B62D1B6C1D8E00EA9A09 /* User.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -1029,8 +1029,8 @@
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
 				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
-				6CB5B5DA1B697BAE00EA9A09 /* Ticket.m in Sources */,
-				6CB5B5D71B697BAE00EA9A09 /* User.m in Sources */,
+				6CB5B6341B6C1D8E00EA9A09 /* Ticket.m in Sources */,
+				6CB5B62E1B6C1D8E00EA9A09 /* User.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
@@ -1042,7 +1042,7 @@
 				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
-				6CB5B5DD1B697BAE00EA9A09 /* Event.m in Sources */,
+				6CB5B6371B6C1D8E00EA9A09 /* Event.m in Sources */,
 				6C066FBD1B1B9EB3009EA34D /* SettingsTabViewController.m in Sources */,
 				6C8A741D1B24D70100AAD04E /* qrencode.c in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
@@ -1059,7 +1059,7 @@
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
-				6CB5B5E01B697BAE00EA9A09 /* Venue.m in Sources */,
+				6CB5B63A1B6C1D8F00EA9A09 /* Venue.m in Sources */,
 				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
 				6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */,
@@ -1068,7 +1068,7 @@
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
-				6CB5B5D41B697BAD00EA9A09 /* Order.m in Sources */,
+				6CB5B6311B6C1D8E00EA9A09 /* Order.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
 				6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */,
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,

@@ -33,7 +33,6 @@
                   
                   managedObject.ticketID = dictionary[@"objectId"];
                   managedObject.referenceNumber = dictionary[@"referenceNumber"];
-                  managedObject.price = dictionary[@"price"];
                   managedObject.owner = dictionary[@"owner"];
                   managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
                   managedObject.hasBeenUpdated = @YES;
@@ -97,7 +96,7 @@
     [PIKParseManager insertOrUpdatePFObject:[self pfObject]
                               withClassName:NSStringFromClass([self class])
                             remoteUniqueKey:@"objectId"
-                                uniqueValue:self.eventID
+                                uniqueValue:self.ticketID
                                     success:^(PFObject *pfObject) {
                                         NSLog(@"Uploaded");
                                     }
@@ -109,9 +108,9 @@
 - (PFObject *)pfObject
 {
     return [PFObject objectWithClassName:NSStringFromClass([self class])
-                              dictionary:@{@"objectId" : self.eventID,
-                                           @"eventDescription" : self.eventDescription,
-                                           @"eventName" : self.name}];
+                              dictionary:@{@"objectId" : self.ticketID,
+                                           @"referenceNumber" : self.referenceNumber,
+                                           @"owner" : self.owner}];
 }
 
 @end

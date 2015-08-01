@@ -2,7 +2,7 @@
 //  Event.m
 //  Vibez
 //
-//  Created by Harry Liddell on 29/07/2015.
+//  Created by Harry Liddell on 31/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -19,10 +19,11 @@
 @dynamic eventVenue;
 @dynamic hasBeenUpdated;
 @dynamic image;
-@dynamic price;
-@dynamic name;
-@dynamic startDate;
 @dynamic lastEntry;
+@dynamic name;
+@dynamic price;
+@dynamic startDate;
+@dynamic quantity;
 @dynamic events;
 @dynamic venues;
 

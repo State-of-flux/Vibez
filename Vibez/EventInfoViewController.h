@@ -7,6 +7,7 @@
 //
 
 #import "GlobalViewController.h"
+#import "Event.h"
 
 @interface EventInfoViewController : GlobalViewController
 
@@ -17,7 +18,7 @@
 @property (strong, nonatomic) UITextView *eventDescriptionTextView;
 @property (strong, nonatomic) UILabel *eventVenueLabel;
 
-@property (strong, nonatomic) UIImage *imageSelected;
+@property (strong, nonatomic) NSIndexPath *indexPathEventSelected;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *getTicketsButton;

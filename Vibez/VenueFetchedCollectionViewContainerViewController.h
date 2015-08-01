@@ -13,7 +13,6 @@
 @interface VenueFetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource>
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
-
-@property (strong, nonatomic) UIImage *imageSelected;
+@property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;
 
 @end

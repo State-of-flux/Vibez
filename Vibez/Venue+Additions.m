@@ -36,7 +36,7 @@
                   managedObject.venueID = dictionary[@"objectId"];
                   managedObject.venueDescription = dictionary[@"venueDescription"];
                   managedObject.name = dictionary[@"venueName"];
-                  //managedObject.location = dictionary[@"location"];
+                  managedObject.town = dictionary[@"town"];
                   managedObject.hasBeenUpdated = @YES;
                   
               }
@@ -114,7 +114,8 @@
                               dictionary:@{@"objectId" : self.venueID,
                                            @"venueDescription" : self.venueDescription,
                                            @"venueName" : self.name,
-                                           @"location" : self.location}];
+                                           //@"location" : self.location,
+                                           @"venueImage" : self.image}];
 }
 
 @end

@@ -30,6 +30,7 @@
         
         NSFetchRequest *request = [Event sqk_fetchRequest];
         request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
+        request.
         //request.fetchBatchSize = 25;
         
         self.controller =
@@ -39,6 +40,7 @@
     
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -98,11 +100,7 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
-    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    self.imageSelected = [[UIImage alloc] init];
-    [self setImageSelected:eventCell.eventImage.image];
-
+    [self setIndexPathEventSelected:indexPath];
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
 

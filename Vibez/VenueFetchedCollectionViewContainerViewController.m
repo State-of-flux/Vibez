@@ -101,15 +101,9 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
-    VenueCollectionViewCell *eventCell = (VenueCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    
-    self.imageSelected = [[UIImage alloc] init];
-    [self setImageSelected:eventCell.venueImage.image];
-    
+    [self setIndexPathVenueSelected:indexPath];
     [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
-
-
 
 #pragma mark - Fetched Request
 
@@ -152,13 +146,13 @@
     Venue *venue = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
     venueCell.venueNameLabel.text = [venue.name capitalizedString];
-    venueCell.venueLocationLabel.text = venue.location;
+    venueCell.venueTownLabel.text = venue.town;
     
     [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
                             placeholderImage:[UIImage imageNamed:@"plug.jpg"]
                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
-         self.imageSelected = image;
+         //self.imageSelected = image;
      }];
     
     return venueCell;

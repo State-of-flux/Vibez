@@ -2,7 +2,7 @@
 //  Order.m
 //  Vibez
 //
-//  Created by Harry Liddell on 29/07/2015.
+//  Created by Harry Liddell on 31/07/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @implementation Order
 
+@dynamic hasBeenUpdated;
 @dynamic orderID;
 @dynamic total;
-@dynamic hasBeenUpdated;
 @dynamic tickets;
 @dynamic user;
 

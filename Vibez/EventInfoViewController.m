@@ -34,9 +34,14 @@
     
     // Image
     self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
-
-    [self.eventImageView setImage:self.imageSelected];
-     
+    
+//    [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.eventSelected.image]
+//                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+//                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+//     {
+//         
+//     }];
+    
     self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
         self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -109,7 +114,7 @@
     [super viewWillDisappear:animated];
     
     if (self.isMovingFromParentViewController || self.isBeingDismissed) {
-        self.imageSelected = nil;
+        self.indexPathEventSelected = nil;
     }
 }
 

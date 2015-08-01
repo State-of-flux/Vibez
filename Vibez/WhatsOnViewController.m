@@ -43,7 +43,7 @@
     [self.viewSegmentedControl.layer addSublayer:bottomBorder];
     
     eventVC = self.childViewControllers.lastObject;
-    venueVC = self.childViewControllers[0];
+    venueVC = self.childViewControllers.firstObject;
     self.currentVC = eventVC;
     
     user = [PFUser currentUser];
@@ -62,21 +62,6 @@
         NSLog(@"Our new location: %@", thelocation);
         
     }];
-}
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    if (!self.view.clipsToBounds && !self.view.hidden && self.view.alpha > 0) {
-        for (UIView *subview in self.view.subviews.reverseObjectEnumerator) {
-            CGPoint subPoint = [subview convertPoint:point fromView:self.view];
-            UIView *result = [subview hitTest:subPoint withEvent:event];
-            if (result != nil) {
-                return result;
-            }
-        }
-    }
-    
-    return nil;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -115,7 +100,7 @@
 
 -(void)moveToNewController:(UIViewController *) newController {
     [self.currentVC willMoveToParentViewController:nil];
-    [self transitionFromViewController:self.currentVC toViewController:newController duration:.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
+    [self transitionFromViewController:self.currentVC toViewController:newController duration:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
                             completion:^(BOOL finished) {
                                 [self.currentVC removeFromParentViewController];
                                 [newController didMoveToParentViewController:self];
@@ -127,20 +112,15 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"whatsOnToContainerViewSegue"])
-    {
-        
-    }
-    else if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
+    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
         EventInfoViewController *destinationVC = segue.destinationViewController;
-        destinationVC.imageSelected = [self.childViewControllers.lastObject imageSelected];
-        [self.childViewControllers.lastObject setImageSelected:nil];
+        destinationVC.indexPathEventSelected = [eventVC indexPathEventSelected];
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
         VenueInfoViewController *destinationVC = segue.destinationViewController;
-        destinationVC.imageSelected = [self.childViewControllers.firstObject imageSelected];
+        destinationVC.indexPathVenueSelected = [venueVC indexPathVenueSelected];
     }
 }
 

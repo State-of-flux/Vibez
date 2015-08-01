@@ -7,8 +7,17 @@
 //
 
 #import "User.h"
-#import <Parse/Parse.h>
+#import "PIKParseManager.h"
+#import <SQKDataKit/SQKDataKit.h>
 
 @interface User (Additions)
+
++(void)importUsers:(NSArray *)users intoContext:(NSManagedObjectContext *)context;
++(void)deleteInvalidUsersInContext:(NSManagedObjectContext *)context;
++(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
++(NSArray *)allUsersInContext:(NSManagedObjectContext *)context;
+
+- (void)saveToParse;
+- (PFObject *)pfObject;
 
 @end

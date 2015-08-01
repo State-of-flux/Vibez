@@ -7,17 +7,16 @@
 //
 
 #import "GlobalViewController.h"
+#import "Venue.h"
 
 @interface VenueInfoViewController : GlobalViewController
 
-@property (strong, nonatomic) UIImageView *eventImageView;
-@property (strong, nonatomic) UILabel *eventNameLabel;
-@property (strong, nonatomic) UILabel *eventDateLabel;
-@property (strong, nonatomic) UILabel *eventDateEndLabel;
-@property (strong, nonatomic) UITextView *eventDescriptionTextView;
-@property (strong, nonatomic) UILabel *eventVenueLabel;
+@property (strong, nonatomic) UIImageView *venueImageView;
+@property (strong, nonatomic) UILabel *venueNameLabel;
+@property (strong, nonatomic) UILabel *venueTownLabel;
+@property (strong, nonatomic) UITextView *venueDescriptionTextView;
 
-@property (strong, nonatomic) UIImage *imageSelected;
+@property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 

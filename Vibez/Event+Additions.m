@@ -34,12 +34,14 @@
                   PFFile* imageFile = dictionary[@"eventImage"];
                   managedObject.image = imageFile.url;
                   managedObject.eventID = dictionary[@"objectId"];
+                  managedObject.price = dictionary[@"price"];
                   managedObject.name = dictionary[@"eventName"];
                   managedObject.eventDescription = dictionary[@"eventDescription"];
                   managedObject.eventVenue = dictionary[@"eventVenue"];
                   managedObject.startDate = dictionary[@"eventDate"];
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
+                  managedObject.quantity = dictionary[@"quantity"];
                   managedObject.hasBeenUpdated = @YES;
               }
                    privateContext:context
@@ -113,9 +115,15 @@
 - (PFObject *)pfObject
 {
     return [PFObject objectWithClassName:NSStringFromClass([self class])
-                              dictionary:@{@"objectId" : self.eventID,
+                              dictionary:@{@"objectId"         : self.eventID,
                                            @"eventDescription" : self.eventDescription,
-                                           @"eventName" : self.name}];
+                                           @"eventName"        : self.name,
+                                           @"price"            : self.price,
+                                           @"image"            : self.image,
+                                           @"eventVenue"       : self.eventVenue,
+                                           @"eventDate"        : self.startDate,
+                                           @"eventLastEntry"   : self.lastEntry,
+                                           @"eventEnd"         : self.endDate }];
 }
 
 @end

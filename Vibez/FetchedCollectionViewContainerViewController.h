@@ -20,7 +20,7 @@
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
 @property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
 
-@property (strong, nonatomic) UIImage *imageSelected;
+@property (strong, nonatomic) NSIndexPath *indexPathEventSelected;
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 

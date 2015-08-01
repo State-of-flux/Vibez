@@ -14,7 +14,7 @@
 -(void)setModel:(NSString *)venueName venueDescription:(NSString *)venueDescription venueImageData:(NSData *)venueImageData venueLocation:(NSString *)venueLocation
 {
     self.venueNameLabel.text = venueName;
-    self.venueDescriptionLabel.text = venueDescription;
+    self.venueTownLabel.text = venueDescription;
     self.venueImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:venueImageData]];
     self.venueCLLocation = [self locationStringToCLLocation:venueLocation];
 }
@@ -39,6 +39,11 @@
         self.venueLocationLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
         self.venueLocationLabel.textColor = [UIColor whiteColor];
         
+        self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2, self.frame.size.width - 5, 25)];
+        [self.venueTownLabel setTextAlignment:NSTextAlignmentCenter];
+        self.venueTownLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+        self.venueTownLabel.textColor = [UIColor whiteColor];
+        
         self.venueImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         //                   Image:[UIImage imageNamed:@"plug.jpg"]];
         //self.backgroundView = self.venueImage;
@@ -48,6 +53,7 @@
         [self.contentView addSubview:self.venueImage];
         [self.contentView addSubview:darkOverlay];
         [self.contentView addSubview:self.venueNameLabel];
+        [self.contentView addSubview:self.venueTownLabel];
         [self.contentView addSubview:self.venueLocationLabel];
     }
     

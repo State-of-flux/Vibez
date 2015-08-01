@@ -12,7 +12,7 @@
 @interface VenueCollectionViewCell : UICollectionViewCell
 
 @property (strong, nonatomic) IBOutlet UILabel *venueNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *venueDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UILabel *venueTownLabel;
 @property (strong, nonatomic) IBOutlet UILabel *venueLocationLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *venueImage;
 @property (strong, nonatomic) IBOutlet CLLocation *venueCLLocation;
