@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PTKView.h"
 
-@interface PaymentViewController : UIViewController
+@interface PaymentViewController : UIViewController <PTKViewDelegate>
+
+@property(weak, nonatomic) PTKView *paymentView;
 
 @end

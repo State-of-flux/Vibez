@@ -10,10 +10,12 @@
 #import "NSString+PIK.h"
 #import "UIFont+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <Reachability/Reachability.h>
 
 @interface TicketsFetchedTableViewController () <SQKManagedObjectControllerDelegate>
 {
     PFUser* user;
+    Reachability *reachability;
 }
 @end
 
@@ -26,6 +28,8 @@
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        
+        reachability = [Reachability reachabilityForInternetConnection];
         
         NSFetchRequest *request = [Event sqk_fetchRequest];
         request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
@@ -68,31 +72,39 @@
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
-     {
-         NSError *error;
-         
-         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Event importEvents:objects intoContext:newPrivateContext];
-         [Event deleteInvalidEventsInContext:newPrivateContext];
-         [newPrivateContext save:&error];
-         
-         [weakSelf.refreshControl endRefreshing];
-         
-         if(error)
+    if([reachability isReachable])
+    {
+        [self.refreshControl beginRefreshing];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+         {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Event importEvents:objects intoContext:newPrivateContext];
+             [Event deleteInvalidEventsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             [weakSelf.refreshControl endRefreshing];
+             
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+         }
+                                  failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }
-                              failureBlock:^(NSError *error)
-     {
-         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         [weakSelf.refreshControl endRefreshing];
-     }];
+             [weakSelf.refreshControl endRefreshing];
+         }];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -141,8 +153,8 @@
                    configureCell:(UITableViewCell *)cell
                      atIndexPath:(NSIndexPath *)indexPath
 {
-    TicketTableViewCell *itemCell = (TicketTableViewCell *)cell;
-    Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    //TicketTableViewCell *itemCell = (TicketTableViewCell *)cell;
+    //Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 #pragma mark - Table View Delegate Methods
@@ -183,31 +195,31 @@
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
     [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
-                      placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          
      }];
     
-//    if(cell.ticketImage.image == nil)
-//    {
-//        NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:event.image]];
-//        [NSURLConnection sendAsynchronousRequest:request
-//                                           queue:[NSOperationQueue mainQueue]
-//                               completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
-//         {
-//             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//             if (data) {
-//                 
-//                 dispatch_async(dispatch_get_main_queue(), ^{
-//                     cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
-//                 });
-//                 
-//                 
-//                 //cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-//             }
-//         }];
-//    }
+    //    if(cell.ticketImage.image == nil)
+    //    {
+    //        NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:event.image]];
+    //        [NSURLConnection sendAsynchronousRequest:request
+    //                                           queue:[NSOperationQueue mainQueue]
+    //                               completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
+    //         {
+    //             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    //             if (data) {
+    //
+    //                 dispatch_async(dispatch_get_main_queue(), ^{
+    //                     cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
+    //                 });
+    //
+    //
+    //                 //cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
+    //             }
+    //         }];
+    //    }
 }
 
 @end

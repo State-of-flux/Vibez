@@ -28,7 +28,7 @@
 {
     
     
-    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+   // Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
@@ -37,12 +37,12 @@
     // Image
     self.venueImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
     
-    [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venueSelected.image]
-                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
+//    [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venueSelected.image]
+//                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+//                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+//     {
+//         
+//     }];
     
     self.venueImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.venueImageView.bounds.size.width > self.venueImageView.image.size.width && self.venueImageView.bounds.size.height > self.venueImageView.image.size.height) {

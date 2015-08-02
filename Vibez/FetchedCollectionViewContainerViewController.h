@@ -13,8 +13,9 @@
 #import "EventCollectionViewCell.h"
 #import "EventDataSource.h"
 #import "VenueDataSource.h"
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource>
+@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property BOOL isEventDataDisplayed;
 @property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;

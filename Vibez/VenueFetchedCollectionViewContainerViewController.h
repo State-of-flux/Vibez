@@ -9,8 +9,9 @@
 #import "SQKFetchedCollectionViewController.h"
 #import "Vibez-Swift.h"
 #import "PIKContextManager.h"
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface VenueFetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource>
+@interface VenueFetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 @property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;

@@ -22,6 +22,7 @@ PODS:
     - AFNetworking/NSURLSession
   - Bohr (2.1.0)
   - CLLocationManager-blocks (1.3.2)
+  - DZNEmptyDataSet (1.6.1)
   - FontAwesomeIconFactory (2.0.2)
   - FontAwesomeKit (2.1.8):
     - FontAwesomeKit/Core (= 2.1.8)
@@ -80,6 +81,7 @@ DEPENDENCIES:
   - AFNetworking (~> 2.0)
   - Bohr
   - CLLocationManager-blocks
+  - DZNEmptyDataSet
   - FontAwesomeIconFactory
   - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD
@@ -95,6 +97,7 @@ SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Bohr: 08c66d64e8f14c2bb759d81074ebea9a3ae0024d
   CLLocationManager-blocks: 3b0af033092491fcd3cd24ffddfeb13f65e52144
+  DZNEmptyDataSet: 3d31c27758230f03c71199f8c522bcfa99fba16c
   FontAwesomeIconFactory: 36ea917783d4df460a6a3abf7e26481d7d49aef2
   FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad

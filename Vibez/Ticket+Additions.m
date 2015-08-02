@@ -48,7 +48,7 @@
     
 }
 
-+(void)deleteInvalidEventsInContext:(NSManagedObjectContext *)context
++(void)deleteInvalidTicketsInContext:(NSManagedObjectContext *)context
 {
     NSError *error;
     

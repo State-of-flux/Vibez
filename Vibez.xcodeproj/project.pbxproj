@@ -371,12 +371,12 @@
 		6C1E55B31ACF08D9003965A0 /* Vibez */ = {
 			isa = PBXGroup;
 			children = (
+				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
 				6CB5B5791B5D93BB00EA9A09 /* Payment */,
 				6C90C6581B3877BD00C82735 /* PIKParseManager.h */,
 				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
 				6C90C64C1B38708C00C82735 /* Core Data */,
 				6C79FF721B28B3D9006293C9 /* Categories */,
-				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
 				6C37D2381AE079240078154E /* Customs */,
 				6C3471591AE46EEC00FC789A /* Classes */,
 				6C37D2371AE079180078154E /* Objects */,
@@ -705,6 +705,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		6CB4DC391B6EB145001931D8 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */,
+				6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */,
+			);
+			name = Containers;
+			sourceTree = "<group>";
+		};
 		6CB5B5791B5D93BB00EA9A09 /* Payment */ = {
 			isa = PBXGroup;
 			children = (
@@ -783,12 +792,11 @@
 		6CDBAF871B4F4A5700ED75CD /* Tickets */ = {
 			isa = PBXGroup;
 			children = (
+				6CB4DC391B6EB145001931D8 /* Containers */,
 				6CDBAF8A1B4F4AEC00ED75CD /* TicketsViewController.h */,
 				6CDBAF8B1B4F4AEC00ED75CD /* TicketsViewController.m */,
 				6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */,
 				6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */,
-				6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */,
-				6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */,
 			);
 			name = Tickets;
 			sourceTree = "<group>";

@@ -122,9 +122,32 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     //[navController popToRootViewControllerAnimated:YES];
     
+    [self deleteAllObjects:@"Event"];
+    [self deleteAllObjects:@"Venue"];
+    [self deleteAllObjects:@"Ticket"];
+    [self deleteAllObjects:@"User"];
+    [self deleteAllObjects:@"Order"];
+    
     loginViewController = nil;
     
     [self presentLoginView];
+}
+
+- (void) deleteAllObjects: (NSString *) entityDescription  {
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[self.contextManager mainContext]];
+    [fetchRequest setEntity:entity];
+    
+    NSError *error;
+    NSArray *items = [[self.contextManager mainContext] executeFetchRequest:fetchRequest error:&error];
+    
+    for (NSManagedObject *managedObject in items) {
+        [[self.contextManager mainContext] deleteObject:managedObject];
+        NSLog(@"Object Deleted: %@. %s", entityDescription, __PRETTY_FUNCTION__);
+    }
+    if (![[self.contextManager mainContext] save:&error]) {
+        NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+    }
 }
 
 -(void)linkParseAccountToFacebook

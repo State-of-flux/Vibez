@@ -11,9 +11,12 @@
 #import "UIColor+Piktu.h"
 #import "UIFont+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <Reachability/Reachability.h>
 
 @interface VenueFetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
-
+{
+    Reachability *reachability;
+}
 @end
 
 @implementation VenueFetchedCollectionViewContainerViewController
@@ -27,6 +30,11 @@
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        [self.collectionView setEmptyDataSetSource:self];
+        [self.collectionView setEmptyDataSetDelegate:self];
+        
+        reachability = [Reachability reachabilityForInternetConnection];
+        
         NSFetchRequest *request = [Venue sqk_fetchRequest];
         request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
         //request.fetchBatchSize = 25;
@@ -67,6 +75,8 @@
 
 - (void)refresh:(id)sender
 {
+    if([reachability isReachable])
+    {
     [self.refreshControl beginRefreshing];
     
     __weak typeof(self) weakSelf = self;
@@ -92,6 +102,12 @@
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          [weakSelf.refreshControl endRefreshing];
      }];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -182,6 +198,61 @@
         default: return @"th";
     }
 }
+
+#pragma mark - DZN Empty Data Set Delegates
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return nil;//[UIImage imageNamed:@"plug.jpg"];
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"No venues found";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"There are no venues in your current location, try again later or change your location.";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor pku_greyColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+//
+//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+//{
+//    [self refresh:self];
+//}
+
+- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
+    
+    return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
+}
+
 
 #pragma mark - Collection View Flow Layout
 
