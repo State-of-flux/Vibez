@@ -98,6 +98,10 @@
              {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }
+             else
+             {
+                 [self.collectionView reloadData];
+             }
          }
                                   failureBlock:^(NSError *error)
          {
@@ -187,6 +191,12 @@
     
     eventCell.eventNameLabel.text = event.name;
     eventCell.eventDateLabel.text = dateFormatString;
+    
+    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%@.00", @"Price of item"), [[event price] stringValue]];
+    
+    eventCell.eventPriceLabel.text = eventPriceString;
+    [eventCell.eventPriceLabel sizeToFit];
+    [eventCell.eventPriceLabel setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
     [eventCell.eventImage sd_setImageWithURL:[NSURL URLWithString:event.image]

@@ -96,6 +96,10 @@
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          }
+         else
+         {
+             [self.collectionView reloadData];
+         }
      }
                               failureBlock:^(NSError *error)
      {

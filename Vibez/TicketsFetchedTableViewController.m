@@ -8,7 +8,6 @@
 
 #import "TicketsFetchedTableViewController.h"
 #import "NSString+PIK.h"
-#import "UIFont+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Reachability/Reachability.h>
 
@@ -31,8 +30,8 @@
         
         reachability = [Reachability reachabilityForInternetConnection];
         
-        NSFetchRequest *request = [Event sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
+        NSFetchRequest *request = [Ticket sqk_fetchRequest];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES] ];
         
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -56,7 +55,7 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-    self.controller.delegate = self;
+    [self.controller setDelegate:self];
     [self.controller performFetch:nil];
 }
 
@@ -78,13 +77,13 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+        [Ticket getAllFromParseWithSuccessBlock:^(NSArray *objects)
          {
              NSError *error;
              
              NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-             [Event importEvents:objects intoContext:newPrivateContext];
-             [Event deleteInvalidEventsInContext:newPrivateContext];
+             [Ticket importTickets:objects intoContext:newPrivateContext];
+             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
              [weakSelf.refreshControl endRefreshing];
@@ -133,15 +132,15 @@
 {
     NSFetchRequest *request;
     
-    request = [Event sqk_fetchRequest]; //Create ticket additions
+    request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"tickets.name" ascending:YES] ];
     request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"tickets.name CONTAINS[cd] %@", searchString];
     }
     
     [request setPredicate:filterPredicate];
@@ -183,43 +182,23 @@
           atIndexPath:(NSIndexPath *)indexPath
 {
     TicketTableViewCell *cell = (TicketTableViewCell *)theCell;
-    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-    [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:ticket.tickets.startDate]];
+    [dateFormatString insertString:[NSString daySuffixForDate:ticket.tickets.startDate] atIndex:6];
     
-    cell.ticketNameLabel.text = event.name;
+    cell.ticketNameLabel.text = ticket.tickets.name;
     cell.ticketDateLabel.text = dateFormatString;
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
-    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
+    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.tickets.image]
                         placeholderImage:[UIImage imageNamed:@"plug.jpg"]
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          
      }];
-    
-    //    if(cell.ticketImage.image == nil)
-    //    {
-    //        NSURLRequest * request = [NSURLRequest requestWithURL:[NSURL URLWithString:event.image]];
-    //        [NSURLConnection sendAsynchronousRequest:request
-    //                                           queue:[NSOperationQueue mainQueue]
-    //                               completionHandler:^(NSURLResponse * response, NSData * data, NSError * connectionError)
-    //         {
-    //             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    //             if (data) {
-    //
-    //                 dispatch_async(dispatch_get_main_queue(), ^{
-    //                     cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageWithData:data]];
-    //                 });
-    //
-    //
-    //                 //cell.ticketImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"plug.jpg"]];
-    //             }
-    //         }];
-    //    }
 }
 
 @end

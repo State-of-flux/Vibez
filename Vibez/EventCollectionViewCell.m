@@ -8,6 +8,7 @@
 
 #import "EventCollectionViewCell.h"
 #import "UIFont+PIK.h"
+#import "UIColor+Piktu.h"
 
 @implementation EventCollectionViewCell
 
@@ -40,6 +41,11 @@
         [self.eventDateLabel setTextAlignment:NSTextAlignmentCenter];
         self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
         self.eventDateLabel.textColor = [UIColor whiteColor];
+        
+        self.eventPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height -30, self.frame.size.width - 5, 25)];
+        [self.eventPriceLabel setTextAlignment:NSTextAlignmentCenter];
+        self.eventPriceLabel.font = [UIFont pik_avenirNextBoldWithSize:14.0f];
+        self.eventPriceLabel.textColor = [UIColor pku_purpleColor];
     
         self.eventImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         
@@ -49,6 +55,7 @@
         [self.contentView addSubview:darkOverlay];
         [self.contentView addSubview:self.eventNameLabel];
         [self.contentView addSubview:self.eventDateLabel];
+        [self.contentView addSubview:self.eventPriceLabel];
     }
     
     return self;

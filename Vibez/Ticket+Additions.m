@@ -10,7 +10,7 @@
 
 @implementation Ticket (Additions)
 
-+(void)importTickets:(NSArray *)events intoContext:(NSManagedObjectContext *)context
++(void)importTickets:(NSArray *)tickets intoContext:(NSManagedObjectContext *)context
 {
     NSError* error;
     
@@ -24,7 +24,7 @@
     }
     else
     {
-        NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:events];
+        NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:tickets];
         
         [Ticket sqk_insertOrUpdate:parseObjects
                    uniqueModelKey:@"eventID"
@@ -45,7 +45,6 @@
             NSLog(@"error when importing : %@ %s", error.localizedDescription, __PRETTY_FUNCTION__);
         }
     }
-    
 }
 
 +(void)deleteInvalidTicketsInContext:(NSManagedObjectContext *)context

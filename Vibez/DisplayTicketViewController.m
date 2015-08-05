@@ -8,7 +8,7 @@
 
 #import "DisplayTicketViewController.h"
 #import "UIImage+MDQRCode.h"
-#import "UIFont+PIK.h"
+
 
 @interface DisplayTicketViewController ()
 

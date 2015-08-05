@@ -9,8 +9,8 @@
 #import "LoginViewController.h"
 #import "AccountController.h"
 #import "AppDelegate.h"
-#import "UIColor+Piktu.h"
 #import "PIKContextManager.h"
+#import "Ticket+Additions.h"
 
 @interface LoginViewController ()
 {
@@ -94,6 +94,24 @@
              [defaults setObject:user.username forKey:@"username"];
              [defaults setObject:user.username forKey:@"emailAddress"];
              
+             [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+              {
+                  NSError *error;
+                  NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+                  [Event importEvents:objects intoContext:newPrivateContext];
+                  [Event deleteInvalidEventsInContext:newPrivateContext];
+                  [newPrivateContext save:&error];
+                  
+                  if(error)
+                  {
+                      NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                  }
+              }
+                                       failureBlock:^(NSError *error)
+              {
+                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+              }];
+
              
              [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects) {
                  NSError *error;
@@ -112,23 +130,24 @@
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }];
              
-             [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
-             {
-                 NSError *error;
-                 NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-                 [Event importEvents:objects intoContext:newPrivateContext];
-                 [Event deleteInvalidEventsInContext:newPrivateContext];
-                 [newPrivateContext save:&error];
-                 
-                 if(error)
-                 {
-                     NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-                 }
-             }
-             failureBlock:^(NSError *error)
-             {
+             [Ticket getAllFromParseWithSuccessBlock:^(NSArray *objects)
+              {
+                  NSError *error;
+                  
+                  NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+                  [Ticket importTickets:objects intoContext:newPrivateContext];
+                  [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+                  [newPrivateContext save:&error];
+                  
+                  if(error)
+                  {
+                      NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                  }
+              }
+                                        failureBlock:^(NSError *error)
+              {
                   NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             }];
+              }];
              
              //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
              AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];

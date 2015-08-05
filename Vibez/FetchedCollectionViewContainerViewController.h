@@ -11,15 +11,11 @@
 #import "PIKContextManager.h"
 #import "VenueCollectionViewCell.h"
 #import "EventCollectionViewCell.h"
-#import "EventDataSource.h"
-#import "VenueDataSource.h"
 #import <UIScrollView+EmptyDataSet.h>
 
 @interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property BOOL isEventDataDisplayed;
-@property (strong, nonatomic) IBOutlet EventDataSource *eventDataSource;
-@property (strong, nonatomic) IBOutlet VenueDataSource *venueDataSource;
 
 @property (strong, nonatomic) NSIndexPath *indexPathEventSelected;
 

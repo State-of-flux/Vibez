@@ -130,8 +130,9 @@
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
-    PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
-    [self.navigationController pushViewController:paymentVC animated:YES];
+    [self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
+    //PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
+    //[self.navigationController pushViewController:paymentVC animated:YES];
 }
 
 @end
