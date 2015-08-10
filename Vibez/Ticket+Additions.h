@@ -14,8 +14,8 @@
 
 +(void)importTickets:(NSArray *)events intoContext:(NSManagedObjectContext *)context;
 +(void)deleteInvalidTicketsInContext:(NSManagedObjectContext *)context;
-+(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 +(NSArray *)allTicketsInContext:(NSManagedObjectContext *)context;
++(void)getTicketsForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 - (void)saveToParse;
 
 @end

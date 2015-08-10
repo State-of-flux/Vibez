@@ -2,14 +2,14 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 31/07/2015.
+//  Created by Harry Liddell on 10/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Ticket, Venue;
+@class Venue;
 
 @interface Event : NSManagedObject
 
@@ -22,18 +22,12 @@
 @property (nonatomic, retain) NSDate * lastEntry;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSDecimalNumber * price;
-@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSNumber * quantity;
-@property (nonatomic, retain) NSSet *events;
+@property (nonatomic, retain) NSDate * startDate;
 @property (nonatomic, retain) NSSet *venues;
 @end
 
 @interface Event (CoreDataGeneratedAccessors)
-
-- (void)addEventsObject:(Ticket *)value;
-- (void)removeEventsObject:(Ticket *)value;
-- (void)addEvents:(NSSet *)values;
-- (void)removeEvents:(NSSet *)values;
 
 - (void)addVenuesObject:(Venue *)value;
 - (void)removeVenuesObject:(Venue *)value;

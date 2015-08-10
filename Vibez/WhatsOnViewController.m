@@ -115,12 +115,12 @@
     if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
         EventInfoViewController *destinationVC = segue.destinationViewController;
-        destinationVC.indexPathEventSelected = [eventVC indexPathEventSelected];
+        destinationVC.event = [eventVC event];
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
-        VenueInfoViewController *destinationVC = segue.destinationViewController;
-        destinationVC.indexPathVenueSelected = [venueVC indexPathVenueSelected];
+        //VenueInfoViewController *destinationVC = segue.destinationViewController;
+        //destinationVC.indexPathVenueSelected = [venueVC indexPathVenueSelected];
     }
 }
 

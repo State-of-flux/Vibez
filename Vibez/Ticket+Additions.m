@@ -27,18 +27,18 @@
         NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:tickets];
         
         [Ticket sqk_insertOrUpdate:parseObjects
-                   uniqueModelKey:@"eventID"
-                  uniqueRemoteKey:@"objectId"
-              propertySetterBlock:^(NSDictionary *dictionary, Ticket *managedObject) {
-                  
-                  managedObject.ticketID = dictionary[@"objectId"];
-                  managedObject.referenceNumber = dictionary[@"referenceNumber"];
-                  managedObject.owner = dictionary[@"owner"];
-                  managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
-                  managedObject.hasBeenUpdated = @YES;
-              }
-                   privateContext:context
-                            error:&error];
+                    uniqueModelKey:@"ticketID"
+                   uniqueRemoteKey:@"objectId"
+               propertySetterBlock:^(NSDictionary *dictionary, Ticket *managedObject) {
+                   
+                   managedObject.ticketID = dictionary[@"objectId"];
+                   managedObject.event = dictionary[@"event"];
+                   managedObject.user = dictionary[@"user"];
+                   managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
+                   managedObject.hasBeenUpdated = @YES;
+               }
+                    privateContext:context
+                             error:&error];
         
         if(error)
         {
@@ -52,13 +52,17 @@
     NSError *error;
     
     [Ticket sqk_deleteAllObjectsInContext:context
-                           withPredicate:[NSPredicate predicateWithFormat:@"hasBeenUpdated == NO"]
-                                   error:&error];
+                            withPredicate:[NSPredicate predicateWithFormat:@"hasBeenUpdated == NO"]
+                                    error:&error];
 }
 
-+(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
++(void)getTicketsForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class])
+    PFUser *user = [PFUser currentUser];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"owner = %@", user.username];
+    
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -69,7 +73,6 @@
                                         failureBlock(error);
                                     }
                                 }];
-    
 }
 
 +(NSArray *)allTicketsInContext:(NSManagedObjectContext *)context
@@ -106,10 +109,13 @@
 
 - (PFObject *)pfObject
 {
-    return [PFObject objectWithClassName:NSStringFromClass([self class])
-                              dictionary:@{@"objectId" : self.ticketID,
-                                           @"referenceNumber" : self.referenceNumber,
-                                           @"owner" : self.owner}];
+    PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
+                                          dictionary:@{@"objectId" : self.ticketID,
+                                                       @"event" : self.event,
+                                                       @"hasBeenUsed" : self.hasBeenUsed,
+                                                       @"user" : self.user}];
+    
+    return object;
 }
 
 @end

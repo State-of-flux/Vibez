@@ -77,8 +77,7 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getAllFromParseWithSuccessBlock:^(NSArray *objects)
-         {
+        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
              NSError *error;
              
              NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
@@ -88,10 +87,14 @@
              
              [weakSelf.refreshControl endRefreshing];
              
-             if(error)
-             {
-                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             }
+            if(error)
+            {
+                NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+            }
+            else
+            {
+                [self.tableView reloadData];
+            }
          }
                                   failureBlock:^(NSError *error)
          {
@@ -134,13 +137,13 @@
     
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"tickets.name" ascending:YES] ];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event.name" ascending:YES] ];
     request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"tickets.name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"event.name CONTAINS[cd] %@", searchString];
     }
     
     [request setPredicate:filterPredicate];
@@ -184,21 +187,27 @@
     TicketTableViewCell *cell = (TicketTableViewCell *)theCell;
     Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
+    NSDate *date = [NSDate date];
+    
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:ticket.tickets.startDate]];
-    [dateFormatString insertString:[NSString daySuffixForDate:ticket.tickets.startDate] atIndex:6];
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:date]];
     
-    cell.ticketNameLabel.text = ticket.tickets.name;
+    [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
+    
+    cell.ticketNameLabel.text = ticket.ticketID;
     cell.ticketDateLabel.text = dateFormatString;
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
-    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.tickets.image]
-                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
+    //[cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.event.image]
+//                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+//                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+//     {
+//         if(error)
+//         {
+//            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+//         }
+//     }];
 }
 
 @end

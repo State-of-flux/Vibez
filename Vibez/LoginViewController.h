@@ -26,4 +26,6 @@
 - (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)FacebookLoginButtonTapped:(id)sender;
 
+typedef void(^completion)(BOOL);
+
 @end

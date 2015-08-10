@@ -118,25 +118,21 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //venue.venueDescription = @"Updated";
-    //[[venue managedObjectContext] save:nil];
-    //[venue saveToParse];
-    
-    [self setIndexPathEventSelected:indexPath];
+    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    [self setEvent:event];
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
 
 #pragma mark - Navigation
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    //    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
-    //    {
-    //        EventInfoViewController *destinationVC = segue.destinationViewController;
-    //        destinationVC.imageSelected = self.imageSelected;
-    //    }
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
+//    {
+//        EventInfoViewController *destinationVC = segue.destinationViewController;
+//        [destinationVC setEvent:self.event];
+//    }
+//}
 
 #pragma mark - Fetched Request
 

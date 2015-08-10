@@ -42,7 +42,6 @@
     self.eventReferenceNumberLabel.text = @"Reference Number: 182395397512";
     self.eventReferenceNumberLabel.textAlignment = NSTextAlignmentCenter;
     
-    
     [self.view addSubview:self.eventNameLabel];
     [self.view addSubview:self.eventReferenceNumberLabel];
     [self.view addSubview:self.qrImageView];

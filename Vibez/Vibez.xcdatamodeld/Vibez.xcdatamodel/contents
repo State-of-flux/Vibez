@@ -12,24 +12,20 @@
         <attribute name="price" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="quantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="Date" syncable="YES"/>
-        <relationship name="events" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ticket" inverseName="tickets" inverseEntity="Ticket" syncable="YES"/>
         <relationship name="venues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="orderID" attributeType="String" syncable="YES"/>
         <attribute name="total" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="tickets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ticket" inverseName="order" inverseEntity="Ticket" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="orders" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Ticket" representedClassName="Ticket" syncable="YES">
+        <attribute name="event" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="hasBeenUsed" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="owner" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="referenceNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ticketID" attributeType="String" syncable="YES"/>
-        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="tickets" inverseEntity="Order" syncable="YES"/>
-        <relationship name="tickets" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Event" inverseName="events" inverseEntity="Event" syncable="YES"/>
+        <attribute name="user" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
@@ -50,10 +46,10 @@
         <relationship name="events" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Event" inverseName="venues" inverseEntity="Event" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Event" positionX="-227" positionY="-2179" width="128" height="238"/>
-        <element name="Order" positionX="-252" positionY="-1873" width="128" height="118"/>
-        <element name="Ticket" positionX="-432" positionY="-2025" width="128" height="148"/>
-        <element name="User" positionX="-38" positionY="-1903" width="128" height="148"/>
-        <element name="Venue" positionX="-36" positionY="-2137" width="128" height="148"/>
+        <element name="Event" positionX="-243" positionY="-2124" width="128" height="223"/>
+        <element name="Order" positionX="-240" positionY="-1801" width="128" height="103"/>
+        <element name="Ticket" positionX="-425" positionY="-1903" width="128" height="118"/>
+        <element name="User" positionX="-27" positionY="-1831" width="128" height="148"/>
+        <element name="Venue" positionX="-36" positionY="-2034" width="128" height="148"/>
     </elements>
 </model>

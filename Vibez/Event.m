@@ -2,12 +2,11 @@
 //  Event.m
 //  Vibez
 //
-//  Created by Harry Liddell on 31/07/2015.
+//  Created by Harry Liddell on 10/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
 #import "Event.h"
-#import "Ticket.h"
 #import "Venue.h"
 
 
@@ -22,9 +21,8 @@
 @dynamic lastEntry;
 @dynamic name;
 @dynamic price;
-@dynamic startDate;
 @dynamic quantity;
-@dynamic events;
+@dynamic startDate;
 @dynamic venues;
 
 @end

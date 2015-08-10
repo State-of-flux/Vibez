@@ -2,7 +2,7 @@
 //  Venue.h
 //  Vibez
 //
-//  Created by Harry Liddell on 31/07/2015.
+//  Created by Harry Liddell on 10/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -16,9 +16,9 @@
 @property (nonatomic, retain) NSNumber * hasBeenUpdated;
 @property (nonatomic, retain) NSString * image;
 @property (nonatomic, retain) NSString * name;
+@property (nonatomic, retain) NSString * town;
 @property (nonatomic, retain) NSString * venueDescription;
 @property (nonatomic, retain) NSString * venueID;
-@property (nonatomic, retain) NSString * town;
 @property (nonatomic, retain) NSSet *events;
 @end
 

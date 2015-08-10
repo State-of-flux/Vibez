@@ -15,6 +15,7 @@
 + (void)insertOrUpdatePFObject:(PFObject *)pfObject withClassName:(NSString *)className remoteUniqueKey:(NSString *)remoteUniqueKey uniqueValue:(NSString *)uniqueValue success:(void (^)(PFObject *pfObject))successBlock failure:(void (^)(NSError *error))failureBlock;
 + (NSArray *)pfObjectsToDictionary:(NSArray *)pfObjects;
 + (void)getAllForClassName:(NSString *)className success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock;
++ (void)getAllForClassName:(NSString *)className withPredicate:(NSPredicate *)predicate success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock;
 + (void)reloadDataSuccess:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock;
 
 @end

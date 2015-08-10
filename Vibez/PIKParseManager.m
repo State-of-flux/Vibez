@@ -46,7 +46,7 @@
     NSString *predicateFormat = [NSString stringWithFormat:@"%@ == '%@'", remoteUniqueKey, uniqueValue];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat];
     PFQuery *query = [PFQuery queryWithClassName:className predicate:predicate];
-
+    
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         PFObject *queryObject;
         
@@ -65,6 +65,7 @@
             queryObject = [PFObject objectWithClassName:className dictionary:[pfObject dictionary]];
         }
         
+        //[queryObject saveInBackgroundWithBlock:(nullable PFBooleanResultBlock(nullable )block];
         [queryObject saveInBackground];
         
         if(error)
@@ -108,40 +109,55 @@
     }];
 }
 
++ (void)getAllForClassName:(NSString *)className withPredicate:(NSPredicate *)predicate success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock
+{
+    [[PFQuery queryWithClassName:className predicate:predicate] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+     {
+         if(!error && successBlock)
+         {
+             successBlock(objects);
+         }
+         else if(failureBlock)
+         {
+             failureBlock(error);
+         }
+     }];
+}
+
 + (void)reloadDataSuccess:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock
 {
-//    [PIKParseManager getAllForClassName:@"ProductCategory"
-//                                success:^(NSArray *objects) {
-//                                    
-//                                    NSManagedObjectContext *privateContext = [PIKContextManager newPrivateContext];
-//                                    [ProductCategory importProductCategories:objects inContext:privateContext];
-//                                    [ProductCategory deleteInvalidObjectsInContext:privateContext];
-//                                    
-//                                    [PIKParseManager getAllForClassName:@"Venue"
-//                                                                success:^(NSArray *objects) {
-//                                                                    [Product importProducts:objects inContext:privateContext];
-//                                                                    [Product deleteInvalidObjectsInContext:privateContext];
-//                                                                    
-//                                                                    [privateContext save:nil];
-//                                                                    
-//                                                                    if(successBlock)
-//                                                                    {
-//                                                                        successBlock();
-//                                                                    }
-//                                                                }
-//                                                                failure:^(NSError *error) {
-//                                                                    if(failureBlock)
-//                                                                    {
-//                                                                        failureBlock(error);
-//                                                                    }
-//                                                                }];
-//                                }
-//                                failure:^(NSError *error) {
-//                                    if(failureBlock)
-//                                    {
-//                                        failureBlock(error);
-//                                    }
-//                                }];
+    //    [PIKParseManager getAllForClassName:@"ProductCategory"
+    //                                success:^(NSArray *objects) {
+    //
+    //                                    NSManagedObjectContext *privateContext = [PIKContextManager newPrivateContext];
+    //                                    [ProductCategory importProductCategories:objects inContext:privateContext];
+    //                                    [ProductCategory deleteInvalidObjectsInContext:privateContext];
+    //
+    //                                    [PIKParseManager getAllForClassName:@"Venue"
+    //                                                                success:^(NSArray *objects) {
+    //                                                                    [Product importProducts:objects inContext:privateContext];
+    //                                                                    [Product deleteInvalidObjectsInContext:privateContext];
+    //
+    //                                                                    [privateContext save:nil];
+    //
+    //                                                                    if(successBlock)
+    //                                                                    {
+    //                                                                        successBlock();
+    //                                                                    }
+    //                                                                }
+    //                                                                failure:^(NSError *error) {
+    //                                                                    if(failureBlock)
+    //                                                                    {
+    //                                                                        failureBlock(error);
+    //                                                                    }
+    //                                                                }];
+    //                                }
+    //                                failure:^(NSError *error) {
+    //                                    if(failureBlock)
+    //                                    {
+    //                                        failureBlock(error);
+    //                                    }
+    //                                }];
 }
 
 @end
