@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *FacebookLoginButton;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewLogo;
+
 - (IBAction)loginButtonTapped:(id)sender;
 - (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)FacebookLoginButtonTapped:(id)sender;

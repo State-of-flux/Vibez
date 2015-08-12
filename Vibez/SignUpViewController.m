@@ -40,12 +40,8 @@
     if([self SignUpValidation])
     {
         [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
-        
-        
     }
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -86,7 +82,7 @@
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
             [alert show];
         }
     }];

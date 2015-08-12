@@ -17,14 +17,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self.tableView setDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.logoutCell setTarget:self action:@selector(logout)];
-    [self.linkToFacebookCell setTarget:self action:@selector(linkToFacebook)];
+    //[self.logoutCell setTarget:self action:@selector(logout)];
+    //[self.linkToFacebookCell setTarget:self action:@selector(linkToFacebook)];
+}
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell == self.logoutCell) {
+        [self logout];
+    }
+    else if (cell == self.linkToFacebookCell) {
+        [self linkToFacebook];
+    }
 }
 
 - (void)logout {

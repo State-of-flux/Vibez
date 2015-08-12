@@ -13,6 +13,7 @@
 #import "PaymentViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PIKContextManager.h"
+#import "NSString+PIK.h"
 
 @interface EventInfoViewController ()
 
@@ -37,7 +38,7 @@
         NSLog(@"Error: Event doesn't exist");
     }
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y - 8)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y)];
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
     //[self.scrollView setBackgroundColor:[UIColor yellowColor]];
     [self.view addSubview:self.scrollView];
@@ -45,12 +46,12 @@
     // Image
     self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
     
-//    [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.eventSelected.image]
-//                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-//                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-//     {
-//         
-//     }];
+    [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.event.image]
+                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
     
     self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
@@ -69,33 +70,45 @@
     self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
     self.eventNameLabel.textColor = [UIColor whiteColor];
     self.eventNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.eventNameLabel.text = @"POPTARTS";
+    self.eventNameLabel.text = self.event.name;
     
     // Event Venue
     self.eventVenueLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventImageView.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
     self.eventVenueLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
     self.eventVenueLabel.textColor = [UIColor whiteColor];
-    self.eventVenueLabel.text = @"Foundry";
+    self.eventVenueLabel.text = self.event.eventVenue;
     
     // Event Date
     self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
     self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateLabel.textColor = [UIColor whiteColor];
-    self.eventDateLabel.text = @"14th July 2015";
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:self.event.startDate]];
+    [dateFormatString insertString:[NSString daySuffixForDate:self.event.startDate] atIndex:6];
+    self.eventDateLabel.text = dateFormatString;
     
     // Event Date
     self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2 + doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width /2 - 32, 25)];
     self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateEndLabel.textColor = [UIColor whiteColor];
     self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
-    self.eventDateEndLabel.text = @"8:00pm to 3:00am";
+
+    [dateFormatter setDateFormat:@"HH:mma"];
+    NSMutableString *dateFormatStringBegin = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.startDate] lowercaseString]];
+    NSMutableString *dateFormatStringEnd = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.endDate] lowercaseString]];
+    NSMutableString *beginningEnd = [[NSMutableString alloc] initWithFormat:NSLocalizedString(@"%@ - %@", @"Beginning And End"), dateFormatStringBegin, dateFormatStringEnd];
+    
+    self.eventDateEndLabel.text = beginningEnd;
     
     // Event Description
     self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventDateLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
     self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
     self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
-    self.eventDescriptionTextView.text = @"This is the ultimate Saturday night party, with all the best singalong hits from the early Noughties, 90s and 80s in the Foundry! Plus in Room 2 every week, the best that the 50s rock n roll, 60s pop & soul & 70s rock & disco had to offer!";
+    self.eventDescriptionTextView.text = self.event.eventDescription;
     self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
     self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
     self.eventDescriptionTextView.editable = NO;
@@ -109,6 +122,8 @@
     [self.scrollView addSubview:self.eventDateEndLabel];
     [self.scrollView addSubview:self.eventVenueLabel];
     [self.scrollView addSubview:self.eventDescriptionTextView];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {

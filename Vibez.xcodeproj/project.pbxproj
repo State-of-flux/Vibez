@@ -91,6 +91,7 @@
 		6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6591B3877BD00C82735 /* PIKParseManager.m */; };
 		6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6621B38787E00C82735 /* Venue+Additions.m */; };
 		6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */; };
+		6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6C96DB9C1B7A83FF00B4CF2F /* background.gif */; };
 		6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0F7801B212C3900DF867D /* loginBG.jpg */; };
 		6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A4321B3CC9AB00121975 /* Event+Additions.m */; };
 		6CB4DCA51B7959CF001931D8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4DCA41B7959CF001931D8 /* User.m */; };
@@ -254,6 +255,7 @@
 		6C90C6621B38787E00C82735 /* Venue+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Venue+Additions.m"; sourceTree = "<group>"; };
 		6C90C66A1B38861E00C82735 /* FetchedCollectionViewContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchedCollectionViewContainerViewController.h; sourceTree = "<group>"; };
 		6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
+		6C96DB9C1B7A83FF00B4CF2F /* background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background.gif; sourceTree = "<group>"; };
 		6CA0F7801B212C3900DF867D /* loginBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginBG.jpg; sourceTree = "<group>"; };
 		6CB4A4311B3CC9AB00121975 /* Event+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+Additions.h"; sourceTree = "<group>"; };
 		6CB4A4321B3CC9AB00121975 /* Event+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+Additions.m"; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 		6C1E55B41ACF08D9003965A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
 				6C3471631AE481A100FC789A /* Images */,
 				6C1E55B51ACF08D9003965A0 /* Info.plist */,
@@ -705,6 +708,14 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		6C96DB9B1B7A83E300B4CF2F /* Gifs */ = {
+			isa = PBXGroup;
+			children = (
+				6C96DB9C1B7A83FF00B4CF2F /* background.gif */,
+			);
+			name = Gifs;
+			sourceTree = "<group>";
+		};
 		6CB4DC391B6EB145001931D8 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
@@ -965,6 +976,7 @@
 				6C066FD81B1BAEEF009EA34D /* navigationbar_background.png in Resources */,
 				6C066FE21B1BAEEF009EA34D /* third_normal.png in Resources */,
 				6C066FDC1B1BAEEF009EA34D /* second_selected.png in Resources */,
+				6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */,
 				6C066FE11B1BAEEF009EA34D /* tabbar_selected_background@2x.png in Resources */,
 				6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,

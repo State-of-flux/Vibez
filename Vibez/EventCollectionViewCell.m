@@ -29,7 +29,7 @@
     if(self)
     {
         //[self setBackgroundColor:[UIColor colorWithRed:44.0f/255.0f green:44.0f/255.0f blue:44.0f/255.0f alpha:1.0f]];
-        self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:0.8f].CGColor;
+        self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f].CGColor;
         self.layer.borderWidth = 0.5f;
         
         self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2 - 30.0f, self.frame.size.width - 5, 25)];

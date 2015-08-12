@@ -6,17 +6,16 @@
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
-#import <Bohr/Bohr.h>
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface MoreContainerViewController : BOTableViewController
+@interface MoreContainerViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet BOTableViewCell *usernameCell;
-@property (weak, nonatomic) IBOutlet BOTableViewCell *emailAddressCell;
-@property (weak, nonatomic) IBOutlet BOTableViewCell *passwordCell;
-@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *friendsCell;
-@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *locationCell;
-@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *priceCell;
-@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *logoutCell;
-@property (weak, nonatomic) IBOutlet BOButtonTableViewCell *linkToFacebookCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *usernameCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *emailAddressCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *friendsCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *logoutCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *linkToFacebookCell;
 
 @end

@@ -135,7 +135,9 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 
 - (void) deleteAllObjects: (NSString *) entityDescription  {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[self.contextManager mainContext]];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[PIKContextManager mainContext]];
+    
     [fetchRequest setEntity:entity];
     
     NSError *error;

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "PIKContextManager.h"
 #import "Ticket+Additions.h"
+#import "FLAnimatedImage.h"
 
 @interface LoginViewController ()
 {
@@ -23,6 +24,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+//    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
+//    
+//    NSData *gifData = [NSData dataWithContentsOfFile: filePath];
+//
+//    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:gifData];
+//    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+//    imageView.animatedImage = image;
+//    imageView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height);
+//    [self.view addSubview:imageView];
+//    [self.view sendSubviewToBack:imageView];
     
     [self tapOffKeyboardGestureSetup];
     [self placeholderTextColor];

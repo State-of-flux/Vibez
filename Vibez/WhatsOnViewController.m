@@ -47,7 +47,12 @@
     self.currentVC = eventVC;
     
     user = [PFUser currentUser];
-    self.navigationItem.title = @"Hunt for Vibes";
+    //self.navigationItem.title = @"Hunt for Vibes";
+    
+    UIImageView *imageViewTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
+    [imageViewTitle setImage:[UIImage imageNamed:@"logoTitleView"]];
+    [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
+    self.navigationItem.titleView = imageViewTitle;
     
     manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
     [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {

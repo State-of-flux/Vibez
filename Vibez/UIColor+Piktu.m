@@ -12,7 +12,7 @@
 
 + (UIColor *)pku_placeHolderTextColor
 {
-    return [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.6];
+    return [UIColor colorWithRed:44.0/255.0 green:44.0/255.0 blue:44.0/255.0 alpha:1.0];
 }
 
 + (UIColor *)pku_purpleColor
