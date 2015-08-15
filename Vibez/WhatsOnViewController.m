@@ -55,17 +55,17 @@
     self.navigationItem.titleView = imageViewTitle;
     
     manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
+    
     [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {
         NSLog(@"Our new location: %@", location);
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-        [defaults setValue:@"blahblah" forKey:@"currentLocation"];
+        [defaults setValue:@"Sheffield" forKey:@"currentLocation"];
         [defaults synchronize];
         
         NSString *thelocation = [defaults valueForKey:@"currentLocation"];
         NSLog(@"Our new location: %@", thelocation);
-        
     }];
 }
 
@@ -124,8 +124,8 @@
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
-        //VenueInfoViewController *destinationVC = segue.destinationViewController;
-        //destinationVC.indexPathVenueSelected = [venueVC indexPathVenueSelected];
+        VenueInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.venue = [venueVC venue];
     }
 }
 

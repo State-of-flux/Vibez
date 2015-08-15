@@ -40,7 +40,6 @@
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y)];
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
-    //[self.scrollView setBackgroundColor:[UIColor yellowColor]];
     [self.view addSubview:self.scrollView];
     
     // Image
@@ -124,6 +123,8 @@
     [self.scrollView addSubview:self.eventDescriptionTextView];
     
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
+
+    [self.view bringSubviewToFront:self.getTicketsButton];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
@@ -156,32 +157,28 @@
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ticket" inManagedObjectContext:[PIKContextManager mainContext]];
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ticket" inManagedObjectContext:[PIKContextManager mainContext]];
+//    
+//    Ticket *ticket = [[Ticket alloc] initWithEntity:entity insertIntoManagedObjectContext:[PIKContextManager mainContext]];
+//    PFUser *user = [PFUser currentUser];
+//    
+//    NSError *error;
+//    
+//    [ticket setTicketID:@"YASRgKzOBf"];
+//    [ticket setHasBeenUsed:@NO];
+//    [ticket setHasBeenUpdated:@NO];
+//    [ticket setUser:user.objectId];
+//    [ticket setEvent:self.event.eventID];
+//    [[ticket managedObjectContext] save:&error];
+//    
+//    if(error)
+//    {
+//        NSLog(@"Error %@ %s", error.localizedDescription, __PRETTY_FUNCTION__);
+//    }
+//    
+//    [ticket saveToParse];
     
-    Ticket *ticket = [[Ticket alloc] initWithEntity:entity insertIntoManagedObjectContext:[PIKContextManager mainContext]];
-    PFUser *user = [PFUser currentUser];
-    
-    NSError *error;
-    
-    [ticket setTicketID:@"YASRgKzOBf"];
-    [ticket setHasBeenUsed:@NO];
-    [ticket setHasBeenUpdated:@NO];
-    [ticket setUser:user.objectId];
-    [ticket setEvent:self.event.eventID];
-    [[ticket managedObjectContext] save:&error];
-    
-    if(error)
-    {
-        NSLog(@"Error %@ %s", error.localizedDescription, __PRETTY_FUNCTION__);
-    }
-    
-    [ticket saveToParse];
-    
-    //ticket.venueDescription = @"Updated";
-    //[[ticket managedObjectContext] save:nil];
-    //[ticket saveToParse];
-    
-    //[self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
+    [self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
     //PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
     //[self.navigationController pushViewController:paymentVC animated:YES];
 }

@@ -28,6 +28,7 @@
     
     accountController = [[AccountController alloc] init];
     validator = [[Validator alloc] init];
+    [self tapOffKeyboardGestureSetup];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,6 +94,19 @@
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
+
+-(void)tapOffKeyboardGestureSetup
+{
+    UIGestureRecognizer *tapOffKeyboard = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(handleSingleTap:)];
+    tapOffKeyboard.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOffKeyboard];
 }
 
 @end

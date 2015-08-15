@@ -15,5 +15,5 @@
 
 @property (nonatomic, strong) PIKContextManager *contextManager;
 @property (nonatomic, strong) SQKManagedObjectController *controller;
-
+@property (nonatomic, strong) Ticket *ticket;
 @end

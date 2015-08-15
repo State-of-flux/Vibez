@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Ticket+Additions.h"
 
 @interface DisplayTicketViewController : UIViewController
 
@@ -14,5 +15,6 @@
 @property (strong, nonatomic) UILabel* eventReferenceNumberLabel;
 @property (strong, nonatomic) UIImageView* qrImageView;
 
+@property (strong, nonatomic) Ticket *ticket;
 
 @end

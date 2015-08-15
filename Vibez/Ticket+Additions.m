@@ -8,6 +8,7 @@
 
 #import "Ticket+Additions.h"
 
+
 @implementation Ticket (Additions)
 
 +(void)importTickets:(NSArray *)tickets intoContext:(NSManagedObjectContext *)context
@@ -31,10 +32,16 @@
                    uniqueRemoteKey:@"objectId"
                propertySetterBlock:^(NSDictionary *dictionary, Ticket *managedObject) {
                    
+                   PFFile* imageFile = [dictionary[@"event"] objectForKey:@"eventImage"];
+                   managedObject.image = imageFile.url;
                    managedObject.ticketID = dictionary[@"objectId"];
-                   managedObject.event = dictionary[@"event"];
-                   managedObject.user = dictionary[@"user"];
+                   managedObject.eventName = [dictionary[@"event"] objectForKey:@"eventName"];
+                   managedObject.eventDate = [dictionary[@"event"] objectForKey:@"startDate"];
+                   managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
+                   managedObject.venue = [[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"venueName"];
+                   managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
+                   managedObject.referenceNumber = dictionary[@"referenceNumber"];
                    managedObject.hasBeenUpdated = @YES;
                }
                     privateContext:context
@@ -58,11 +65,9 @@
 
 +(void)getTicketsForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    PFUser *user = [PFUser currentUser];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user = %@", [PFUser currentUser]];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"owner = %@", user.username];
-    
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -111,9 +116,9 @@
 {
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
-                                                       @"event" : self.event,
                                                        @"hasBeenUsed" : self.hasBeenUsed,
-                                                       @"user" : self.user}];
+                                                       @"referenceNumber" : self.referenceNumber
+                                                       }];
     
     return object;
 }

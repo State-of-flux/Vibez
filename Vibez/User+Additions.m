@@ -61,7 +61,7 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class])
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:nil
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);

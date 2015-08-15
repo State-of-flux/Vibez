@@ -18,6 +18,8 @@
 
 @property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;
 
+@property (strong, nonatomic) Venue *venue;
+
 @property (strong, nonatomic) UIScrollView *scrollView;
 
 @end

@@ -94,9 +94,16 @@
     return dictionaries;
 }
 
-+ (void)getAllForClassName:(NSString *)className success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock
++ (void)getAllForClassName:(NSString *)className withIncludeKey:(NSString *)includeKey success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock
 {
-    [[PFQuery queryWithClassName:className] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    PFQuery *query = [PFQuery queryWithClassName:className];
+    
+    if(includeKey)
+    {
+        [query includeKey:includeKey];
+    }
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         if(!error && successBlock)
         {
@@ -109,9 +116,17 @@
     }];
 }
 
-+ (void)getAllForClassName:(NSString *)className withPredicate:(NSPredicate *)predicate success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock
++ (void)getAllForClassName:(NSString *)className withPredicate:(NSPredicate *)predicate withIncludeKey:(NSString *)includeKey success:(void (^)(NSArray *objects))successBlock failure:(void (^)(NSError *error))failureBlock
 {
-    [[PFQuery queryWithClassName:className predicate:predicate] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    PFQuery *query = [PFQuery queryWithClassName:className predicate:predicate];
+    
+    if(includeKey)
+    {
+        [query includeKey:includeKey];
+        [query includeKey:@"user"];
+    }
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
      {
          if(!error && successBlock)
          {

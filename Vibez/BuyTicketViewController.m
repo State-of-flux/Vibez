@@ -19,12 +19,12 @@
 {
     [super viewDidLoad];
     
-    self.paymentView = [[PTKView alloc] initWithFrame:CGRectMake(15, 25, 290, 55)];
+    self.paymentView = [[PKView alloc] initWithFrame:CGRectMake(15, 25, 290, 55)];
     self.paymentView.delegate = self;
     [self.view addSubview:self.paymentView];
 }
 
-- (void)paymentView:(PTKView*)paymentView withCard:(PTKCard *)card isValid:(BOOL)valid
+- (void) paymentView:(PKView*)paymentView withCard:(PKCard *)card isValid:(BOOL)valid
 {
     NSLog(@"Card number: %@", card.number);
     NSLog(@"Card expiry: %lu/%lu", (unsigned long)card.expMonth, (unsigned long)card.expYear);

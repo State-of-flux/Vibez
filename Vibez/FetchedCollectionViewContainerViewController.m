@@ -66,6 +66,10 @@
     
     //self.showsSectionsWhenSearching = NO;
     
+    [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTranslucent:NO];
+    [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    
     self.controller.delegate = self;
     [self.controller performFetch:nil];
     
@@ -98,10 +102,10 @@
              {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }
-             else
-             {
-                 [self.collectionView reloadData];
-             }
+             
+             
+            [self.collectionView reloadData];
+             
          }
                                   failureBlock:^(NSError *error)
          {
@@ -158,8 +162,8 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)theItemCell atIndexPath:(NSIndexPath *)indexPath
 {
-    //VenueCollectionViewCell *itemCell = (VenueCollectionViewCell *)theItemCell;
-    //Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    //EventCollectionViewCell *itemCell = (EventCollectionViewCell *)theItemCell;
+    //Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath

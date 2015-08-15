@@ -11,11 +11,10 @@
 
 @interface MoreContainerViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableViewCell *usernameCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *emailAddressCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *friendsCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *locationCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *logoutCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *linkToFacebookCell;
+@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) NSArray *accountData;
+@property (strong, nonatomic) NSArray *filterData;
+@property (strong, nonatomic) NSArray *controlData;
+
 
 @end

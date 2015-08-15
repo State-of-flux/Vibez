@@ -20,15 +20,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBarButtons:@"Vibes"];
+    [self setTopBarButtons:@"Venue"];
     [self layoutSubviews];
 }
 
 -(void)layoutSubviews
 {
-    
-    
-   // Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    if(self.venue)
+    {
+        NSLog(@"Event exists: %@", self.venue);
+    }
+    else
+    {
+        NSLog(@"Error: Venue doesn't exist");
+    }
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
@@ -37,12 +42,12 @@
     // Image
     self.venueImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
     
-//    [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venueSelected.image]
-//                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-//                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-//     {
-//         
-//     }];
+    [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venue.image]
+                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
     
     self.venueImageView.contentMode = UIViewContentModeScaleAspectFill;
     if (self.venueImageView.bounds.size.width > self.venueImageView.image.size.width && self.venueImageView.bounds.size.height > self.venueImageView.image.size.height) {
@@ -61,20 +66,20 @@
     self.venueNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
     self.venueNameLabel.textColor = [UIColor whiteColor];
     self.venueNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.venueNameLabel.text = @"FOUNDRY";
+    [self.venueNameLabel setText:self.venue.name];
     
     // Event Venue
     self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueImageView.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
     self.venueTownLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
     self.venueTownLabel.textColor = [UIColor whiteColor];
-    self.venueTownLabel.text = @"Sheffield";
+    self.venueTownLabel.text = self.venue.town;
     
     // Event Description
     self.venueDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueTownLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
     self.venueDescriptionTextView.backgroundColor = [UIColor clearColor];
     self.venueDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.venueDescriptionTextView.textColor = [UIColor pku_greyColor];
-    self.venueDescriptionTextView.text = @"This is the ultimate Saturday night party, with all the best singalong hits from the early Noughties, 90s and 80s in the Foundry! Plus in Room 2 every week, the best that the 50s rock n roll, 60s pop & soul & 70s rock & disco had to offer!";
+    self.venueDescriptionTextView.text = self.venue.venueDescription;
     self.venueDescriptionTextView.textContainer.lineFragmentPadding = 0;
     self.venueDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
     self.venueDescriptionTextView.editable = NO;
@@ -86,6 +91,8 @@
     [self.scrollView addSubview:self.venueNameLabel];
     [self.scrollView addSubview:self.venueTownLabel];
     [self.scrollView addSubview:self.venueDescriptionTextView];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.venueDescriptionTextView.frame))];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {

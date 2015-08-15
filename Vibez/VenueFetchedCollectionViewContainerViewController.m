@@ -54,7 +54,6 @@
     CGRect otherFrame = [[self.parentViewController.childViewControllers[0] view] frame];
     [self.view setFrame:CGRectMake(CGRectGetMaxX(otherFrame), 0, otherFrame.size.width, otherFrame.size.height)];
     
-    
     static NSString *venueCellIdentifier = @"venueCell";
     
     [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
@@ -62,6 +61,10 @@
     [self.collectionView setDataSource:self];
     
     //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
+    
+    [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTranslucent:NO];
+    [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     
     self.showsSectionsWhenSearching = NO;
     self.controller.delegate = self;
@@ -96,10 +99,8 @@
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          }
-         else
-         {
-             [self.collectionView reloadData];
-         }
+         
+        [self.collectionView reloadData];
      }
                               failureBlock:^(NSError *error)
      {
@@ -121,7 +122,8 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
-    [self setIndexPathVenueSelected:indexPath];
+    Venue *venue = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    [self setVenue:venue];
     [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
 

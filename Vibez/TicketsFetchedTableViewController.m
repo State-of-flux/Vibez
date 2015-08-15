@@ -26,12 +26,13 @@
     
     if (self)
     {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+        [self.view setBackgroundColor:[UIColor pku_blackColor]];
         
+        self.tableView.tableFooterView = [[UIView alloc] init];
         reachability = [Reachability reachabilityForInternetConnection];
         
         NSFetchRequest *request = [Ticket sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES] ];
+        //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event" ascending:YES] ];
         
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -54,6 +55,13 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchController.searchBar setTranslucent:NO];
+    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
+    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
+    
     
     [self.controller setDelegate:self];
     [self.controller performFetch:nil];
@@ -91,10 +99,9 @@
             {
                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
-            else
-            {
-                [self.tableView reloadData];
-            }
+          
+            [self.tableView reloadData];
+            
          }
                                   failureBlock:^(NSError *error)
          {
@@ -137,13 +144,13 @@
     
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event.name" ascending:YES] ];
-    request.fetchBatchSize = 10;
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+    //request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"event.name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString];
     }
     
     [request setPredicate:filterPredicate];
@@ -163,6 +170,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    [self setTicket:ticket];
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
 }
 
@@ -195,19 +204,22 @@
     
     [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
     
-    cell.ticketNameLabel.text = ticket.ticketID;
+    cell.ticketNameLabel.text = ticket.eventName;
     cell.ticketDateLabel.text = dateFormatString;
-    
+    [cell setBackgroundColor:[UIColor pku_lightBlack]];
+    //[[cell layer] setBorderColor:[UIColor blackColor].CGColor];
+    //[[cell layer] setBorderWidth:0.3f];
     // Here we use the new provided sd_setImageWithURL: method to load the web image
-    //[cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.event.image]
-//                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-//                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-//     {
-//         if(error)
-//         {
-//            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-//         }
-//     }];
+    
+    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         if(error)
+         {
+            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+     }];
 }
 
 @end

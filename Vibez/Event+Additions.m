@@ -37,7 +37,7 @@
                   managedObject.price = dictionary[@"price"];
                   managedObject.name = dictionary[@"eventName"];
                   managedObject.eventDescription = dictionary[@"eventDescription"];
-                  managedObject.eventVenue = dictionary[@"eventVenue"];
+                  managedObject.eventVenue = [dictionary[@"venue"] objectForKey:@"venueName"];
                   managedObject.startDate = dictionary[@"eventDate"];
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
@@ -66,7 +66,7 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class])
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:@"venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);

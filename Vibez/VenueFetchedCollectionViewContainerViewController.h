@@ -16,4 +16,6 @@
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 @property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;
 
+@property (strong, nonatomic) Venue *venue;
+
 @end

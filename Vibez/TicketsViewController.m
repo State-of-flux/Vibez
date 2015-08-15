@@ -9,6 +9,7 @@
 #import "TicketsViewController.h"
 #import "UIFont+PIK.h"
 #import "TicketsFetchedTableViewController.h"
+#import "DisplayTicketViewController.h"
 
 @interface TicketsViewController ()
 {
@@ -25,10 +26,9 @@
 {
     [super viewDidLoad];
     [self setNavBar:@"Tickets"];
-    
-    fetchVC = self.childViewControllers[0];
-    
-    user = [PFUser currentUser];
+    [self.view setBackgroundColor:[UIColor pku_blackColor]];
+
+    fetchVC = self.childViewControllers.firstObject;
 }
 
 -(void)setNavBar:(NSString*)titleText
@@ -40,9 +40,10 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"whatsOnToContainerViewSegue"])
+    if([segue.identifier isEqualToString:@"showTicketToDisplayTicketSegue"])
     {
-        
+        DisplayTicketViewController *destinationVC = segue.destinationViewController;
+        [destinationVC setTicket:[fetchVC ticket]];
     }
 }
 
