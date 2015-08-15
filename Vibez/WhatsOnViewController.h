@@ -18,5 +18,8 @@
 @property BOOL isEventDataDisplayed;
 @property (weak, nonatomic) IBOutlet ADVSegmentedControl *advSegmentedControl;
 - (IBAction)advsegmentedControlTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *viewSegmentedControl;
+
+@property (nonatomic, strong) UIViewController *currentVC;
 
 @end

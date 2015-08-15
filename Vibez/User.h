@@ -2,7 +2,7 @@
 //  User.h
 //  Vibez
 //
-//  Created by Harry Liddell on 26/06/2015.
+//  Created by Harry Liddell on 15/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -14,6 +14,10 @@
 @interface User : NSManagedObject
 
 @property (nonatomic, retain) NSString * emailAddress;
+@property (nonatomic, retain) id friends;
+@property (nonatomic, retain) NSNumber * hasBeenUpdated;
+@property (nonatomic, retain) NSString * location;
+@property (nonatomic, retain) NSString * userID;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSSet *orders;
 @end

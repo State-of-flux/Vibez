@@ -123,7 +123,7 @@ import UIKit
         //selectFrame.size.height = 0.1
         thumbView.frame = selectFrame
         thumbView.backgroundColor = thumbColor
-        thumbView.layer.cornerRadius = thumbView.frame.height / 2
+        thumbView.layer.cornerRadius = 0//thumbView.frame.height / 2
         displayNewSelectedIndex()
         
     }

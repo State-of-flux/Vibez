@@ -9,11 +9,19 @@
 #import "WhatsOnViewController.h"
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIFont+PIK.h"
+#import <CLLocationManager-blocks/CLLocationManager+blocks.h>
+#import "SQKFetchedCollectionViewController.h"
+#import "VenueFetchedCollectionViewContainerViewController.h"
+#import "UIColor+Piktu.h"
+#import "EventInfoViewController.h"
+#import "VenueInfoViewController.h"
 
-@interface WhatsOnViewController () 
+@interface WhatsOnViewController ()
 {
     PFUser* user;
-    FetchedCollectionViewContainerViewController *fetchVC;
+    FetchedCollectionViewContainerViewController *eventVC;
+    VenueFetchedCollectionViewContainerViewController *venueVC;
+    CLLocationManager *manager;
 }
 @end
 
@@ -25,29 +33,40 @@
 {
     [super viewDidLoad];
     
-    fetchVC = self.childViewControllers[0];
+    self.viewSegmentedControl.clipsToBounds = YES;
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderColor = [UIColor pku_blackColor].CGColor;
+    bottomBorder.borderWidth = 1;
+    bottomBorder.frame = CGRectMake(-1, -1, CGRectGetWidth(self.viewSegmentedControl.frame), CGRectGetHeight(self.viewSegmentedControl.frame)+1);
+    
+    [self.viewSegmentedControl.layer addSublayer:bottomBorder];
+    
+    eventVC = self.childViewControllers.lastObject;
+    venueVC = self.childViewControllers.firstObject;
+    self.currentVC = eventVC;
     
     user = [PFUser currentUser];
-    self.navigationItem.titleView = [self setNavBar:@"Hunt for Vibes"];
-}
-
--(UIView*)setNavBar:(NSString*)titleText
-{
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@""]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-
-    return titleLabel;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    NSLog(@"Memory Warning Received.");
+    //self.navigationItem.title = @"Hunt for Vibes";
+    
+    UIImageView *imageViewTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
+    [imageViewTitle setImage:[UIImage imageNamed:@"logoTitleView"]];
+    [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
+    self.navigationItem.titleView = imageViewTitle;
+    
+    manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
+    
+    [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {
+        NSLog(@"Our new location: %@", location);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        
+        [defaults setValue:@"Sheffield" forKey:@"currentLocation"];
+        [defaults synchronize];
+        
+        NSString *thelocation = [defaults valueForKey:@"currentLocation"];
+        NSLog(@"Our new location: %@", thelocation);
+    }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -62,37 +81,52 @@
 
 - (IBAction)advsegmentedControlTapped:(id)sender
 {
-    if([sender selectedIndex] == 0)
-    {
-        [fetchVC SwapCellsToEventData];
+    switch ([sender selectedIndex]) {
+        case 0:
+            if (self.currentVC == venueVC) {
+                [self addChildViewController:eventVC];
+                //eventVC.view.frame = self.container.bounds;
+                [self moveToNewController:eventVC];
+            }
+            break;
+        case 1:
+            if (self.currentVC == eventVC) {
+                [self addChildViewController:venueVC];
+                //venueVC.view.frame = self.container.bounds;
+                [self moveToNewController:venueVC];
+            }
+            break;
+        default:
+            break;
     }
-    else if ([sender selectedIndex] == 1)
-    {
-        [fetchVC SwapCellsToVenueData];
-    }
+}
+
+#pragma mark - Animate Container Views
+
+-(void)moveToNewController:(UIViewController *) newController {
+    [self.currentVC willMoveToParentViewController:nil];
+    [self transitionFromViewController:self.currentVC toViewController:newController duration:0.0 options:UIViewAnimationOptionTransitionCrossDissolve animations:nil
+                            completion:^(BOOL finished) {
+                                [self.currentVC removeFromParentViewController];
+                                [newController didMoveToParentViewController:self];
+                                self.currentVC = newController;
+                            }];
 }
 
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"whatsOnToContainerViewSegue"])
+    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
     {
-        
-    }
-    else if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
-    {
-    
+        EventInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.event = [eventVC event];
     }
     else if([segue.identifier isEqualToString:@"venueToVenueInfoSegue"])
     {
-    
+        VenueInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.venue = [venueVC venue];
     }
 }
-
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 
 @end

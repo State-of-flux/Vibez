@@ -14,6 +14,7 @@
 + (UIColor *)pku_purpleColor;
 + (UIColor *)pku_blackColor;
 + (UIColor *)pku_greyColor;
++ (UIColor *)pku_lightBlack;
 
 
 @end

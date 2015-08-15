@@ -7,6 +7,10 @@
 //
 
 #import "VenueInfoViewController.h"
+#import "LocationViewController.h"
+#import "UIColor+Piktu.h"
+#import "UIFont+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface VenueInfoViewController ()
 
@@ -16,56 +20,114 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBarButtons:@"Plug"];
-    // Do any additional setup after loading the view.
+    [self setTopBarButtons:@"Venue"];
+    [self layoutSubviews];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)setTopBarButtons:(NSString*)titleText
+-(void)layoutSubviews
 {
-    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkVenueAction)];
+    if(self.venue)
+    {
+        NSLog(@"Event exists: %@", self.venue);
+    }
+    else
+    {
+        NSLog(@"Error: Venue doesn't exist");
+    }
     
-    // UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
-    //self.navigationItem.rightBarButtonItems = [[NSArray alloc] initWithObjects:settingsBarButtonItem, searchBarButtonItem, nil];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
+    [self.view addSubview:self.scrollView];
     
-    self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
+    // Image
+    self.venueImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
     
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:titleText];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont fontWithName:@"Futura-Medium" size:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor colorWithRed:255.0f/255.0f green:255.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
+    [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venue.image]
+                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
     
-    self.navigationItem.titleView = titleLabel;
+    self.venueImageView.contentMode = UIViewContentModeScaleAspectFill;
+    if (self.venueImageView.bounds.size.width > self.venueImageView.image.size.width && self.venueImageView.bounds.size.height > self.venueImageView.image.size.height) {
+        self.venueImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    [self.venueImageView.layer setMasksToBounds:YES];
     
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationItem setHidesBackButton:NO];
-}
+    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.venueImageView.frame.size.width, self.venueImageView.frame.size.height)];
+    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+    
+    CGFloat padding = 8;
+    CGFloat doublePadding = 16;
 
--(void)bookmarkVenueAction
-{
-    NSLog(@"bookmark button clicked");
+    // Event Name
+    self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.venueImageView.frame)/2 - 20, self.scrollView.frame.size.width, 40)];
+    self.venueNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
+    self.venueNameLabel.textColor = [UIColor whiteColor];
+    self.venueNameLabel.textAlignment = NSTextAlignmentCenter;
+    [self.venueNameLabel setText:self.venue.name];
+    
+    // Event Venue
+    self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueImageView.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
+    self.venueTownLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
+    self.venueTownLabel.textColor = [UIColor whiteColor];
+    self.venueTownLabel.text = self.venue.town;
+    
+    // Event Description
+    self.venueDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueTownLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
+    self.venueDescriptionTextView.backgroundColor = [UIColor clearColor];
+    self.venueDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+    self.venueDescriptionTextView.textColor = [UIColor pku_greyColor];
+    self.venueDescriptionTextView.text = self.venue.venueDescription;
+    self.venueDescriptionTextView.textContainer.lineFragmentPadding = 0;
+    self.venueDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+    self.venueDescriptionTextView.editable = NO;
+    self.venueDescriptionTextView.selectable = NO;
+    [self.venueDescriptionTextView sizeToFit];
+    
+    [self.scrollView addSubview:self.venueImageView];
+    [self.scrollView addSubview:darkOverlay];
+    [self.scrollView addSubview:self.venueNameLabel];
+    [self.scrollView addSubview:self.venueTownLabel];
+    [self.scrollView addSubview:self.venueDescriptionTextView];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.venueDescriptionTextView.frame))];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)setTopBarButtons:(NSString*)titleText
+{
+    UIBarButtonItem *buttonLocation = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(buttonLocationPressed)];
+    
+    self.navigationItem.rightBarButtonItem = buttonLocation;
+    self.navigationItem.title = titleText;
 }
-*/
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        self.indexPathVenueSelected = nil;
+    }
+}
+
+-(void)buttonLocationPressed
+{
+    [self performSegueWithIdentifier:@"toMapSegue" sender:self];
+    NSLog(@"location button clicked");
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"toMapSegue"]) {
+        LocationViewController *locationVC = segue.destinationViewController;
+        locationVC.latCoord = 53.3764;
+        locationVC.longCoord = -1.4716;
+    }
+}
 
 @end

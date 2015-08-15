@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Sections</key>
+	<dict>
+		<key>Account</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Username</string>
+				<key>isInteractable</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Email</string>
+				<key>isInteractable</key>
+				<false/>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Friends</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+		</array>
+		<key>Filter</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Location</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+		</array>
+		<key>Control</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>Logout</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Link to Facebook</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

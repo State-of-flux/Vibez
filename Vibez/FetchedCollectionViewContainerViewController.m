@@ -9,9 +9,15 @@
 #import "FetchedCollectionViewContainerViewController.h"
 #import "UIColor+Piktu.h"
 #import "NSString+PIK.h"
+#import "UIFont+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "EventInfoViewController.h"
+#import <Reachability/Reachability.h>
 
-@interface FetchedCollectionViewContainerViewController ()
-
+@interface FetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
+{
+    Reachability *reachability;
+}
 @end
 
 @implementation FetchedCollectionViewContainerViewController
@@ -25,28 +31,47 @@
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        [self.collectionView setEmptyDataSetSource:self];
+        [self.collectionView setEmptyDataSetDelegate:self];
+        
+        reachability = [Reachability reachabilityForInternetConnection];
+        
+        // A little trick for removing the cell separators
+        //self.collectionView.collec = [UIView new];
+        
+        NSFetchRequest *request = [Event sqk_fetchRequest];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
+        
+        //request.fetchBatchSize = 25;
+        
+        self.controller =
+        [[SQKManagedObjectController alloc] initWithFetchRequest:request
+                                            managedObjectContext:[PIKContextManager mainContext]];
     }
     
     return self;
 }
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     static NSString *eventCellIdentifier = @"eventCell";
-    static NSString *venueCellIdentifier = @"venueCell";
-    
     [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:eventCellIdentifier];
-    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
     [self.collectionView setDelegate:self];
-    [self.collectionView setDataSource:self.eventDataSource];
+    [self.collectionView setDataSource:self];
     
-    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
     //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
     
-    self.isEventDataDisplayed = YES;
-    self.showsSectionsWhenSearching = NO;
+    //self.showsSectionsWhenSearching = NO;
+    
+    [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTranslucent:NO];
+    [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    
+    self.controller.delegate = self;
+    [self.controller performFetch:nil];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
@@ -56,71 +81,62 @@
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects)
+    if([reachability isReachable])
     {
-        NSError *error;
+        [self.refreshControl beginRefreshing];
         
-        NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-        [Venue importVenues:objects intoContext:newPrivateContext];
-        [Venue deleteInvalidVenuesInContext:newPrivateContext];
-        [newPrivateContext save:&error];
+        __weak typeof(self) weakSelf = self;
         
-        [weakSelf.refreshControl endRefreshing];
-        
-        if(error)
-        {
-            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-        }
-    }
-    failureBlock:^(NSError *error)
-    {
-        NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-        [weakSelf.refreshControl endRefreshing];
-    }];
-    
-    [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
-    {
-         NSError *error;
-         
-         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Event importEvents:objects intoContext:newPrivateContext];
-         [Event deleteInvalidEventsInContext:newPrivateContext];
-         [newPrivateContext save:&error];
-         
-         [weakSelf.refreshControl endRefreshing];
-         
-         if(error)
+        [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
+         {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Event importEvents:objects intoContext:newPrivateContext];
+             [Event deleteInvalidEventsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             [weakSelf.refreshControl endRefreshing];
+             
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+             
+             
+            [self.collectionView reloadData];
+             
+         }
+                                  failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }
-                              failureBlock:^(NSError *error)
-     {
-         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         [weakSelf.refreshControl endRefreshing];
-     }];
+             [weakSelf.refreshControl endRefreshing];
+         }];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-    //venue.venueDescription = @"Updated";
-    //[[venue managedObjectContext] save:nil];
-    //[venue saveToParse];
-    
-    if(self.isEventDataDisplayed)
-    {
-        [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
-    }
-    else
-    {
-        [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
-    }
+    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    [self setEvent:event];
+    [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
+
+#pragma mark - Navigation
+
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
+//    {
+//        EventInfoViewController *destinationVC = segue.destinationViewController;
+//        [destinationVC setEvent:self.event];
+//    }
+//}
 
 #pragma mark - Fetched Request
 
@@ -128,20 +144,12 @@
 {
     NSFetchRequest *request;
     
-    if(self.isEventDataDisplayed)
-    {
-        request = [Event sqk_fetchRequest];
-    }
-    else
-    {
-        request = [Venue sqk_fetchRequest];
-    }
-    
-    request = [Event sqk_fetchRequest];
+    request = [Event sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
+    
     if (searchString.length)
     {
         filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
@@ -154,8 +162,8 @@
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)theItemCell atIndexPath:(NSIndexPath *)indexPath
 {
-    //VenueCollectionViewCell *itemCell = (VenueCollectionViewCell *)theItemCell;
-    //Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    //EventCollectionViewCell *itemCell = (EventCollectionViewCell *)theItemCell;
+    //Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -165,55 +173,102 @@
                        atIndexPath:indexPath];
 }
 
--(void)SwapCellsToEventData
-{
-    self.isEventDataDisplayed = true;
-    [self.collectionView setDataSource:self.eventDataSource];
-    [self.collectionView reloadData];
-}
-
--(void)SwapCellsToVenueData
-{
-    self.isEventDataDisplayed = false;
-    [self.collectionView setDataSource:self.venueDataSource];
-    [self.collectionView reloadData];
-}
-
-#pragma mark - Collection View Flow Layout
+#pragma mark - UICollectionView Delegates
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.isEventDataDisplayed)
-    {
-        EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
-        
-        Event *event = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"EEE dd MMM"];
-        
-        NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-        
-        [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
-        
-        eventCell.eventNameLabel.text = event.name;
-        eventCell.eventDateLabel.text = dateFormatString;
-        
-        return eventCell;
-    }
-    else
-    {
-        VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
-        
-        Venue *venue = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-        
-        venueCell.venueNameLabel.text = venue.name;
-        NSString *uppercase = [venueCell.venueNameLabel.text uppercaseString];
-        venueCell.venueNameLabel.text =  uppercase;
-        venueCell.venueLocationLabel.text = venue.location;
-        
-        return venueCell;
-    }
+    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+    
+    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
+    
+    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
+    
+    [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
+    
+    eventCell.eventNameLabel.text = event.name;
+    eventCell.eventDateLabel.text = dateFormatString;
+    
+    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%@.00", @"Price of item"), [[event price] stringValue]];
+    
+    eventCell.eventPriceLabel.text = eventPriceString;
+    [eventCell.eventPriceLabel sizeToFit];
+    [eventCell.eventPriceLabel setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
+    
+    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    [eventCell.eventImage sd_setImageWithURL:[NSURL URLWithString:event.image]
+                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
+    
+    return eventCell;
 }
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return [self.controller.managedObjects count];
+}
+
+#pragma mark - DZN Empty Data Set Delegates
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return nil;//[UIImage imageNamed:@"plug.jpg"];
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"No events found";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"There are no events occuring in your current location, try again later or change your location.";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor pku_greyColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+//
+//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+//{
+//    [self refresh:self];
+//}
+
+- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
+    
+    return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
+}
+
+#pragma mark - Collection View Flow Layout
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {

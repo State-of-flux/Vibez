@@ -7,6 +7,8 @@
 //
 
 #import "GlobalViewController.h"
+#import "Event.h"
+#import "Ticket+Additions.h"
 
 @interface EventInfoViewController : GlobalViewController
 
@@ -16,6 +18,8 @@
 @property (strong, nonatomic) UILabel *eventDateEndLabel;
 @property (strong, nonatomic) UITextView *eventDescriptionTextView;
 @property (strong, nonatomic) UILabel *eventVenueLabel;
+
+@property (strong, nonatomic) Event *event;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *getTicketsButton;

@@ -8,7 +8,6 @@
 
 #import "PIKContextManager.h"
 
-
 static SQKContextManager *sharedManger;
 
 @implementation PIKContextManager

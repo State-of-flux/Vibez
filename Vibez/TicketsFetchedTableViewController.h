@@ -8,12 +8,12 @@
 
 #import "SQKFetchedTableViewController.h"
 #import "PIKContextManager.h"
-#import "UIColor+Piktu.h"
+#import "Ticket+Additions.h"
 #import "TicketTableViewCell.h"
 
 @interface TicketsFetchedTableViewController : SQKFetchedTableViewController
 
 @property (nonatomic, strong) PIKContextManager *contextManager;
 @property (nonatomic, strong) SQKManagedObjectController *controller;
-
+@property (nonatomic, strong) Ticket *ticket;
 @end

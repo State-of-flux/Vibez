@@ -28,6 +28,7 @@
     
     accountController = [[AccountController alloc] init];
     validator = [[Validator alloc] init];
+    [self tapOffKeyboardGestureSetup];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,12 +41,8 @@
     if([self SignUpValidation])
     {
         [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
-        
-        
     }
 }
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -86,7 +83,7 @@
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
             [alert show];
         }
     }];
@@ -97,6 +94,19 @@
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *) sender
+{
+    [self.view endEditing:YES];
+}
+
+-(void)tapOffKeyboardGestureSetup
+{
+    UIGestureRecognizer *tapOffKeyboard = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(handleSingleTap:)];
+    tapOffKeyboard.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapOffKeyboard];
 }
 
 @end

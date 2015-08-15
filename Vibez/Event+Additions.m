@@ -31,29 +31,18 @@
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, Event *managedObject) {
                   
-                  //                  PFFile* imageFile = dictionary[@"venueImage"];
-                  //                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
-                  //                  {
-                  //                      if(!error)
-                  //                      {
-                  //                          managedObject.image = result;
-                  //                          NSLog(@"completed image data");
-                  //                      }
-                  //                      else
-                  //                      {
-                  //                          NSLog(@"error : %@", error.localizedDescription);
-                  //                      }
-                  //                  }];
-                  
+                  PFFile* imageFile = dictionary[@"eventImage"];
+                  managedObject.image = imageFile.url;
                   managedObject.eventID = dictionary[@"objectId"];
+                  managedObject.price = dictionary[@"price"];
                   managedObject.name = dictionary[@"eventName"];
                   managedObject.eventDescription = dictionary[@"eventDescription"];
-                  managedObject.eventVenue = dictionary[@"eventVenue"];
+                  managedObject.eventVenue = [dictionary[@"venue"] objectForKey:@"venueName"];
                   managedObject.startDate = dictionary[@"eventDate"];
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
+                  managedObject.quantity = dictionary[@"quantity"];
                   managedObject.hasBeenUpdated = @YES;
-                  
               }
                    privateContext:context
                             error:&error];
@@ -77,7 +66,7 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class])
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:@"venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -126,9 +115,15 @@
 - (PFObject *)pfObject
 {
     return [PFObject objectWithClassName:NSStringFromClass([self class])
-                              dictionary:@{@"objectId" : self.eventID,
+                              dictionary:@{@"objectId"         : self.eventID,
                                            @"eventDescription" : self.eventDescription,
-                                           @"eventName" : self.name}];
+                                           @"eventName"        : self.name,
+                                           @"price"            : self.price,
+                                           @"image"            : self.image,
+                                           @"eventVenue"       : self.eventVenue,
+                                           @"eventDate"        : self.startDate,
+                                           @"eventLastEntry"   : self.lastEntry,
+                                           @"eventEnd"         : self.endDate }];
 }
 
 @end

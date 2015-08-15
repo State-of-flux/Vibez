@@ -1,6 +1,6 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 pod 'AFNetworking', '~> 2.0'
 pod 'FontAwesomeKit', '~> 2.1.0'
@@ -10,3 +10,10 @@ pod 'MBProgressHUD'
 pod 'SQKDataKit'
 pod 'Reachability'
 pod 'Stripe'
+pod 'CLLocationManager-blocks'
+pod 'Bohr'
+pod 'SDWebImage', '~>3.7'
+pod 'FontAwesomeIconFactory'
+pod 'DZNEmptyDataSet'
+pod 'FLAnimatedImage', '~> 1.0'
+pod 'PaymentKit'

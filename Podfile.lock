@@ -20,6 +20,11 @@ PODS:
   - AFNetworking/UIKit (2.5.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - Bohr (2.1.0)
+  - CLLocationManager-blocks (1.3.2)
+  - DZNEmptyDataSet (1.7)
+  - FLAnimatedImage (1.0.8)
+  - FontAwesomeIconFactory (2.0.2)
   - FontAwesomeKit (2.1.8):
     - FontAwesomeKit/Core (= 2.1.8)
     - FontAwesomeKit/FontAwesome (= 2.1.8)
@@ -36,8 +41,12 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
   - MBProgressHUD (0.9.1)
+  - PaymentKit (1.0.0)
   - RDVTabBarController (1.1.9)
   - Reachability (3.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SQKDataKit (0.6.0):
     - SQKDataKit/ContextManager (= 0.6.0)
     - SQKDataKit/Core (= 0.6.0)
@@ -61,32 +70,52 @@ PODS:
     - SQKDataKit/Core
   - SQKDataKit/ManagedObjectExtensions (0.6.0):
     - SQKDataKit/Core
-  - Stripe (4.0.3):
-    - Stripe/Checkout (= 4.0.3)
-    - Stripe/Core (= 4.0.3)
-  - Stripe/Checkout (4.0.3):
-    - Stripe/Core
-  - Stripe/Core (4.0.3)
+  - Stripe (5.0.0):
+    - Stripe/Core (= 5.0.0)
+  - Stripe/Core (5.0.0)
   - VCTransitionsLibrary (1.5.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
+  - Bohr
+  - CLLocationManager-blocks
+  - DZNEmptyDataSet
+  - FLAnimatedImage (~> 1.0)
+  - FontAwesomeIconFactory
   - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD
+  - PaymentKit (from `https://github.com/lmcd/PaymentKit.git`)
   - RDVTabBarController
   - Reachability
+  - SDWebImage (~> 3.7)
   - SQKDataKit
   - Stripe
   - VCTransitionsLibrary
 
+EXTERNAL SOURCES:
+  PaymentKit:
+    :git: https://github.com/lmcd/PaymentKit.git
+
+CHECKOUT OPTIONS:
+  PaymentKit:
+    :commit: dafecf0b20254af8462b4b4ba57fa59e32457fb2
+    :git: https://github.com/lmcd/PaymentKit.git
+
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
+  Bohr: 08c66d64e8f14c2bb759d81074ebea9a3ae0024d
+  CLLocationManager-blocks: 3b0af033092491fcd3cd24ffddfeb13f65e52144
+  DZNEmptyDataSet: 896f8efb3b0961c5ccb59d4959ccf9280854aa3d
+  FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
+  FontAwesomeIconFactory: 36ea917783d4df460a6a3abf7e26481d7d49aef2
   FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
+  PaymentKit: 2289510d64278c097d12fd97589305c2ee3d2ab2
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SQKDataKit: 529742619985d0902d6e361b3088bce0991a8684
-  Stripe: 43a4307dc789483a61668d187c4a917d1348b0b6
+  Stripe: 7689b0065d0f2da3249582eada12bf1529bed2d0
   VCTransitionsLibrary: d61fd9b7b6721942f0d583bcc0e7f8c31ec9271b
 
 COCOAPODS: 0.36.4

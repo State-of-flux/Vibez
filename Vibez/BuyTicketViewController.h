@@ -7,7 +7,10 @@
 //
 
 #import "GlobalViewController.h"
+#import <PaymentKit/PKView.h>
 
-@interface BuyTicketViewController : GlobalViewController
+@interface BuyTicketViewController : GlobalViewController <PKViewDelegate>
+
+@property (strong, nonatomic) PKView* paymentView;
 
 @end

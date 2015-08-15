@@ -15,12 +15,7 @@
     if (self = [super initWithCoder:aDecoder])
     {
         self.delegate = self;
-        [[UITabBar appearance] setTintColor:[UIColor colorWithRed:184.0f/255.0f green:42.0f/255.0f blue:255.0f/255.0f alpha:1.0f]];
-
-        
-        [UITabBarItem.appearance setTitleTextAttributes: @{
-                                                           NSFontAttributeName : [UIFont pik_montserratRegWithSize:10.0f]
-                                                           } forState:UIControlStateNormal];
+    
         
     }
     return self;

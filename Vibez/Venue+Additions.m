@@ -31,24 +31,12 @@
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, Venue *managedObject) {
                   
-//                  PFFile* imageFile = dictionary[@"venueImage"];
-//                  [imageFile getDataInBackgroundWithBlock:^(NSData *result, NSError *error)
-//                  {
-//                      if(!error)
-//                      {
-//                          managedObject.image = result;
-//                          NSLog(@"completed image data");
-//                      }
-//                      else
-//                      {
-//                          NSLog(@"error : %@", error.localizedDescription);
-//                      }
-//                  }];
-                  
+                  PFFile* imageFile = dictionary[@"venueImage"];
+                  managedObject.image = imageFile.url;
                   managedObject.venueID = dictionary[@"objectId"];
                   managedObject.venueDescription = dictionary[@"venueDescription"];
                   managedObject.name = dictionary[@"venueName"];
-                  //managedObject.location = dictionary[@"location"];
+                  managedObject.town = dictionary[@"town"];
                   managedObject.hasBeenUpdated = @YES;
                   
               }
@@ -74,7 +62,7 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class])
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:nil
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -126,7 +114,8 @@
                               dictionary:@{@"objectId" : self.venueID,
                                            @"venueDescription" : self.venueDescription,
                                            @"venueName" : self.name,
-                                           @"location" : self.location}];
+                                           //@"location" : self.location,
+                                           @"venueImage" : self.image}];
 }
 
 @end

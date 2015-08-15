@@ -18,7 +18,10 @@
         dictionary[key] = self[key];
     }];
     
-    dictionary[@"objectId"] = self.objectId;
+    if(self.objectId)
+    {
+        dictionary[@"objectId"] = self.objectId;
+    }
     
     return dictionary;
 }

@@ -8,11 +8,13 @@
 
 #import "TicketsFetchedTableViewController.h"
 #import "NSString+PIK.h"
-#import "UIFont+PIK.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <Reachability/Reachability.h>
 
 @interface TicketsFetchedTableViewController () <SQKManagedObjectControllerDelegate>
 {
     PFUser* user;
+    Reachability *reachability;
 }
 @end
 
@@ -20,14 +22,17 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
+    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:NO style:UITableViewStylePlain];
     
     if (self)
     {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+        [self.view setBackgroundColor:[UIColor pku_blackColor]];
         
-        NSFetchRequest *request = [Event sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
+        self.tableView.tableFooterView = [[UIView alloc] init];
+        reachability = [Reachability reachabilityForInternetConnection];
+        
+        NSFetchRequest *request = [Ticket sqk_fetchRequest];
+        //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event" ascending:YES] ];
         
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -41,7 +46,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.titleView = [self setNavBar:@"Tickets"];
+    [self setNavBar:@"Tickets"];
     
     [self.tableView registerClass:[TicketTableViewCell class]
            forCellReuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
@@ -51,7 +56,14 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-    self.controller.delegate = self;
+    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchController.searchBar setTranslucent:NO];
+    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
+    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
+    
+    
+    [self.controller setDelegate:self];
     [self.controller performFetch:nil];
 }
 
@@ -60,49 +72,49 @@
     [super viewWillAppear:animated];
 }
 
--(UIView*)setNavBar:(NSString*)titleText
+-(void)setNavBar:(NSString*)titleText
 {
-    UILabel* titleLabel = [[UILabel alloc] init];
-    [titleLabel setText:[titleText stringByAppendingString:@""]];
-    [titleLabel setBackgroundColor:[UIColor clearColor]];
-    [titleLabel setFont:[UIFont pik_avenirNextRegWithSize:18.0f]];
-    [titleLabel setShadowColor:[UIColor colorWithWhite:0.0 alpha:0.5]];
-    [titleLabel setTextAlignment:NSTextAlignmentLeft];
-    [titleLabel sizeToFit];
-    [titleLabel setTextColor:[UIColor whiteColor]];
-    
-    return titleLabel;
+    self.navigationItem.title = titleText;
 }
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
-     {
-         NSError *error;
-         
-         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Event importEvents:objects intoContext:newPrivateContext];
-         [Event deleteInvalidEventsInContext:newPrivateContext];
-         [newPrivateContext save:&error];
-         
-         [weakSelf.refreshControl endRefreshing];
-         
-         if(error)
+    if([reachability isReachable])
+    {
+        [self.refreshControl beginRefreshing];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Ticket importTickets:objects intoContext:newPrivateContext];
+             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             [weakSelf.refreshControl endRefreshing];
+             
+            if(error)
+            {
+                NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+            }
+          
+            [self.tableView reloadData];
+            
+         }
+                                  failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }
-                              failureBlock:^(NSError *error)
-     {
-         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         [weakSelf.refreshControl endRefreshing];
-     }];}
-
-
+             [weakSelf.refreshControl endRefreshing];
+         }];
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
+}
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -115,6 +127,10 @@
 {
     TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class]) forIndexPath:theIndexPath];
     
+    if (cell == nil) {
+        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
+    }
+    
     [self configureCell:cell atIndexPath:theIndexPath];
     
     return cell;
@@ -126,15 +142,15 @@
 {
     NSFetchRequest *request;
     
-    request = [Event sqk_fetchRequest]; //Create ticket additions
+    request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-    request.fetchBatchSize = 10;
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+    //request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString];
     }
     
     [request setPredicate:filterPredicate];
@@ -146,15 +162,22 @@
                    configureCell:(UITableViewCell *)cell
                      atIndexPath:(NSIndexPath *)indexPath
 {
-    TicketTableViewCell *itemCell = (TicketTableViewCell *)cell;
-    Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    //TicketTableViewCell *itemCell = (TicketTableViewCell *)cell;
+    //Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
 #pragma mark - Table View Delegate Methods
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    [self setTicket:ticket];
+    [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 70;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -171,16 +194,32 @@
           atIndexPath:(NSIndexPath *)indexPath
 {
     TicketTableViewCell *cell = (TicketTableViewCell *)theCell;
-    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    
+    NSDate *date = [NSDate date];
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-    [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:date]];
     
-    cell.ticketNameLabel.text = event.name;
+    [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
+    
+    cell.ticketNameLabel.text = ticket.eventName;
     cell.ticketDateLabel.text = dateFormatString;
-    cell.ticketVenueLabel.text = event.name;
+    [cell setBackgroundColor:[UIColor pku_lightBlack]];
+    //[[cell layer] setBorderColor:[UIColor blackColor].CGColor];
+    //[[cell layer] setBorderWidth:0.3f];
+    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    
+    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         if(error)
+         {
+            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+     }];
 }
 
 @end
