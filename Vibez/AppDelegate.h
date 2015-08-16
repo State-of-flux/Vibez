@@ -20,6 +20,7 @@
 - (BOOL)isParseReachable;
 - (void)logout;
 - (void)linkParseAccountToFacebook;
+- (void)unlinkParseAccountFromFacebook;
 
 @end
 

@@ -22,7 +22,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:NO style:UITableViewStylePlain];
+    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
     
     if (self)
     {
@@ -125,10 +125,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class]) forIndexPath:theIndexPath];
+    TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class])];
     
     if (cell == nil) {
-        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
+        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
     }
     
     [self configureCell:cell atIndexPath:theIndexPath];
@@ -196,7 +196,7 @@
     TicketTableViewCell *cell = (TicketTableViewCell *)theCell;
     Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
     
-    NSDate *date = [NSDate date];
+    NSDate *date = [ticket eventDate];
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
@@ -207,9 +207,8 @@
     cell.ticketNameLabel.text = ticket.eventName;
     cell.ticketDateLabel.text = dateFormatString;
     [cell setBackgroundColor:[UIColor pku_lightBlack]];
-    //[[cell layer] setBorderColor:[UIColor blackColor].CGColor];
-    //[[cell layer] setBorderWidth:0.3f];
-    // Here we use the new provided sd_setImageWithURL: method to load the web image
+    [cell.detailTextLabel setText:@"2x"];
+    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     
     [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
                         placeholderImage:[UIImage imageNamed:@"plug.jpg"]

@@ -2,7 +2,7 @@
 //  User.m
 //  Vibez
 //
-//  Created by Harry Liddell on 15/08/2015.
+//  Created by Harry Liddell on 16/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 

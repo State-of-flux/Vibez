@@ -10,7 +10,7 @@
 #import "Event.h"
 #import "Ticket+Additions.h"
 
-@interface EventInfoViewController : GlobalViewController
+@interface EventInfoViewController : GlobalViewController <UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIImageView *eventImageView;
 @property (strong, nonatomic) UILabel *eventNameLabel;

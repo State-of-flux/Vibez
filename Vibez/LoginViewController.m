@@ -58,10 +58,7 @@
 {
     self.loginButton.enabled = false;
     self.signUpButton.enabled = false;
-    [self Login];
-    //AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-    //appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-    
+    [self Login];    
 }
 
 - (IBAction)signUpButtonTapped:(id)sender
@@ -113,9 +110,6 @@
                      appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                  }
              }];
-             
-             //[self performSegueWithIdentifier:@"loginToHomeSegue" sender:self];
-             
          }
          else
          {

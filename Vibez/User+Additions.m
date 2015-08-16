@@ -27,7 +27,7 @@
         NSArray *parseObjects = [PIKParseManager pfObjectsToDictionary:users];
         
         [User sqk_insertOrUpdate:parseObjects
-                   uniqueModelKey:@"venueID"
+                   uniqueModelKey:@"userID"
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, User *managedObject) {
                   
@@ -57,6 +57,23 @@
     [User sqk_deleteAllObjectsInContext:context
                            withPredicate:[NSPredicate predicateWithFormat:@"hasBeenUpdated == NO"]
                                    error:&error];
+}
+
++(void)getUserForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId = %@", [[PFUser currentUser] objectId]];
+    
+    [PIKParseManager getAllForClassName:@"_User" withPredicate:predicate withIncludeKey:nil
+                                success:^(NSArray *objects) {
+                                    if (successBlock) {
+                                        successBlock(objects);
+                                    }
+                                }
+                                failure:^(NSError *error) {
+                                    if (failureBlock) {
+                                        failureBlock(error);
+                                    }
+                                }];
 }
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock

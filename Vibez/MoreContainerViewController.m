@@ -75,9 +75,18 @@
     {
         [self setLogoutCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Email"])
+    else if([[[cell textLabel] text] isEqualToString:@"Location"])
     {
-        [self setEmailCell:cell];
+        [self setLocationCell:cell];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Friends"])
+    {
+        [self setFriendsCell:cell];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
+    {
+        [self setLinkToFacebookCell:cell];
+        
     }
     
     return cell;
@@ -95,22 +104,48 @@
 
 -(void)setFriendsCell:(UITableViewCell *)cell
 {
+    NSMutableArray *arrayOfFriends = [[PFUser currentUser] objectForKey:@"friends"];
     
+    if(arrayOfFriends)
+    {
+        NSMutableString *stringOfFriends = [[NSMutableString alloc] init];
+        
+        for(NSString *friend in arrayOfFriends)
+        {
+            [stringOfFriends appendString:friend];
+            [stringOfFriends appendString:@", "];
+        }
+        
+        [stringOfFriends deleteCharactersInRange:NSMakeRange([stringOfFriends length]-2, 2)];
+        
+        [cell.detailTextLabel setText:stringOfFriends];
+    }
+    else
+    {
+        [cell.detailTextLabel setText:@""];
+    }
 }
 
 -(void)setLocationCell:(UITableViewCell *)cell
 {
-    [cell.detailTextLabel setText:@"Sheffield"];
+    [cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
 }
 
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
-    
+   
 }
 
 -(void)setLinkToFacebookCell:(UITableViewCell *)cell
 {
-    
+    if([[[PFUser currentUser] objectForKey:@"isLinkedToFacebook"] boolValue])
+    {
+        [[cell textLabel] setText:@"Unlink from Facebook"];
+    }
+    else
+    {
+        [[cell textLabel] setText:@"Link to Facebook"];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,6 +160,16 @@
     {
         [self linkToFacebook];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"Unlink from Facebook"])
+    {
+        [self unlinkFromFacebook];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Friends"])
+    {
+        [self.parentViewController performSegueWithIdentifier:@"goToFriendsSegue" sender:self];
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -169,19 +214,24 @@
     UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         [appDelegate logout];
-
+        
     }];
     
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
     [alertController addAction:logoutAction];
     [alertController addAction:cancelAction];
     
-    [self presentViewController:alertController animated:YES completion:nil];    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)linkToFacebook {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate linkParseAccountToFacebook];
+}
+
+- (void)unlinkFromFacebook {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate unlinkParseAccountFromFacebook];
 }
 
 @end

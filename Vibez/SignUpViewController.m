@@ -75,6 +75,9 @@
     user.username = username;
     user.password = password;
     user.email = emailAddress;
+    [user setObject:[NSArray array] forKey:@"friends"];
+    [user setObject:@"Sheffield" forKey:@"location"];
+    [user setObject:@NO forKey:@"isLinkedToFacebook"];
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {

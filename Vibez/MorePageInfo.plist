@@ -31,7 +31,7 @@
 				<key>name</key>
 				<string>Location</string>
 				<key>isInteractable</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
 		<key>Control</key>

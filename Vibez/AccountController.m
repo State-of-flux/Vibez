@@ -85,9 +85,11 @@
     PFUser* user = [PFUser currentUser];
     
     if (![PFFacebookUtils isLinkedWithUser:user]) {
-        [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
+        [PFFacebookUtils linkUserInBackground:user withReadPermissions:[AccountController FacebookPermissions] block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"Woohoo, user is linked with Facebook!");
+                [[PFUser currentUser] setObject:@YES forKey:@"isLinkedToFacebook"];
+                [[PFUser currentUser] saveInBackground];
             }
             else if(!succeeded && error)
             {
@@ -103,6 +105,8 @@
     
     [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
+            [[PFUser currentUser] setObject:@NO forKey:@"isLinkedToFacebook"];
+            [[PFUser currentUser] saveInBackground];
             NSLog(@"The user is no longer associated with their Facebook account.");
         }
         else if(!succeeded && error)
@@ -111,13 +115,5 @@
         }
     }];
 }
-
--(void)Logout
-{
-    [PFUser logOut];
-}
-
-
-
 
 @end

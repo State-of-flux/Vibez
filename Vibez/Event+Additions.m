@@ -42,6 +42,7 @@
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
                   managedObject.quantity = dictionary[@"quantity"];
+                  managedObject.bookingFee = dictionary[@"bookingFee"];
                   managedObject.hasBeenUpdated = @YES;
               }
                    privateContext:context

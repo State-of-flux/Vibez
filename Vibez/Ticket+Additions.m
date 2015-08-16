@@ -36,7 +36,7 @@
                    managedObject.image = imageFile.url;
                    managedObject.ticketID = dictionary[@"objectId"];
                    managedObject.eventName = [dictionary[@"event"] objectForKey:@"eventName"];
-                   managedObject.eventDate = [dictionary[@"event"] objectForKey:@"startDate"];
+                   managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
                    managedObject.venue = [[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"venueName"];

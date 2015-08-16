@@ -159,11 +159,28 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     if (![PFFacebookUtils isLinkedWithUser:user]) {
         [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                NSLog(@"Woohoo, user is linked with Facebook!");
+                NSLog(@"User has linked to Facebook");
             }
             else if(!succeeded && error)
             {
-                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
+                NSLog(@"Link failed: %@", error);
+            }
+        }];
+    }
+}
+
+-(void)unlinkParseAccountFromFacebook
+{
+    PFUser* user = [PFUser currentUser];
+    
+    if ([PFFacebookUtils isLinkedWithUser:user]) {
+        [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"User has unlinked from Facebook");
+            }
+            else if(!succeeded && error)
+            {
+                NSLog(@"Unlink failed: %@", error);
             }
         }];
     }

@@ -41,7 +41,7 @@ PODS:
   - FontAwesomeKit/Zocial (2.1.8):
     - FontAwesomeKit/Core
   - MBProgressHUD (0.9.1)
-  - PaymentKit (1.0.0)
+  - PaymentKit (1.1.1)
   - RDVTabBarController (1.1.9)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
@@ -84,22 +84,13 @@ DEPENDENCIES:
   - FontAwesomeIconFactory
   - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD
-  - PaymentKit (from `https://github.com/lmcd/PaymentKit.git`)
+  - PaymentKit
   - RDVTabBarController
   - Reachability
   - SDWebImage (~> 3.7)
   - SQKDataKit
   - Stripe
   - VCTransitionsLibrary
-
-EXTERNAL SOURCES:
-  PaymentKit:
-    :git: https://github.com/lmcd/PaymentKit.git
-
-CHECKOUT OPTIONS:
-  PaymentKit:
-    :commit: dafecf0b20254af8462b4b4ba57fa59e32457fb2
-    :git: https://github.com/lmcd/PaymentKit.git
 
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
@@ -110,7 +101,7 @@ SPEC CHECKSUMS:
   FontAwesomeIconFactory: 36ea917783d4df460a6a3abf7e26481d7d49aef2
   FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  PaymentKit: 2289510d64278c097d12fd97589305c2ee3d2ab2
+  PaymentKit: 323c25233af5060880daa0c31366d4b688c34487
   RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84

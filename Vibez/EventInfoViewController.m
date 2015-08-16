@@ -133,7 +133,93 @@
 
 -(void)bookmarkEventAction
 {
-    [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
+    NSString* title = self.event.name;
+    NSDate* startDate = self.event.startDate;
+    NSString* description = self.event.eventDescription;
+    NSString* venue = self.event.eventVenue;
+    
+    NSDecimalNumber *overallPrice = [self addNumber:[self.event price] andOtherNumber:[self.event bookingFee]];
+    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
+    
+    NSArray* sharedArray=@[title, venue, description, startDate, eventPriceString];
+    
+    NSArray *includeActivities = @[UIActivityTypeMessage,
+                                   UIActivityTypeMail,
+                                   UIActivityTypePostToFacebook,
+                                   UIActivityTypePostToTwitter,
+                                   UIActivityTypePostToFlickr];
+    
+
+    UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:sharedArray applicationActivities:nil];
+    
+    activityVC.excludedActivityTypes=@[];
+
+    [self presentViewController:activityVC animated:YES completion:nil];
+    
+    
+//    [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
+
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share"
+//                                                             delegate:self
+//                                                    cancelButtonTitle:@"Cancel"
+//                                               destructiveButtonTitle:nil
+//                                                    otherButtonTitles:@"Post to Facebook", @"Tweet it", @"Email", @"Text Message", nil];
+//    
+//    [actionSheet showInView:self.view];
+}
+
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        // Facebook
+        case 0:
+            NSLog(@"Facebook");
+            [self shareEventFacebook];
+            break;
+        // Twitter
+        case 1:
+             NSLog(@"Twitter");
+            [self shareEventTwitter];
+            break;
+        // Email
+        case 2:
+             NSLog(@"Email");
+            [self shareEventEmail];
+            break;
+        // Text Message
+        case 3:
+            NSLog(@"Text Message");
+            [self shareEventTextMessage];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)shareEventFacebook
+{
+    
+}
+
+-(void)shareEventTwitter
+{
+    
+}
+
+-(void)shareEventEmail
+{
+    
+}
+
+-(void)shareEventTextMessage
+{
+    
+}
+
+-(NSDecimalNumber *)addNumber:(NSDecimalNumber *)num1 andOtherNumber:(NSDecimalNumber *)num2
+{
+    NSDecimalNumber *added = [[NSDecimalNumber alloc] initWithInt:0];
+    return [added decimalNumberByAdding:[num1 decimalNumberByAdding:num2]];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -146,7 +232,7 @@
 
 -(void)setTopBarButtons:(NSString*)titleText
 {
-    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(bookmarkEventAction)];
+    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(bookmarkEventAction)];
     
     //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
 
@@ -156,29 +242,16 @@
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
+    PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
+    PFObject *event = [PFObject objectWithoutDataWithClassName:@"Event" objectId:self.event.eventID];
     
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Ticket" inManagedObjectContext:[PIKContextManager mainContext]];
-//    
-//    Ticket *ticket = [[Ticket alloc] initWithEntity:entity insertIntoManagedObjectContext:[PIKContextManager mainContext]];
-//    PFUser *user = [PFUser currentUser];
-//    
-//    NSError *error;
-//    
-//    [ticket setTicketID:@"YASRgKzOBf"];
-//    [ticket setHasBeenUsed:@NO];
-//    [ticket setHasBeenUpdated:@NO];
-//    [ticket setUser:user.objectId];
-//    [ticket setEvent:self.event.eventID];
-//    [[ticket managedObjectContext] save:&error];
-//    
-//    if(error)
-//    {
-//        NSLog(@"Error %@ %s", error.localizedDescription, __PRETTY_FUNCTION__);
-//    }
-//    
-//    [ticket saveToParse];
+    [ticket setObject:@NO forKey:@"hasBeenUsed"];
+    [ticket setObject:event forKey:@"event"];
+    [ticket setObject:[PFUser currentUser] forKey:@"user"];
+    [ticket setObject:@" " forKey:@"referenceNumber"];
+    [ticket saveInBackground];
     
-    [self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
+    //[self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
     //PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
     //[self.navigationController pushViewController:paymentVC animated:YES];
 }

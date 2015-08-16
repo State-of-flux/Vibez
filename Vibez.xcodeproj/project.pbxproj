@@ -31,12 +31,13 @@
 		6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */; };
 		6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */; };
 		6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929281B7F780E00851DA8 /* NSString+MD5.m */; };
-		6C09293B1B7F79CE00851DA8 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09293A1B7F79CE00851DA8 /* Venue.m */; };
-		6C09293E1B7F79CF00851DA8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09293D1B7F79CF00851DA8 /* Order.m */; };
-		6C0929411B7F79CF00851DA8 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929401B7F79CF00851DA8 /* Event.m */; };
-		6C0929441B7F79CF00851DA8 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929431B7F79CF00851DA8 /* Ticket.m */; };
-		6C0929471B7F79CF00851DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929461B7F79CF00851DA8 /* User.m */; };
 		6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */; };
+		6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */; };
+		6C0929531B80C2F700851DA8 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929521B80C2F700851DA8 /* Ticket.m */; };
+		6C0929561B80C2F700851DA8 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929551B80C2F700851DA8 /* Event.m */; };
+		6C0929591B80C2F700851DA8 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929581B80C2F700851DA8 /* Venue.m */; };
+		6C09295C1B80C2F700851DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09295B1B80C2F700851DA8 /* User.m */; };
+		6C09295F1B80C2F800851DA8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09295E1B80C2F800851DA8 /* Order.m */; };
 		6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */; };
 		6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A161ACF1107004818F1 /* CFNetwork.framework */; };
 		6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */; };
@@ -160,17 +161,19 @@
 		6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionTabBarController.m; sourceTree = "<group>"; };
 		6C0929271B7F780E00851DA8 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		6C0929281B7F780E00851DA8 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		6C0929391B7F79CE00851DA8 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6C09293A1B7F79CE00851DA8 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
-		6C09293C1B7F79CF00851DA8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6C09293D1B7F79CF00851DA8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		6C09293F1B7F79CF00851DA8 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6C0929401B7F79CF00851DA8 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6C0929421B7F79CF00851DA8 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6C0929431B7F79CF00851DA8 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
-		6C0929451B7F79CF00851DA8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6C0929461B7F79CF00851DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfo.plist; sourceTree = "<group>"; };
+		6C09294E1B80B40C00851DA8 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
+		6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
+		6C0929511B80C2F700851DA8 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6C0929521B80C2F700851DA8 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6C0929541B80C2F700851DA8 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C0929551B80C2F700851DA8 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C0929571B80C2F700851DA8 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C0929581B80C2F700851DA8 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C09295A1B80C2F700851DA8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6C09295B1B80C2F700851DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6C09295D1B80C2F800851DA8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6C09295E1B80C2F800851DA8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6C0A4A161ACF1107004818F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -393,8 +396,8 @@
 				6C37D2381AE079240078154E /* Customs */,
 				6C3471591AE46EEC00FC789A /* Classes */,
 				6C37D2371AE079180078154E /* Objects */,
-				6CD58E091ADED90400CDBC29 /* Interface */,
 				6CD58E0A1ADED90D00CDBC29 /* View Controllers */,
+				6CD58E091ADED90400CDBC29 /* Interface */,
 				6C1E55C11ACF08D9003965A0 /* Images.xcassets */,
 				6C1E55B41ACF08D9003965A0 /* Supporting Files */,
 				6CB5B5711B5835BD00EA9A09 /* Constants.h */,
@@ -693,16 +696,16 @@
 		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6C0929451B7F79CF00851DA8 /* User.h */,
-				6C0929461B7F79CF00851DA8 /* User.m */,
-				6C0929421B7F79CF00851DA8 /* Ticket.h */,
-				6C0929431B7F79CF00851DA8 /* Ticket.m */,
-				6C09293F1B7F79CF00851DA8 /* Event.h */,
-				6C0929401B7F79CF00851DA8 /* Event.m */,
-				6C09293C1B7F79CF00851DA8 /* Order.h */,
-				6C09293D1B7F79CF00851DA8 /* Order.m */,
-				6C0929391B7F79CE00851DA8 /* Venue.h */,
-				6C09293A1B7F79CE00851DA8 /* Venue.m */,
+				6C09295D1B80C2F800851DA8 /* Order.h */,
+				6C09295E1B80C2F800851DA8 /* Order.m */,
+				6C09295A1B80C2F700851DA8 /* User.h */,
+				6C09295B1B80C2F700851DA8 /* User.m */,
+				6C0929571B80C2F700851DA8 /* Venue.h */,
+				6C0929581B80C2F700851DA8 /* Venue.m */,
+				6C0929541B80C2F700851DA8 /* Event.h */,
+				6C0929551B80C2F700851DA8 /* Event.m */,
+				6C0929511B80C2F700851DA8 /* Ticket.h */,
+				6C0929521B80C2F700851DA8 /* Ticket.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -832,6 +835,8 @@
 				6C0929481B7F8A3900851DA8 /* Containers */,
 				6CB864231B55BE5100E2838A /* MoreTabViewController.h */,
 				6CB864241B55BE5100E2838A /* MoreTabViewController.m */,
+				6C09294E1B80B40C00851DA8 /* FriendsTableViewController.h */,
+				6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1057,19 +1062,20 @@
 				6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */,
 				6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */,
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
+				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
+				6C0929561B80C2F700851DA8 /* Event.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
-				6C0929411B7F79CF00851DA8 /* Event.m in Sources */,
 				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
 				6CEF06771B4A1E48001F1E7C /* VibezTabBarController.m in Sources */,
+				6C0929531B80C2F700851DA8 /* Ticket.m in Sources */,
+				6C09295F1B80C2F800851DA8 /* Order.m in Sources */,
 				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
-				6C0929441B7F79CF00851DA8 /* Ticket.m in Sources */,
-				6C09293E1B7F79CF00851DA8 /* Order.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
 				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
@@ -1080,7 +1086,7 @@
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
-				6C09293B1B7F79CE00851DA8 /* Venue.m in Sources */,
+				6C0929591B80C2F700851DA8 /* Venue.m in Sources */,
 				6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */,
 				6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */,
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
@@ -1106,7 +1112,7 @@
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
 				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
-				6C0929471B7F79CF00851DA8 /* User.m in Sources */,
+				6C09295C1B80C2F700851DA8 /* User.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,

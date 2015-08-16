@@ -192,7 +192,9 @@
     eventCell.eventNameLabel.text = event.name;
     eventCell.eventDateLabel.text = dateFormatString;
     
-    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%@.00", @"Price of item"), [[event price] stringValue]];
+    
+    NSDecimalNumber *overallPrice = [self addNumber:[event price] andOtherNumber:[event bookingFee]];
+    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
     
     eventCell.eventPriceLabel.text = eventPriceString;
     [eventCell.eventPriceLabel sizeToFit];
@@ -212,6 +214,12 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return [self.controller.managedObjects count];
+}
+
+-(NSDecimalNumber *)addNumber:(NSDecimalNumber *)num1 andOtherNumber:(NSDecimalNumber *)num2
+{
+    NSDecimalNumber *added = [[NSDecimalNumber alloc] initWithInt:0];
+    return [added decimalNumberByAdding:[num1 decimalNumberByAdding:num2]];
 }
 
 #pragma mark - DZN Empty Data Set Delegates
