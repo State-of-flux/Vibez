@@ -22,7 +22,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
+    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:NO style:UITableViewStylePlain];
     
     if (self)
     {
@@ -32,7 +32,7 @@
         reachability = [Reachability reachabilityForInternetConnection];
         
         NSFetchRequest *request = [Ticket sqk_fetchRequest];
-        //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event" ascending:YES] ];
+        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES] ];
         
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -41,6 +41,30 @@
     
     return self;
 }
+
+//-(NSSet *)findAllIndividualEvents
+//{
+//    NSArray *states = [self.controller.managedObjects valueForKey:@"objectId"];
+//    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:states];
+//    NSSet *uniqueTickets = [orderedSet set];
+//    
+//    return uniqueTickets;
+//}
+//
+//- (NSArray *)arrangeDuplicatesForTicket:(Ticket *)ticket
+//{
+//    NSMutableArray *arrayOfMultipleTickets = [NSMutableArray array];
+//
+//    for(Ticket *otherTicket in self.controller.managedObjects)
+//    {
+//        if([otherTicket.eventID isEqualToString:ticket.eventID])
+//        {
+//            [arrayOfMultipleTickets addObject:otherTicket];
+//        }
+//    }
+//    
+//    return [arrayOfMultipleTickets copy];
+//}
 
 - (void)viewDidLoad
 {
@@ -56,12 +80,11 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
-    [self.searchController.searchBar setTranslucent:NO];
-    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
-    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
-    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
-    
+//    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+//    [self.searchController.searchBar setTranslucent:NO];
+//    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+//    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
+//    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
     
     [self.controller setDelegate:self];
     [self.controller performFetch:nil];
@@ -99,6 +122,14 @@
             {
                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
+            
+            
+            //NSFetchRequest *request = [Ticket sqk_fetchRequest];
+            //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES] ];
+            
+            //self.controller =
+            //[[SQKManagedObjectController alloc] initWithFetchRequest:request
+            //                                    managedObjectContext:[PIKContextManager mainContext]];
           
             [self.tableView reloadData];
             
@@ -220,5 +251,61 @@
          }
      }];
 }
+
+#pragma mark - DZN Empty Data Set Delegates
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return nil;//[UIImage imageNamed:@"plug.jpg"];
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"No tickets found";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"You currently have no tickets, get tickets on the Find tab!";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor pku_greyColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+//
+//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+//{
+//    [self refresh:self];
+//}
+
+- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
+    
+    return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
+}
+
+
 
 @end

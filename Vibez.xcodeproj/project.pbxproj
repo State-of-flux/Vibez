@@ -33,11 +33,12 @@
 		6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929281B7F780E00851DA8 /* NSString+MD5.m */; };
 		6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */; };
 		6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */; };
-		6C0929531B80C2F700851DA8 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929521B80C2F700851DA8 /* Ticket.m */; };
-		6C0929561B80C2F700851DA8 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929551B80C2F700851DA8 /* Event.m */; };
-		6C0929591B80C2F700851DA8 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929581B80C2F700851DA8 /* Venue.m */; };
-		6C09295C1B80C2F700851DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09295B1B80C2F700851DA8 /* User.m */; };
-		6C09295F1B80C2F800851DA8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09295E1B80C2F800851DA8 /* Order.m */; };
+		6C0929621B825B1E00851DA8 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929611B825B1E00851DA8 /* Venue.m */; };
+		6C0929651B825B1F00851DA8 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929641B825B1F00851DA8 /* Event.m */; };
+		6C0929681B825B1F00851DA8 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929671B825B1F00851DA8 /* Ticket.m */; };
+		6C09296B1B825B1F00851DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09296A1B825B1F00851DA8 /* User.m */; };
+		6C09296E1B825B1F00851DA8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09296D1B825B1F00851DA8 /* Order.m */; };
+		6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929701B826AC600851DA8 /* SendTicketToFriendViewController.m */; };
 		6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */; };
 		6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A161ACF1107004818F1 /* CFNetwork.framework */; };
 		6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */; };
@@ -164,16 +165,18 @@
 		6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfo.plist; sourceTree = "<group>"; };
 		6C09294E1B80B40C00851DA8 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
 		6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
-		6C0929511B80C2F700851DA8 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6C0929521B80C2F700851DA8 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
-		6C0929541B80C2F700851DA8 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6C0929551B80C2F700851DA8 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6C0929571B80C2F700851DA8 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6C0929581B80C2F700851DA8 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
-		6C09295A1B80C2F700851DA8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6C09295B1B80C2F700851DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		6C09295D1B80C2F800851DA8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6C09295E1B80C2F800851DA8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6C0929601B825B1E00851DA8 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C0929611B825B1E00851DA8 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C0929631B825B1F00851DA8 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C0929641B825B1F00851DA8 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C0929661B825B1F00851DA8 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6C0929671B825B1F00851DA8 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6C0929691B825B1F00851DA8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6C09296A1B825B1F00851DA8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6C09296C1B825B1F00851DA8 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6C09296D1B825B1F00851DA8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6C09296F1B826AC600851DA8 /* SendTicketToFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTicketToFriendViewController.h; sourceTree = "<group>"; };
+		6C0929701B826AC600851DA8 /* SendTicketToFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTicketToFriendViewController.m; sourceTree = "<group>"; };
 		6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6C0A4A161ACF1107004818F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -696,16 +699,16 @@
 		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6C09295D1B80C2F800851DA8 /* Order.h */,
-				6C09295E1B80C2F800851DA8 /* Order.m */,
-				6C09295A1B80C2F700851DA8 /* User.h */,
-				6C09295B1B80C2F700851DA8 /* User.m */,
-				6C0929571B80C2F700851DA8 /* Venue.h */,
-				6C0929581B80C2F700851DA8 /* Venue.m */,
-				6C0929541B80C2F700851DA8 /* Event.h */,
-				6C0929551B80C2F700851DA8 /* Event.m */,
-				6C0929511B80C2F700851DA8 /* Ticket.h */,
-				6C0929521B80C2F700851DA8 /* Ticket.m */,
+				6C09296C1B825B1F00851DA8 /* Order.h */,
+				6C09296D1B825B1F00851DA8 /* Order.m */,
+				6C0929691B825B1F00851DA8 /* User.h */,
+				6C09296A1B825B1F00851DA8 /* User.m */,
+				6C0929661B825B1F00851DA8 /* Ticket.h */,
+				6C0929671B825B1F00851DA8 /* Ticket.m */,
+				6C0929631B825B1F00851DA8 /* Event.h */,
+				6C0929641B825B1F00851DA8 /* Event.m */,
+				6C0929601B825B1E00851DA8 /* Venue.h */,
+				6C0929611B825B1E00851DA8 /* Venue.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -825,6 +828,8 @@
 				6CDBAF8B1B4F4AEC00ED75CD /* TicketsViewController.m */,
 				6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */,
 				6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */,
+				6C09296F1B826AC600851DA8 /* SendTicketToFriendViewController.h */,
+				6C0929701B826AC600851DA8 /* SendTicketToFriendViewController.m */,
 			);
 			name = Tickets;
 			sourceTree = "<group>";
@@ -1065,7 +1070,7 @@
 				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
-				6C0929561B80C2F700851DA8 /* Event.m in Sources */,
+				6C0929651B825B1F00851DA8 /* Event.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
 				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
@@ -1073,8 +1078,8 @@
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
 				6CEF06771B4A1E48001F1E7C /* VibezTabBarController.m in Sources */,
-				6C0929531B80C2F700851DA8 /* Ticket.m in Sources */,
-				6C09295F1B80C2F800851DA8 /* Order.m in Sources */,
+				6C0929681B825B1F00851DA8 /* Ticket.m in Sources */,
+				6C09296E1B825B1F00851DA8 /* Order.m in Sources */,
 				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
@@ -1086,7 +1091,7 @@
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
-				6C0929591B80C2F700851DA8 /* Venue.m in Sources */,
+				6C0929621B825B1E00851DA8 /* Venue.m in Sources */,
 				6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */,
 				6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */,
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
@@ -1098,6 +1103,7 @@
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
+				6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */,
 				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
 				6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */,
@@ -1112,7 +1118,7 @@
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
 				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
-				6C09295C1B80C2F700851DA8 /* User.m in Sources */,
+				6C09296B1B825B1F00851DA8 /* User.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,

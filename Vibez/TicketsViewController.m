@@ -51,4 +51,8 @@
     return UIStatusBarStyleLightContent;
 }
 
+-(IBAction)unwindToTickets:(UIStoryboardSegue *)segue {
+    [fetchVC refresh:self];
+}
+
 @end

@@ -66,8 +66,8 @@
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            // Hooray! Let them use the app now.
-           
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Account created, welcome to Vibes." delegate:self cancelButtonTitle:@"Feel the Vibes" otherButtonTitles:nil, nil];
+            [alert show];
         }
         else
         {

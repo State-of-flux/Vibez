@@ -65,7 +65,7 @@
             queryObject = [PFObject objectWithClassName:className dictionary:[pfObject dictionary]];
         }
         
-        //[queryObject saveInBackgroundWithBlock:(nullable PFBooleanResultBlock(nullable )block];
+        
         [queryObject saveInBackground];
         
         if(error)

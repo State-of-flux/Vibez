@@ -8,7 +8,8 @@
 
 #import "DisplayTicketViewController.h"
 #import "UIImage+MDQRCode.h"
-
+#import "RKDropdownAlert.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface DisplayTicketViewController ()
 
@@ -39,7 +40,7 @@
     self.eventReferenceNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.eventNameLabel.frame) + 16, self.view.frame.size.width, 30)];
     self.eventReferenceNumberLabel.textColor = [UIColor whiteColor];
     self.eventReferenceNumberLabel.font = [UIFont pik_avenirNextRegWithSize:18.0f];
-   
+    
     self.eventReferenceNumberLabel.textAlignment = NSTextAlignmentCenter;
     
     NSMutableString *eventText = [[NSMutableString alloc] initWithString:@"Reference Number: "];
@@ -51,9 +52,17 @@
     [self.view addSubview:self.qrImageView];
 }
 
+- (void)sendToFriend:(id)sender
+{
+    [self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];    
+}
+
 -(void)setNavBar:(NSString*)titleText
 {
     self.navigationItem.title = titleText;
+    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(sendToFriend:)];
+    
+    self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,13 +71,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

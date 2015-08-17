@@ -10,10 +10,14 @@
 #import "PIKContextManager.h"
 #import "Ticket+Additions.h"
 #import "TicketTableViewCell.h"
+#import <UIScrollView+EmptyDataSet.h>
 
-@interface TicketsFetchedTableViewController : SQKFetchedTableViewController
+@interface TicketsFetchedTableViewController : SQKFetchedTableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) PIKContextManager *contextManager;
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 @property (nonatomic, strong) Ticket *ticket;
+
+- (void)refresh:(id)sender;
+
 @end

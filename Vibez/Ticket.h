@@ -2,7 +2,7 @@
 //  Ticket.h
 //  Vibez
 //
-//  Created by Harry Liddell on 16/08/2015.
+//  Created by Harry Liddell on 17/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -22,5 +22,6 @@
 @property (nonatomic, retain) NSString * ticketID;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * venue;
+@property (nonatomic, retain) NSString * eventID;
 
 @end

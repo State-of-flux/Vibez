@@ -143,16 +143,18 @@
     
     NSArray* sharedArray=@[title, venue, description, startDate, eventPriceString];
     
-    NSArray *includeActivities = @[UIActivityTypeMessage,
-                                   UIActivityTypeMail,
-                                   UIActivityTypePostToFacebook,
-                                   UIActivityTypePostToTwitter,
-                                   UIActivityTypePostToFlickr];
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
     
-
     UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:sharedArray applicationActivities:nil];
     
-    activityVC.excludedActivityTypes=@[];
+    
+    activityVC.excludedActivityTypes = excludeActivities;
 
     [self presentViewController:activityVC animated:YES completion:nil];
     

@@ -24,6 +24,7 @@
     </entity>
     <entity name="Ticket" representedClassName="Ticket" syncable="YES">
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="hasBeenUsed" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -55,7 +56,7 @@
     <elements>
         <element name="Event" positionX="-243" positionY="-2124" width="128" height="253"/>
         <element name="Order" positionX="-240" positionY="-1801" width="128" height="103"/>
-        <element name="Ticket" positionX="-425" positionY="-1903" width="128" height="193"/>
+        <element name="Ticket" positionX="-425" positionY="-1903" width="128" height="208"/>
         <element name="User" positionX="-27" positionY="-1831" width="128" height="148"/>
         <element name="Venue" positionX="-36" positionY="-2034" width="128" height="148"/>
     </elements>
