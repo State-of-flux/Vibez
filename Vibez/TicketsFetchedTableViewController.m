@@ -37,6 +37,10 @@
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
                                             managedObjectContext:[PIKContextManager mainContext]];
+        
+        [self.controller setDelegate:self];
+        [self.tableView setEmptyDataSetDelegate:self];
+        [self.tableView setEmptyDataSetSource:self];
     }
     
     return self;
@@ -47,7 +51,7 @@
 //    NSArray *states = [self.controller.managedObjects valueForKey:@"objectId"];
 //    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:states];
 //    NSSet *uniqueTickets = [orderedSet set];
-//    
+//
 //    return uniqueTickets;
 //}
 //
@@ -62,13 +66,18 @@
 //            [arrayOfMultipleTickets addObject:otherTicket];
 //        }
 //    }
-//    
+//
 //    return [arrayOfMultipleTickets copy];
 //}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedTicketSent:)
+                                                 name:@"Ticket Sent To Friend"
+                                               object:nil];
     
     [self setNavBar:@"Tickets"];
     
@@ -80,19 +89,7 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-//    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
-//    [self.searchController.searchBar setTranslucent:NO];
-//    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
-//    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
-//    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
     
-    [self.controller setDelegate:self];
-    [self.controller performFetch:nil];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 -(void)setNavBar:(NSString*)titleText
@@ -109,32 +106,28 @@
         __weak typeof(self) weakSelf = self;
         
         [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
-             NSError *error;
-             
-             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-             [Ticket importTickets:objects intoContext:newPrivateContext];
-             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
-             [newPrivateContext save:&error];
-             
-             [weakSelf.refreshControl endRefreshing];
-             
+            NSError *error;
+            
+            NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+            [Ticket importTickets:objects intoContext:newPrivateContext];
+            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+            [newPrivateContext save:&error];
+            
+            NSError *errorFetch;
+            
+            [weakSelf.refreshControl endRefreshing];
+            
             if(error)
             {
                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
             
-            
-            //NSFetchRequest *request = [Ticket sqk_fetchRequest];
-            //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES] ];
-            
-            //self.controller =
-            //[[SQKManagedObjectController alloc] initWithFetchRequest:request
-            //                                    managedObjectContext:[PIKContextManager mainContext]];
-          
-            [self.tableView reloadData];
-            
-         }
-                                  failureBlock:^(NSError *error)
+            if(errorFetch)
+            {
+                NSLog(@"Fetch Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+            }
+        }
+        failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
@@ -176,7 +169,6 @@
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
-    //request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
@@ -197,11 +189,19 @@
     //Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
 }
 
+-(void)receivedTicketSent:(id)sender
+{
+    [self.controller.managedObjectContext deleteObject:self.ticketSelected];
+    //[self.controller performFetch:nil];
+}
+
 #pragma mark - Table View Delegate Methods
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    self.ticketSelected = ticket;
+    self.indexPathSelected = indexPath;
     [self setTicket:ticket];
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
 }
@@ -247,7 +247,7 @@
      {
          if(error)
          {
-            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          }
      }];
 }
@@ -256,7 +256,7 @@
 
 - (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return nil;//[UIImage imageNamed:@"plug.jpg"];
+    return nil;
 }
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
@@ -271,7 +271,7 @@
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"You currently have no tickets, get tickets on the Find tab!";
+    NSString *text = @"You currently have no tickets, get tickets from the Find tab and feel the Vibes.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
@@ -288,11 +288,6 @@
 {
     return YES;
 }
-//
-//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
-//{
-//    [self refresh:self];
-//}
 
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
@@ -306,6 +301,9 @@
     return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
 }
 
-
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

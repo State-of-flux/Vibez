@@ -10,12 +10,12 @@
 #import "Ticket+Additions.h"
 
 @interface SendTicketToFriendViewController : UIViewController
+
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSendToFriend;
 
 @property (strong, nonatomic) Ticket *ticket;
 
 - (IBAction)buttonSendToFriendPressed:(id)sender;
-
 
 @end

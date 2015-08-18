@@ -90,8 +90,10 @@
                      {
                          [RKDropdownAlert title:@"Ticket Sent!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
                          [hud hide:YES];
+                         
                          [self.view setUserInteractionEnabled:YES];
                          [self performSegueWithIdentifier:@"unwindToTicketsView" sender:self];
+                         [[NSNotificationCenter defaultCenter] postNotificationName:@"Ticket Sent To Friend" object:nil];
                      }
                      else if (error)
                      {
