@@ -39,6 +39,9 @@
 		6C09296B1B825B1F00851DA8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09296A1B825B1F00851DA8 /* User.m */; };
 		6C09296E1B825B1F00851DA8 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09296D1B825B1F00851DA8 /* Order.m */; };
 		6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929701B826AC600851DA8 /* SendTicketToFriendViewController.m */; };
+		6C0929741B85250D00851DA8 /* OrderInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929731B85250D00851DA8 /* OrderInfoViewController.m */; };
+		6C09297B1B85331800851DA8 /* LabelNormalText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09297A1B85331800851DA8 /* LabelNormalText.m */; };
+		6C09297E1B8534C300851DA8 /* LabelTitle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09297D1B8534C300851DA8 /* LabelTitle.m */; };
 		6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */; };
 		6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A161ACF1107004818F1 /* CFNetwork.framework */; };
 		6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */; };
@@ -177,6 +180,12 @@
 		6C09296D1B825B1F00851DA8 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		6C09296F1B826AC600851DA8 /* SendTicketToFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTicketToFriendViewController.h; sourceTree = "<group>"; };
 		6C0929701B826AC600851DA8 /* SendTicketToFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTicketToFriendViewController.m; sourceTree = "<group>"; };
+		6C0929721B85250D00851DA8 /* OrderInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderInfoViewController.h; sourceTree = "<group>"; };
+		6C0929731B85250D00851DA8 /* OrderInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderInfoViewController.m; sourceTree = "<group>"; };
+		6C0929791B85331800851DA8 /* LabelNormalText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelNormalText.h; sourceTree = "<group>"; };
+		6C09297A1B85331800851DA8 /* LabelNormalText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelNormalText.m; sourceTree = "<group>"; };
+		6C09297C1B8534C300851DA8 /* LabelTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelTitle.h; sourceTree = "<group>"; };
+		6C09297D1B8534C300851DA8 /* LabelTitle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelTitle.m; sourceTree = "<group>"; };
 		6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6C0A4A161ACF1107004818F1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -367,6 +376,17 @@
 			name = Containers;
 			sourceTree = "<group>";
 		};
+		6C0929751B85328300851DA8 /* UILabel */ = {
+			isa = PBXGroup;
+			children = (
+				6C0929791B85331800851DA8 /* LabelNormalText.h */,
+				6C09297A1B85331800851DA8 /* LabelNormalText.m */,
+				6C09297C1B8534C300851DA8 /* LabelTitle.h */,
+				6C09297D1B8534C300851DA8 /* LabelTitle.m */,
+			);
+			name = UILabel;
+			sourceTree = "<group>";
+		};
 		6C1E55A81ACF08D9003965A0 = {
 			isa = PBXGroup;
 			children = (
@@ -521,6 +541,7 @@
 		6C37D2381AE079240078154E /* Customs */ = {
 			isa = PBXGroup;
 			children = (
+				6C0929751B85328300851DA8 /* UILabel */,
 				6CDBAF821B4F415500ED75CD /* Alert */,
 				6C79FF681B28940A006293C9 /* Swift */,
 				6C8A73ED1B24D4E900AAD04E /* QR */,
@@ -544,6 +565,8 @@
 			children = (
 				6C37D24E1AE087B30078154E /* BuyTicketViewController.h */,
 				6C37D24F1AE087B30078154E /* BuyTicketViewController.m */,
+				6C0929721B85250D00851DA8 /* OrderInfoViewController.h */,
+				6C0929731B85250D00851DA8 /* OrderInfoViewController.m */,
 			);
 			name = "Transaction Controllers";
 			sourceTree = "<group>";
@@ -1088,12 +1111,14 @@
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
 				6C8A741D1B24D70100AAD04E /* qrencode.c in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
+				6C09297E1B8534C300851DA8 /* LabelTitle.m in Sources */,
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
 				6C0929621B825B1E00851DA8 /* Venue.m in Sources */,
 				6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */,
 				6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */,
+				6C09297B1B85331800851DA8 /* LabelNormalText.m in Sources */,
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
@@ -1112,6 +1137,7 @@
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
+				6C0929741B85250D00851DA8 /* OrderInfoViewController.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
 				6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */,
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,

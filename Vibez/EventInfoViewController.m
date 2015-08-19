@@ -244,16 +244,16 @@
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender {
-    PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
-    PFObject *event = [PFObject objectWithoutDataWithClassName:@"Event" objectId:self.event.eventID];
+//    PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
+//    PFObject *event = [PFObject objectWithoutDataWithClassName:@"Event" objectId:self.event.eventID];
+//    
+//    [ticket setObject:@NO forKey:@"hasBeenUsed"];
+//    [ticket setObject:event forKey:@"event"];
+//    [ticket setObject:[PFUser currentUser] forKey:@"user"];
+//    [ticket setObject:@" " forKey:@"referenceNumber"];
+//    [ticket saveInBackground];
     
-    [ticket setObject:@NO forKey:@"hasBeenUsed"];
-    [ticket setObject:event forKey:@"event"];
-    [ticket setObject:[PFUser currentUser] forKey:@"user"];
-    [ticket setObject:@" " forKey:@"referenceNumber"];
-    [ticket saveInBackground];
-    
-    //[self performSegueWithIdentifier:@"eventInfoToBuyTicketSegue" sender:self];
+    [self performSegueWithIdentifier:@"eventInfoToOrderInfoSegue" sender:self];
     //PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
     //[self.navigationController pushViewController:paymentVC animated:YES];
 }

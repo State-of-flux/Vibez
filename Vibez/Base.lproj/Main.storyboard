@@ -13,6 +13,7 @@
             <string>Montserrat-Bold</string>
             <string>Montserrat-Bold</string>
             <string>Montserrat-Bold</string>
+            <string>Montserrat-Bold</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -347,10 +348,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6AQ-Mc-Fi6">
-                                <rect key="frame" x="16" y="503" width="568" height="40"/>
+                                <rect key="frame" x="0.0" y="501" width="600" height="50"/>
                                 <color key="backgroundColor" red="0.29803921568627451" green="0.85098039215686272" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eYM-cZ-8IO"/>
+                                    <constraint firstAttribute="height" constant="50" id="eYM-cZ-8IO"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
                                 <state key="normal" title="GET TICKETS">
@@ -359,7 +360,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
+                                        <integer key="value" value="0"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -370,15 +371,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="trailing" secondItem="ej2-qf-x0O" secondAttribute="trailingMargin" id="3DY-ep-0P4"/>
+                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="trailing" secondItem="ej2-qf-x0O" secondAttribute="trailingMargin" constant="16" id="3DY-ep-0P4"/>
                             <constraint firstAttribute="centerX" secondItem="6AQ-Mc-Fi6" secondAttribute="centerX" id="Obf-az-8O3"/>
-                            <constraint firstItem="Sm5-55-dw6" firstAttribute="top" secondItem="6AQ-Mc-Fi6" secondAttribute="bottom" constant="8" id="RfK-uO-ldQ"/>
-                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="leading" secondItem="ej2-qf-x0O" secondAttribute="leadingMargin" id="f5f-XE-D0B"/>
+                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="leading" secondItem="ej2-qf-x0O" secondAttribute="leadingMargin" constant="-16" id="f5f-XE-D0B"/>
+                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="bottom" secondItem="Sm5-55-dw6" secondAttribute="top" id="xC3-1Y-IMl"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="getTicketsButton" destination="6AQ-Mc-Fi6" id="udm-0Z-3vi"/>
-                        <segue destination="xCP-Ng-ffF" kind="show" identifier="eventInfoToBuyTicketSegue" id="Cm2-2W-48h"/>
+                        <segue destination="wT5-Uy-3m8" kind="show" identifier="eventInfoToOrderInfoSegue" id="rEi-30-fiT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZB-Vo-aJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -438,6 +439,56 @@
             </objects>
             <point key="canvasLocation" x="1940" y="2041"/>
         </scene>
+        <!--Order Info View Controller-->
+        <scene sceneID="uKt-TA-8ZF">
+            <objects>
+                <viewController storyboardIdentifier="OrderInfoViewController" id="wT5-Uy-3m8" customClass="OrderInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cE0-qQ-9dt"/>
+                        <viewControllerLayoutGuide type="bottom" id="CLX-rb-cZE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mGr-U5-4cp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fmM-d7-T85">
+                                <rect key="frame" x="0.0" y="501" width="600" height="50"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.85098039219999999" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="V6j-2k-8V4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
+                                <state key="normal" title="CHECKOUT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="buttonCheckoutPressed:" destination="wT5-Uy-3m8" eventType="touchUpInside" id="bqR-AW-jR1"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="fmM-d7-T85" firstAttribute="leading" secondItem="mGr-U5-4cp" secondAttribute="leadingMargin" constant="-16" id="DBF-Ww-dxv"/>
+                            <constraint firstItem="CLX-rb-cZE" firstAttribute="top" secondItem="fmM-d7-T85" secondAttribute="bottom" id="FLY-7m-XZJ"/>
+                            <constraint firstItem="fmM-d7-T85" firstAttribute="trailing" secondItem="mGr-U5-4cp" secondAttribute="trailingMargin" constant="16" id="ZbH-D9-xNA"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCheckout" destination="fmM-d7-T85" id="AXr-nh-PMQ"/>
+                        <segue destination="xCP-Ng-ffF" kind="show" identifier="orderInfoToBuySegue" id="Ko3-Hx-5MF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Wi-Ga-ht1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1940" y="1337"/>
+        </scene>
         <!--Buy Ticket View Controller-->
         <scene sceneID="CzI-WB-jaq">
             <objects>
@@ -454,7 +505,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1I-bV-unA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1940" y="1337"/>
+            <point key="canvasLocation" x="2696" y="1337"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">

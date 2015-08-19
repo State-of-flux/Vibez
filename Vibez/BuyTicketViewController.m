@@ -8,7 +8,6 @@
 
 #import "BuyTicketViewController.h"
 
-
 @interface BuyTicketViewController ()
 
 @end
