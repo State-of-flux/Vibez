@@ -14,6 +14,10 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PIKContextManager.h"
 #import "NSString+PIK.h"
+#import "Order+Additions.h"
+#import "OrderInfoViewController.h"
+#import "PIKParseManager.h"
+#import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 
 @interface EventInfoViewController ()
 
@@ -25,19 +29,22 @@
     [super viewDidLoad];
     [self setTopBarButtons:@"Buy"];
     [self layoutSubviews];
+    
+    UIPickerView *picker = [[UIPickerView alloc] init];
+    
+    picker.dataSource = self;
+    picker.delegate = self;
+    
+    self.arrayOfQuantities = [NSMutableArray array];
+    
+    for(NSInteger i = 1; i < 11; i++)
+    {
+        [self.arrayOfQuantities addObject:[NSString stringWithFormat:@"%ld", (long)i]];
+    }
 }
 
 -(void)layoutSubviews
 {
-    if(self.event)
-    {
-        NSLog(@"Event exists: %@", self.event);
-    }
-    else
-    {
-        NSLog(@"Error: Event doesn't exist");
-    }
-    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y)];
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
     [self.view addSubview:self.scrollView];
@@ -46,8 +53,8 @@
     self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
     
     [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.event.image]
-                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          
      }];
@@ -60,7 +67,7 @@
     
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
     darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
-   
+    
     CGFloat padding = 8;
     CGFloat doublePadding = 16;
     
@@ -94,7 +101,7 @@
     self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateEndLabel.textColor = [UIColor whiteColor];
     self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
-
+    
     [dateFormatter setDateFormat:@"HH:mma"];
     NSMutableString *dateFormatStringBegin = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.startDate] lowercaseString]];
     NSMutableString *dateFormatStringEnd = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.endDate] lowercaseString]];
@@ -123,7 +130,7 @@
     [self.scrollView addSubview:self.eventDescriptionTextView];
     
     [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
-
+    
     [self.view bringSubviewToFront:self.getTicketsButton];
 }
 
@@ -155,39 +162,39 @@
     
     
     activityVC.excludedActivityTypes = excludeActivities;
-
+    
     [self presentViewController:activityVC animated:YES completion:nil];
     
     
-//    [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
-
-//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share"
-//                                                             delegate:self
-//                                                    cancelButtonTitle:@"Cancel"
-//                                               destructiveButtonTitle:nil
-//                                                    otherButtonTitles:@"Post to Facebook", @"Tweet it", @"Email", @"Text Message", nil];
-//    
-//    [actionSheet showInView:self.view];
+    //    [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
+    
+    //    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share"
+    //                                                             delegate:self
+    //                                                    cancelButtonTitle:@"Cancel"
+    //                                               destructiveButtonTitle:nil
+    //                                                    otherButtonTitles:@"Post to Facebook", @"Tweet it", @"Email", @"Text Message", nil];
+    //
+    //    [actionSheet showInView:self.view];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     switch (buttonIndex) {
-        // Facebook
+            // Facebook
         case 0:
             NSLog(@"Facebook");
             [self shareEventFacebook];
             break;
-        // Twitter
+            // Twitter
         case 1:
-             NSLog(@"Twitter");
+            NSLog(@"Twitter");
             [self shareEventTwitter];
             break;
-        // Email
+            // Email
         case 2:
-             NSLog(@"Email");
+            NSLog(@"Email");
             [self shareEventEmail];
             break;
-        // Text Message
+            // Text Message
         case 3:
             NSLog(@"Text Message");
             [self shareEventTextMessage];
@@ -228,7 +235,7 @@
     [super viewWillDisappear:animated];
     
     if (self.isMovingFromParentViewController || self.isBeingDismissed) {
-        self.event = nil;
+        //self.event = nil;
     }
 }
 
@@ -237,25 +244,92 @@
     UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(bookmarkEventAction)];
     
     //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
-
+    
     self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
     self.navigationItem.title = titleText;
     [self.navigationItem setHidesBackButton:NO];
 }
 
-- (IBAction)getTicketsButtonTapped:(id)sender {
-//    PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
-//    PFObject *event = [PFObject objectWithoutDataWithClassName:@"Event" objectId:self.event.eventID];
-//    
-//    [ticket setObject:@NO forKey:@"hasBeenUsed"];
-//    [ticket setObject:event forKey:@"event"];
-//    [ticket setObject:[PFUser currentUser] forKey:@"user"];
-//    [ticket setObject:@" " forKey:@"referenceNumber"];
-//    [ticket saveInBackground];
+- (IBAction)getTicketsButtonTapped:(id)sender
+{
+    // Grabbing the event here so it can be attached to the Order object.
     
-    [self performSegueWithIdentifier:@"eventInfoToOrderInfoSegue" sender:self];
-    //PaymentViewController *paymentVC = [[PaymentViewController alloc] init];
-    //[self.navigationController pushViewController:paymentVC animated:YES];
+    [ActionSheetStringPicker showPickerWithTitle:@"How many tickets?"
+                                            rows:[self.arrayOfQuantities copy]
+                                initialSelection:0
+                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                           NSLog(@"Picker: %@, Index: %ld, value: %@",
+                                                 picker, (long)selectedIndex, selectedValue);
+                                           
+                                           self.quantitySelected = [selectedValue integerValue];
+                                           
+                                           if(self.quantitySelected)
+                                           {
+                                               [self createOrderAndProceed];
+                                           }
+                                           else
+                                           {
+                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                               [alert show];
+                                           }
+                                           
+                                       }
+                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                         NSLog(@"Block Picker Canceled");
+                                     }
+                                          origin:sender];
+    
+   
+}
+
+- (void)createOrderAndProceed
+{
+    [PIKParseManager pfObjectForClassName:@"Event" remoteUniqueKey:@"objectId" uniqueValue:self.event.eventID success:^(PFObject *pfObject)
+     {
+         self.eventPFObject = pfObject;
+         
+         // If found we can proceed to the next page.
+         
+         if(self.eventPFObject)
+         {
+             [self performSegueWithIdentifier:@"eventInfoToOrderInfoSegue" sender:self];
+         }
+         else
+         {
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured whilst trying to find the event, please try again.", @"An error occured whilst trying to find the event, please try again.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay")  otherButtonTitles:nil, nil];
+             [alert show];
+         }
+         
+     }
+                                  failure:^(NSError *error)
+     {
+         NSLog(@"Error: %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+     }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"])
+    {
+        // Here we create the order using the event and quantity, the quantity denotes the amount of ticket objects created.
+        
+        OrderInfoViewController *destinationVC = segue.destinationViewController;
+        destinationVC.order = [Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected];
+    }
+}
+
+#pragma mark - UIPickerView Methods
+
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return [self.arrayOfQuantities count];
+}
+
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return  1;
+}
+
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.arrayOfQuantities[row];
 }
 
 @end

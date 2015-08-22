@@ -16,7 +16,6 @@
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
-#import <Stripe/Stripe.h>
 
 @interface AppDelegate ()
 {
@@ -32,7 +31,7 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupParse:launchOptions];
-    [Stripe setDefaultPublishableKey:StripePublishableKey];
+    //[Stripe setDefaultPublishableKey:StripePublishableKey];
     [self setupAppearance];
     [self monitorReachability];
     

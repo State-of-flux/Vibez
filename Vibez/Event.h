@@ -2,7 +2,7 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 17/08/2015.
+//  Created by Harry Liddell on 20/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @interface Event : NSManagedObject
 
+@property (nonatomic, retain) NSDecimalNumber * bookingFee;
 @property (nonatomic, retain) NSDate * endDate;
 @property (nonatomic, retain) NSString * eventDescription;
 @property (nonatomic, retain) NSString * eventID;
@@ -25,7 +26,6 @@
 @property (nonatomic, retain) NSDecimalNumber * price;
 @property (nonatomic, retain) NSNumber * quantity;
 @property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSDecimalNumber * bookingFee;
 @property (nonatomic, retain) NSSet *venues;
 @end
 

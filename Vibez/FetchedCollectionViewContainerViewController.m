@@ -43,7 +43,7 @@
         request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
         
         //request.fetchBatchSize = 25;
-        
+
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
                                             managedObjectContext:[PIKContextManager mainContext]];
@@ -77,6 +77,10 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)controller:(SQKManagedObjectController *)controller fetchedObjects:(NSIndexSet *)fetchedObjectIndexes error:(NSError *__autoreleasing *)error {
+    [[self collectionView] reloadData];
 }
 
 - (void)refresh:(id)sender
@@ -142,12 +146,13 @@
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
+    NSLog(@"Searching: %@", searchString);
+    
     NSFetchRequest *request;
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-    request.fetchBatchSize = 10;
     NSPredicate *filterPredicate = nil;
     
     if (searchString.length)
@@ -156,6 +161,9 @@
     }
     
     [request setPredicate:filterPredicate];
+    
+    [[[self controller] fetchRequest] setPredicate:filterPredicate];
+    [[self controller] performFetch:nil];
     
     return request;
 }

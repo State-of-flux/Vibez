@@ -97,6 +97,10 @@
     self.navigationItem.title = titleText;
 }
 
+- (void)controller:(SQKManagedObjectController *)controller fetchedObjects:(NSIndexSet *)fetchedObjectIndexes error:(NSError *__autoreleasing *)error {
+    [[self tableView] reloadData];
+}
+
 - (void)refresh:(id)sender
 {
     if([reachability isReachable])
@@ -177,6 +181,10 @@
     }
     
     [request setPredicate:filterPredicate];
+    
+    [[[self controller] fetchRequest] setPredicate:filterPredicate];
+    [[self controller] performFetch:nil];
+
     
     return request;
 }

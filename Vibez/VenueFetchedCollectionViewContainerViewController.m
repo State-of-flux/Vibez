@@ -76,6 +76,10 @@
                   forControlEvents:UIControlEventValueChanged];
 }
 
+- (void)controller:(SQKManagedObjectController *)controller fetchedObjects:(NSIndexSet *)fetchedObjectIndexes error:(NSError *__autoreleasing *)error {
+    [[self collectionView] reloadData];
+}
+
 - (void)refresh:(id)sender
 {
     if([reachability isReachable])
@@ -142,6 +146,9 @@
     }
     
     [request setPredicate:filterPredicate];
+    
+    [[[self controller] fetchRequest] setPredicate:filterPredicate];
+    [[self controller] performFetch:nil];
     
     return request;
 }

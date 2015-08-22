@@ -2,7 +2,7 @@
 //  Event.m
 //  Vibez
 //
-//  Created by Harry Liddell on 17/08/2015.
+//  Created by Harry Liddell on 20/08/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 
 @implementation Event
 
+@dynamic bookingFee;
 @dynamic endDate;
 @dynamic eventDescription;
 @dynamic eventID;
@@ -24,7 +25,6 @@
 @dynamic price;
 @dynamic quantity;
 @dynamic startDate;
-@dynamic bookingFee;
 @dynamic venues;
 
 @end

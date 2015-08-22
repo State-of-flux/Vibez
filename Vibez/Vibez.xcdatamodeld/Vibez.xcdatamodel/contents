@@ -17,9 +17,11 @@
         <relationship name="venues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Venue" inverseName="events" inverseEntity="Venue" syncable="YES"/>
     </entity>
     <entity name="Order" representedClassName="Order" syncable="YES">
+        <attribute name="discount" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="orderID" attributeType="String" syncable="YES"/>
-        <attribute name="total" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="priceTotal" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tickets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ticket" inverseName="order" inverseEntity="Ticket" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="orders" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Ticket" representedClassName="Ticket" syncable="YES">
@@ -34,6 +36,7 @@
         <attribute name="ticketID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="venue" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="order" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Order" inverseName="tickets" inverseEntity="Order" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
@@ -55,8 +58,8 @@
     </entity>
     <elements>
         <element name="Event" positionX="-243" positionY="-2124" width="128" height="253"/>
-        <element name="Order" positionX="-240" positionY="-1801" width="128" height="103"/>
-        <element name="Ticket" positionX="-425" positionY="-1903" width="128" height="208"/>
+        <element name="Order" positionX="-240" positionY="-1827" width="128" height="133"/>
+        <element name="Ticket" positionX="-432" positionY="-1947" width="128" height="223"/>
         <element name="User" positionX="-27" positionY="-1831" width="128" height="148"/>
         <element name="Venue" positionX="-36" positionY="-2034" width="128" height="148"/>
     </elements>
