@@ -18,7 +18,7 @@
     
     if (self)
     {
-        self.font = [UIFont pik_avenirNextRegWithSize:18.0f];
+        self.font = [UIFont pik_avenirNextRegWithSize:16.0f];
         self.textColor = [UIColor whiteColor];
     }
     

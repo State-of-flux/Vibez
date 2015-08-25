@@ -22,7 +22,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:NO style:UITableViewStylePlain];
+    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
     
     if (self)
     {
@@ -31,12 +31,17 @@
         self.tableView.tableFooterView = [[UIView alloc] init];
         reachability = [Reachability reachabilityForInternetConnection];
         
-        NSFetchRequest *request = [Ticket sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES] ];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]];
         
+        NSFetchRequest *request = [Ticket sqk_fetchRequest];
+        [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES]]];
+        [request setPredicate:predicate];
+
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
                                             managedObjectContext:[PIKContextManager mainContext]];
+        
+        //self.controller
         
         [self.controller setDelegate:self];
         [self.tableView setEmptyDataSetDelegate:self];
@@ -117,6 +122,9 @@
             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
             [newPrivateContext save:&error];
             
+            //[[[self controller] fetchRequest] setPredicate:filterPredicate];
+            [[self controller] performFetch:nil];
+            
             NSError *errorFetch;
             
             [weakSelf.refreshControl endRefreshing];
@@ -177,7 +185,7 @@
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@ AND (eventDate >= %@)", searchString, [NSDate date]];
     }
     
     [request setPredicate:filterPredicate];
@@ -185,7 +193,6 @@
     [[[self controller] fetchRequest] setPredicate:filterPredicate];
     [[self controller] performFetch:nil];
 
-    
     return request;
 }
 
@@ -199,7 +206,8 @@
 
 -(void)receivedTicketSent:(id)sender
 {
-    [self.controller.managedObjectContext deleteObject:self.ticketSelected];
+    //[self.controller.managedObjectContext deleteObject:self.ticketSelected];
+    //[self.fetchedResultsController.managedObjectContext deleteObject:self.ticketSelected];
     //[self.controller performFetch:nil];
 }
 
@@ -208,9 +216,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
-    self.ticketSelected = ticket;
+    [self setTicketSelected:ticket];
     self.indexPathSelected = indexPath;
-    [self setTicket:ticket];
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
 }
 
@@ -246,11 +253,11 @@
     cell.ticketNameLabel.text = ticket.eventName;
     cell.ticketDateLabel.text = dateFormatString;
     [cell setBackgroundColor:[UIColor pku_lightBlack]];
-    [cell.detailTextLabel setText:@"2x"];
-    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+    //[cell.detailTextLabel setText:@"2x"];
+    //[cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     
     [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                        placeholderImage:nil
                                completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          if(error)

@@ -43,7 +43,7 @@
     if([segue.identifier isEqualToString:@"showTicketToDisplayTicketSegue"])
     {
         DisplayTicketViewController *destinationVC = segue.destinationViewController;
-        [destinationVC setTicket:[fetchVC ticket]];
+        [destinationVC setTicket:[fetchVC ticketSelected]];
     }
 }
 

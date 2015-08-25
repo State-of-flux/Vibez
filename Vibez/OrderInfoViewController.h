@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import <Braintree/Braintree.h>
 #import "GlobalViewController.h"
+#import <AFNetworking/AFNetworking.h>
 
 @interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate>
 
@@ -24,6 +25,14 @@
 @property (strong, nonatomic) UILabel *labelPriceTotalValue;
 @property (strong, nonatomic) UILabel *labelQuantityValue;
 @property (strong, nonatomic) UILabel *labelDateValue;
+
+@property (strong, nonatomic) NSDecimalNumber *price;
+@property (strong, nonatomic) NSDecimalNumber *bookingFee;
+@property (strong, nonatomic) NSDecimalNumber *overallPrice;
+
+@property (weak, nonatomic) IBOutlet UILabel *transactionIDLabel;
+@property (strong, nonatomic) NSString *clientToken;
+@property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 
 @property (strong, nonatomic) PFObject *order;
 

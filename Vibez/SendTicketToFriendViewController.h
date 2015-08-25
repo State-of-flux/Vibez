@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldUsername;
 @property (weak, nonatomic) IBOutlet UIButton *buttonSendToFriend;
 
+@property (nonatomic, strong) SQKManagedObjectController *controller;
+
 @property (strong, nonatomic) Ticket *ticket;
 
 - (IBAction)buttonSendToFriendPressed:(id)sender;

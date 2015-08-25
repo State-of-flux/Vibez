@@ -74,6 +74,7 @@
 		6C53D1791B867ADB0087A6BC /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1781B867ADB0087A6BC /* Event.m */; };
 		6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17B1B867ADB0087A6BC /* Ticket.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
+		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -236,6 +237,8 @@
 		6C53D17B1B867ADB0087A6BC /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		6C53D17D1B88E7640087A6BC /* UIViewController+NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationController.h"; sourceTree = "<group>"; };
 		6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationController.m"; sourceTree = "<group>"; };
+		6C53D1801B8A3E1E0087A6BC /* AddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendViewController.h; sourceTree = "<group>"; };
+		6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendViewController.m; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -875,6 +878,8 @@
 				6CB864241B55BE5100E2838A /* MoreTabViewController.m */,
 				6C09294E1B80B40C00851DA8 /* FriendsTableViewController.h */,
 				6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */,
+				6C53D1801B8A3E1E0087A6BC /* AddFriendViewController.h */,
+				6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */,
 			);
 			name = More;
 			sourceTree = "<group>";
@@ -1117,6 +1122,7 @@
 				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
 				6C53D1701B867ADA0087A6BC /* Order.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
+				6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
 				6C8A741D1B24D70100AAD04E /* qrencode.c in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,

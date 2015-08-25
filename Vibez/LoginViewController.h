@@ -23,10 +23,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *FacebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewLogo;
+@property (weak, nonatomic) IBOutlet UIView *viewPassword;
 
+@property (weak, nonatomic) IBOutlet UIView *viewUsername;
 - (IBAction)loginButtonTapped:(id)sender;
 - (IBAction)signUpButtonTapped:(id)sender;
 - (IBAction)FacebookLoginButtonTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForgotPassword;
+- (IBAction)buttonForgotPasswordPressed:(id)sender;
 
 typedef void(^completion)(BOOL);
 

@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <UIScrollView+EmptyDataSet.h>
+#import <Parse/Parse.h>
 
-@interface FriendsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface FriendsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *sections;
+@property (nonatomic, strong) PFUser *currentUser;
 
 @end

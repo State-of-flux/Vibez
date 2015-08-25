@@ -11,7 +11,7 @@
 #import <SQKDataKit/SQKManagedObjectController.h>
 #import "User+Additions.h"
 
-@interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate>
+@interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate >
 
 @property (strong, nonatomic) NSDictionary *data;
 @property (strong, nonatomic) NSArray *accountData;

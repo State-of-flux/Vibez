@@ -124,4 +124,23 @@
     return object;
 }
 
++ (NSInteger)getAmountOfTicketsUserOwnsOnEvent:(Event *)event
+{
+    NSFetchRequest *request = [Ticket sqk_fetchRequest];
+    
+    SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
+    
+    NSInteger counterQuantityOfTicketsOnEvent = 0;
+    
+    for(Ticket *ticket in controller.managedObjects)
+    {
+        if([ticket.eventID isEqual:event.eventID])
+        {
+            counterQuantityOfTicketsOnEvent++;
+        }
+    }
+    
+    return counterQuantityOfTicketsOnEvent;
+}
+
 @end

@@ -11,6 +11,8 @@
 #import "RKDropdownAlert.h"
 #import <MBProgressHUD/MBProgressHUD.h>
 #import "SendTicketToFriendViewController.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface DisplayTicketViewController ()
 
@@ -53,17 +55,19 @@
     [self.view addSubview:self.qrImageView];
 }
 
-- (void)sendToFriend:(id)sender
+- (void)sendToFriend
 {
-    [self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];    
+    [self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];
 }
 
 -(void)setNavBar:(NSString*)titleText
 {
     self.navigationItem.title = titleText;
-    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(sendToFriend:)];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
-    self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
+    UIBarButtonItem *buttonSendToFriend = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconSendO] style:UIBarButtonItemStylePlain target:self action:@selector(sendToFriend)];
+    
+    self.navigationItem.rightBarButtonItem = buttonSendToFriend;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,15 +76,15 @@
 }
 
 
- #pragma mark - Navigation
+#pragma mark - Navigation
 
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- 
-     if([segue.identifier isEqualToString:@"goToSendTicketSegue"])
-     {
-         SendTicketToFriendViewController *vc = segue.destinationViewController;
-         [vc setTicket:self.ticket];
-     }
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
+    if([segue.identifier isEqualToString:@"goToSendTicketSegue"])
+    {
+        SendTicketToFriendViewController *vc = segue.destinationViewController;
+        [vc setTicket:self.ticket];
+    }
 }
 
 @end

@@ -114,7 +114,7 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -178,7 +178,7 @@
     venueCell.venueTownLabel.text = venue.town;
     
     [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
-                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                            placeholderImage:nil
                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          //self.imageSelected = image;

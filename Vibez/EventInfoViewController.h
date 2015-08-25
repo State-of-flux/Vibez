@@ -12,7 +12,6 @@
 
 @interface EventInfoViewController : GlobalViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
-
 @property (strong, nonatomic) UIImageView *eventImageView;
 @property (strong, nonatomic) UILabel *eventNameLabel;
 @property (strong, nonatomic) UILabel *eventDateLabel;

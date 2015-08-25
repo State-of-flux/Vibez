@@ -25,22 +25,37 @@
 {
     [super viewDidLoad];
     
-//    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
-//    
-//    NSData *gifData = [NSData dataWithContentsOfFile: filePath];
-//
-//    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:gifData];
-//    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
-//    imageView.animatedImage = image;
-//    imageView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height);
-//    [self.view addSubview:imageView];
-//    [self.view sendSubviewToBack:imageView];
+    //    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
+    //
+    //    NSData *gifData = [NSData dataWithContentsOfFile: filePath];
+    //
+    //    FLAnimatedImage *image = [FLAnimatedImage animatedImageWithGIFData:gifData];
+    //    FLAnimatedImageView *imageView = [[FLAnimatedImageView alloc] init];
+    //    imageView.animatedImage = image;
+    //    imageView.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height);
+    //    [self.view addSubview:imageView];
+    //    [self.view sendSubviewToBack:imageView];
     
     [self tapOffKeyboardGestureSetup];
     [self placeholderTextColor];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
+    
+    //[self setMaskTo:self.viewUsername byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerTopRight)];
+    [self setMaskTo:self.loginButton byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerBottomRight)];
+}
+
+- (void)setMaskTo:(UIView*)view byRoundingCorners:(UIRectCorner)corners
+{
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                                   byRoundingCorners:corners
+                                                         cornerRadii:CGSizeMake(25.0, 25.0)];
+    
+    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+    maskLayer.frame = view.bounds;
+    maskLayer.path = maskPath.CGPath;
+    view.layer.mask = maskLayer;
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -58,7 +73,7 @@
 {
     self.loginButton.enabled = false;
     self.signUpButton.enabled = false;
-    [self Login];    
+    [self Login];
 }
 
 - (IBAction)signUpButtonTapped:(id)sender
@@ -196,7 +211,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    //[self.navigationController setNavigationBarHidden:NO animated:NO];
+    
 }
 
 #pragma mark - UI Stuff
@@ -228,6 +243,62 @@
 }
 
 -(IBAction)prepareForUnwindToLogin:(UIStoryboardSegue *)segue {
+}
+
+- (IBAction)buttonForgotPasswordPressed:(id)sender {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Password Reset", @"Password Reset") message:NSLocalizedString(@"Please enter your username or email. If the username or email exists, a password reset email will be sent.", @"Please enter your username or email. If the username or email exists, a password reset email will be sent.") preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textFieldPassword)
+     {
+         textFieldPassword.placeholder = NSLocalizedString(@"Username or Email", @"Username or Email");
+     }];
+    
+    UIAlertAction *actionValidate = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send Reset", @"Send Reset")
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action){
+                                                               
+                                                               UITextField *textField = alert.textFields.firstObject;
+                                                               NSString *input = textField.text;
+                                                               NSString *emailIdentifier = @"@";
+                                                               
+                                                               // If entered input is an email just go straight to password reset.
+                                                               if ([input rangeOfString:emailIdentifier].location != NSNotFound) {
+                                                                   [PFUser requestPasswordResetForEmail:input];
+                                                               }
+                                                               else
+                                                               {
+                                                                   // If it's not an email, it must be a username, so find that usernames email, and send it to that.
+                                                                   PFQuery *query = [PFUser query];
+                                                                   [query whereKey:@"username" equalTo:input];
+                                                                   NSArray *foundUsers = [query findObjects];
+                                                                   
+                                                                   if([foundUsers count]  == 1) {
+                                                                       for (PFUser *foundUser in foundUsers) {
+                                                                           input = [foundUser email];
+                                                                           
+                                                                           [PFUser requestPasswordResetForEmail:input];
+                                                                       }
+                                                                   }
+                                                               }
+                                                           }];
+    
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    [alert addAction:actionValidate];
+    [alert addAction:actionCancel];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)sendResetEmail:(NSString *)email
+{
+    [PFUser requestPasswordResetForEmail:email];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Please search your email now." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 @end

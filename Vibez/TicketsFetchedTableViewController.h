@@ -16,7 +16,6 @@
 
 @property (nonatomic, strong) PIKContextManager *contextManager;
 @property (nonatomic, strong) SQKManagedObjectController *controller;
-@property (nonatomic, strong) Ticket *ticket;
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) Ticket *ticketSelected;
 

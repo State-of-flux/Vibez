@@ -36,13 +36,12 @@
         
         reachability = [Reachability reachabilityForInternetConnection];
         
-        // A little trick for removing the cell separators
-        //self.collectionView.collec = [UIView new];
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]];
         
         NSFetchRequest *request = [Event sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES] ];
-        
-        //request.fetchBatchSize = 25;
+        [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
+        //[request setPredicate:predicate];
+        //request.fetchBatchSize = 3;
 
         self.controller =
         [[SQKManagedObjectController alloc] initWithFetchRequest:request
@@ -52,6 +51,11 @@
     return self;
 }
 
+-(NSDate*)dateNoTime:(NSDate*)myDate
+{
+    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:myDate];
+    return [[NSCalendar currentCalendar] dateFromComponents:comp];
+}
 
 - (void)viewDidLoad
 {
@@ -102,6 +106,8 @@
              
              [weakSelf.refreshControl endRefreshing];
              
+             [[self controller] performFetch:nil];
+             
              if(error)
              {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
@@ -119,7 +125,7 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -145,9 +151,7 @@
 #pragma mark - Fetched Request
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
-{
-    NSLog(@"Searching: %@", searchString);
-    
+{    
     NSFetchRequest *request;
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
@@ -157,7 +161,7 @@
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        filterPredicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[cd] %@) && (startDate >= %@)", searchString, [NSDate date]];
     }
     
     [request setPredicate:filterPredicate];
@@ -210,7 +214,7 @@
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
     [eventCell.eventImage sd_setImageWithURL:[NSURL URLWithString:event.image]
-                            placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                            placeholderImage:nil
                                    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          

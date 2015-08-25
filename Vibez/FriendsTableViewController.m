@@ -19,6 +19,10 @@
     [super viewDidLoad];
     [self setNavBar:@"Friends"];
     [self orderAlphabetically];
+    
+    [self.tableView setEmptyDataSetDelegate:self];
+    [self.tableView setEmptyDataSetSource:self];
+    [self.tableView setTableFooterView:[UIView new]];
 }
 
 - (void)orderAlphabetically
@@ -55,19 +59,31 @@
 
 -(void)setNavBar:(NSString*)titleText
 {
-    UIBarButtonItem *addFriend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFriend:)];
+    UIBarButtonItem *addFriend = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFriend)];
     
     [self.navigationItem setRightBarButtonItem:addFriend];
     [self.navigationItem setTitle:titleText];
 }
 
-- (void)addFriend:(id)sender
+- (void)addFriend
 {
-    NSMutableArray *arrayOfFriends = [[PFUser currentUser] objectForKey:@"friends"];
-    [arrayOfFriends addObject:@"New person yo"];
-    [[PFUser currentUser] setObject:arrayOfFriends forKey:@"friends"];
-    [[PFUser currentUser] saveInBackground];
-    [self.tableView reloadData];
+    //    NSMutableArray *arrayOfFriends = [[PFUser currentUser] objectForKey:@"friends"];
+    //
+    //    if(!arrayOfFriends)
+    //    {
+    //        arrayOfFriends = [NSMutableArray array];
+    //    }
+    //    else
+    //    {
+    //        [arrayOfFriends addObject:@"New person yo"];
+    //    }
+    //
+    //    [[PFUser currentUser] setObject:arrayOfFriends forKey:@"friends"];
+    //    [[PFUser currentUser] saveInBackground];
+    
+    //
+    
+    [self performSegueWithIdentifier:@"friendsToAddFriendSegue" sender:self];
 }
 
 #pragma mark - Table view data source
@@ -111,6 +127,60 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
+}
+
+#pragma mark - DZN Empty Data Set Delegates
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return nil;
+}
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"No friends found";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = @"You currently have no friends, to add some tap the button in the top right.";
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor pku_greyColor],
+                                 NSParagraphStyleAttributeName: paragraph};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+
+- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [self addFriend];
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
+    
+    return [[NSAttributedString alloc] initWithString:@"ADD FRIEND" attributes:attributes];
+}
+
+-(IBAction)unwindToFriendsList:(UIStoryboardSegue *)segue {
+    [self orderAlphabetically];
+    [self.tableView reloadData];
 }
 
 @end

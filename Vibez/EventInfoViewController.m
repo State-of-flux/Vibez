@@ -18,9 +18,14 @@
 #import "OrderInfoViewController.h"
 #import "PIKParseManager.h"
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import <Reachability/Reachability.h>
 
 @interface EventInfoViewController ()
-
+{
+    Reachability *reachability;
+}
 @end
 
 @implementation EventInfoViewController
@@ -29,6 +34,8 @@
     [super viewDidLoad];
     [self setTopBarButtons:@"Buy"];
     [self layoutSubviews];
+    
+    reachability = [Reachability reachabilityForInternetConnection];
     
     UIPickerView *picker = [[UIPickerView alloc] init];
     
@@ -45,47 +52,60 @@
 
 -(void)layoutSubviews
 {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.getTicketsButton.frame.origin.y)];
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
+    CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat padding = 8;
+    CGFloat paddingDouble = 16;
+    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    CGFloat height = self.view.frame.size.height;
+    CGFloat width = self.view.frame.size.width;
+    CGFloat heightWithoutNavOrTabOrStatus = (height - (navBarHeight + tabBarHeight + statusBarFrame));
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus - self.getTicketsButton.frame.size.height)];
     [self.view addSubview:self.scrollView];
     
     // Image
-    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
+    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus/3)];
     
     [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.event.image]
-                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                           placeholderImage:nil
                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          
      }];
     
     self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
         self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
+    
     [self.eventImageView.layer setMasksToBounds:YES];
+    
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    blurView.frame = self.eventImageView.frame;
+    [self.eventImageView addSubview:blurView];
     
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
     darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
     
-    CGFloat padding = 8;
-    CGFloat doublePadding = 16;
-    
     // Event Name
-    self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.eventImageView.frame)/2 - 20, self.scrollView.frame.size.width, 40)];
+    self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.eventImageView.frame)/2 - 40, width - padding, 70)];
     self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
     self.eventNameLabel.textColor = [UIColor whiteColor];
     self.eventNameLabel.textAlignment = NSTextAlignmentCenter;
     self.eventNameLabel.text = self.event.name;
+    self.eventNameLabel.numberOfLines = 2;
     
     // Event Venue
-    self.eventVenueLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventImageView.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
+    self.eventVenueLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventImageView.frame) + padding, width - 32, 25)];
     self.eventVenueLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
     self.eventVenueLabel.textColor = [UIColor whiteColor];
     self.eventVenueLabel.text = self.event.eventVenue;
     
     // Event Date
-    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
+    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width - 32, 25)];
     self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateLabel.textColor = [UIColor whiteColor];
     
@@ -97,7 +117,7 @@
     self.eventDateLabel.text = dateFormatString;
     
     // Event Date
-    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2 + doublePadding, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, self.scrollView.frame.size.width /2 - 32, 25)];
+    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2 + paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
     self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateEndLabel.textColor = [UIColor whiteColor];
     self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
@@ -110,7 +130,7 @@
     self.eventDateEndLabel.text = beginningEnd;
     
     // Event Description
-    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.eventDateLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
+    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
     self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
     self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
@@ -129,8 +149,11 @@
     [self.scrollView addSubview:self.eventVenueLabel];
     [self.scrollView addSubview:self.eventDescriptionTextView];
     
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
+    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
     
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
+    [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
+    [self.getTicketsButton setTintColor:[UIColor whiteColor]];
     [self.view bringSubviewToFront:self.getTicketsButton];
 }
 
@@ -138,7 +161,7 @@
     return UIStatusBarStyleLightContent;
 }
 
--(void)bookmarkEventAction
+-(void)shareEvent
 {
     NSString* title = self.event.name;
     NSDate* startDate = self.event.startDate;
@@ -164,17 +187,6 @@
     activityVC.excludedActivityTypes = excludeActivities;
     
     [self presentViewController:activityVC animated:YES completion:nil];
-    
-    
-    //    [RKDropdownAlert title:@"Event Bookmarked!" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
-    
-    //    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Share"
-    //                                                             delegate:self
-    //                                                    cancelButtonTitle:@"Cancel"
-    //                                               destructiveButtonTitle:nil
-    //                                                    otherButtonTitles:@"Post to Facebook", @"Tweet it", @"Email", @"Text Message", nil];
-    //
-    //    [actionSheet showInView:self.view];
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -203,6 +215,8 @@
         default:
             break;
     }
+    
+    //[RKDropdownAlert title:@"Event Shared" message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
 }
 
 -(void)shareEventFacebook
@@ -241,11 +255,11 @@
 
 -(void)setTopBarButtons:(NSString*)titleText
 {
-    UIBarButtonItem *bookmarkButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(bookmarkEventAction)];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
-    //UIBarButtonItem *settingsBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"\u2699" style:UIBarButtonItemStylePlain target:self action:@selector(settingsAction)];
+    UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconShareAlt] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
     
-    self.navigationItem.rightBarButtonItem = bookmarkButtonItem;
+    self.navigationItem.rightBarButtonItem = buttonShare;
     self.navigationItem.title = titleText;
     [self.navigationItem setHidesBackButton:NO];
 }
@@ -253,33 +267,49 @@
 - (IBAction)getTicketsButtonTapped:(id)sender
 {
     // Grabbing the event here so it can be attached to the Order object.
-    
-    [ActionSheetStringPicker showPickerWithTitle:@"How many tickets?"
-                                            rows:[self.arrayOfQuantities copy]
-                                initialSelection:0
-                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           NSLog(@"Picker: %@, Index: %ld, value: %@",
-                                                 picker, (long)selectedIndex, selectedValue);
-                                           
-                                           self.quantitySelected = [selectedValue integerValue];
-                                           
-                                           if(self.quantitySelected)
-                                           {
-                                               [self createOrderAndProceed];
+    if([reachability isReachable])
+    {
+        [ActionSheetStringPicker showPickerWithTitle:@"How many tickets?"
+                                                rows:[self.arrayOfQuantities copy]
+                                    initialSelection:0
+                                           doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+                                               NSLog(@"Picker: %@, Index: %ld, value: %@",
+                                                     picker, (long)selectedIndex, selectedValue);
+                                               
+                                               self.quantitySelected = [selectedValue integerValue];
+                                               
+                                               if(self.quantitySelected)
+                                               {
+                                                   NSInteger quantityOfTickets = [Ticket getAmountOfTicketsUserOwnsOnEvent:self.event];
+                                                   
+                                                   if((quantityOfTickets + self.quantitySelected) <= 10)
+                                                   {
+                                                       [self createOrderAndProceed];
+                                                   }
+                                                   else
+                                                   {
+                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:NSLocalizedString(@"You can only buy up to 10 tickets per event.", @"You can only buy up to 10 tickets per event.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                       [alert show];
+                                                   }
+                                               }
+                                               else
+                                               {
+                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                   [alert show];
+                                               }
+                                               
                                            }
-                                           else
-                                           {
-                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                               [alert show];
-                                           }
-                                           
-                                       }
-                                     cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
-                                     }
-                                          origin:sender];
-    
-   
+                                         cancelBlock:^(ActionSheetStringPicker *picker) {
+                                             NSLog(@"Block Picker Canceled");
+                                         }
+                                              origin:sender];
+    }
+    else
+    {
+        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 - (void)createOrderAndProceed
