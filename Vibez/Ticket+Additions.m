@@ -118,7 +118,9 @@
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
                                                        @"hasBeenUsed" : self.hasBeenUsed,
-                                                       @"referenceNumber" : self.referenceNumber
+                                                       @"referenceNumber" : self.referenceNumber,
+                                                       //@"user" : user,
+                                                       //@"event" : event
                                                        }];
     
     return object;

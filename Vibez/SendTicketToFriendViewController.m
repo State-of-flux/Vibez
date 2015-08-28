@@ -100,74 +100,111 @@
     hud.mode = MBProgressHUDModeAnnularDeterminate;
     hud.labelText = @"Loading";
     
-    PFObject *ticket = [PFObject objectWithoutDataWithClassName:@"Ticket" objectId:self.ticket.ticketID];
+    NSString *friendsUsername = self.textFieldUsername.text;
+    PFUser *currentUser = [PFUser currentUser];
     
-    PFQuery *query = [PFUser query];
-    [query whereKey:@"username" equalTo:self.textFieldUsername.text];
+    if(![currentUser.username isEqualToString:friendsUsername])
+    {
+        [PIKParseManager getAllForClassName:@"_User"
+                              withPredicate:[NSPredicate predicateWithFormat:@"username == %@", friendsUsername]
+                             withIncludeKey:nil
+                                    success:^(NSArray *objects) {
+                                        PFUser *receiver = (PFUser *)[objects lastObject];
+                                        self.ticket.username = receiver.username;
+                                        PFObject *ticket = [self.ticket pfObject];
+                                        
+                                        [ticket saveInBackgroundWithBlock:^void (BOOL succeeded, NSError *PF_NULLABLE_S error) {
+                                            if(succeeded)
+                                            {
+                                                [self.ticket sqk_deleteObject];
+                                                [self performSegueWithIdentifier:@"unwindToTicketsView" sender:self];
+                                            }
+                                            else
+                                            {
+                                                
+                                            }
+                                        }];
+                                    }
+                                    failure:^(NSError *error) {
+                                        //No user found with username
+                                    }];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"That's you." message:@"You can't send tickets to yourself." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+        [self.view setUserInteractionEnabled:YES];
+        [hud hide:YES];
+    }
     
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
-     {
-         if(!error)
-         {
-             if([objects count] > 1)
-             {
-                 NSLog(@"Error, more than one user found %s", __PRETTY_FUNCTION__);
-                 [self.view setUserInteractionEnabled:YES];
-                 
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured with this username, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alert show];
-                 [hud hide:YES];
-             }
-             else if ([objects count] == 0)
-             {
-                 [self.view setUserInteractionEnabled:YES];
-                 
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username not found" message:@"No usernames matching the input were found, check and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alert show];
-                 [hud hide:YES];
-             }
-             else
-             {
-                 PFUser *friend = [objects firstObject];
-                 
-                 if([[PFUser currentUser] isEqual:friend])
-                 {
-                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"That's you." message:@"You can't send tickets to yourself." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                     [alert show];
-                     [self.view setUserInteractionEnabled:YES];
-                     [hud hide:YES];
-                 }
-                 else
-                 {
-                     [ticket setObject:[objects firstObject] forKey:@"user"];
-                     
-                     [ticket saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                         if(succeeded)
-                         {
-                             [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket sent to %@", friend.username] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
-                             
-                             [self.view setUserInteractionEnabled:YES];
-                             [[NSNotificationCenter defaultCenter] postNotificationName:@"Ticket Sent To Friend" object:nil];
-                             [hud hide:YES];
-                             [self performSegueWithIdentifier:@"unwindToTicketsView" sender:self];
-                         }
-                         else if (error)
-                         {
-                             NSLog(@"Save Failed: %@. %s", error, __PRETTY_FUNCTION__);
-                             [self.view setUserInteractionEnabled:YES];
-                             [hud hide:YES];
-                         }
-                     }];
-                 }
-             }
-         }
-         else
-         {
-             NSLog(@"Find Failed: %@. %s", error, __PRETTY_FUNCTION__);
-             [self.view setUserInteractionEnabled:YES];
-             [hud hide:YES];
-         }
-     }];
+    //    PFQuery *query = [PFUser query];
+    //    [query whereKey:@"username" equalTo:self.textFieldUsername.text];
+    //
+    //    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
+    //     {
+    //         if(!error)
+    //         {
+    //             if([objects count] > 1)
+    //             {
+    //                 NSLog(@"Error, more than one user found %s", __PRETTY_FUNCTION__);
+    //                 [self.view setUserInteractionEnabled:YES];
+    //
+    //                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured with this username, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    //                 [alert show];
+    //                 [hud hide:YES];
+    //             }
+    //             else if ([objects count] == 0)
+    //             {
+    //                 [self.view setUserInteractionEnabled:YES];
+    //
+    //                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username not found" message:@"No usernames matching the input were found, check and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    //                 [alert show];
+    //                 [hud hide:YES];
+    //             }
+    //             else
+    //             {
+    //                 PFUser *friend = [objects firstObject];
+    //
+    //                 if([[PFUser currentUser] isEqual:friend])
+    //                 {
+    //                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"That's you." message:@"You can't send tickets to yourself." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    //                     [alert show];
+    //                     [self.view setUserInteractionEnabled:YES];
+    //                     [hud hide:YES];
+    //                 }
+    //                 else
+    //                 {
+    //                     [ticket setObject:[objects firstObject] forKey:@"user"];
+    //
+    //                     [ticket saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    //                         if(succeeded)
+    //                         {
+    //                             [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket sent to %@", friend.username] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.5];
+    //
+    //                             [self.view setUserInteractionEnabled:YES];
+    //                             [[NSNotificationCenter defaultCenter] postNotificationName:@"Ticket Sent To Friend" object:nil];
+    //                             [hud hide:YES];
+    //
+    //                             [self.ticket sqk_deleteObject];
+    //                             [self performSegueWithIdentifier:@"unwindToTicketsView" sender:self];
+    //                         }
+    //                         else if (error)
+    //                         {
+    //                             NSLog(@"Save Failed: %@. %s", error, __PRETTY_FUNCTION__);
+    //                             [self.view setUserInteractionEnabled:YES];
+    //                             [hud hide:YES];
+    //                         }
+    //                     }];
+    //                 }
+    //             }
+    //         }
+    //         else
+    //         {
+    //             NSLog(@"Find Failed: %@. %s", error, __PRETTY_FUNCTION__);
+    //             [self.view setUserInteractionEnabled:YES];
+    //             [hud hide:YES];
+    //         }
+    //     }];
 }
 
 @end

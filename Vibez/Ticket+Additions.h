@@ -20,5 +20,6 @@
 +(void)getTicketsForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 - (void)saveToParse;
 + (NSInteger)getAmountOfTicketsUserOwnsOnEvent:(Event *)event;
+- (PFObject *)pfObject;
 
 @end

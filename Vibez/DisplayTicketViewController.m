@@ -57,17 +57,17 @@
 
 - (void)sendToFriend
 {
-    [self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];
+    //[self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];
 }
 
 -(void)setNavBar:(NSString*)titleText
 {
     self.navigationItem.title = titleText;
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
-    UIBarButtonItem *buttonSendToFriend = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconSendO] style:UIBarButtonItemStylePlain target:self action:@selector(sendToFriend)];
+    //UIBarButtonItem *buttonSendToFriend = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconSendO] style:UIBarButtonItemStylePlain target:self action:@selector(sendToFriend)];
     
-    self.navigationItem.rightBarButtonItem = buttonSendToFriend;
+    //self.navigationItem.rightBarButtonItem = buttonSendToFriend;
 }
 
 - (void)didReceiveMemoryWarning {

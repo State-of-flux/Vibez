@@ -24,28 +24,21 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.sectionInset = UIEdgeInsetsZero;
+    
+    self = [super initWithCollectionViewLayout:flowLayout
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
-        
-        reachability = [Reachability reachabilityForInternetConnection];
-        
-        //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]];
-        
-        NSFetchRequest *request = [Event sqk_fetchRequest];
-        [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES]]];
-        //[request setPredicate:predicate];
-        //request.fetchBatchSize = 3;
-
-        self.controller =
-        [[SQKManagedObjectController alloc] initWithFetchRequest:request
-                                            managedObjectContext:[PIKContextManager mainContext]];
     }
     
     return self;
@@ -61,30 +54,18 @@
 {
     [super viewDidLoad];
     
-    static NSString *eventCellIdentifier = @"eventCell";
-    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:eventCellIdentifier];
+    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
-    
-    //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
-    
-    //self.showsSectionsWhenSearching = NO;
     
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     
-    self.controller.delegate = self;
-    [self.controller performFetch:nil];
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)controller:(SQKManagedObjectController *)controller fetchedObjects:(NSIndexSet *)fetchedObjectIndexes error:(NSError *__autoreleasing *)error {
-    [[self collectionView] reloadData];
 }
 
 - (void)refresh:(id)sender
@@ -104,18 +85,14 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [weakSelf.refreshControl endRefreshing];
-             
-             [[self controller] performFetch:nil];
+             [self reloadFetchedResultsControllerForSearch:nil];
              
              if(error)
              {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }
              
-             
-            [self.collectionView reloadData];
-             
+             [weakSelf.refreshControl endRefreshing];
          }
                                   failureBlock:^(NSError *error)
          {
@@ -132,7 +109,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setEvent:event];
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
@@ -156,44 +133,29 @@
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-    NSPredicate *filterPredicate = nil;
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    
+    NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"(name CONTAINS[cd] %@) && (startDate >= %@)", searchString, [NSDate date]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
     
-    [request setPredicate:filterPredicate];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
     
-    [[[self controller] fetchRequest] setPredicate:filterPredicate];
-    [[self controller] performFetch:nil];
     
+    [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
+
     return request;
 }
 
 - (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)theItemCell atIndexPath:(NSIndexPath *)indexPath
 {
-    //EventCollectionViewCell *itemCell = (EventCollectionViewCell *)theItemCell;
-    //Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self fetchedResultsController:self.fetchedResultsController
-                 configureItemCell:cell
-                       atIndexPath:indexPath];
-}
-
-#pragma mark - UICollectionView Delegates
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"eventCell" forIndexPath:indexPath];
+    EventCollectionViewCell *eventCell = (EventCollectionViewCell *)theItemCell;
+    Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
     
-    //NSArray *eventData = [[PIKContextManager mainContext] executeFetchRequest:[Event sqk_fetchRequest] error:nil];
-    
-    Event *event = [self.controller.managedObjects objectAtIndex:indexPath.row];
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
     
@@ -203,7 +165,6 @@
     
     eventCell.eventNameLabel.text = event.name;
     eventCell.eventDateLabel.text = dateFormatString;
-    
     
     NSDecimalNumber *overallPrice = [self addNumber:[event price] andOtherNumber:[event bookingFee]];
     NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
@@ -219,13 +180,23 @@
      {
          
      }];
-    
-    return eventCell;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+#pragma mark - UICollectionView Delegates
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [self.controller.managedObjects count];
+    EventCollectionViewCell* cell = (EventCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class]) forIndexPath:indexPath];
+    
+    if (cell == nil) {
+        cell = [[EventCollectionViewCell alloc] init];
+    }
+    
+    [self fetchedResultsController:[self fetchedResultsController]
+                 configureItemCell:cell
+                       atIndexPath:indexPath];
+    
+    return cell;
 }
 
 -(NSDecimalNumber *)addNumber:(NSDecimalNumber *)num1 andOtherNumber:(NSDecimalNumber *)num2
@@ -270,11 +241,11 @@
 {
     return YES;
 }
-//
-//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
-//{
-//    [self refresh:self];
-//}
+
+- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
 
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
@@ -285,25 +256,10 @@
 {
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
     
-    return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
+    return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"TAP TO REFRESH", @"TAP TO REFRESH") attributes:attributes];
 }
 
 #pragma mark - Collection View Flow Layout
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

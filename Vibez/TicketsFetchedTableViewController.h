@@ -15,7 +15,7 @@
 @interface TicketsFetchedTableViewController : SQKFetchedTableViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) PIKContextManager *contextManager;
-@property (nonatomic, strong) SQKManagedObjectController *controller;
+//@property (nonatomic, strong) SQKManagedObjectController *controller;
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) Ticket *ticketSelected;
 

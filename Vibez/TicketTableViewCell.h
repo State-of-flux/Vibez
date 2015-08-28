@@ -13,7 +13,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *ticketNameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *ticketDateLabel;
 @property (strong, nonatomic) IBOutlet UILabel *ticketVenueLabel;
-@property (strong, nonatomic) IBOutlet UILabel *chevron;
 @property (strong, nonatomic) IBOutlet UIImageView *ticketImage;
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier;

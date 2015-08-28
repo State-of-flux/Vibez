@@ -131,6 +131,7 @@
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
     
+    /*
     if([reachability isReachable])
     {
         Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
@@ -163,6 +164,9 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
+     */
+    
+    [self.order saveInBackground];
 }
 
 - (void)getToken {

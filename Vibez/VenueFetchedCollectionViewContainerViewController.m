@@ -84,33 +84,33 @@
 {
     if([reachability isReachable])
     {
-    [self.refreshControl beginRefreshing];
-    
-    __weak typeof(self) weakSelf = self;
-    
-    [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects)
-     {
-         NSError *error;
-         
-         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Venue importVenues:objects intoContext:newPrivateContext];
-         [Venue deleteInvalidVenuesInContext:newPrivateContext];
-         [newPrivateContext save:&error];
-         
-         [weakSelf.refreshControl endRefreshing];
-         
-         if(error)
+        [self.refreshControl beginRefreshing];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects)
+         {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Venue importVenues:objects intoContext:newPrivateContext];
+             [Venue deleteInvalidVenuesInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             [[self controller] performFetch:nil];
+             
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+             
+             [weakSelf.refreshControl endRefreshing];
+         }
+                                  failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-         
-        [self.collectionView reloadData];
-     }
-                              failureBlock:^(NSError *error)
-     {
-         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         [weakSelf.refreshControl endRefreshing];
-     }];
+             [weakSelf.refreshControl endRefreshing];
+         }];
     }
     else
     {
@@ -248,11 +248,11 @@
 {
     return YES;
 }
-//
-//- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
-//{
-//    [self refresh:self];
-//}
+
+- (void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
 
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
@@ -263,9 +263,8 @@
 {
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
     
-    return [[NSAttributedString alloc] initWithString:@"REFRESH" attributes:attributes];
+    return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"TAP TO REFRESH", @"TAP TO REFRESH") attributes:attributes];
 }
-
 
 #pragma mark - Collection View Flow Layout
 
