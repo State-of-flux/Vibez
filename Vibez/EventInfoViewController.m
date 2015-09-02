@@ -88,7 +88,7 @@
     [self.eventImageView addSubview:blurView];
     
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
-    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
     
     // Event Name
     self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.eventImageView.frame)/2 - 40, width - padding, 70)];
@@ -117,8 +117,8 @@
     self.eventDateLabel.text = dateFormatString;
     
     // Event Date
-    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2 + paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
-    self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
+    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
+    self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.eventDateEndLabel.textColor = [UIColor whiteColor];
     self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
     
@@ -154,6 +154,17 @@
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [self.getTicketsButton setTintColor:[UIColor whiteColor]];
+    
+    if([[self.event quantity] isEqualToNumber:@0])
+    {
+        [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
+        [self.getTicketsButton setTintColor:[UIColor darkGrayColor]];
+        [self.getTicketsButton setTitle:@"SOLD OUT" forState:UIControlStateDisabled];
+        [self.getTicketsButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
+        [self.getTicketsButton setBackgroundColor:[UIColor lightGrayColor]];
+        [self.getTicketsButton setEnabled:NO];
+    }
+    
     [self.view bringSubviewToFront:self.getTicketsButton];
 }
 
@@ -255,9 +266,10 @@
 
 -(void)setTopBarButtons:(NSString*)titleText
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    //UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconShareAlt] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
     
-    UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconShareAlt] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
+    UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareEvent)];
     
     self.navigationItem.rightBarButtonItem = buttonShare;
     self.navigationItem.title = titleText;

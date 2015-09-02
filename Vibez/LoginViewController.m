@@ -12,6 +12,8 @@
 #import "PIKContextManager.h"
 #import "Ticket+Additions.h"
 #import "FLAnimatedImage.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface LoginViewController ()
 {
@@ -41,9 +43,11 @@
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
-    
+    //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
+    //[self.loginButton setImage:[factory createImageForIcon:NIKFontAwesomeIconSignIn] forState:UIControlStateNormal];
+        
     //[self setMaskTo:self.viewUsername byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerTopRight)];
-    [self setMaskTo:self.loginButton byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerBottomRight)];
+    //[self setMaskTo:self.loginButton byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerBottomRight)];
 }
 
 - (void)setMaskTo:(UIView*)view byRoundingCorners:(UIRectCorner)corners
@@ -128,8 +132,12 @@
          }
          else
          {
-             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Login Failed" message:error.description delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-             [alert show];
+             if(error.code == 101)
+             {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+             
          }
          
          self.loginButton.enabled = true;

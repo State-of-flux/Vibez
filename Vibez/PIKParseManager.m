@@ -123,6 +123,7 @@
     if(includeKey)
     {
         [query includeKey:includeKey];
+        [query includeKey:@"venue"];
         [query includeKey:@"user"];
     }
     

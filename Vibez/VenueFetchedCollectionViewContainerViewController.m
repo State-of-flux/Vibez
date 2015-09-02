@@ -23,25 +23,22 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithCollectionViewLayout:[[UICollectionViewFlowLayout alloc] init]
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.sectionInset = UIEdgeInsetsZero;
+    
+    self = [super initWithCollectionViewLayout:flowLayout
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
     if (self)
     {
         self.view.backgroundColor = [UIColor pku_blackColor];
+        reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
-        
-        reachability = [Reachability reachabilityForInternetConnection];
-        
-        NSFetchRequest *request = [Venue sqk_fetchRequest];
-        request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-        //request.fetchBatchSize = 25;
-        
-        self.controller =
-        [[SQKManagedObjectController alloc] initWithFetchRequest:request
-                                            managedObjectContext:[PIKContextManager mainContext]];
+        [self.collectionView setAlwaysBounceVertical:YES];
     }
     
     return self;
@@ -50,34 +47,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    CGRect otherFrame = [[self.parentViewController.childViewControllers[0] view] frame];
-    [self.view setFrame:CGRectMake(CGRectGetMaxX(otherFrame), 0, otherFrame.size.width, otherFrame.size.height)];
-    
-    static NSString *venueCellIdentifier = @"venueCell";
-    
-    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:venueCellIdentifier];
+
+    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class])];
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
-    
-    //NSArray *venueData = [[PIKContextManager mainContext] executeFetchRequest:[Venue sqk_fetchRequest] error:nil];
     
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     
-    self.showsSectionsWhenSearching = NO;
-    self.controller.delegate = self;
-    [self.controller performFetch:nil];
-    
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)controller:(SQKManagedObjectController *)controller fetchedObjects:(NSIndexSet *)fetchedObjectIndexes error:(NSError *__autoreleasing *)error {
-    [[self collectionView] reloadData];
 }
 
 - (void)refresh:(id)sender
@@ -97,7 +79,7 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self controller] performFetch:nil];
+             [self reloadFetchedResultsControllerForSearch:nil];
              
              if(error)
              {
@@ -126,7 +108,7 @@
     //[[venue managedObjectContext] save:nil];
     //[venue saveToParse];
     
-    Venue *venue = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    Venue *venue = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setVenue:venue];
     [self.parentViewController performSegueWithIdentifier:@"venueToVenueInfoSegue" sender:self];
 }
@@ -135,28 +117,42 @@
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
-    NSFetchRequest *request = [Venue sqk_fetchRequest];
+    NSFetchRequest *request;
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-    request.fetchBatchSize = 10;
-    NSPredicate *filterPredicate = nil;
+    request = [Venue sqk_fetchRequest]; //Create ticket additions
+    
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"town" ascending:YES]];
+    
+    NSMutableSet *subpredicates = [NSMutableSet set];
+    
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
     
-    [request setPredicate:filterPredicate];
+    //[subpredicates addObject:[NSPredicate predicateWithFormat:@"town >= %@", [NSDate date]]];
     
-    [[[self controller] fetchRequest] setPredicate:filterPredicate];
-    [[self controller] performFetch:nil];
+    
+    [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
     return request;
 }
 
-- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)theItemCell atIndexPath:(NSIndexPath *)indexPath
+- (void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    //VenueCollectionViewCell *itemCell = (VenueCollectionViewCell *)theItemCell;
-    //Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)cell;
+    Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    
+    venueCell.venueNameLabel.text = [venue.name capitalizedString];
+    venueCell.venueTownLabel.text = venue.town;
+    
+    [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
+                            placeholderImage:nil
+                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+     {
+         
+     }];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -170,26 +166,17 @@
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"venueCell" forIndexPath:indexPath];
+    VenueCollectionViewCell* cell = (VenueCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class]) forIndexPath:indexPath];
     
-    Venue *venue = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    if (cell == nil) {
+        cell = [[VenueCollectionViewCell alloc] init];
+    }
     
-    venueCell.venueNameLabel.text = [venue.name capitalizedString];
-    venueCell.venueTownLabel.text = venue.town;
+    [self fetchedResultsController:[self fetchedResultsController]
+                 configureItemCell:cell
+                       atIndexPath:indexPath];
     
-    [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
-                            placeholderImage:nil
-                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         //self.imageSelected = image;
-     }];
-    
-    return venueCell;
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    return [self.controller.managedObjects count];
+    return cell;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -267,21 +254,6 @@
 }
 
 #pragma mark - Collection View Flow Layout
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 0;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

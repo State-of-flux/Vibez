@@ -14,6 +14,8 @@
 
 @interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate>
 
+@property (nonatomic, strong) Braintree *braintree;
+
 @property (strong, nonatomic) BTDropInViewController *paymentVC;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *labelEventName;

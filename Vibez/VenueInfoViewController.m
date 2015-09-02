@@ -64,7 +64,7 @@
     [self.venueImageView addSubview:blurView];
     
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.venueImageView.frame.size.width, self.venueImageView.frame.size.height)];
-    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
 
     // Event Name
     self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.venueImageView.frame)/2 - 40, width - padding, 70)];

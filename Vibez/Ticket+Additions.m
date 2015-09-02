@@ -40,9 +40,8 @@
                    managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
-                   managedObject.venue = [[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"venueName"];
-                   managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
-                   managedObject.referenceNumber = dictionary[@"referenceNumber"];
+                   managedObject.venue = [[dictionary[@"event"] objectForKey:@"venue"] objectForKey:@"venueName"];
+                   //managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
                    managedObject.hasBeenUpdated = @YES;
                }
                     privateContext:context

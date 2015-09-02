@@ -39,6 +39,7 @@
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
+        [self.collectionView setAlwaysBounceVertical:YES];
     }
     
     return self;
@@ -114,17 +115,6 @@
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
 
-#pragma mark - Navigation
-
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if([segue.identifier isEqualToString:@"eventToEventInfoSegue"])
-//    {
-//        EventInfoViewController *destinationVC = segue.destinationViewController;
-//        [destinationVC setEvent:self.event];
-//    }
-//}
-
 #pragma mark - Fetched Request
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
@@ -169,7 +159,17 @@
     NSDecimalNumber *overallPrice = [self addNumber:[event price] andOtherNumber:[event bookingFee]];
     NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
     
-    eventCell.eventPriceLabel.text = eventPriceString;
+    if([[event quantity] isEqualToNumber:@0])
+    {
+        eventCell.eventPriceLabel.text = @"SOLD OUT";
+        [eventCell.eventPriceLabel setTextColor:[UIColor redColor]];
+    }
+    else
+    {
+        eventCell.eventPriceLabel.text = eventPriceString;
+    }
+    
+    
     [eventCell.eventPriceLabel sizeToFit];
     [eventCell.eventPriceLabel setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
     

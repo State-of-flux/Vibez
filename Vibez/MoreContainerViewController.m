@@ -9,6 +9,8 @@
 #import "MoreContainerViewController.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface MoreContainerViewController ()
 
@@ -86,19 +88,27 @@
     else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
     {
         [self setLinkToFacebookCell:cell];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    {
+        [self setShareTheVibesCell:cell];
         
     }
-    
+
     return cell;
 }
 
 -(void)setUsernameCell:(UITableViewCell *)cell
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [cell.detailTextLabel setText:[[PFUser currentUser] username]];
 }
 
 -(void)setEmailCell:(UITableViewCell *)cell
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [cell.detailTextLabel setText:[[PFUser currentUser] email]];
 }
 
@@ -128,12 +138,21 @@
 
 -(void)setLocationCell:(UITableViewCell *)cell
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker]];
     [cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
+}
+
+-(void)setShareTheVibesCell:(UITableViewCell *)cell
+{
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconShare]];
 }
 
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
-   
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconFighterJet]];
 }
 
 -(void)setLinkToFacebookCell:(UITableViewCell *)cell
@@ -167,6 +186,10 @@
     else if([[[cell textLabel] text] isEqualToString:@"Friends"])
     {
         [self.parentViewController performSegueWithIdentifier:@"goToFriendsSegue" sender:self];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    {
+        [self shareTheVibes];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -207,6 +230,28 @@
     return [self.data count];
 }
 
+-(void)shareTheVibes
+{
+    NSString* title = @"Vibes";
+    NSString* description = @"The Student Ticketing App";
+    NSString* website = @"www.google.co.uk";
+    
+    NSArray* sharedArray=@[title, description, website];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:sharedArray applicationActivities:nil];
+    activityVC.excludedActivityTypes = excludeActivities;
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
 - (void)logout {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
@@ -233,5 +278,10 @@
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate unlinkParseAccountFromFacebook];
 }
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 @end

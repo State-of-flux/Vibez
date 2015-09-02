@@ -75,6 +75,8 @@
 		6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17B1B867ADB0087A6BC /* Ticket.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
 		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
+		6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */; };
+		6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -114,6 +116,7 @@
 		6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57B1B5D93DE00EA9A09 /* PaymentViewController.m */; };
 		6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */; };
 		6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5C11B69717E00EA9A09 /* Ticket+Additions.m */; };
+		6CB75FF41B93B48D00CEB31A /* VibesTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */; };
 		6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864241B55BE5100E2838A /* MoreTabViewController.m */; };
 		6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864271B55BEA400E2838A /* MoreContainerViewController.m */; };
 		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
@@ -124,7 +127,6 @@
 		6CEF066D1B49B057001F1E7C /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */; };
 		6CEF066E1B49B057001F1E7C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */; };
 		6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */; };
-		6CEF06771B4A1E48001F1E7C /* VibezTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06761B4A1E48001F1E7C /* VibezTabBarController.m */; };
 		6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */; };
 		6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */; };
 		6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */; };
@@ -239,6 +241,10 @@
 		6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationController.m"; sourceTree = "<group>"; };
 		6C53D1801B8A3E1E0087A6BC /* AddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendViewController.h; sourceTree = "<group>"; };
 		6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddFriendViewController.m; sourceTree = "<group>"; };
+		6C53D1831B90CBF10087A6BC /* TicketsFetchedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketsFetchedCollectionViewController.h; sourceTree = "<group>"; };
+		6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsFetchedCollectionViewController.m; sourceTree = "<group>"; };
+		6C53D1861B90D0660087A6BC /* TicketCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketCollectionViewCell.h; sourceTree = "<group>"; };
+		6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketCollectionViewCell.m; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -306,6 +312,8 @@
 		6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueFetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
 		6CB5B5C01B69717E00EA9A09 /* Ticket+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+Additions.h"; sourceTree = "<group>"; };
 		6CB5B5C11B69717E00EA9A09 /* Ticket+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+Additions.m"; sourceTree = "<group>"; };
+		6CB75FF21B93B48D00CEB31A /* VibesTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VibesTabBarViewController.h; sourceTree = "<group>"; };
+		6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VibesTabBarViewController.m; sourceTree = "<group>"; };
 		6CB8641F1B52189C00E2838A /* SheffieldLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SheffieldLocation.gpx; sourceTree = "<group>"; };
 		6CB864231B55BE5100E2838A /* MoreTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreTabViewController.h; sourceTree = "<group>"; };
 		6CB864241B55BE5100E2838A /* MoreTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreTabViewController.m; sourceTree = "<group>"; };
@@ -323,8 +331,6 @@
 		6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		6CEF06721B49B0EB001F1E7C /* UIFont+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+PIK.h"; sourceTree = "<group>"; };
 		6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+PIK.m"; sourceTree = "<group>"; };
-		6CEF06751B4A1E48001F1E7C /* VibezTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VibezTabBarController.h; sourceTree = "<group>"; };
-		6CEF06761B4A1E48001F1E7C /* VibezTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VibezTabBarController.m; sourceTree = "<group>"; };
 		6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketsFetchedTableViewController.h; sourceTree = "<group>"; };
 		6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsFetchedTableViewController.m; sourceTree = "<group>"; };
 		6CEF067B1B4CA0C0001F1E7C /* NSString+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PIK.h"; sourceTree = "<group>"; };
@@ -645,6 +651,8 @@
 				6C37D23E1AE07A5F0078154E /* EventCollectionViewCell.m */,
 				6C37D2401AE07A720078154E /* VenueCollectionViewCell.h */,
 				6C37D2411AE07A720078154E /* VenueCollectionViewCell.m */,
+				6C53D1861B90D0660087A6BC /* TicketCollectionViewCell.h */,
+				6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -681,8 +689,8 @@
 			children = (
 				6C066FE91B1CD684009EA34D /* TransitionTabBarController.h */,
 				6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */,
-				6CEF06751B4A1E48001F1E7C /* VibezTabBarController.h */,
-				6CEF06761B4A1E48001F1E7C /* VibezTabBarController.m */,
+				6CB75FF21B93B48D00CEB31A /* VibesTabBarViewController.h */,
+				6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */,
 			);
 			name = "Tab Bar";
 			sourceTree = "<group>";
@@ -777,6 +785,8 @@
 			children = (
 				6CEF06781B4B6D4A001F1E7C /* TicketsFetchedTableViewController.h */,
 				6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */,
+				6C53D1831B90CBF10087A6BC /* TicketsFetchedCollectionViewController.h */,
+				6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */,
 			);
 			name = Containers;
 			sourceTree = "<group>";
@@ -1115,7 +1125,6 @@
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
 				6C53D1791B867ADB0087A6BC /* Event.m in Sources */,
-				6CEF06771B4A1E48001F1E7C /* VibezTabBarController.m in Sources */,
 				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
@@ -1135,6 +1144,7 @@
 				6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */,
 				6C09297B1B85331800851DA8 /* LabelNormalText.m in Sources */,
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
+				6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */,
 				6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
@@ -1155,6 +1165,7 @@
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
 				6C0929741B85250D00851DA8 /* OrderInfoViewController.m in Sources */,
+				6CB75FF41B93B48D00CEB31A /* VibesTabBarViewController.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
 				6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */,
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,
@@ -1166,6 +1177,7 @@
 				6C53D1761B867ADB0087A6BC /* Venue.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,
+				6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

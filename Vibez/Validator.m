@@ -8,7 +8,7 @@
 
 #import "Validator.h"
 
-#define REGEX_USERNAME @"^[a-z0-9_-]{3,15}$"
+#define REGEX_USERNAME @"^[a-zA-Z0-9-_]{3,25}$"
 #define REGEX_EMAIL @"[A-Z0-9a-z._%+-]{3,}+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
 #define REGEX_PASSWORD @"((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,40})"
 #define REGEX_PHONE_DEFAULT @"[0-9]{3}\\-[0-9]{3}\\-[0-9]{4}"
@@ -27,7 +27,7 @@
     
     if(![usernameTest evaluateWithObject:usernameString])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username Invalid" message:@"Username must be between 3-15 alphanumerical characters." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username Invalid" message:@"Username must be between 3-25 alphanumerical characters." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;

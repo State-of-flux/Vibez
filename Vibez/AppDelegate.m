@@ -16,6 +16,7 @@
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
+#import <Braintree/Braintree.h>
 
 @interface AppDelegate ()
 {
@@ -31,6 +32,7 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupParse:launchOptions];
+    [self setupBrainTree];
     //[Stripe setDefaultPublishableKey:StripePublishableKey];
     [self setupAppearance];
     [self monitorReachability];
@@ -45,6 +47,20 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     }
     
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+-(void)setupBrainTree
+{
+    [Braintree setReturnURLScheme:@"com.Piktu.Vibez.payments"];
+//    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
 }
 
 -(void)setupParse:(NSDictionary *)launchOptions
@@ -143,10 +159,10 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     NSArray *items = [[self.contextManager mainContext] executeFetchRequest:fetchRequest error:&error];
     
     for (NSManagedObject *managedObject in items) {
-        [[self.contextManager mainContext] deleteObject:managedObject];
+        [[PIKContextManager mainContext] deleteObject:managedObject];
         NSLog(@"Object Deleted: %@. %s", entityDescription, __PRETTY_FUNCTION__);
     }
-    if (![[self.contextManager mainContext] save:&error]) {
+    if (![[PIKContextManager mainContext] save:&error]) {
         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
     }
 }
@@ -206,12 +222,10 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     [hostReach startNotifier];
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)setupAppearance
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
