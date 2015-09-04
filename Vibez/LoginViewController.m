@@ -14,10 +14,11 @@
 #import "FLAnimatedImage.h"
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import <Reachability/Reachability.h>
 
 @interface LoginViewController ()
 {
-    
+    Reachability *reachability;
 }
 @end
 
@@ -26,6 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    reachability = [Reachability reachabilityForInternetConnection];
     
     //    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
     //
@@ -45,7 +48,7 @@
     self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
     //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     //[self.loginButton setImage:[factory createImageForIcon:NIKFontAwesomeIconSignIn] forState:UIControlStateNormal];
-        
+    
     //[self setMaskTo:self.viewUsername byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerTopRight)];
     //[self setMaskTo:self.loginButton byRoundingCorners:(UIRectCornerTopLeft|UIRectCornerBottomRight)];
 }
@@ -68,7 +71,7 @@
     [self.navigationController setNavigationBarHidden:YES];
     
     self.emailAddressTextField.text = @"123";
-    self.passwordTextField.text = @"123456";
+    self.passwordTextField.text = @"123456789";
 }
 
 #pragma mark - Button Event Handling
@@ -93,22 +96,30 @@
     NSString *usernameOrEmailString = self.emailAddressTextField.text;
     NSString *passwordString = self.passwordTextField.text;
     
-    if ([usernameOrEmailString rangeOfString:emailIdentifier].location != NSNotFound) {
-        //"username" contains the email identifier @, therefore this is an email. Pull down the username.
-        PFQuery *query = [PFUser query];
-        [query whereKey:@"email" equalTo:usernameOrEmailString];
-        NSArray *foundUsers = [query findObjects];
-        
-        if([foundUsers count]  == 1) {
-            for (PFUser *foundUser in foundUsers) {
-                usernameOrEmailString = [foundUser username];
-                [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
+    if([reachability isReachable])
+    {
+        if ([usernameOrEmailString rangeOfString:emailIdentifier].location != NSNotFound) {
+            //"username" contains the email identifier @, therefore this is an email. Pull down the username.
+            PFQuery *query = [PFUser query];
+            [query whereKey:@"email" equalTo:usernameOrEmailString];
+            NSArray *foundUsers = [query findObjects];
+            
+            if([foundUsers count]  == 1) {
+                for (PFUser *foundUser in foundUsers) {
+                    usernameOrEmailString = [foundUser username];
+                    [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
+                }
             }
+        }
+        else
+        {
+            [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
         }
     }
     else
     {
-        [self LoginWithUsernameParse:usernameOrEmailString andPassword:passwordString];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 
@@ -122,13 +133,26 @@
              [defaults setObject:user.username forKey:@"username"];
              [defaults setObject:user.email forKey:@"emailAddress"];
              
-             [self loadAllData:^(BOOL finished) {
-                 if(finished)
-                 {
-                     AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-                     appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-                 }
-             }];
+             if(![[user objectForKey:@"isAdmin"] boolValue])
+             {
+                 [self loadAllCustomerData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
+             else
+             {
+                 [self loadAllAdminData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
          }
          else
          {
@@ -145,7 +169,7 @@
      }];
 }
 
--(void)loadAllData:(completion) compblock {
+-(void)loadAllCustomerData:(completion) compblock {
     
     [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
      {
@@ -206,6 +230,10 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
      }];
+}
+
+-(void)loadAllAdminData:(completion) compblock {
+    compblock(YES);
 }
 
 #pragma mark - Facebook Login

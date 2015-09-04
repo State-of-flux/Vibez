@@ -29,7 +29,6 @@
 		6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FD01B1BAEEF009EA34D /* third_selected.png */; };
 		6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FD11B1BAEEF009EA34D /* third_selected@2x.png */; };
 		6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */; };
-		6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */; };
 		6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C0929281B7F780E00851DA8 /* NSString+MD5.m */; };
 		6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */; };
 		6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C09294F1B80B40C00851DA8 /* FriendsTableViewController.m */; };
@@ -90,6 +89,10 @@
 		6C7C97211AE45AC4001EE1FD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */; };
 		6C7C97221AE45AC4001EE1FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */; };
 		6C7C97231AE45AC4001EE1FD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */; };
+		6C8607DD1B99B286009F9C76 /* TicketReading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8607DC1B99B286009F9C76 /* TicketReading.storyboard */; };
+		6C8607E01B99B2B1009F9C76 /* AdminTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */; };
+		6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */; };
+		6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */; };
 		6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A73F01B24D4F300AAD04E /* UIImage+MDQRCode.m */; };
 		6C8A73F41B24D5BE00AAD04E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8A73F31B24D5BE00AAD04E /* Foundation.framework */; };
 		6C8A73F61B24D66100AAD04E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8A73F51B24D66100AAD04E /* UIKit.framework */; };
@@ -166,8 +169,6 @@
 		6C066FD11B1BAEEF009EA34D /* third_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "third_selected@2x.png"; sourceTree = "<group>"; };
 		6C066FE61B1CA960009EA34D /* WhatsOnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsOnViewController.h; sourceTree = "<group>"; };
 		6C066FE71B1CA960009EA34D /* WhatsOnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsOnViewController.m; sourceTree = "<group>"; };
-		6C066FE91B1CD684009EA34D /* TransitionTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionTabBarController.h; sourceTree = "<group>"; };
-		6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionTabBarController.m; sourceTree = "<group>"; };
 		6C0929271B7F780E00851DA8 /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
 		6C0929281B7F780E00851DA8 /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfo.plist; sourceTree = "<group>"; };
@@ -265,6 +266,13 @@
 		6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
+		6C8607DC1B99B286009F9C76 /* TicketReading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TicketReading.storyboard; sourceTree = "<group>"; };
+		6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminTabBarController.m; sourceTree = "<group>"; };
+		6C8607DF1B99B2B1009F9C76 /* AdminTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminTabBarController.h; sourceTree = "<group>"; };
+		6C8607E21B9A0CE2009F9C76 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
+		6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
+		6C8607E41B9A0CE2009F9C76 /* SearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListViewController.h; sourceTree = "<group>"; };
+		6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListViewController.m; sourceTree = "<group>"; };
 		6C8A73EF1B24D4F300AAD04E /* UIImage+MDQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MDQRCode.h"; sourceTree = "<group>"; };
 		6C8A73F01B24D4F300AAD04E /* UIImage+MDQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MDQRCode.m"; sourceTree = "<group>"; };
 		6C8A73F31B24D5BE00AAD04E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -589,6 +597,7 @@
 		6C37D24A1AE0858A0078154E /* General */ = {
 			isa = PBXGroup;
 			children = (
+				6C8607E11B9A0CCC009F9C76 /* Admin */,
 				6CDBAF861B4F4A4F00ED75CD /* What's On */,
 				6CDBAF871B4F4A5700ED75CD /* Tickets */,
 				6CDBAF891B4F4A8A00ED75CD /* More */,
@@ -675,6 +684,17 @@
 			name = DataSources;
 			sourceTree = "<group>";
 		};
+		6C8607E11B9A0CCC009F9C76 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				6C8607E21B9A0CE2009F9C76 /* ScannerViewController.h */,
+				6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */,
+				6C8607E41B9A0CE2009F9C76 /* SearchListViewController.h */,
+				6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */,
+			);
+			name = Admin;
+			sourceTree = "<group>";
+		};
 		6C8A73EB1B24D4C600AAD04E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -687,8 +707,8 @@
 		6C8A73EC1B24D4D600AAD04E /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
-				6C066FE91B1CD684009EA34D /* TransitionTabBarController.h */,
-				6C066FEA1B1CD684009EA34D /* TransitionTabBarController.m */,
+				6C8607DF1B99B2B1009F9C76 /* AdminTabBarController.h */,
+				6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */,
 				6CB75FF21B93B48D00CEB31A /* VibesTabBarViewController.h */,
 				6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */,
 			);
@@ -825,6 +845,7 @@
 			children = (
 				6C1E55BE1ACF08D9003965A0 /* Main.storyboard */,
 				6C1E55C31ACF08D9003965A0 /* LaunchScreen.xib */,
+				6C8607DC1B99B286009F9C76 /* TicketReading.storyboard */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -1034,6 +1055,7 @@
 				6C066FD21B1BAEEF009EA34D /* first_normal.png in Resources */,
 				6C066FDA1B1BAEEF009EA34D /* second_normal.png in Resources */,
 				6C066FD91B1BAEEF009EA34D /* navigationbar_background@2x.png in Resources */,
+				6C8607DD1B99B286009F9C76 /* TicketReading.storyboard in Resources */,
 				6C066FDE1B1BAEEF009EA34D /* tabbar_normal_background.png in Resources */,
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
@@ -1119,7 +1141,6 @@
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
-				6C066FEB1B1CD684009EA34D /* TransitionTabBarController.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
@@ -1147,6 +1168,7 @@
 				6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */,
 				6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
+				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
 				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
@@ -1158,6 +1180,7 @@
 				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
 				6C53D1731B867ADA0087A6BC /* User.m in Sources */,
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
+				6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */,
 				6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */,
 				6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
@@ -1178,6 +1201,7 @@
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,
 				6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */,
+				6C8607E01B99B2B1009F9C76 /* AdminTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

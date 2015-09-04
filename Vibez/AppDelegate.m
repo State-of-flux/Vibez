@@ -17,6 +17,7 @@
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
 #import <Braintree/Braintree.h>
+#import <Reachability/Reachability.h>
 
 @interface AppDelegate ()
 {
@@ -39,7 +40,14 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     
     if ([PFUser currentUser])
     {
-        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue])
+        {
+             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        }
+        else
+        {
+            self.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        }
     }
     else
     {

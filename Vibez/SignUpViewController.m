@@ -11,12 +11,14 @@
 #import "Validator.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import <Reachability/Reachability.h>
 
 @interface SignUpViewController ()
 {
     AccountController* accountController;
     Validator* validator;
     NSMutableString* passwordErrorString;
+    Reachability *reachability;
 }
 
 @end
@@ -26,21 +28,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    reachability = [Reachability reachabilityForInternetConnection];
     accountController = [[AccountController alloc] init];
     validator = [[Validator alloc] init];
     [self tapOffKeyboardGestureSetup];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)submitButtonTapped:(id)sender
 {
-    if([self SignUpValidation])
+    if([reachability isReachable])
     {
-        [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
+        if([self SignUpValidation])
+        {
+            [self SignUpWithUsername:self.usernameTextField.text emailAddress:self.emailAddressTextField.text password:self.passwordTextField.text];
+        }
+    }
+    else
+    {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alertView show];
     }
 }
 
@@ -54,7 +60,7 @@
 #pragma mark - Sign Up Validation
 
 -(BOOL)SignUpValidation
-{    
+{
     if([validator isValidUsername:self.usernameTextField.text])
     {
         if([validator isValidEmail:self.emailAddressTextField.text])
@@ -76,8 +82,10 @@
     user.password = password;
     user.email = emailAddress;
     [user setObject:[NSArray array] forKey:@"friends"];
+    [user setObject:@NO forKey:@"emailVerified"];
     [user setObject:@"Sheffield" forKey:@"location"];
     [user setObject:@NO forKey:@"isLinkedToFacebook"];
+    [user setObject:@NO forKey:@"isAdmin"];
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
@@ -100,13 +108,6 @@
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error")message:NSLocalizedString(@"A problem occured, please try again later.", @"A problem occured, please try again later.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
                 [alert show];
             }
-//            else if(error.code == 203)
-//            {
-//                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error")message:NSLocalizedString(@"That email address is already taken", @"That email address is already taken") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-//                [alert show];
-//            }
-
-            
         }
     }];
 }

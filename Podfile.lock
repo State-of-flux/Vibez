@@ -58,23 +58,8 @@ PODS:
   - DZNEmptyDataSet (1.7.1)
   - FLAnimatedImage (1.0.8)
   - FontAwesomeIconFactory (2.0.2)
-  - FontAwesomeKit (2.1.8):
-    - FontAwesomeKit/Core (= 2.1.8)
-    - FontAwesomeKit/FontAwesome (= 2.1.8)
-    - FontAwesomeKit/FoundationIcons (= 2.1.8)
-    - FontAwesomeKit/IonIcons (= 2.1.8)
-    - FontAwesomeKit/Zocial (= 2.1.8)
-  - FontAwesomeKit/Core (2.1.8)
-  - FontAwesomeKit/FontAwesome (2.1.8):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/FoundationIcons (2.1.8):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/IonIcons (2.1.8):
-    - FontAwesomeKit/Core
-  - FontAwesomeKit/Zocial (2.1.8):
-    - FontAwesomeKit/Core
   - MBProgressHUD (0.9.1)
-  - RDVTabBarController (1.1.9)
+  - MTBBarcodeScanner (1.8.0)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -102,7 +87,6 @@ PODS:
     - SQKDataKit/Core
   - SQKDataKit/ManagedObjectExtensions (0.6.0):
     - SQKDataKit/Core
-  - VCTransitionsLibrary (1.5.0)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 1.5.1)
@@ -114,13 +98,11 @@ DEPENDENCIES:
   - DZNEmptyDataSet
   - FLAnimatedImage (~> 1.0)
   - FontAwesomeIconFactory
-  - FontAwesomeKit (~> 2.1.0)
   - MBProgressHUD
-  - RDVTabBarController
+  - MTBBarcodeScanner
   - Reachability
   - SDWebImage (~> 3.7)
   - SQKDataKit
-  - VCTransitionsLibrary
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: de0f71e30495ed0192f7d16d0fddcab6882a0ca3
@@ -131,12 +113,10 @@ SPEC CHECKSUMS:
   DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
   FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
   FontAwesomeIconFactory: 36ea917783d4df460a6a3abf7e26481d7d49aef2
-  FontAwesomeKit: 64759fb28b5d2e74a1bd81553d7c11ca10e32179
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  RDVTabBarController: 67794f7a7a37f8e32f046f85ac67d06ab92d624a
+  MTBBarcodeScanner: 71d5a88ac41229e561e525c4f27e33b899d16016
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SQKDataKit: 529742619985d0902d6e361b3088bce0991a8684
-  VCTransitionsLibrary: d61fd9b7b6721942f0d583bcc0e7f8c31ec9271b
 
 COCOAPODS: 0.36.4
