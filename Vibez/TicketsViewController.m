@@ -11,8 +11,7 @@
 #import "TicketsFetchedTableViewController.h"
 #import "DisplayTicketViewController.h"
 
-@interface TicketsViewController ()
-{
+@interface TicketsViewController () {
     PFUser* user;
     TicketsFetchedTableViewController *fetchVC;
 }
@@ -26,7 +25,7 @@
 {
     [super viewDidLoad];
     [self setNavBar:@"Tickets"];
-    [self.view setBackgroundColor:[UIColor pku_blackColor]];
+    [self.view setBackgroundColor:[UIColor pku_lightBlack]];
 
     fetchVC = self.childViewControllers.firstObject;
 }
@@ -43,12 +42,16 @@
     if([segue.identifier isEqualToString:@"showTicketToDisplayTicketSegue"])
     {
         DisplayTicketViewController *destinationVC = segue.destinationViewController;
-        [destinationVC setTicket:[fetchVC ticket]];
+        [destinationVC setTicket:[fetchVC ticketSelected]];
     }
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+-(IBAction)unwindToTickets:(UIStoryboardSegue *)segue {
+    [fetchVC refresh:self];
 }
 
 @end

@@ -8,7 +8,9 @@
 
 #import "Ticket.h"
 #import "PIKParseManager.h"
+#import "PIKContextManager.h"
 #import <SQKDataKit/SQKDataKit.h>
+#import "Event+Additions.h"
 
 @interface Ticket (Additions)
 
@@ -17,5 +19,7 @@
 +(NSArray *)allTicketsInContext:(NSManagedObjectContext *)context;
 +(void)getTicketsForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 - (void)saveToParse;
++ (NSInteger)getAmountOfTicketsUserOwnsOnEvent:(Event *)event;
+- (PFObject *)pfObject;
 
 @end

@@ -22,7 +22,7 @@
 
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
-    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:NO style:UITableViewStylePlain];
+    self = [super initWithContext:[PIKContextManager mainContext] searchingEnabled:YES style:UITableViewStylePlain];
     
     if (self)
     {
@@ -31,20 +31,45 @@
         self.tableView.tableFooterView = [[UIView alloc] init];
         reachability = [Reachability reachabilityForInternetConnection];
         
-        NSFetchRequest *request = [Ticket sqk_fetchRequest];
-        //request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"event" ascending:YES] ];
-        
-        self.controller =
-        [[SQKManagedObjectController alloc] initWithFetchRequest:request
-                                            managedObjectContext:[PIKContextManager mainContext]];
+        [self.tableView setEmptyDataSetDelegate:self];
+        [self.tableView setEmptyDataSetSource:self];
     }
     
     return self;
 }
 
+//-(NSSet *)findAllIndividualEvents
+//{
+//    NSArray *states = [self.controller.managedObjects valueForKey:@"objectId"];
+//    NSOrderedSet *orderedSet = [NSOrderedSet orderedSetWithArray:states];
+//    NSSet *uniqueTickets = [orderedSet set];
+//
+//    return uniqueTickets;
+//}
+//
+//- (NSArray *)arrangeDuplicatesForTicket:(Ticket *)ticket
+//{
+//    NSMutableArray *arrayOfMultipleTickets = [NSMutableArray array];
+//
+//    for(Ticket *otherTicket in self.controller.managedObjects)
+//    {
+//        if([otherTicket.eventID isEqualToString:ticket.eventID])
+//        {
+//            [arrayOfMultipleTickets addObject:otherTicket];
+//        }
+//    }
+//
+//    return [arrayOfMultipleTickets copy];
+//}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receivedTicketSent:)
+                                                 name:@"Ticket Sent To Friend"
+                                               object:nil];
     
     [self setNavBar:@"Tickets"];
     
@@ -55,21 +80,6 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
-    
-    [self.searchController.searchBar setBarTintColor:[UIColor pku_lightBlack]];
-    [self.searchController.searchBar setTranslucent:NO];
-    [self.searchController.searchBar setBackgroundColor:[UIColor pku_blackColor]];
-    [self.searchController.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
-    [self.searchController.searchBar setBarStyle:UIBarStyleBlack];
-    
-    
-    [self.controller setDelegate:self];
-    [self.controller performFetch:nil];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
 }
 
 -(void)setNavBar:(NSString*)titleText
@@ -86,24 +96,30 @@
         __weak typeof(self) weakSelf = self;
         
         [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
-             NSError *error;
-             
-             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-             [Ticket importTickets:objects intoContext:newPrivateContext];
-             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
-             [newPrivateContext save:&error];
-             
-             [weakSelf.refreshControl endRefreshing];
-             
+            NSError *error;
+            
+            NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+            [Ticket importTickets:objects intoContext:newPrivateContext];
+            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+            [newPrivateContext save:&error];
+            
+            [self reloadFetchedResultsControllers];
+            
+            NSError *errorFetch;
+            
+            [weakSelf.refreshControl endRefreshing];
+            
             if(error)
             {
                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
-          
-            [self.tableView reloadData];
             
-         }
-                                  failureBlock:^(NSError *error)
+            if(errorFetch)
+            {
+                NSLog(@"Fetch Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+            }
+        }
+                                              failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
@@ -116,22 +132,17 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self fetchedResultsController:self.fetchedResultsController
-                     configureCell:cell
-                       atIndexPath:indexPath];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)theIndexPath
 {
-    TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class]) forIndexPath:theIndexPath];
+    TicketTableViewCell* cell = (TicketTableViewCell*)[tableView dequeueReusableCellWithIdentifier:NSStringFromClass([TicketTableViewCell class])];
     
     if (cell == nil) {
-        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
+        cell = [[TicketTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:NSStringFromClass([TicketTableViewCell class])];
     }
     
-    [self configureCell:cell atIndexPath:theIndexPath];
+    [self fetchedResultsController:[self activeFetchedResultsController]
+                     configureCell:cell
+                       atIndexPath:theIndexPath];
     
     return cell;
 }
@@ -144,16 +155,20 @@
     
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
-    //request.fetchBatchSize = 10;
-    NSPredicate *filterPredicate = nil;
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+    
+    NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
-        filterPredicate = [NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [request setPredicate:filterPredicate];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
+    
+    
+    [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
     return request;
 }
@@ -162,16 +177,49 @@
                    configureCell:(UITableViewCell *)cell
                      atIndexPath:(NSIndexPath *)indexPath
 {
-    //TicketTableViewCell *itemCell = (TicketTableViewCell *)cell;
-    //Event *venue = [fetchedResultsController objectAtIndexPath:indexPath];
+    TicketTableViewCell *ticketCell = (TicketTableViewCell *)cell;
+    Ticket *ticket = [fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSDate *date = [ticket eventDate];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:date]];
+    
+    [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
+    
+    ticketCell.ticketNameLabel.text = ticket.eventName;
+    ticketCell.ticketDateLabel.text = dateFormatString;
+    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
+    
+    if(ticket.image)
+    {
+        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+         {
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+         }];
+    }
+}
+
+-(void)receivedTicketSent:(id)sender
+{
+    //[self.controller.managedObjectContext deleteObject:self.ticketSelected];
+    //[self.fetchedResultsController.managedObjectContext deleteObject:self.ticketSelected];
+    //[self.controller performFetch:nil];
 }
 
 #pragma mark - Table View Delegate Methods
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
-    [self setTicket:ticket];
+    Ticket *ticket = [self.activeFetchedResultsController objectAtIndexPath:indexPath];;
+    [self setTicketSelected:ticket];
+    self.indexPathSelected = indexPath;
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
 }
 
@@ -180,46 +228,63 @@
     return 70;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+#pragma mark - DZN Empty Data Set Delegates
+
+- (UIImage *)imageForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return 1;
+    return nil;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
-    return [self.controller.managedObjects count];
+    NSString *text = @"No tickets found";
+    
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
+                                 NSForegroundColorAttributeName: [UIColor whiteColor]};
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
-- (void)configureCell:(UITableViewCell *)theCell
-          atIndexPath:(NSIndexPath *)indexPath
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    TicketTableViewCell *cell = (TicketTableViewCell *)theCell;
-    Ticket *ticket = [self.controller.managedObjects objectAtIndex:indexPath.row];
+    NSString *text = @"You currently have no tickets, get tickets from the Find tab and feel the Vibes.";
     
-    NSDate *date = [NSDate date];
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
     
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:date]];
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:14.0f],
+                                 NSForegroundColorAttributeName: [UIColor pku_greyColor],
+                                 NSParagraphStyleAttributeName: paragraph};
     
-    [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+
+- (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
+
+-(void)emptyDataSetDidTapView:(UIScrollView *)scrollView
+{
+    [self refresh:self];
+}
+
+- (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
+{
+    NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:16.0f], NSForegroundColorAttributeName : [UIColor pku_purpleColor]};
     
-    cell.ticketNameLabel.text = ticket.eventName;
-    cell.ticketDateLabel.text = dateFormatString;
-    [cell setBackgroundColor:[UIColor pku_lightBlack]];
-    //[[cell layer] setBorderColor:[UIColor blackColor].CGColor];
-    //[[cell layer] setBorderWidth:0.3f];
-    // Here we use the new provided sd_setImageWithURL: method to load the web image
-    
-    [cell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                        placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         if(error)
-         {
-            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }];
+    return [[NSAttributedString alloc] initWithString:NSLocalizedString(@"TAP TO REFRESH", @"TAP TO REFRESH") attributes:attributes];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

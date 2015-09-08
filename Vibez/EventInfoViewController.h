@@ -10,7 +10,7 @@
 #import "Event.h"
 #import "Ticket+Additions.h"
 
-@interface EventInfoViewController : GlobalViewController
+@interface EventInfoViewController : GlobalViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property (strong, nonatomic) UIImageView *eventImageView;
 @property (strong, nonatomic) UILabel *eventNameLabel;
@@ -20,6 +20,10 @@
 @property (strong, nonatomic) UILabel *eventVenueLabel;
 
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) PFObject *eventPFObject;
+
+@property (strong, nonatomic) NSMutableArray *arrayOfQuantities;
+@property (assign, nonatomic) NSInteger quantitySelected;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *getTicketsButton;

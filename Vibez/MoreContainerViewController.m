@@ -9,6 +9,8 @@
 #import "MoreContainerViewController.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface MoreContainerViewController ()
 
@@ -75,42 +77,94 @@
     {
         [self setLogoutCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Email"])
+    else if([[[cell textLabel] text] isEqualToString:@"Location"])
     {
-        [self setEmailCell:cell];
+        [self setLocationCell:cell];
     }
-    
+    else if([[[cell textLabel] text] isEqualToString:@"Friends"])
+    {
+        [self setFriendsCell:cell];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
+    {
+        [self setLinkToFacebookCell:cell];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    {
+        [self setShareTheVibesCell:cell];
+        
+    }
+
     return cell;
 }
 
 -(void)setUsernameCell:(UITableViewCell *)cell
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [cell.detailTextLabel setText:[[PFUser currentUser] username]];
 }
 
 -(void)setEmailCell:(UITableViewCell *)cell
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [cell.detailTextLabel setText:[[PFUser currentUser] email]];
 }
 
 -(void)setFriendsCell:(UITableViewCell *)cell
 {
+    NSMutableArray *arrayOfFriends = [[PFUser currentUser] objectForKey:@"friends"];
     
+    if(arrayOfFriends)
+    {
+        NSMutableString *stringOfFriends = [[NSMutableString alloc] init];
+        
+        for(NSString *friend in arrayOfFriends)
+        {
+            [stringOfFriends appendString:friend];
+            [stringOfFriends appendString:@", "];
+        }
+        
+        [stringOfFriends deleteCharactersInRange:NSMakeRange([stringOfFriends length]-2, 2)];
+        
+        [cell.detailTextLabel setText:stringOfFriends];
+    }
+    else
+    {
+        [cell.detailTextLabel setText:@""];
+    }
 }
 
 -(void)setLocationCell:(UITableViewCell *)cell
 {
-    [cell.detailTextLabel setText:@"Sheffield"];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker]];
+    [cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
+}
+
+-(void)setShareTheVibesCell:(UITableViewCell *)cell
+{
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconShare]];
 }
 
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
-    
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconFighterJet]];
 }
 
 -(void)setLinkToFacebookCell:(UITableViewCell *)cell
 {
-    
+    if([[[PFUser currentUser] objectForKey:@"isLinkedToFacebook"] boolValue])
+    {
+        [[cell textLabel] setText:@"Unlink from Facebook"];
+    }
+    else
+    {
+        [[cell textLabel] setText:@"Link to Facebook"];
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -125,6 +179,20 @@
     {
         [self linkToFacebook];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"Unlink from Facebook"])
+    {
+        [self unlinkFromFacebook];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Friends"])
+    {
+        [self.parentViewController performSegueWithIdentifier:@"goToFriendsSegue" sender:self];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    {
+        [self shareTheVibes];
+    }
+    
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -162,13 +230,43 @@
     return [self.data count];
 }
 
+-(void)shareTheVibes
+{
+    NSString* title = @"Vibes";
+    NSString* description = @"The Student Ticketing App";
+    NSString* website = @"www.google.co.uk";
+    
+    NSArray* sharedArray=@[title, description, website];
+    
+    NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                   UIActivityTypePrint,
+                                   UIActivityTypeAssignToContact,
+                                   UIActivityTypeSaveToCameraRoll,
+                                   UIActivityTypeAddToReadingList,
+                                   UIActivityTypePostToFlickr,
+                                   UIActivityTypePostToVimeo];
+    
+    UIActivityViewController * activityVC = [[UIActivityViewController alloc] initWithActivityItems:sharedArray applicationActivities:nil];
+    activityVC.excludedActivityTypes = excludeActivities;
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
+
 - (void)logout {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.mode = MBProgressHUDModeAnnularDeterminate;
+        self.hud.labelText = @"Logging out...";
+        
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate logout];
+        [appDelegate logout:^(BOOL complete) {
+            if(complete) {
+                [self.hud hide:YES];
+            }
+        }];
 
     }];
     
@@ -176,12 +274,22 @@
     [alertController addAction:logoutAction];
     [alertController addAction:cancelAction];
     
-    [self presentViewController:alertController animated:YES completion:nil];    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)linkToFacebook {
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate linkParseAccountToFacebook];
 }
+
+- (void)unlinkFromFacebook {
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate unlinkParseAccountFromFacebook];
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 @end

@@ -13,11 +13,11 @@
 #import "EventCollectionViewCell.h"
 #import <UIScrollView+EmptyDataSet.h>
 
-@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <UICollectionViewDataSource, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface FetchedCollectionViewContainerViewController : SQKFetchedCollectionViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property BOOL isEventDataDisplayed;
 
 @property (strong, nonatomic) Event *event;
-@property (nonatomic, strong) SQKManagedObjectController *controller;
+//@property (nonatomic, strong) SQKManagedObjectController *controller;
 
 @end

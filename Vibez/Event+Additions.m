@@ -42,6 +42,7 @@
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];
                   managedObject.quantity = dictionary[@"quantity"];
+                  managedObject.bookingFee = dictionary[@"bookingFee"];
                   managedObject.hasBeenUpdated = @YES;
               }
                    privateContext:context
@@ -66,7 +67,9 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:@"venue"
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]];
+    
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -78,6 +81,23 @@
                                     }
                                 }];
     
+}
+
++(void)getEventsFromParseForAdminWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"venue >= %@", [[PFUser currentUser] objectForKey:@"adminVenue"]];
+//    
+//    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"venue"
+//                                success:^(NSArray *objects) {
+//                                    if (successBlock) {
+//                                        successBlock(objects);
+//                                    }
+//                                }
+//                                failure:^(NSError *error) {
+//                                    if (failureBlock) {
+//                                        failureBlock(error);
+//                                    }
+//                                }];
 }
 
 +(NSArray *)allEventsInContext:(NSManagedObjectContext *)context

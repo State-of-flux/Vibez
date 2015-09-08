@@ -36,12 +36,12 @@
                    managedObject.image = imageFile.url;
                    managedObject.ticketID = dictionary[@"objectId"];
                    managedObject.eventName = [dictionary[@"event"] objectForKey:@"eventName"];
-                   managedObject.eventDate = [dictionary[@"event"] objectForKey:@"startDate"];
+                   managedObject.eventID = [dictionary[@"event"] objectForKey:@"objectId"];
+                   managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
-                   managedObject.venue = [[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"venueName"];
-                   managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
-                   managedObject.referenceNumber = dictionary[@"referenceNumber"];
+                   managedObject.venue = [[dictionary[@"event"] objectForKey:@"venue"] objectForKey:@"venueName"];
+                   //managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
                    managedObject.hasBeenUpdated = @YES;
                }
                     privateContext:context
@@ -117,10 +117,31 @@
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
                                                        @"hasBeenUsed" : self.hasBeenUsed,
-                                                       @"referenceNumber" : self.referenceNumber
+                                                       @"referenceNumber" : self.referenceNumber,
+                                                       //@"user" : user,
+                                                       //@"event" : event
                                                        }];
     
     return object;
+}
+
++ (NSInteger)getAmountOfTicketsUserOwnsOnEvent:(Event *)event
+{
+    NSFetchRequest *request = [Ticket sqk_fetchRequest];
+    
+    SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
+    
+    NSInteger counterQuantityOfTicketsOnEvent = 0;
+    
+    for(Ticket *ticket in controller.managedObjects)
+    {
+        if([ticket.eventID isEqual:event.eventID])
+        {
+            counterQuantityOfTicketsOnEvent++;
+        }
+    }
+    
+    return counterQuantityOfTicketsOnEvent;
 }
 
 @end

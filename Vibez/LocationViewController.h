@@ -10,11 +10,15 @@
 #import <MapKit/MapKit.h>
 #import <CLLocationManager-blocks/CLLocationManager+blocks.h>
 
-@interface LocationViewController : UIViewController
+@interface LocationViewController : UIViewController <CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSString *pinTitle;
-@property (readwrite, nonatomic) CLLocationCoordinate2D coordinate;
+
+@property (strong, nonatomic) NSMutableArray *annotations;
+
+@property (readwrite, nonatomic) CLLocationCoordinate2D coordinateVenue;
+@property (readwrite, nonatomic) CLLocationCoordinate2D coordinateUser;
 
 @property (assign, nonatomic) CLLocationDegrees latCoord;
 @property (assign, nonatomic) CLLocationDegrees longCoord;

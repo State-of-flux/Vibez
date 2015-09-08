@@ -16,7 +16,8 @@
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
-#import <Stripe/Stripe.h>
+#import <Braintree/Braintree.h>
+#import <Reachability/Reachability.h>
 
 @interface AppDelegate ()
 {
@@ -32,20 +33,42 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self setupParse:launchOptions];
-    [Stripe setDefaultPublishableKey:StripePublishableKey];
+    [self setupBrainTree];
+    //[Stripe setDefaultPublishableKey:StripePublishableKey];
     [self setupAppearance];
     [self monitorReachability];
     
     if ([PFUser currentUser])
     {
-        self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue])
+        {
+             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        }
+        else
+        {
+            self.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+        }
     }
     else
     {
         [self presentLoginView];
     }
-    
+
     return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    
+    return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+}
+
+-(void)setupBrainTree
+{
+    [Braintree setReturnURLScheme:@"com.Piktu.Vibez.payments"];
+//    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
 }
 
 -(void)setupParse:(NSDictionary *)launchOptions
@@ -102,7 +125,7 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     return self.networkStatus != NotReachable;
 }
 
-- (void)logout
+-(void)logout:(completion)compblock
 {
     // clear NSUserDefaults
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
@@ -131,6 +154,8 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     loginViewController = nil;
     
     [self presentLoginView];
+    
+    compblock(YES);
 }
 
 - (void) deleteAllObjects: (NSString *) entityDescription  {
@@ -144,10 +169,10 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     NSArray *items = [[self.contextManager mainContext] executeFetchRequest:fetchRequest error:&error];
     
     for (NSManagedObject *managedObject in items) {
-        [[self.contextManager mainContext] deleteObject:managedObject];
+        [[PIKContextManager mainContext] deleteObject:managedObject];
         NSLog(@"Object Deleted: %@. %s", entityDescription, __PRETTY_FUNCTION__);
     }
-    if (![[self.contextManager mainContext] save:&error]) {
+    if (![[PIKContextManager mainContext] save:&error]) {
         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
     }
 }
@@ -159,11 +184,28 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     if (![PFFacebookUtils isLinkedWithUser:user]) {
         [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
-                NSLog(@"Woohoo, user is linked with Facebook!");
+                NSLog(@"User has linked to Facebook");
             }
             else if(!succeeded && error)
             {
-                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
+                NSLog(@"Link failed: %@", error);
+            }
+        }];
+    }
+}
+
+-(void)unlinkParseAccountFromFacebook
+{
+    PFUser* user = [PFUser currentUser];
+    
+    if ([PFFacebookUtils isLinkedWithUser:user]) {
+        [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                NSLog(@"User has unlinked from Facebook");
+            }
+            else if(!succeeded && error)
+            {
+                NSLog(@"Unlink failed: %@", error);
             }
         }];
     }
@@ -190,12 +232,10 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     [hostReach startNotifier];
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-
 - (void)setupAppearance
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
@@ -208,7 +248,8 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:12.0f]} forState:UIControlStateNormal];
     
     // BAR BUTTON
-    [[UIBarButtonItem appearance] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
      setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
 }

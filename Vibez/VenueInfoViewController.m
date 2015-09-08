@@ -11,6 +11,8 @@
 #import "UIColor+Piktu.h"
 #import "UIFont+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface VenueInfoViewController ()
 
@@ -26,56 +28,59 @@
 
 -(void)layoutSubviews
 {
-    if(self.venue)
-    {
-        NSLog(@"Event exists: %@", self.venue);
-    }
-    else
-    {
-        NSLog(@"Error: Venue doesn't exist");
-    }
+    CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
+    CGFloat padding = 8;
+    CGFloat paddingDouble = 16;
+    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
+    CGFloat tabBarHeight = self.tabBarController.tabBar.frame.size.height;
+    CGFloat height = self.view.frame.size.height;
+    CGFloat width = self.view.frame.size.width;
+    CGFloat heightWithoutNavOrTabOrStatus = (height - (navBarHeight + tabBarHeight + statusBarFrame));
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height * 2)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus)];
     [self.view addSubview:self.scrollView];
     
     // Image
-    self.venueImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.scrollView.frame.size.width, self.scrollView.frame.size.height/3)];
+    self.venueImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus/3)];
     
     [self.venueImageView sd_setImageWithURL:[NSURL URLWithString:self.venue.image]
-                           placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                           placeholderImage:nil
                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
      {
          
      }];
     
     self.venueImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     if (self.venueImageView.bounds.size.width > self.venueImageView.image.size.width && self.venueImageView.bounds.size.height > self.venueImageView.image.size.height) {
         self.venueImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
+    
     [self.venueImageView.layer setMasksToBounds:YES];
     
-    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.venueImageView.frame.size.width, self.venueImageView.frame.size.height)];
-    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    blurView.frame = self.venueImageView.bounds;
+    [self.venueImageView addSubview:blurView];
     
-    CGFloat padding = 8;
-    CGFloat doublePadding = 16;
+    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.venueImageView.frame.size.width, self.venueImageView.frame.size.height)];
+    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
 
     // Event Name
-    self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.venueImageView.frame)/2 - 20, self.scrollView.frame.size.width, 40)];
+    self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.venueImageView.frame)/2 - 40, width - padding, 70)];
     self.venueNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
     self.venueNameLabel.textColor = [UIColor whiteColor];
     self.venueNameLabel.textAlignment = NSTextAlignmentCenter;
     [self.venueNameLabel setText:self.venue.name];
     
     // Event Venue
-    self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueImageView.frame) + padding, self.scrollView.frame.size.width - 32, 25)];
+    self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.venueImageView.frame) + padding, width - 32, 25)];
     self.venueTownLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
     self.venueTownLabel.textColor = [UIColor whiteColor];
     self.venueTownLabel.text = self.venue.town;
     
     // Event Description
-    self.venueDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(doublePadding, CGRectGetMaxY(self.venueTownLabel.frame) + padding, self.scrollView.frame.size.width - 32, 400)];
+    self.venueDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.venueTownLabel.frame) + padding, width - 32, 400)];
     self.venueDescriptionTextView.backgroundColor = [UIColor clearColor];
     self.venueDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.venueDescriptionTextView.textColor = [UIColor pku_greyColor];
@@ -92,7 +97,7 @@
     [self.scrollView addSubview:self.venueTownLabel];
     [self.scrollView addSubview:self.venueDescriptionTextView];
     
-    [self.scrollView setContentSize:CGSizeMake(self.scrollView.frame.size.width, CGRectGetMaxY(self.venueDescriptionTextView.frame))];
+    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.venueDescriptionTextView.frame))];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
@@ -101,9 +106,11 @@
 
 -(void)setTopBarButtons:(NSString*)titleText
 {
-    UIBarButtonItem *buttonLocation = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(buttonLocationPressed)];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
-    self.navigationItem.rightBarButtonItem = buttonLocation;
+    UIBarButtonItem *buttonMapMarker = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker] style:UIBarButtonItemStylePlain target:self action:@selector(buttonLocationPressed)];
+    
+    self.navigationItem.rightBarButtonItem = buttonMapMarker;
     self.navigationItem.title = titleText;
 }
 

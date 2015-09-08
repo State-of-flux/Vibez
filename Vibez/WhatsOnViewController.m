@@ -21,7 +21,7 @@
     PFUser* user;
     FetchedCollectionViewContainerViewController *eventVC;
     VenueFetchedCollectionViewContainerViewController *venueVC;
-    CLLocationManager *manager;
+    
 }
 @end
 
@@ -53,20 +53,6 @@
     [imageViewTitle setImage:[UIImage imageNamed:@"logoTitleView"]];
     [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
     self.navigationItem.titleView = imageViewTitle;
-    
-    manager = [CLLocationManager updateManagerWithAccuracy:50.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
-    
-    [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {
-        NSLog(@"Our new location: %@", location);
-        
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        [defaults setValue:@"Sheffield" forKey:@"currentLocation"];
-        [defaults synchronize];
-        
-        NSString *thelocation = [defaults valueForKey:@"currentLocation"];
-        NSLog(@"Our new location: %@", thelocation);
-    }];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

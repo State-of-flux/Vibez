@@ -20,6 +20,6 @@
 -(void)LoginWithUsername:(NSString *)username andPassword:(NSString *)password;
 -(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password;
 -(void)LinkAccountToFacebook;
--(void)Logout;
+//-(void)Logout;
 
 @end

@@ -16,7 +16,7 @@
 +(void)deleteInvalidUsersInContext:(NSManagedObjectContext *)context;
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 +(NSArray *)allUsersInContext:(NSManagedObjectContext *)context;
-
++(void)getUserForUserFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 - (void)saveToParse;
 - (PFObject *)pfObject;
 

@@ -18,12 +18,6 @@
 				<key>isInteractable</key>
 				<false/>
 			</dict>
-			<dict>
-				<key>name</key>
-				<string>Friends</string>
-				<key>isInteractable</key>
-				<true/>
-			</dict>
 		</array>
 		<key>Filter</key>
 		<array>
@@ -31,20 +25,20 @@
 				<key>name</key>
 				<string>Location</string>
 				<key>isInteractable</key>
-				<true/>
+				<false/>
 			</dict>
 		</array>
 		<key>Control</key>
 		<array>
 			<dict>
 				<key>name</key>
-				<string>Logout</string>
+				<string>Share the Vibes</string>
 				<key>isInteractable</key>
 				<true/>
 			</dict>
 			<dict>
 				<key>name</key>
-				<string>Link to Facebook</string>
+				<string>Logout</string>
 				<key>isInteractable</key>
 				<true/>
 			</dict>

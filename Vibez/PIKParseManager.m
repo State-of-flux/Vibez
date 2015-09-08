@@ -65,7 +65,7 @@
             queryObject = [PFObject objectWithClassName:className dictionary:[pfObject dictionary]];
         }
         
-        //[queryObject saveInBackgroundWithBlock:(nullable PFBooleanResultBlock(nullable )block];
+        
         [queryObject saveInBackground];
         
         if(error)
@@ -123,6 +123,7 @@
     if(includeKey)
     {
         [query includeKey:includeKey];
+        [query includeKey:@"venue"];
         [query includeKey:@"user"];
     }
     

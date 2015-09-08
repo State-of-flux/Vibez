@@ -7,10 +7,10 @@
 //
 
 #import "GlobalViewController.h"
-#import <PaymentKit/PKView.h>
+#import <Braintree/Braintree.h>
 
-@interface BuyTicketViewController : GlobalViewController <PKViewDelegate>
+@interface BuyTicketViewController : GlobalViewController 
 
-@property (strong, nonatomic) PKView* paymentView;
+@property (strong, nonatomic) BTDropInViewController *dropIn;
 
 @end

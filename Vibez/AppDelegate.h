@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import <SQKDataKit/SQKDataKit.h>
 #import "PIKContextManager.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -16,10 +17,13 @@
 @property (strong, nonatomic) UIViewController *viewController;
 @property (nonatomic, readwrite, strong) PIKContextManager *contextManager;
 @property (nonatomic, readonly) int networkStatus;
+@property (strong, nonatomic) MBProgressHUD *hud;
+typedef void(^completion)(BOOL);
 
 - (BOOL)isParseReachable;
-- (void)logout;
+- (void)logout:(completion)compblock;
 - (void)linkParseAccountToFacebook;
+- (void)unlinkParseAccountFromFacebook;
 
 @end
 

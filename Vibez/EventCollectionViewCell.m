@@ -32,10 +32,11 @@
         self.layer.borderColor = [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f].CGColor;
         self.layer.borderWidth = 0.5f;
         
-        self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2 - 30.0f, self.frame.size.width - 5, 25)];
+        self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, self.frame.size.height/2 - 50.0f, self.frame.size.width - 8, 50)];
         [self.eventNameLabel setTextAlignment:NSTextAlignmentCenter];
         self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:20.0f];
         self.eventNameLabel.textColor = [UIColor whiteColor];
+        self.eventNameLabel.numberOfLines = 2;
         
         self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, self.frame.size.height/2, self.frame.size.width - 5, 25)];
         [self.eventDateLabel setTextAlignment:NSTextAlignmentCenter];
@@ -50,7 +51,7 @@
         self.eventImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         
         UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.7f];
+        darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
         [self.contentView addSubview:self.eventImage];
         [self.contentView addSubview:darkOverlay];
         [self.contentView addSubview:self.eventNameLabel];
