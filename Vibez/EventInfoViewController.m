@@ -44,7 +44,7 @@
     
     self.arrayOfQuantities = [NSMutableArray array];
     
-    for(NSInteger i = 1; i < 11; i++)
+    for(NSInteger i = 1; i <= 10; i++)
     {
         [self.arrayOfQuantities addObject:[NSString stringWithFormat:@"%ld", (long)i]];
     }
@@ -268,9 +268,7 @@
 {
     //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     //UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconShareAlt] style:UIBarButtonItemStylePlain target:self action:@selector(shareEvent)];
-    
-    UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareEvent)];
-    
+    UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleDone target:self action:@selector(shareEvent)];
     self.navigationItem.rightBarButtonItem = buttonShare;
     self.navigationItem.title = titleText;
     [self.navigationItem setHidesBackButton:NO];

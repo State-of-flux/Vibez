@@ -7,6 +7,7 @@
 //
 
 #import "GlobalViewController.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface SignUpViewController : GlobalViewController
 
@@ -15,10 +16,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 - (IBAction)submitButtonTapped:(id)sender;
-
 - (IBAction)signInButtonTapped:(id)sender;
-
 
 @end

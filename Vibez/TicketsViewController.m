@@ -11,8 +11,7 @@
 #import "TicketsFetchedTableViewController.h"
 #import "DisplayTicketViewController.h"
 
-@interface TicketsViewController ()
-{
+@interface TicketsViewController () {
     PFUser* user;
     TicketsFetchedTableViewController *fetchVC;
 }
@@ -26,7 +25,7 @@
 {
     [super viewDidLoad];
     [self setNavBar:@"Tickets"];
-    [self.view setBackgroundColor:[UIColor pku_blackColor]];
+    [self.view setBackgroundColor:[UIColor pku_lightBlack]];
 
     fetchVC = self.childViewControllers.firstObject;
 }

@@ -135,7 +135,6 @@
     
     [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
     
-    
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
 
     return request;

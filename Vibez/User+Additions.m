@@ -76,6 +76,23 @@
                                 }];
 }
 
++(void)getAllUsersForEventFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId = %@", [[PFUser currentUser] objectId]];
+    
+    [PIKParseManager getAllForClassName:@"_User" withPredicate:predicate withIncludeKey:nil
+                                success:^(NSArray *objects) {
+                                    if (successBlock) {
+                                        successBlock(objects);
+                                    }
+                                }
+                                failure:^(NSError *error) {
+                                    if (failureBlock) {
+                                        failureBlock(error);
+                                    }
+                                }];
+}
+
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withIncludeKey:nil

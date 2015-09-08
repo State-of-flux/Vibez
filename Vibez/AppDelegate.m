@@ -53,7 +53,7 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     {
         [self presentLoginView];
     }
-    
+
     return YES;
 }
 
@@ -125,7 +125,7 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     return self.networkStatus != NotReachable;
 }
 
-- (void)logout
+-(void)logout:(completion)compblock
 {
     // clear NSUserDefaults
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
@@ -154,6 +154,8 @@ NSString * const StripePublishableKey = @"pk_test_fuaM613X7U1R1MxL9LkNLHFY";
     loginViewController = nil;
     
     [self presentLoginView];
+    
+    compblock(YES);
 }
 
 - (void) deleteAllObjects: (NSString *) entityDescription  {

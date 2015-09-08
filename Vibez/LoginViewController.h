@@ -13,6 +13,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Foundation/Foundation.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface LoginViewController : GlobalViewController <FBSDKLoginTooltipViewDelegate>
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *FacebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewLogo;
 @property (weak, nonatomic) IBOutlet UIView *viewPassword;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @property (weak, nonatomic) IBOutlet UIView *viewUsername;
 - (IBAction)loginButtonTapped:(id)sender;

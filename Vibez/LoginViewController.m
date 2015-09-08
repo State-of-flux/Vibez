@@ -15,9 +15,9 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
-@interface LoginViewController ()
-{
+@interface LoginViewController () {
     Reachability *reachability;
 }
 @end
@@ -92,12 +92,15 @@
 
 -(void)Login
 {
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.labelText = @"Logging in...";
+    
     NSString *emailIdentifier = @"@";
     NSString *usernameOrEmailString = self.emailAddressTextField.text;
     NSString *passwordString = self.passwordTextField.text;
     
-    if([reachability isReachable])
-    {
+    if([reachability isReachable]) {
         if ([usernameOrEmailString rangeOfString:emailIdentifier].location != NSNotFound) {
             //"username" contains the email identifier @, therefore this is an email. Pull down the username.
             PFQuery *query = [PFUser query];
@@ -164,6 +167,7 @@
              
          }
          
+         [self.hud hide:YES];
          self.loginButton.enabled = true;
          self.signUpButton.enabled = true;
      }];

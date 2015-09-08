@@ -93,6 +93,11 @@
 		6C8607E01B99B2B1009F9C76 /* AdminTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */; };
 		6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */; };
 		6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */; };
+		6C8607ED1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607EC1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m */; };
+		6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607EF1B9A1E85009F9C76 /* UserCollectionViewCell.m */; };
+		6C8607F31B9CA816009F9C76 /* EventSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607F21B9CA816009F9C76 /* EventSelectorViewController.m */; };
+		6C8607F81B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607F71B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.m */; };
+		6C8607FB1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607FA1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m */; };
 		6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A73F01B24D4F300AAD04E /* UIImage+MDQRCode.m */; };
 		6C8A73F41B24D5BE00AAD04E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8A73F31B24D5BE00AAD04E /* Foundation.framework */; };
 		6C8A73F61B24D66100AAD04E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8A73F51B24D66100AAD04E /* UIKit.framework */; };
@@ -273,6 +278,16 @@
 		6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScannerViewController.m; sourceTree = "<group>"; };
 		6C8607E41B9A0CE2009F9C76 /* SearchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListViewController.h; sourceTree = "<group>"; };
 		6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListViewController.m; sourceTree = "<group>"; };
+		6C8607EB1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListFetchedCollectionViewController.h; sourceTree = "<group>"; };
+		6C8607EC1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListFetchedCollectionViewController.m; sourceTree = "<group>"; };
+		6C8607EE1B9A1E85009F9C76 /* UserCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCollectionViewCell.h; sourceTree = "<group>"; };
+		6C8607EF1B9A1E85009F9C76 /* UserCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCollectionViewCell.m; sourceTree = "<group>"; };
+		6C8607F11B9CA816009F9C76 /* EventSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectorViewController.h; sourceTree = "<group>"; };
+		6C8607F21B9CA816009F9C76 /* EventSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSelectorViewController.m; sourceTree = "<group>"; };
+		6C8607F61B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectorFetchedCollectionViewController.h; sourceTree = "<group>"; };
+		6C8607F71B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSelectorFetchedCollectionViewController.m; sourceTree = "<group>"; };
+		6C8607F91B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSelectorCollectionViewCell.h; sourceTree = "<group>"; };
+		6C8607FA1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSelectorCollectionViewCell.m; sourceTree = "<group>"; };
 		6C8A73EF1B24D4F300AAD04E /* UIImage+MDQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MDQRCode.h"; sourceTree = "<group>"; };
 		6C8A73F01B24D4F300AAD04E /* UIImage+MDQRCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MDQRCode.m"; sourceTree = "<group>"; };
 		6C8A73F31B24D5BE00AAD04E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -662,6 +677,10 @@
 				6C37D2411AE07A720078154E /* VenueCollectionViewCell.m */,
 				6C53D1861B90D0660087A6BC /* TicketCollectionViewCell.h */,
 				6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */,
+				6C8607EE1B9A1E85009F9C76 /* UserCollectionViewCell.h */,
+				6C8607EF1B9A1E85009F9C76 /* UserCollectionViewCell.m */,
+				6C8607F91B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.h */,
+				6C8607FA1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m */,
 			);
 			name = Collection;
 			sourceTree = "<group>";
@@ -687,12 +706,58 @@
 		6C8607E11B9A0CCC009F9C76 /* Admin */ = {
 			isa = PBXGroup;
 			children = (
+				6C8607F41B9CA89D009F9C76 /* Event Selector */,
+				6C8607E81B9A1D97009F9C76 /* Scan */,
+				6C8607E91B9A1D9E009F9C76 /* Search */,
+			);
+			name = Admin;
+			sourceTree = "<group>";
+		};
+		6C8607E81B9A1D97009F9C76 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
 				6C8607E21B9A0CE2009F9C76 /* ScannerViewController.h */,
 				6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */,
+			);
+			name = Scan;
+			sourceTree = "<group>";
+		};
+		6C8607E91B9A1D9E009F9C76 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				6C8607EA1B9A1DA5009F9C76 /* Containers */,
 				6C8607E41B9A0CE2009F9C76 /* SearchListViewController.h */,
 				6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */,
 			);
-			name = Admin;
+			name = Search;
+			sourceTree = "<group>";
+		};
+		6C8607EA1B9A1DA5009F9C76 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				6C8607EB1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.h */,
+				6C8607EC1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m */,
+			);
+			name = Containers;
+			sourceTree = "<group>";
+		};
+		6C8607F41B9CA89D009F9C76 /* Event Selector */ = {
+			isa = PBXGroup;
+			children = (
+				6C8607F51B9CA8A6009F9C76 /* Containers */,
+				6C8607F11B9CA816009F9C76 /* EventSelectorViewController.h */,
+				6C8607F21B9CA816009F9C76 /* EventSelectorViewController.m */,
+			);
+			name = "Event Selector";
+			sourceTree = "<group>";
+		};
+		6C8607F51B9CA8A6009F9C76 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				6C8607F61B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.h */,
+				6C8607F71B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.m */,
+			);
+			name = Containers;
 			sourceTree = "<group>";
 		};
 		6C8A73EB1B24D4C600AAD04E /* Cells */ = {
@@ -1136,6 +1201,7 @@
 			files = (
 				6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */,
 				6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */,
+				6C8607F31B9CA816009F9C76 /* EventSelectorViewController.m in Sources */,
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
 				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
@@ -1165,13 +1231,16 @@
 				6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */,
 				6C09297B1B85331800851DA8 /* LabelNormalText.m in Sources */,
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
+				6C8607ED1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m in Sources */,
 				6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */,
 				6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
+				6C8607FB1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m in Sources */,
 				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
 				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
+				6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */,
 				6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */,
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
@@ -1189,6 +1258,7 @@
 				6C8A73F21B24D4F300AAD04E /* UIImage+MDQRCode.m in Sources */,
 				6C0929741B85250D00851DA8 /* OrderInfoViewController.m in Sources */,
 				6CB75FF41B93B48D00CEB31A /* VibesTabBarViewController.m in Sources */,
+				6C8607F81B9CA8DA009F9C76 /* EventSelectorFetchedCollectionViewController.m in Sources */,
 				6C066FE81B1CA960009EA34D /* WhatsOnViewController.m in Sources */,
 				6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */,
 				6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */,

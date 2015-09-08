@@ -257,9 +257,17 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate logout];
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.mode = MBProgressHUDModeAnnularDeterminate;
+        self.hud.labelText = @"Logging out...";
         
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        [appDelegate logout:^(BOOL complete) {
+            if(complete) {
+                [self.hud hide:YES];
+            }
+        }];
+
     }];
     
     UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];

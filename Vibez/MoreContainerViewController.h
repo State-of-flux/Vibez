@@ -10,13 +10,15 @@
 #import <Foundation/Foundation.h>
 #import <SQKDataKit/SQKManagedObjectController.h>
 #import "User+Additions.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
-@interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate >
+@interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate>
 
 @property (strong, nonatomic) NSDictionary *data;
 @property (strong, nonatomic) NSArray *accountData;
 @property (strong, nonatomic) NSArray *filterData;
 @property (strong, nonatomic) NSArray *controlData;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @property (strong, nonatomic) User *user;
 
