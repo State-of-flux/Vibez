@@ -10,4 +10,7 @@
 
 @interface EventSelectorViewController : UIViewController
 
+typedef void(^completion)(BOOL);
+
 @end
+

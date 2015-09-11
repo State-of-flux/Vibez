@@ -352,9 +352,13 @@
     if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"])
     {
         // Here we create the order using the event and quantity, the quantity denotes the amount of ticket objects created.
-        
-        OrderInfoViewController *destinationVC = segue.destinationViewController;
-        destinationVC.order = [Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected];
+        if([reachability isReachable]) {
+            OrderInfoViewController *destinationVC = segue.destinationViewController;
+            destinationVC.order = [Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected];
+        } else {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alertView show];
+        }
     }
 }
 

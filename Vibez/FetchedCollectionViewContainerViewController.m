@@ -14,7 +14,7 @@
 #import "EventInfoViewController.h"
 #import <Reachability/Reachability.h>
 
-@interface FetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
+@interface FetchedCollectionViewContainerViewController ()
 {
     Reachability *reachability;
 }
@@ -86,7 +86,7 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self reloadFetchedResultsControllerForSearch:nil];
+             //[self reloadFetchedResultsControllerForSearch:nil];
              
              if(error)
              {
@@ -165,9 +165,9 @@
     }
     else
     {
+        [eventCell.eventPriceLabel setTextColor:[UIColor pku_purpleColor]];
         eventCell.eventPriceLabel.text = eventPriceString;
     }
-    
     
     [eventCell.eventPriceLabel sizeToFit];
     [eventCell.eventPriceLabel setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];

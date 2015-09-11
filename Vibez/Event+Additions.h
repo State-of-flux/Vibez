@@ -9,12 +9,14 @@
 #import "Event.h"
 #import "PIKParseManager.h"
 #import <SQKDataKit/SQKDataKit.h>
+#import <Parse/Parse.h>
 
 @interface Event (Additions)
 
 +(void)importEvents:(NSArray *)events intoContext:(NSManagedObjectContext *)context;
 +(void)deleteInvalidEventsInContext:(NSManagedObjectContext *)context;
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
++(void)getEventsFromParseForAdmin:(PFUser *)adminScanner withSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 +(NSArray *)allEventsInContext:(NSManagedObjectContext *)context;
 
 - (void)saveToParse;

@@ -72,7 +72,7 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
+        [Ticket getTicketsForEvent:self.event fromParseWithSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
@@ -106,8 +106,8 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];;
-    [self setUserSelected:user];
+    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    [self setTicketSelected:ticket];
     self.indexPathSelected = indexPath;
     //[self.parentViewController performSegueWithIdentifier:@"" sender:self];
 }
@@ -130,9 +130,9 @@
 -(void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     UserCollectionViewCell *ticketCell = (UserCollectionViewCell *)cell;
-    User *user = [fetchedResultsController objectAtIndexPath:indexPath];
+    Ticket *ticket = [fetchedResultsController objectAtIndexPath:indexPath];
 
-    ticketCell.ticketNameLabel.text = user.username;
+    ticketCell.ticketNameLabel.text = ticket.username;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
 }
 
@@ -140,7 +140,7 @@
 {
     NSFetchRequest *request;
     
-    request = [User sqk_fetchRequest]; //Create ticket additions
+    request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
                                  [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES] ];

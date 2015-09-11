@@ -48,7 +48,6 @@
 		6C0A4A271ACF1137004818F1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A261ACF1137004818F1 /* libz.dylib */; };
 		6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */; };
 		6C0A4A2D1ACF120F004818F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */; };
-		6C0A4A2F1ACF126E004818F1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2E1ACF126E004818F1 /* MapKit.framework */; };
 		6C1E55B71ACF08D9003965A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B61ACF08D9003965A0 /* main.m */; };
 		6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B91ACF08D9003965A0 /* AppDelegate.m */; };
 		6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55BE1ACF08D9003965A0 /* Main.storyboard */; };
@@ -138,6 +137,7 @@
 		6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06791B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m */; };
 		6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */; };
 		6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */; };
+		6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,7 +199,6 @@
 		6C0A4A261ACF1137004818F1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
-		6C0A4A2E1ACF126E004818F1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -359,6 +358,7 @@
 		6CEF067B1B4CA0C0001F1E7C /* NSString+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PIK.h"; sourceTree = "<group>"; };
 		6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PIK.m"; sourceTree = "<group>"; };
 		6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ticket.jpg; sourceTree = "<group>"; };
+		6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfoAdmin.plist; sourceTree = "<group>"; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		B17B9CC57D0D36B97F73DA76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -377,7 +377,6 @@
 				6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */,
 				6C79FF711B28B2A4006293C9 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */,
-				6C0A4A2F1ACF126E004818F1 /* MapKit.framework in Frameworks */,
 				6C7C97211AE45AC4001EE1FD /* FBSDKCoreKit.framework in Frameworks */,
 				6C7C97231AE45AC4001EE1FD /* FBSDKShareKit.framework in Frameworks */,
 				6C0A4A1B1ACF1113004818F1 /* CoreLocation.framework in Frameworks */,
@@ -477,6 +476,7 @@
 				6C1E55B61ACF08D9003965A0 /* main.m */,
 				6C79FF761B28B49A006293C9 /* PrefixHeader.pch */,
 				6C0929491B7F8B6000851DA8 /* MorePageInfo.plist */,
+				6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1011,7 +1011,6 @@
 				6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */,
 				6CD58E061ADED8BD00CDBC29 /* Accounts.framework */,
 				6CD58E041ADED8B800CDBC29 /* Social.framework */,
-				6C0A4A2E1ACF126E004818F1 /* MapKit.framework */,
 				6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */,
 				6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */,
 				6C0A4A261ACF1137004818F1 /* libz.dylib */,
@@ -1082,7 +1081,7 @@
 						CreatedOnToolsVersion = 6.2;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -1124,6 +1123,7 @@
 				6C066FDE1B1BAEEF009EA34D /* tabbar_normal_background.png in Resources */,
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
+				6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */,
 				6C066FE31B1BAEEF009EA34D /* third_normal@2x.png in Resources */,
 				6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */,
 				6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */,

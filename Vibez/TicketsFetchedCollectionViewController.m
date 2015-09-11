@@ -10,6 +10,9 @@
 #import <Reachability/Reachability.h>
 #import "NSString+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "UIColor+Piktu.h"
+#import "NSString+PIK.h"
+#import "UIFont+PIK.h"
 
 @interface TicketsFetchedCollectionViewController ()
 {
@@ -78,7 +81,7 @@
             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
             [newPrivateContext save:&error];
             
-            [self reloadFetchedResultsControllerForSearch:nil];
+            //[self reloadFetchedResultsControllerForSearch:nil];
             
             if(error)
             {
@@ -142,16 +145,17 @@
     ticketCell.ticketDateLabel.text = dateFormatString;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
-    [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                              placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         if(error)
+    if ([[ticket image] isEqual:nil] || [[ticket image] isEqualToString:@""]) {
+        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
          {
-             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }];
-    
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+         }];
+    }
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
@@ -170,7 +174,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"endDate >= %@", [NSDate date]]];
     
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];

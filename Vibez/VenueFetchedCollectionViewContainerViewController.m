@@ -79,7 +79,7 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self reloadFetchedResultsControllerForSearch:nil];
+             //[self reloadFetchedResultsControllerForSearch:nil];
              
              if(error)
              {

@@ -152,7 +152,7 @@
 - (IBAction)submitButtonTapped:(id)sender
 {
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.mode = MBProgressHUDModeAnnularDeterminate;
+    self.hud.mode = MBProgressHUDModeIndeterminate;
     self.hud.labelText = @"Signing up...";
     
     if([reachability isReachable])
@@ -194,7 +194,7 @@
     user.password = password;
     user.email = emailAddress;
     [user setObject:[NSArray array] forKey:@"friends"];
-    [user setObject:@NO forKey:@"emailVerified"];
+    //[user setObject:@NO forKey:@"emailVerified"];
     [user setObject:@"Sheffield" forKey:@"location"];
     [user setObject:@NO forKey:@"isLinkedToFacebook"];
     [user setObject:@NO forKey:@"isAdmin"];
@@ -202,11 +202,22 @@
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
             
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Account created, welcome to Vibes." delegate:self cancelButtonTitle:@"Feel the Vibes" otherButtonTitles:nil, nil];
-            [alert show];
-            
-            AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-            appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+            //User has successfully signed up now that I have a cached currentUser we proceed to add them to the 'Moderator' Role:
+            //PFQuery *roleQuery = [PFRole query];
+            //[roleQuery whereKey:@"name" equalTo:@"customer"];
+            //[roleQuery getFirstObjectInBackgroundWithBlock:^(PFObject *object, NSError *error) {
+                if (!error) {
+                    //PFRole *role = (PFRole *)object;
+                    //[role.users addObject:[PFUser currentUser]];
+                    //[role saveInBackground];
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Account created, welcome to Vibes." delegate:self cancelButtonTitle:@"Feel the Vibes" otherButtonTitles:nil, nil];
+                    [alert show];
+                    
+                    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+                    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                }
+            //}];
         }
         else
         {

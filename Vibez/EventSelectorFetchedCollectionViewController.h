@@ -11,10 +11,13 @@
 #import "PIKContextManager.h"
 #import "EventSelectorCollectionViewCell.h"
 #import "Event+Additions.h"
+#import "Ticket+Additions.h"
+#import <MBProgressHUD/MBProgressHUD.h>
 
 @interface EventSelectorFetchedCollectionViewController : SQKFetchedCollectionViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) Event *eventSelected;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
