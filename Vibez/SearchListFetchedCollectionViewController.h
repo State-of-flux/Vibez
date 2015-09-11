@@ -15,6 +15,7 @@
 @interface SearchListFetchedCollectionViewController : SQKFetchedCollectionViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
-@property (nonatomic, strong) User *userSelected;
+@property (nonatomic, strong) Ticket *ticketSelected;
+@property (nonatomic, strong) PFObject *event;
 
 @end

@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <MTBBarcodeScanner/MTBBarcodeScanner.h>
+#import "Event+Additions.h"
+#import "Ticket+Additions.h"
+#import <SQKDataKit/SQKManagedObjectController.h>
 
-@interface ScannerViewController : UIViewController
+@interface ScannerViewController : UIViewController <SQKManagedObjectControllerDelegate>
 
+
+@property (weak, nonatomic) IBOutlet UIView *scanView;
 @property (strong, nonatomic) MTBBarcodeScanner *scanner;
+@property (strong, nonatomic) Event *eventSelected;
+@property (nonatomic, strong) SQKManagedObjectController *controller;
 
 @end

@@ -80,6 +80,23 @@
                                 }];
 }
 
++ (void)getTicketsForEvent:(PFObject *)event fromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"event = %@", event];
+    
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+                                success:^(NSArray *objects) {
+                                    if (successBlock) {
+                                        successBlock(objects);
+                                    }
+                                }
+                                failure:^(NSError *error) {
+                                    if (failureBlock) {
+                                        failureBlock(error);
+                                    }
+                                }];
+}
+
 +(NSArray *)allTicketsInContext:(NSManagedObjectContext *)context
 {
     NSError* error;

@@ -83,21 +83,21 @@
     
 }
 
-+(void)getEventsFromParseForAdminWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
++(void)getEventsFromParseForAdmin:(PFUser *)adminScanner withSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"venue >= %@", [[PFUser currentUser] objectForKey:@"adminVenue"]];
-//    
-//    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"venue"
-//                                success:^(NSArray *objects) {
-//                                    if (successBlock) {
-//                                        successBlock(objects);
-//                                    }
-//                                }
-//                                failure:^(NSError *error) {
-//                                    if (failureBlock) {
-//                                        failureBlock(error);
-//                                    }
-//                                }];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"scanner = %@", [PFUser currentUser]];
+    
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"venue"
+                                success:^(NSArray *objects) {
+                                    if (successBlock) {
+                                        successBlock(objects);
+                                    }
+                                }
+                                failure:^(NSError *error) {
+                                    if (failureBlock) {
+                                        failureBlock(error);
+                                    }
+                                }];
 }
 
 +(NSArray *)allEventsInContext:(NSManagedObjectContext *)context

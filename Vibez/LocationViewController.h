@@ -10,8 +10,9 @@
 #import <MapKit/MapKit.h>
 #import <CLLocationManager-blocks/CLLocationManager+blocks.h>
 
-@interface LocationViewController : UIViewController <CLLocationManagerDelegate>
+@interface LocationViewController : UIViewController <CLLocationManagerDelegate, UIActionSheetDelegate>
 
+@property (weak, nonatomic) IBOutlet UIButton *buttonGetDirections;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSString *pinTitle;
 
@@ -22,5 +23,6 @@
 
 @property (assign, nonatomic) CLLocationDegrees latCoord;
 @property (assign, nonatomic) CLLocationDegrees longCoord;
+- (IBAction)buttonGetDirectionsPressed:(id)sender;
 
 @end

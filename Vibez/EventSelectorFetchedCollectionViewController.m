@@ -45,8 +45,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"Tickets"];
-    
     [self.collectionView registerClass:[EventSelectorCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventSelectorCollectionViewCell class])];
     
     [self.collectionView setDelegate:self];
@@ -70,15 +68,13 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Event getAllFromParseWithSuccessBlock:^(NSArray *objects) {
+        [Event getEventsFromParseForAdmin:[PFUser currentUser] withSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
             [Event importEvents:objects intoContext:newPrivateContext];
             [Event deleteInvalidEventsInContext:newPrivateContext];
             [newPrivateContext save:&error];
-            
-            [self reloadFetchedResultsControllerForSearch:nil];
             
             if(error)
             {
@@ -104,10 +100,44 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    [self.view setUserInteractionEnabled:NO];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.mode = MBProgressHUDModeIndeterminate;
+    self.hud.labelText = @"Fetching data...";
+    
+    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setEventSelected:event];
     self.indexPathSelected = indexPath;
-    [self.parentViewController performSegueWithIdentifier:@"" sender:self];
+    
+    PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:event.eventID];
+    
+    [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects)
+     {
+         NSError *error;
+         
+         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+         [Ticket importTickets:objects intoContext:newPrivateContext];
+         [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+         [newPrivateContext save:&error];
+         
+         if(error)
+         {
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+         
+         [self.hud setHidden:YES];
+         [self.view setUserInteractionEnabled:YES];
+         [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+     }
+                  failureBlock:^(NSError *error)
+     {
+         NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         
+         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+         [alertView show];
+         [self.hud setHidden:YES];
+         [self.view setUserInteractionEnabled:YES];
+     }];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -160,18 +190,17 @@
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
-        [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
-    
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
