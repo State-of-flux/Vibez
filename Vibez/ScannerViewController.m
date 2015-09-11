@@ -8,6 +8,9 @@
 
 #import "ScannerViewController.h"
 #import <Reachability/Reachability.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import "RKDropdownAlert.h"
 
 @interface ScannerViewController ()
 {
@@ -19,13 +22,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     reachability = [Reachability reachabilityForInternetConnection];
     
     self.controller = [[SQKManagedObjectController alloc] initWithFetchRequest:[Ticket sqk_fetchRequest] managedObjectContext:[PIKContextManager mainContext]];
     [self.controller setDelegate:self];
     
-    //[self.scanView setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2)];
+    self.uniqueCodes = [NSMutableArray array];
+    
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:25.0f];
+    [self.buttonTorch setImage:[factory createImageForIcon:NIKFontAwesomeIconFlash] forState:UIControlStateNormal];
+    [self.buttonTorch setTintColor:[UIColor whiteColor]];
     [self startScanning];
 }
 
@@ -34,15 +42,60 @@
                                                               previewView:self.scanView];
     
     [self.scanner startScanningWithResultBlock:^(NSArray *codes) {
-        for (AVMetadataMachineReadableCodeObject *code in codes) {
-            
-            
-            //            if ([self.uniqueCodes indexOfObject:code.stringValue] == NSNotFound) {
-            //                [self.uniqueCodes addObject:code.stringValue];
-            //                NSLog(@"Found unique code: %@", code.stringValue);
-            //            }
-            
-            NSLog(@"Here is my code: %@", code.stringValue);
+        for (AVMetadataMachineReadableCodeObject *code in codes)
+        {
+            // If qr code has not already been scanned, then search through all tickets on the device.
+            // If a ticket is found to match the qr code, set the property hasBeenUsed to true on the ticket and save it to Parse.
+            // If the ticket has not been found, then it must not exist, recommend refreshing the data, or say that it's not valid.
+            if ([self.uniqueCodes indexOfObject:code.stringValue] == NSNotFound)
+            {
+                [self.uniqueCodes addObject:code.stringValue];
+                NSLog(@"Found unique code: %@", code.stringValue);
+                
+                for(Ticket *ticket in [self.controller managedObjects]) {
+                    
+                    // VALID TICKET, NOT SCANNED
+                    if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
+                        [ticket setHasBeenUsed:@1];
+                        [ticket saveToParse];
+                        
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                    // VALID TICKET, ALREADY SCANNED
+                    else if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                    // INVALID TICKET
+                    else
+                    {
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:nil backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                }
+            }
+            // This code has already been scanned before, so it must either be a valid ticket that has already been scanned
+            // Or it must not be an invalid ticket.
+            // Or it is a code that has already been scanned, but wasn't found on the system because the data wasn't up to date.
+            else
+            {
+                for(Ticket *ticket in [self.controller managedObjects]) {
+                    
+                    // VALID TICKET, ALREADY SCANNED
+                    if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                    // VALID TICKET, NOT SCANNED, BUT HAS BEEN ON THE DEVICE SOMEHOW
+                    else if ([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
+                        [ticket setHasBeenUsed:@1];
+                        [ticket saveToParse];
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                    // INVALID TICKET
+                    else
+                    {
+                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:@"A refresh might be required" backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
+                    }
+                }
+            }
         }
     }];
 }
@@ -71,10 +124,10 @@
                 NSLog(@"Fetch Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
         }
-        failureBlock:^(NSError *error)
-        {
-            NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-        }];
+                                              failureBlock:^(NSError *error)
+         {
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }];
     }
     else
     {
@@ -83,4 +136,11 @@
     }
 }
 
+- (IBAction)buttonTorchPressed:(id)sender {
+    if([self.scanner torchMode] == 0) {
+        [self.scanner setTorchMode:1];
+    } else if([self.scanner torchMode] == 1) {
+        [self.scanner setTorchMode:0];
+    }
+}
 @end

@@ -45,6 +45,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     [self.collectionView registerClass:[EventSelectorCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventSelectorCollectionViewCell class])];
     
     [self.collectionView setDelegate:self];
@@ -101,6 +103,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+    
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.mode = MBProgressHUDModeIndeterminate;
     self.hud.labelText = @"Fetching data...";
@@ -127,6 +131,7 @@
          
          [self.hud setHidden:YES];
          [self.view setUserInteractionEnabled:YES];
+         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
          [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
      }
                   failureBlock:^(NSError *error)
@@ -136,6 +141,7 @@
          UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
          [alertView show];
          [self.hud setHidden:YES];
+         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
          [self.view setUserInteractionEnabled:YES];
      }];
 }

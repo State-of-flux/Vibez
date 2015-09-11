@@ -31,16 +31,15 @@
     [super viewDidLoad];
     [self.navigationItem setTitle:@"Select an Event"];
     
+    UIBarButtonItem *barButtonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelPressed)];
+    
+    [self.navigationItem setLeftBarButtonItem:barButtonCancel];
+    
     eventVC = self.childViewControllers.firstObject;
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:@"selectorToScanSegue"])
-    {
-        ScannerViewController *destinationVC = segue.destinationViewController;
-        destinationVC.eventSelected = [eventVC eventSelected];
-    }
+- (void)cancelPressed {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)loadAllTicketData:(completion) compblock {

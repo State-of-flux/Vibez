@@ -135,8 +135,6 @@
                                           dictionary:@{@"objectId" : self.ticketID,
                                                        @"hasBeenUsed" : self.hasBeenUsed,
                                                        @"referenceNumber" : self.referenceNumber,
-                                                       //@"user" : user,
-                                                       //@"event" : event
                                                        }];
     
     return object;

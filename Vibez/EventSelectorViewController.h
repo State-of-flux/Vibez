@@ -12,5 +12,7 @@
 
 typedef void(^completion)(BOOL);
 
++ (instancetype)create;
+
 @end
 

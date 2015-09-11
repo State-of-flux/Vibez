@@ -174,7 +174,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"endDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
     
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];

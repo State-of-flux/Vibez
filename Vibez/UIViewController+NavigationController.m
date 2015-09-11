@@ -16,6 +16,16 @@
 
 - (UINavigationController *)withNavigationControllerWithModalPresentationStyle:(UIModalPresentationStyle)modalPresentationStyle {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self];
+    [navigationController setModalPresentationStyle:modalPresentationStyle];
+    return navigationController;
+}
+
+- (UINavigationController *)withNavigationControllerWithOpaque {
+    return [self withNavigationControllerWithOpaqueWithModalPresentationStyle:UIModalPresentationFullScreen];
+}
+
+- (UINavigationController *)withNavigationControllerWithOpaqueWithModalPresentationStyle:(UIModalPresentationStyle)modalPresentationStyle {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self];
     [[navigationController navigationBar] setTranslucent:NO];
     [[navigationController navigationBar] setOpaque:YES];
     [navigationController setModalPresentationStyle:modalPresentationStyle];

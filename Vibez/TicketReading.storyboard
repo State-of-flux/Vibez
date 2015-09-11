@@ -28,11 +28,11 @@
                         <viewControllerLayoutGuide type="bottom" id="nL3-CX-RT9"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WdA-hp-gfa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2cR-VX-G6t">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="EMc-c4-UZy" kind="embed" id="0Gm-XN-3sg"/>
                                 </connections>
@@ -43,11 +43,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="2cR-VX-G6t" secondAttribute="trailing" constant="-16" id="4Ex-JL-rqE"/>
                             <constraint firstItem="2cR-VX-G6t" firstAttribute="leading" secondItem="WdA-hp-gfa" secondAttribute="leadingMargin" constant="-16" id="CVV-el-QwV"/>
                             <constraint firstItem="nL3-CX-RT9" firstAttribute="top" secondItem="2cR-VX-G6t" secondAttribute="bottom" id="GSu-WI-EKe"/>
-                            <constraint firstItem="2cR-VX-G6t" firstAttribute="top" secondItem="Tor-64-O09" secondAttribute="bottom" id="UkE-zz-tvs"/>
+                            <constraint firstItem="2cR-VX-G6t" firstAttribute="top" secondItem="WdA-hp-gfa" secondAttribute="topMargin" id="GmD-lc-ean"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="XoD-Hu-YPZ"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2I-qg-tjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -67,7 +66,27 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uP9-o7-QF3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkU-QH-oug">
+                                        <rect key="frame" x="527" y="30" width="60" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Ex9-8k-wfe"/>
+                                            <constraint firstAttribute="width" constant="60" id="TTj-Ut-Rge"/>
+                                        </constraints>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonTorchPressed:" destination="E7q-pG-i69" eventType="touchUpInside" id="W68-Xq-65T"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vkU-QH-oug" secondAttribute="trailing" constant="13" id="Nm7-pj-mOo"/>
+                                    <constraint firstItem="vkU-QH-oug" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="top" constant="30" id="lJU-e4-FU4"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,6 +100,7 @@
                     <tabBarItem key="tabBarItem" title="Scan" id="Qkf-NK-OvK"/>
                     <navigationItem key="navigationItem" id="6uG-AF-184"/>
                     <connections>
+                        <outlet property="buttonTorch" destination="vkU-QH-oug" id="DqB-oG-fup"/>
                         <outlet property="scanView" destination="uP9-o7-QF3" id="BKB-QS-KuC"/>
                     </connections>
                 </viewController>
@@ -220,7 +240,7 @@
                         <viewControllerLayoutGuide type="bottom" id="tZJ-zA-5Zn"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QCy-VP-b09">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

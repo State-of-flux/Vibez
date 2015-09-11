@@ -14,10 +14,12 @@
 
 @interface ScannerViewController : UIViewController <SQKManagedObjectControllerDelegate>
 
-
+@property (weak, nonatomic) IBOutlet UIButton *buttonTorch;
 @property (weak, nonatomic) IBOutlet UIView *scanView;
+
+@property (strong, nonatomic) NSMutableArray *uniqueCodes;
 @property (strong, nonatomic) MTBBarcodeScanner *scanner;
 @property (strong, nonatomic) Event *eventSelected;
 @property (nonatomic, strong) SQKManagedObjectController *controller;
-
+- (IBAction)buttonTorchPressed:(id)sender;
 @end

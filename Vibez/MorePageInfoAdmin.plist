@@ -23,7 +23,7 @@
 		<array>
 			<dict>
 				<key>name</key>
-				<string>Event</string>
+				<string>Event Selected</string>
 				<key>isInteractable</key>
 				<true/>
 			</dict>
