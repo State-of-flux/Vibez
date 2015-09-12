@@ -11,6 +11,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Reachability/Reachability.h>
 #import "UserCollectionViewCell.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface SearchListFetchedCollectionViewController ()
 {
@@ -133,6 +135,13 @@
     Ticket *ticket = [fetchedResultsController objectAtIndexPath:indexPath];
 
     ticketCell.ticketNameLabel.text = ticket.username;
+    ticketCell.ticketDateLabel.text = ticket.email;
+    
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:35.0f];
+    [ticketCell.ticketImage setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
+    [ticketCell.ticketImage setContentMode:UIViewContentModeCenter];
+    
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
 }
 
@@ -142,16 +151,16 @@
     
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"user.username" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"user.email" ascending:YES],
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES],
                                  [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
-        [subpredicates addObject:[NSPredicate predicateWithFormat:@"user.username CONTAINS[cd] %@", searchString]];
-        [subpredicates addObject:[NSPredicate predicateWithFormat:@"user.email CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"email CONTAINS[cd] %@", searchString]];
     }
     
     //[subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
@@ -180,7 +189,7 @@
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"No users exist with that username or name.";
+    NSString *text = @"No users exist with that username or email.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

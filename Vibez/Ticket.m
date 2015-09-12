@@ -22,6 +22,7 @@
 @dynamic ticketID;
 @dynamic username;
 @dynamic venue;
+@dynamic email;
 @dynamic order;
 
 @end

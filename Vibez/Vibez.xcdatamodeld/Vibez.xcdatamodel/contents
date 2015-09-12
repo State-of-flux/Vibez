@@ -25,6 +25,7 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="orders" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Ticket" representedClassName="Ticket" syncable="YES">
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
@@ -58,7 +59,7 @@
     <elements>
         <element name="Event" positionX="-243" positionY="-2124" width="128" height="253"/>
         <element name="Order" positionX="-240" positionY="-1827" width="128" height="133"/>
-        <element name="Ticket" positionX="-432" positionY="-1947" width="128" height="208"/>
+        <element name="Ticket" positionX="-432" positionY="-1947" width="128" height="223"/>
         <element name="User" positionX="-27" positionY="-1831" width="128" height="148"/>
         <element name="Venue" positionX="-36" positionY="-2034" width="128" height="148"/>
     </elements>

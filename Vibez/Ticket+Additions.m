@@ -39,6 +39,7 @@
                    managedObject.eventID = [dictionary[@"event"] objectForKey:@"objectId"];
                    managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
+                   managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
                    managedObject.venue = [[dictionary[@"event"] objectForKey:@"venue"] objectForKey:@"venueName"];
                    //managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];

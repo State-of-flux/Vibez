@@ -23,6 +23,7 @@
 @property (nonatomic, retain) NSString * ticketID;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * venue;
+@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) Order *order;
 
 @end
