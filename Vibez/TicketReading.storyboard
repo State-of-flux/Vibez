@@ -4,6 +4,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Montserrat-Bold.otf">
+            <string>Montserrat-Bold</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--Item-->
         <scene sceneID="o1C-Wq-W0t">
@@ -68,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vkU-QH-oug">
-                                        <rect key="frame" x="527" y="30" width="60" height="60"/>
+                                        <rect key="frame" x="528" y="30" width="60" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="Ex9-8k-wfe"/>
@@ -81,12 +86,51 @@
                                             <action selector="buttonTorchPressed:" destination="E7q-pG-i69" eventType="touchUpInside" id="W68-Xq-65T"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAZ-Lb-Q5g">
+                                        <rect key="frame" x="8" y="30" width="60" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="0ht-w5-7oP"/>
+                                            <constraint firstAttribute="height" constant="60" id="SIc-zE-ZEw"/>
+                                        </constraints>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonRefreshPressed:" destination="E7q-pG-i69" eventType="touchUpInside" id="03m-0j-uZQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wno-36-Fz9">
+                                        <rect key="frame" x="76" y="30" width="449" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="x7Z-CN-sm3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
+                                        <state key="normal" title="Event Name">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="buttonEventNamePressed:" destination="E7q-pG-i69" eventType="touchUpInside" id="oaC-La-Xij"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="vkU-QH-oug" secondAttribute="trailing" constant="13" id="Nm7-pj-mOo"/>
+                                    <constraint firstItem="oAZ-Lb-Q5g" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="top" constant="30" id="Msk-3N-iy6"/>
+                                    <constraint firstAttribute="trailing" secondItem="vkU-QH-oug" secondAttribute="trailing" constant="12" id="Nm7-pj-mOo"/>
+                                    <constraint firstItem="vkU-QH-oug" firstAttribute="leading" secondItem="wno-36-Fz9" secondAttribute="trailing" constant="3" id="Tca-e1-WjL"/>
+                                    <constraint firstItem="wno-36-Fz9" firstAttribute="leading" secondItem="oAZ-Lb-Q5g" secondAttribute="trailing" constant="8" id="Y6L-Ny-qkH"/>
                                     <constraint firstItem="vkU-QH-oug" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="top" constant="30" id="lJU-e4-FU4"/>
+                                    <constraint firstItem="wno-36-Fz9" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="top" constant="30" id="q6w-io-M0K"/>
+                                    <constraint firstItem="oAZ-Lb-Q5g" firstAttribute="leading" secondItem="uP9-o7-QF3" secondAttribute="leading" constant="8" id="qJA-XM-zHD"/>
+                                    <constraint firstAttribute="centerX" secondItem="wno-36-Fz9" secondAttribute="centerX" constant="2.5" id="st3-tR-uaR"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="st3-tR-uaR"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,6 +144,8 @@
                     <tabBarItem key="tabBarItem" title="Scan" id="Qkf-NK-OvK"/>
                     <navigationItem key="navigationItem" id="6uG-AF-184"/>
                     <connections>
+                        <outlet property="buttonEventName" destination="wno-36-Fz9" id="7Fn-qV-9GN"/>
+                        <outlet property="buttonRefresh" destination="oAZ-Lb-Q5g" id="TO6-En-PsW"/>
                         <outlet property="buttonTorch" destination="vkU-QH-oug" id="DqB-oG-fup"/>
                         <outlet property="scanView" destination="uP9-o7-QF3" id="BKB-QS-KuC"/>
                     </connections>

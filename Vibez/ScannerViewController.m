@@ -11,6 +11,8 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import "RKDropdownAlert.h"
+#import "EventSelectorViewController.h"
+#import "UIViewController+NavigationController.h"
 
 @interface ScannerViewController ()
 {
@@ -24,16 +26,48 @@
     [super viewDidLoad];
     
     reachability = [Reachability reachabilityForInternetConnection];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:25.0f];
     
+    [self.buttonTorch setImage:[factory createImageForIcon:NIKFontAwesomeIconFlash] forState:UIControlStateNormal];
+    [self.buttonTorch setTintColor:[UIColor whiteColor]];
+    
+    [self.buttonRefresh setImage:[factory createImageForIcon:NIKFontAwesomeIconRefresh] forState:UIControlStateNormal];
+    [self.buttonRefresh setTintColor:[UIColor whiteColor]];
+
+    
+    [self checkIfEventIsSelected];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self checkIfEventIsSelected];
+}
+
+- (void)checkIfEventIsSelected {
+    if ([Event eventIdForAdmin]) {
+        [self setupView];
+    } else {
+        EventSelectorViewController *vc = [EventSelectorViewController create];
+        [self presentViewController:[vc withNavigationControllerWithOpaque] animated:self completion:nil];
+    }
+}
+
+- (void)setupView {
     self.controller = [[SQKManagedObjectController alloc] initWithFetchRequest:[Ticket sqk_fetchRequest] managedObjectContext:[PIKContextManager mainContext]];
     [self.controller setDelegate:self];
     
+    NSError *error;
+    [self.controller fetchRequest];
+    [self.controller performFetch:&error];
+    
+    if(error) {
+        NSLog(@"%@", error.localizedDescription);
+    }
+    
     self.uniqueCodes = [NSMutableArray array];
     
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
-    [factory setSize:25.0f];
-    [self.buttonTorch setImage:[factory createImageForIcon:NIKFontAwesomeIconFlash] forState:UIControlStateNormal];
-    [self.buttonTorch setTintColor:[UIColor whiteColor]];
+    [self.buttonEventName setTitle:[Event eventNameForAdmin] forState:UIControlStateNormal];
+    
     [self startScanning];
 }
 
@@ -104,7 +138,9 @@
 {
     if([reachability isReachable])
     {
-        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
+        PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[Event eventIdForAdmin]];
+        
+        [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
@@ -136,11 +172,19 @@
     }
 }
 
+- (IBAction)buttonEventNamePressed:(id)sender {
+    EventSelectorViewController *vc = [EventSelectorViewController create];
+    [self presentViewController:[vc withNavigationControllerWithOpaque] animated:self completion:nil];
+}
+
 - (IBAction)buttonTorchPressed:(id)sender {
     if([self.scanner torchMode] == 0) {
         [self.scanner setTorchMode:1];
     } else if([self.scanner torchMode] == 1) {
         [self.scanner setTorchMode:0];
     }
+}
+- (IBAction)buttonRefreshPressed:(id)sender {
+    [self refresh:self];
 }
 @end

@@ -131,6 +131,7 @@
          
          [self.hud setHidden:YES];
          [self.view setUserInteractionEnabled:YES];
+         [Event setEventIdForAdmin:event.eventID withName:event.name];
          [self.navigationController.navigationBar setUserInteractionEnabled:NO];
          [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
      }

@@ -15,4 +15,7 @@ extern NSString *const pikEmailKey;
 extern NSString *const pikLocationKey;
 extern NSString *const pikFriendsKey;
 
+extern NSString *const pikEventIdForAdmin;
+extern NSString *const pikEventNameForAdmin;
+
 @end

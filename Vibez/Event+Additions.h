@@ -21,4 +21,8 @@
 
 - (void)saveToParse;
 
++ (NSString *)eventIdForAdmin;
++ (NSString *)eventNameForAdmin;
++ (void)setEventIdForAdmin:(NSString *)eventId withName:(NSString *)eventName;
+
 @end

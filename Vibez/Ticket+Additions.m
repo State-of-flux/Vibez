@@ -67,7 +67,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user = %@", [PFUser currentUser]];
     
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event.venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -84,7 +84,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"event = %@", event];
     
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event.venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -133,8 +133,7 @@
 {
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
-                                                       @"hasBeenUsed" : self.hasBeenUsed,
-                                                       @"referenceNumber" : self.referenceNumber,
+                                                       @"hasBeenUsed" : self.hasBeenUsed
                                                        }];
     
     return object;

@@ -460,8 +460,6 @@
 				6CD58E091ADED90400CDBC29 /* Interface */,
 				6C1E55C11ACF08D9003965A0 /* Images.xcassets */,
 				6C1E55B41ACF08D9003965A0 /* Supporting Files */,
-				6CB5B5711B5835BD00EA9A09 /* Constants.h */,
-				6CB5B5721B5835BD00EA9A09 /* Constants.m */,
 			);
 			path = Vibez;
 			sourceTree = "<group>";
@@ -652,6 +650,8 @@
 		6C79FF721B28B3D9006293C9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				6CB5B5711B5835BD00EA9A09 /* Constants.h */,
+				6CB5B5721B5835BD00EA9A09 /* Constants.m */,
 				6C53D17D1B88E7640087A6BC /* UIViewController+NavigationController.h */,
 				6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */,
 				6C0929271B7F780E00851DA8 /* NSString+MD5.h */,

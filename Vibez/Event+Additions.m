@@ -7,6 +7,7 @@
 //
 
 #import "Event+Additions.h"
+#import "Constants.h"
 
 @implementation Event (Additions)
 
@@ -132,8 +133,7 @@
                                     }];
 }
 
-- (PFObject *)pfObject
-{
+- (PFObject *)pfObject {
     return [PFObject objectWithClassName:NSStringFromClass([self class])
                               dictionary:@{@"objectId"         : self.eventID,
                                            @"eventDescription" : self.eventDescription,
@@ -144,6 +144,25 @@
                                            @"eventDate"        : self.startDate,
                                            @"eventLastEntry"   : self.lastEntry,
                                            @"eventEnd"         : self.endDate }];
+}
+
++ (NSString *)eventIdForAdmin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventId = [defaults objectForKey:pikEventIdForAdmin];
+    return eventId;
+}
+
++ (NSString *)eventNameForAdmin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *eventName = [defaults objectForKey:pikEventNameForAdmin];
+    return eventName;
+}
+
++ (void)setEventIdForAdmin:(NSString *)eventId withName:(NSString *)eventName {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:eventId forKey:pikEventIdForAdmin];
+    [defaults setObject:eventName forKey:pikEventNameForAdmin];
+    [defaults synchronize];
 }
 
 @end

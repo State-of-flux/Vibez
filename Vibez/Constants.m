@@ -15,4 +15,7 @@ NSString *const pikEmailKey = @"email";
 NSString *const pikLocationKey = @"location";
 NSString *const pikFriendsListKey = @"friends";
 
+NSString *const pikEventIdForAdmin = @"eventIdForAdmin";
+NSString *const pikEventNameForAdmin = @"eventNameForAdmin";
+
 @end

@@ -73,27 +73,25 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
-            NSError *error;
-            
-            NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-            [Ticket importTickets:objects intoContext:newPrivateContext];
-            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
-            [newPrivateContext save:&error];
-            
-            //[self reloadFetchedResultsControllerForSearch:nil];
-            
-            if(error)
-            {
-                NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-            }
-            
-            [weakSelf.refreshControl endRefreshing];
-        }
+        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects)
+         {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Ticket importTickets:objects intoContext:newPrivateContext];
+             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+             
+             [weakSelf.refreshControl endRefreshing];
+         }
                                               failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             [weakSelf.refreshControl endRefreshing];
          }];
     }
     else
@@ -145,17 +143,14 @@
     ticketCell.ticketDateLabel.text = dateFormatString;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
-    if ([[ticket image] isEqual:nil] || [[ticket image] isEqualToString:@""]) {
-        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+    [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                              placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+         if(error)
          {
-             if(error)
-             {
-                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             }
-         }];
-    }
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+     }];
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
@@ -175,7 +170,6 @@
     }
     
     [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
-    
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
