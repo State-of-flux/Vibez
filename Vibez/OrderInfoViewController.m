@@ -76,9 +76,9 @@
     
     self.labelPriceTotalValue = [[LabelNormalText alloc] initWithFrame:CGRectMake(width/2, CGRectGetMaxY(self.labelEventName.frame) + padding, width/2, 50)];
     
-    NSMutableString *priceTotalString = [NSMutableString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self calculateOverallPrice]];
+    NSMutableString *priceTotalString = [NSMutableString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [[self calculateOverallPrice] floatValue]];
     
-    [priceTotalString appendString:[NSMutableString stringWithFormat:NSLocalizedString(@" + £%.2f BF x%ld", @"Booking Fee"), [[[self.order objectForKey:@"event"] objectForKey:@"bookingFee"] floatValue], [[self.order objectForKey:@"quantity"] integerValue]]];
+//    [priceTotalString appendString:[NSMutableString stringWithFormat:NSLocalizedString(@" + £%.2f BF x%ld", @"Booking Fee"), [[[self.order objectForKey:@"event"] objectForKey:@"bookingFee"] floatValue], [[self.order objectForKey:@"quantity"] integerValue]]];
     
     [self.labelPriceTotalValue setText:priceTotalString];
     
@@ -154,6 +154,8 @@
         dropInViewController.summaryTitle = [event objectForKey:@"eventName"];
         dropInViewController.summaryDescription = [event objectForKey:@"eventDescription"];
         dropInViewController.displayAmount = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
+        
+        [self.order saveInBackground]; // TO BE REMOVED, JUST FOR TESTING AT THE MOMENT
         
         [self presentViewController:[dropInViewController withNavigationController]
                            animated:YES

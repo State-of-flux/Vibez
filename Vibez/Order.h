@@ -2,7 +2,7 @@
 //  Order.h
 //  Vibez
 //
-//  Created by Harry Liddell on 20/08/2015.
+//  Created by Harry Liddell on 12/09/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -14,11 +14,11 @@
 @interface Order : NSManagedObject
 
 @property (nonatomic, retain) NSDecimalNumber * discount;
+@property (nonatomic, retain) NSNumber * hasBeenUpdated;
 @property (nonatomic, retain) NSString * orderID;
 @property (nonatomic, retain) NSString * priceTotal;
-@property (nonatomic, retain) NSNumber * hasBeenUpdated;
-@property (nonatomic, retain) User *user;
 @property (nonatomic, retain) NSSet *tickets;
+@property (nonatomic, retain) User *user;
 @end
 
 @interface Order (CoreDataGeneratedAccessors)

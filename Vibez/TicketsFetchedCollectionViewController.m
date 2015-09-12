@@ -82,8 +82,7 @@
              [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             if(error)
-             {
+             if(error) {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }
              

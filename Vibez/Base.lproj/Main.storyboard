@@ -814,12 +814,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="A36-ZO-2rk" secondAttribute="trailing" constant="-16" id="0pZ-Qj-K1B"/>
-                            <constraint firstItem="XnU-VR-Ox1" firstAttribute="top" secondItem="A36-ZO-2rk" secondAttribute="bottom" id="QIF-y5-2IU"/>
-                            <constraint firstAttribute="centerX" secondItem="A36-ZO-2rk" secondAttribute="centerX" id="bUy-aG-ZJH"/>
-                            <constraint firstAttribute="centerY" secondItem="A36-ZO-2rk" secondAttribute="centerY" constant="-7.5" id="dWR-li-TBS"/>
-                            <constraint firstItem="A36-ZO-2rk" firstAttribute="top" secondItem="FNR-8A-Gui" secondAttribute="bottom" id="rpc-Tu-r8j"/>
-                            <constraint firstItem="A36-ZO-2rk" firstAttribute="leading" secondItem="3ts-Pq-d8a" secondAttribute="leadingMargin" constant="-16" id="v8k-Hn-Io5"/>
+                            <constraint firstItem="A36-ZO-2rk" firstAttribute="top" secondItem="FNR-8A-Gui" secondAttribute="bottom" id="0iX-h9-H9V"/>
+                            <constraint firstItem="A36-ZO-2rk" firstAttribute="leading" secondItem="3ts-Pq-d8a" secondAttribute="leadingMargin" constant="-16" id="BoV-FA-y8N"/>
+                            <constraint firstItem="XnU-VR-Ox1" firstAttribute="top" secondItem="A36-ZO-2rk" secondAttribute="bottom" id="P9e-2f-gtB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="A36-ZO-2rk" secondAttribute="trailing" constant="-16" id="PMM-fN-PVq"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Ticket" image="ticketIcon" id="qSS-C4-FNR" userLabel="Settings"/>

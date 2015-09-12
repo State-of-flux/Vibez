@@ -72,15 +72,15 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getTicketsForEvent:self.event fromParseWithSuccessBlock:^(NSArray *objects) {
+        PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[Event eventIdForAdmin]];
+        
+        [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
             [Ticket importTickets:objects intoContext:newPrivateContext];
             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
             [newPrivateContext save:&error];
-            
-            [self reloadFetchedResultsControllerForSearch:nil];
             
             if(error)
             {
@@ -106,9 +106,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
-    [self setTicketSelected:ticket];
-    self.indexPathSelected = indexPath;
+    //Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    //[self setTicketSelected:ticket];
+    //self.indexPathSelected = indexPath;
     //[self.parentViewController performSegueWithIdentifier:@"" sender:self];
 }
 
@@ -142,16 +142,16 @@
     
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES] ];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"user.username" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"user.email" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
-        [subpredicates addObject:[NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString]];
-        //[subpredicates addObject:[NSPredicate predicateWithFormat:@"firstName CONTAINS[cd] %@", searchString]];
-        //[subpredicates addObject:[NSPredicate predicateWithFormat:@"lastName CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"user.username CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"user.email CONTAINS[cd] %@", searchString]];
     }
     
     //[subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];

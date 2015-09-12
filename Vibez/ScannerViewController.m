@@ -68,7 +68,9 @@
     
     [self.buttonEventName setTitle:[Event eventNameForAdmin] forState:UIControlStateNormal];
     
-    [self startScanning];
+    if(![self scanner]) {
+        [self startScanning];
+    }
 }
 
 - (void)startScanning {
@@ -90,7 +92,7 @@
                     
                     // VALID TICKET, NOT SCANNED
                     if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                        [ticket setHasBeenUsed:@1];
+                        [ticket setHasBeenUsed:[NSNumber numberWithBool:YES]];
                         [ticket saveToParse];
                         
                         [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];

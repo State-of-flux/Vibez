@@ -133,7 +133,7 @@
 {
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
-                                                       @"hasBeenUsed" : self.hasBeenUsed
+                                                       @"hasBeenUsed" : [NSNumber numberWithBool:self.hasBeenUsed]
                                                        }];
     
     return object;

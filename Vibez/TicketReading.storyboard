@@ -19,6 +19,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="FlD-JS-qNP" kind="relationship" relationship="rootViewController" id="cSV-6v-9LF"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d6m-7j-YXL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -166,7 +169,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LfV-eq-U7F">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LfV-eq-U7F">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <connections>
                                     <segue destination="Qso-ca-OAE" kind="embed" id="MjD-Gh-zwZ"/>
@@ -175,10 +178,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LfV-eq-U7F" firstAttribute="top" secondItem="EOY-yn-C6Y" secondAttribute="bottom" id="KPi-pU-KfM"/>
-                            <constraint firstItem="LfV-eq-U7F" firstAttribute="leading" secondItem="PAE-L3-wr2" secondAttribute="leadingMargin" constant="-16" id="LjR-6b-KRx"/>
-                            <constraint firstItem="VYf-lq-kRe" firstAttribute="top" secondItem="LfV-eq-U7F" secondAttribute="bottom" id="d1j-lE-N5K"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LfV-eq-U7F" secondAttribute="trailing" constant="-16" id="r3w-Ka-RY0"/>
+                            <constraint firstItem="VYf-lq-kRe" firstAttribute="top" secondItem="LfV-eq-U7F" secondAttribute="bottom" id="9BU-7H-4wK"/>
+                            <constraint firstItem="LfV-eq-U7F" firstAttribute="top" secondItem="EOY-yn-C6Y" secondAttribute="bottom" id="OyK-8S-EgX"/>
+                            <constraint firstItem="LfV-eq-U7F" firstAttribute="leading" secondItem="PAE-L3-wr2" secondAttribute="leadingMargin" constant="-16" id="QLH-Ve-zXX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LfV-eq-U7F" secondAttribute="trailing" constant="-16" id="cc9-AW-aGM"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="58x-fk-Uet"/>
