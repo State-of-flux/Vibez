@@ -22,12 +22,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self.navigationItem setTitle:@"Map"];
+    
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [self.buttonGetDirections setImage:[factory createImageForIcon:NIKFontAwesomeIconLocationArrow] forState:UIControlStateNormal];
     
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
     
-    manager = [CLLocationManager updateManagerWithAccuracy:10.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
+    manager = [CLLocationManager updateManagerWithAccuracy:5.0 locationAge:15.0 authorizationDesciption:CLLocationUpdateAuthorizationDescriptionWhenInUse];
     [manager setDelegate:self];
     [manager requestWhenInUseAuthorization];
     [manager startUpdatingLocationWithUpdateBlock:^(CLLocationManager *manager, CLLocation *location, NSError *error, BOOL *stopUpdating) {

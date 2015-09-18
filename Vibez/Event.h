@@ -2,7 +2,7 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 12/09/2015.
+//  Created by Harry Liddell on 16/09/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 

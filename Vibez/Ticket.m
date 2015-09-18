@@ -2,7 +2,7 @@
 //  Ticket.m
 //  Vibez
 //
-//  Created by Harry Liddell on 12/09/2015.
+//  Created by Harry Liddell on 16/09/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 
 @implementation Ticket
 
+@dynamic email;
 @dynamic eventDate;
 @dynamic eventID;
 @dynamic eventName;
@@ -22,7 +23,6 @@
 @dynamic ticketID;
 @dynamic username;
 @dynamic venue;
-@dynamic email;
 @dynamic order;
 
 @end

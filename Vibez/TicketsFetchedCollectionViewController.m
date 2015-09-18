@@ -13,9 +13,11 @@
 #import "UIColor+Piktu.h"
 #import "NSString+PIK.h"
 #import "UIFont+PIK.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
-@interface TicketsFetchedCollectionViewController ()
-{
+
+@interface TicketsFetchedCollectionViewController () {
     Reachability *reachability;
 }
 @end
@@ -33,9 +35,8 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+    if (self) {
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
@@ -55,6 +56,7 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search by event"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
@@ -63,6 +65,11 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -81,6 +88,8 @@
              [Ticket importTickets:objects intoContext:newPrivateContext];
              [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
+             
+             [self.collectionView reloadEmptyDataSet];
              
              if(error) {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
@@ -141,6 +150,14 @@
     ticketCell.ticketNameLabel.text = ticket.eventName;
     ticketCell.ticketDateLabel.text = dateFormatString;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
+    
+//    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+//
+//    if ([[ticket hasBeenUsed] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconCheckSquareO]];
+//    } else {
+//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconSquareO]];
+//    }
     
     [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
                               placeholderImage:[UIImage imageNamed:@"plug.jpg"]

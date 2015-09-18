@@ -2,7 +2,7 @@
 //  Order.h
 //  Vibez
 //
-//  Created by Harry Liddell on 12/09/2015.
+//  Created by Harry Liddell on 16/09/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -16,7 +16,10 @@
 @property (nonatomic, retain) NSDecimalNumber * discount;
 @property (nonatomic, retain) NSNumber * hasBeenUpdated;
 @property (nonatomic, retain) NSString * orderID;
-@property (nonatomic, retain) NSString * priceTotal;
+@property (nonatomic, retain) NSDecimalNumber * priceTotal;
+@property (nonatomic, retain) NSNumber * quantity;
+@property (nonatomic, retain) NSString * username;
+@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSSet *tickets;
 @property (nonatomic, retain) User *user;
 @end

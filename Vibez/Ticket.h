@@ -2,7 +2,7 @@
 //  Ticket.h
 //  Vibez
 //
-//  Created by Harry Liddell on 12/09/2015.
+//  Created by Harry Liddell on 16/09/2015.
 //  Copyright (c) 2015 Pikture. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @interface Ticket : NSManagedObject
 
+@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) NSDate * eventDate;
 @property (nonatomic, retain) NSString * eventID;
 @property (nonatomic, retain) NSString * eventName;
@@ -23,7 +24,6 @@
 @property (nonatomic, retain) NSString * ticketID;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * venue;
-@property (nonatomic, retain) NSString * email;
 @property (nonatomic, retain) Order *order;
 
 @end

@@ -36,7 +36,7 @@
     
     if (self)
     {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
@@ -56,6 +56,7 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search by username or email"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
@@ -64,6 +65,11 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -76,12 +82,12 @@
         
         PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[Event eventIdForAdmin]];
         
-        [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
+        [Order getOrdersForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-            [Ticket importTickets:objects intoContext:newPrivateContext];
-            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+            [Order importOrders:objects intoContext:newPrivateContext];
+            [Order deleteInvalidOrdersInContext:newPrivateContext];
             [newPrivateContext save:&error];
             
             if(error)
@@ -108,10 +114,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
-    //[self setTicketSelected:ticket];
-    //self.indexPathSelected = indexPath;
-    //[self.parentViewController performSegueWithIdentifier:@"" sender:self];
+    Order *order = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    [self setOrderSelected:order];
+    self.indexPathSelected = indexPath;
+    [self.parentViewController performSegueWithIdentifier:@"listToUserInfoSegue" sender:self];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -131,29 +137,32 @@
 
 -(void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    UserCollectionViewCell *ticketCell = (UserCollectionViewCell *)cell;
-    Ticket *ticket = [fetchedResultsController objectAtIndexPath:indexPath];
+    UserCollectionViewCell *orderCell = (UserCollectionViewCell *)cell;
+    Order *order = [fetchedResultsController objectAtIndexPath:indexPath];
 
-    ticketCell.ticketNameLabel.text = ticket.username;
-    ticketCell.ticketDateLabel.text = ticket.email;
+    orderCell.ticketNameLabel.text = order.username;
+    orderCell.ticketDateLabel.text = order.email;
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [factory setSize:35.0f];
-    [ticketCell.ticketImage setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
-    [ticketCell.ticketImage setContentMode:UIViewContentModeCenter];
+    [orderCell.ticketImage setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
+    [orderCell.ticketImage setContentMode:UIViewContentModeCenter];
     
-    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
+    [orderCell setBackgroundColor:[UIColor pku_lightBlack]];
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
     NSFetchRequest *request;
     
-    request = [Ticket sqk_fetchRequest]; //Create ticket additions
+    request = [Order sqk_fetchRequest]; //Create ticket additions
+    
+    //[request setResultType:NSDictionaryResultType];
+    //[request setReturnsDistinctResults:YES];
+    //[request setPropertiesToFetch:@[@"user.username"]];
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES]];
+                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     

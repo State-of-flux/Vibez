@@ -126,6 +126,7 @@
         [query includeKey:@"venue"];
         [query includeKey:@"user"];
         [query includeKey:@"event"];
+        [query includeKey:@"tickets"];
     }
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)

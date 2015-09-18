@@ -10,6 +10,7 @@
 #import <Reachability/Reachability.h>
 #import "NSString+PIK.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "Order+Additions.h"
 
 @interface EventSelectorFetchedCollectionViewController ()
 {
@@ -32,7 +33,7 @@
     
     if (self)
     {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
@@ -44,8 +45,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     
     [self.collectionView registerClass:[EventSelectorCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventSelectorCollectionViewCell class])];
     
@@ -60,6 +59,11 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -113,15 +117,15 @@
     [self setEventSelected:event];
     self.indexPathSelected = indexPath;
     
-    PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:event.eventID];
+    PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event eventID]];
     
-    [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects)
+    [Order getOrdersForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects)
      {
          NSError *error;
          
          NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-         [Ticket importTickets:objects intoContext:newPrivateContext];
-         [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+         [Order importOrders:objects intoContext:newPrivateContext];
+         [Order deleteInvalidOrdersInContext:newPrivateContext];
          [newPrivateContext save:&error];
          
          if(error)
@@ -129,11 +133,35 @@
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          }
          
-         [self.hud setHidden:YES];
-         [self.view setUserInteractionEnabled:YES];
-         [Event setEventIdForAdmin:event.eventID withName:event.name];
-         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-         [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+         [Ticket getTicketsForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Ticket importTickets:objects intoContext:newPrivateContext];
+             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             if(error)
+             {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+             
+             [self.hud setHidden:YES];
+             [self.view setUserInteractionEnabled:YES];
+             [Event setEventIdForAdmin:event.eventID withName:[event name]];
+             [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+             [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
+
+         } failureBlock:^(NSError *error)
+         {
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             
+             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+             [alertView show];
+             [self.hud setHidden:YES];
+             [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+             [self.view setUserInteractionEnabled:YES];
+         }];
      }
                   failureBlock:^(NSError *error)
      {
@@ -175,8 +203,8 @@
     
     [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
     
-    ticketCell.ticketNameLabel.text = event.name;
-    ticketCell.ticketDateLabel.text = dateFormatString;
+    [ticketCell.ticketNameLabel setText:[event name]];
+    [ticketCell.ticketDateLabel setText:dateFormatString];
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
     [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
@@ -223,7 +251,7 @@
 
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"No tickets found";
+    NSString *text = @"No events found";
     
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont pik_montserratBoldWithSize:20.0f],
                                  NSForegroundColorAttributeName: [UIColor whiteColor]};
@@ -233,7 +261,7 @@
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"You currently have no tickets, get tickets from the Find tab and feel the Vibes.";
+    NSString *text = @"You currently do not have the permission to scan for any events.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

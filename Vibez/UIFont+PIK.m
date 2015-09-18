@@ -22,12 +22,14 @@
 
 + (UIFont *)pik_avenirNextBoldWithSize:(CGFloat)fontSize
 {
-    return [UIFont fontWithName:@"AvenirNext-Bold" size:fontSize];
+    //return [UIFont fontWithName:@"AvenirNext-Bold" size:fontSize];
+    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightBold];
 }
 
 + (UIFont *)pik_avenirNextRegWithSize:(CGFloat)fontSize
 {
-    return [UIFont fontWithName:@"AvenirNext-Regular" size:fontSize];
+    //return [UIFont fontWithName:@"AvenirNext-Regular" size:fontSize];
+    return [UIFont systemFontOfSize:fontSize weight:UIFontWeightRegular];
 }
 
 @end

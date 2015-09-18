@@ -45,6 +45,11 @@
     return self;
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
+}
+
 -(NSDate*)dateNoTime:(NSDate*)myDate
 {
     NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:myDate];
@@ -59,6 +64,7 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search for events"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
@@ -86,7 +92,7 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             //[self reloadFetchedResultsControllerForSearch:nil];
+             [self.collectionView reloadEmptyDataSet];
              
              if(error)
              {
@@ -118,7 +124,7 @@
 #pragma mark - Fetched Request
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
-{    
+{
     NSFetchRequest *request;
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
@@ -136,7 +142,7 @@
     [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
-
+    
     return request;
 }
 
@@ -152,14 +158,17 @@
     
     [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
     
-    eventCell.eventNameLabel.text = event.name;
-    eventCell.eventDateLabel.text = dateFormatString;
+    [eventCell.eventNameLabel setText:[event name]];
+    [eventCell.eventDateLabel setText:dateFormatString];
     
-    NSDecimalNumber *overallPrice = [self addNumber:[event price] andOtherNumber:[event bookingFee]];
-    NSString *eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
+    NSString *eventPriceString;
     
-    if([[event quantity] isEqualToNumber:@0])
-    {
+    if([event price] && [event bookingFee]) {
+        NSDecimalNumber *overallPrice = [self addNumber:[event price] andOtherNumber:[event bookingFee]];
+        eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
+    }
+    
+    if([[event quantity] isEqualToNumber:@0]) {
         eventCell.eventPriceLabel.text = @"SOLD OUT";
         [eventCell.eventPriceLabel setTextColor:[UIColor redColor]];
     }
