@@ -163,7 +163,7 @@
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
-    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconFighterJet]];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconSignOut]];
 }
 
 -(void)setEventSelectedCell:(UITableViewCell *)cell

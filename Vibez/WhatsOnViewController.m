@@ -16,12 +16,10 @@
 #import "EventInfoViewController.h"
 #import "VenueInfoViewController.h"
 
-@interface WhatsOnViewController ()
-{
+@interface WhatsOnViewController () {
     PFUser* user;
     FetchedCollectionViewContainerViewController *eventVC;
     VenueFetchedCollectionViewContainerViewController *venueVC;
-    
 }
 @end
 
@@ -97,6 +95,10 @@
                                 [newController didMoveToParentViewController:self];
                                 self.currentVC = newController;
                             }];
+}
+
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - Navigation

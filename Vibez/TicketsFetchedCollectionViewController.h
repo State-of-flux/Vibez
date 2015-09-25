@@ -17,5 +17,6 @@
 @property (nonatomic, strong) PIKContextManager *contextManager;
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
 @property (nonatomic, strong) Ticket *ticketSelected;
+//@property (nonatomic, strong)
 
 @end

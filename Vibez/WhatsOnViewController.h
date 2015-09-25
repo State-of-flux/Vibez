@@ -16,8 +16,11 @@
 @interface WhatsOnViewController : GlobalViewController
 
 @property BOOL isEventDataDisplayed;
-@property (weak, nonatomic) IBOutlet ADVSegmentedControl *advSegmentedControl;
+
+@property (weak, nonatomic) IBOutlet AVSegmentedControl *advSegmentedControl;
+
 - (IBAction)advsegmentedControlTapped:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UIView *viewSegmentedControl;
 
 @property (nonatomic, strong) UIViewController *currentVC;

@@ -46,6 +46,39 @@
     return self;
 }
 
+//- (void) setupDataSource:(NSArray*)sortedDateArray
+//{
+//    self.tableViewSections = [NSMutableArray arrayWithCapacity:0];
+//    self.tableViewCells = [NSMutableDictionary dictionaryWithCapacity:0];
+//    
+//    NSCalendar* calendar = [NSCalendar currentCalendar];
+//    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//    dateFormatter.locale = [NSLocale currentLocale];
+//    dateFormatter.timeZone = calendar.timeZone;
+//    [dateFormatter setDateFormat:@"MMMM YYYY"];
+//    
+//    NSUInteger dateComponents = NSYearCalendarUnit | NSMonthCalendarUnit;
+//    NSInteger previousYear = -1;
+//    NSInteger previousMonth = -1;
+//    NSMutableArray* tableViewCellsForSection = nil;
+//    for (NSDate* date in sortedDateArray)
+//    {
+//        NSDateComponents* components = [calendar components:dateComponents fromDate:date];
+//        NSInteger year = [components year];
+//        NSInteger month = [components month];
+//        if (year != previousYear || month != previousMonth)
+//        {
+//            NSString* sectionHeading = [dateFormatter stringFromDate:date];
+//            [self.tableViewSections addObject:sectionHeading];
+//            tableViewCellsForSection = [NSMutableArray arrayWithCapacity:0];
+//            [self.tableViewCells setObject:tableViewCellsForSection forKey:sectionHeading];
+//            previousYear = year;
+//            previousMonth = month;
+//        }
+//        [tableViewCellsForSection addObject:date];
+//    }
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

@@ -171,7 +171,7 @@
 -(void)getToken
 {
     // TODO: Switch this URL to your own authenticated API
-    NSURL *clientTokenURL = [NSURL URLWithString:@"https://protected-brook-8899.herokuapp.com/"];
+    NSURL *clientTokenURL = [NSURL URLWithString:@"https://protected-brook-8899.herokuapp.com/token.php"];
     NSMutableURLRequest *clientTokenRequest = [NSMutableURLRequest requestWithURL:clientTokenURL];
     [clientTokenRequest setValue:@"text/plain" forHTTPHeaderField:@"Accept"];
     
@@ -219,9 +219,9 @@
 
 #pragma mark POST NONCE TO SERVER method
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
-    [self.manager POST:@"https://protected-brook-8899.herokuapp.com/payment-methods"
-            parameters:@{@"payment_method_nonce": paymentMethodNonce,
-                         @"amount=%@": @20}
+    [self.manager POST:@"https://protected-brook-8899.herokuapp.com/payment-methods.php"
+            parameters:@{@"paymentMethodNonce": paymentMethodNonce,
+                         @"amount": self.overallPrice}
                success:^(AFHTTPRequestOperation *operation, id responseObject) {
                    NSString *transactionID = responseObject[@"transaction"][@"id"];
                    self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];

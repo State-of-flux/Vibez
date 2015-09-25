@@ -35,7 +35,6 @@
     [self.buttonRefresh setImage:[factory createImageForIcon:NIKFontAwesomeIconRefresh] forState:UIControlStateNormal];
     [self.buttonRefresh setTintColor:[UIColor whiteColor]];
 
-    
     [self checkIfEventIsSelected];
 }
 

@@ -22,6 +22,9 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
 
+static CGFloat kParallaxRatio = 0.40;
+static CGFloat kMainImageHeight = 180.0;
+
 @interface EventInfoViewController ()
 {
     Reachability *reachability;
@@ -32,8 +35,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBarButtons:@"Buy"];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = YES;
+    
+    [self setTopBarButtons:@""];
     [self layoutSubviews];
+    [self setCustomNavigationBackButton];
+    
     
     reachability = [Reachability reachabilityForInternetConnection];
     
@@ -42,12 +52,35 @@
     picker.dataSource = self;
     picker.delegate = self;
     
+    [self.scrollView setDelegate:self];
+    
     self.arrayOfQuantities = [NSMutableArray array];
     
     for(NSInteger i = 1; i <= 10; i++)
     {
         [self.arrayOfQuantities addObject:[NSString stringWithFormat:@"%ld", (long)i]];
     }
+}
+
+-(BOOL)prefersStatusBarHidden{
+    return YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat yOffset  = scrollView.contentOffset.y;
+    NSLog(@"yOffset:%f",yOffset);
+    CGRect f = self.eventImageView.frame;
+    if (yOffset >= 0) {
+        f.origin.y = -(yOffset*kParallaxRatio);
+    } else {
+        f.size.height = kMainImageHeight - yOffset;
+    }
+    self.eventImageView.frame = f;
+    self.eventNameLabel.frame = f;
+    //self.blurView.frame = f;
+    self.darkOverlay.frame = f;
+    //self.viewImageLabelHolder.frame = f;
+    NSLog(@"height:%f   y:%f", self.eventImageView.frame.size.height, self.eventImageView.frame.origin.y);
 }
 
 -(void)layoutSubviews
@@ -61,11 +94,13 @@
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (navBarHeight + tabBarHeight + statusBarFrame));
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus - self.getTicketsButton.frame.size.height)];
-    [self.view addSubview:self.scrollView];
-    
-    // Image
-    self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus/3)];
+    //    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus - self.getTicketsButton.frame.size.height)];
+    //    [self.scrollView setDelegate:self];
+    //
+    //    [self.view addSubview:self.scrollView];
+    //
+    //    // Image
+    //self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus/3)];
     
     [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.event.image]
                            placeholderImage:nil
@@ -82,95 +117,113 @@
     
     [self.eventImageView.layer setMasksToBounds:YES];
     
-    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    blurView.frame = self.eventImageView.frame;
-    [self.eventImageView addSubview:blurView];
+    //UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    //self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    //self.blurView.frame = self.eventImageView.frame;
+    //[self.eventImageView addSubview:self.blurView];
     
-    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
-    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
+    self.darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
+    self.darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
+    [self.eventImageView addSubview:self.darkOverlay];
     
-    // Event Name
-    self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.eventImageView.frame)/2 - 40, width - padding, 70)];
-    self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
-    self.eventNameLabel.textColor = [UIColor whiteColor];
-    self.eventNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.eventNameLabel.text = self.event.name;
-    self.eventNameLabel.numberOfLines = 2;
+    [self.eventNameLabel setText:[[self event] name]];
     
-    // Event Venue
-    self.eventVenueLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventImageView.frame) + padding, width - 32, 25)];
-    self.eventVenueLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
-    self.eventVenueLabel.textColor = [UIColor whiteColor];
-    self.eventVenueLabel.text = self.event.eventVenue;
+    [self.eventVenueButton setTitle:[[self event] eventVenue] forState:UIControlStateNormal];
+    [self.eventVenueButton sizeToFit];
     
-    // Event Date
-    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width - 32, 25)];
-    self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
-    self.eventDateLabel.textColor = [UIColor whiteColor];
-    
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:self.event.startDate]];
-    [dateFormatString insertString:[NSString daySuffixForDate:self.event.startDate] atIndex:6];
-    self.eventDateLabel.text = dateFormatString;
-    
-    // Event Date
-    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
-    self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-    self.eventDateEndLabel.textColor = [UIColor whiteColor];
-    self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
-    
-    [dateFormatter setDateFormat:@"HH:mma"];
-    NSMutableString *dateFormatStringBegin = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.startDate] lowercaseString]];
-    NSMutableString *dateFormatStringEnd = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.endDate] lowercaseString]];
-    NSMutableString *beginningEnd = [[NSMutableString alloc] initWithFormat:NSLocalizedString(@"%@ - %@", @"Beginning And End"), dateFormatStringBegin, dateFormatStringEnd];
-    
-    self.eventDateEndLabel.text = beginningEnd;
-    
-    // Event Description
-    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
-    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
-    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
-    self.eventDescriptionTextView.text = self.event.eventDescription;
-    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
-    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
-    self.eventDescriptionTextView.editable = NO;
-    self.eventDescriptionTextView.selectable = NO;
-    [self.eventDescriptionTextView sizeToFit];
-    
-    [self.scrollView addSubview:self.eventImageView];
-    [self.scrollView addSubview:darkOverlay];
-    [self.scrollView addSubview:self.eventNameLabel];
-    [self.scrollView addSubview:self.eventDateLabel];
-    [self.scrollView addSubview:self.eventDateEndLabel];
-    [self.scrollView addSubview:self.eventVenueLabel];
-    [self.scrollView addSubview:self.eventDescriptionTextView];
-    
-    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
-    
+    //    // Event Name
+    //    self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.eventImageView.frame)/2 - 40, width - padding, 70)];
+    //    self.eventNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
+    //    self.eventNameLabel.textColor = [UIColor whiteColor];
+    //    self.eventNameLabel.textAlignment = NSTextAlignmentCenter;
+    //    self.eventNameLabel.text = self.event.name;
+    //    self.eventNameLabel.numberOfLines = 2;
+    //
+    //    // Event Venue
+    //    self.eventVenueLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventImageView.frame) + padding, width - 32, 25)];
+    //    self.eventVenueLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
+    //    self.eventVenueLabel.textColor = [UIColor whiteColor];
+    //    self.eventVenueLabel.text = self.event.eventVenue;
+    //
+    //    // Event Date
+    //    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width - 32, 25)];
+    //    self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
+    //    self.eventDateLabel.textColor = [UIColor whiteColor];
+    //
+    //    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    //    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+    //    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    //    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:self.event.startDate]];
+    //    [dateFormatString insertString:[NSString daySuffixForDate:self.event.startDate] atIndex:6];
+    //    self.eventDateLabel.text = dateFormatString;
+    //
+    //    // Event Date
+    //    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
+    //    self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+    //    self.eventDateEndLabel.textColor = [UIColor whiteColor];
+    //    self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
+    //
+    //    [dateFormatter setDateFormat:@"HH:mma"];
+    //    NSMutableString *dateFormatStringBegin = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.startDate] lowercaseString]];
+    //    NSMutableString *dateFormatStringEnd = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.endDate] lowercaseString]];
+    //    NSMutableString *beginningEnd = [[NSMutableString alloc] initWithFormat:NSLocalizedString(@"%@ - %@", @"Beginning And End"), dateFormatStringBegin, dateFormatStringEnd];
+    //
+    //    self.eventDateEndLabel.text = beginningEnd;
+    //
+    //    // Event Description
+    //    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
+    //    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
+    //    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+    //    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
+    //    self.eventDescriptionTextView.text = self.event.eventDescription;
+    //    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
+    //    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+    //    self.eventDescriptionTextView.editable = NO;
+    //    self.eventDescriptionTextView.selectable = NO;
+    //    [self.eventDescriptionTextView sizeToFit];
+    //
+    //    [self.scrollView addSubview:self.eventImageView];
+    //    [self.scrollView addSubview:darkOverlay];
+    //    [self.scrollView addSubview:self.eventNameLabel];
+    //    [self.scrollView addSubview:self.eventDateLabel];
+    //    [self.scrollView addSubview:self.eventDateEndLabel];
+    //    [self.scrollView addSubview:self.eventVenueLabel];
+    //    [self.scrollView addSubview:self.eventDescriptionTextView];
+    //
+    //    //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
+    [self.scrollView setContentSize:CGSizeMake(0, self.scrollView.frame.size.height + 200)];
+    //
+    //
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [self.getTicketsButton setTintColor:[UIColor whiteColor]];
     
-    if([[self.event quantity] isEqualToNumber:@0])
-    {
-        [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
-        [self.getTicketsButton setTintColor:[UIColor darkGrayColor]];
-        [self.getTicketsButton setTitle:@"SOLD OUT" forState:UIControlStateDisabled];
-        [self.getTicketsButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
-        [self.getTicketsButton setBackgroundColor:[UIColor lightGrayColor]];
-        [self.getTicketsButton setEnabled:NO];
-    }
-    
-    [self.view bringSubviewToFront:self.getTicketsButton];
+    //    if([[self.event quantity] isEqualToNumber:@0])
+    //    {
+    //        [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
+    //        [self.getTicketsButton setTintColor:[UIColor darkGrayColor]];
+    //        [self.getTicketsButton setTitle:@"SOLD OUT" forState:UIControlStateDisabled];
+    //        [self.getTicketsButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
+    //        [self.getTicketsButton setBackgroundColor:[UIColor lightGrayColor]];
+    //        [self.getTicketsButton setEnabled:NO];
+    //    }
+    //
+    //    [self.view bringSubviewToFront:self.getTicketsButton];
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+- (void)setCustomNavigationBackButton
+{
+    UIImage *backBtn = [UIImage imageNamed:@"first_selected.png"];
+    backBtn = [backBtn imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //self.navigationItem.backBarButtonItem.title = @"";
+    self.navigationController.navigationBar.backIndicatorImage = backBtn;
+    [self.navigationItem.backBarButtonItem setTitle:@"Title here"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backBtn;
 }
+
+//- (UIStatusBarStyle) preferredStatusBarStyle {
+//    return UIStatusBarStyleLightContent;
+//}
 
 -(void)shareEvent
 {
@@ -271,7 +324,7 @@
     UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithTitle:@"Share" style:UIBarButtonItemStyleDone target:self action:@selector(shareEvent)];
     self.navigationItem.rightBarButtonItem = buttonShare;
     self.navigationItem.title = titleText;
-    [self.navigationItem setHidesBackButton:NO];
+    //[self.navigationItem setHidesBackButton:NO];
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender
@@ -376,4 +429,6 @@
     return self.arrayOfQuantities[row];
 }
 
+- (IBAction)buttonVenuePressed:(id)sender {
+}
 @end

@@ -244,6 +244,13 @@
     [[UITabBar appearance] setTranslucent:NO];
     [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:12.0f]} forState:UIControlStateNormal];
     
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
+     setDefaultTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]}];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+    
     // BAR BUTTON
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];

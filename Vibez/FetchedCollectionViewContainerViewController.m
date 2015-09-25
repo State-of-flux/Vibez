@@ -151,6 +151,12 @@
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)theItemCell;
     Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
     
+//    if (!(indexPath.row % 2 == 0)) {
+//        [eventCell.contentView setBackgroundColor:[UIColor redColor]];
+//    } else if ((indexPath.row % 2 == 0)) {
+//        [eventCell.contentView setBackgroundColor:[UIColor blueColor]];
+//    }
+    
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
     
@@ -175,7 +181,8 @@
     else
     {
         [eventCell.eventPriceLabel setTextColor:[UIColor pku_purpleColor]];
-        eventCell.eventPriceLabel.text = eventPriceString;
+        //eventCell.eventPriceLabel.text = eventPriceString; //eventPriceString
+        eventCell.eventPriceLabel.text = @""; //eventPriceString
     }
     
     [eventCell.eventPriceLabel sizeToFit];
