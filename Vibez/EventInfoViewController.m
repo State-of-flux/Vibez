@@ -11,6 +11,7 @@
 #import "UIColor+Piktu.h"
 #import "RKDropdownAlert.h"
 #import "PaymentViewController.h"
+#import <SDWebImage/SDWebImageDownloader.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PIKContextManager.h"
 #import "NSString+PIK.h"
@@ -21,13 +22,14 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
+#import "UIScrollView+TwitterCover.h"
+#import <XHPathCover.h>
 
-static CGFloat kParallaxRatio = 0.40;
-static CGFloat kMainImageHeight = 180.0;
+static CGFloat kImageOriginHight = 180.f;
 
-@interface EventInfoViewController ()
-{
+@interface EventInfoViewController () {
     Reachability *reachability;
+    XHPathCover *pathCover;
 }
 @end
 
@@ -66,23 +68,6 @@ static CGFloat kMainImageHeight = 180.0;
     return YES;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    CGFloat yOffset  = scrollView.contentOffset.y;
-    NSLog(@"yOffset:%f",yOffset);
-    CGRect f = self.eventImageView.frame;
-    if (yOffset >= 0) {
-        f.origin.y = -(yOffset*kParallaxRatio);
-    } else {
-        f.size.height = kMainImageHeight - yOffset;
-    }
-    self.eventImageView.frame = f;
-    self.eventNameLabel.frame = f;
-    //self.blurView.frame = f;
-    self.darkOverlay.frame = f;
-    //self.viewImageLabelHolder.frame = f;
-    NSLog(@"height:%f   y:%f", self.eventImageView.frame.size.height, self.eventImageView.frame.origin.y);
-}
-
 -(void)layoutSubviews
 {
     CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
@@ -94,6 +79,12 @@ static CGFloat kMainImageHeight = 180.0;
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (navBarHeight + tabBarHeight + statusBarFrame));
     
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(kImageOriginHight, 0, 0, 0);
+    
+    [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:[self.event.image stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:[UIImage imageNamed:@"plug.jpg"]];
+    [self.tableView addSubview:self.eventImageView];
+    
     //    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus - self.getTicketsButton.frame.size.height)];
     //    [self.scrollView setDelegate:self];
     //
@@ -102,34 +93,27 @@ static CGFloat kMainImageHeight = 180.0;
     //    // Image
     //self.eventImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus/3)];
     
-    [self.eventImageView sd_setImageWithURL:[NSURL URLWithString:self.event.image]
-                           placeholderImage:nil
-                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
-    
-    self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
-        self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    
-    [self.eventImageView.layer setMasksToBounds:YES];
+//    self.eventImageView.contentMode = UIViewContentModeScaleAspectFill;
+//    
+//    if (self.eventImageView.bounds.size.width > self.eventImageView.image.size.width && self.eventImageView.bounds.size.height > self.eventImageView.image.size.height) {
+//        self.eventImageView.contentMode = UIViewContentModeScaleAspectFit;
+//    }
+//    
+//    [self.eventImageView.layer setMasksToBounds:YES];
     
     //UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     //self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
     //self.blurView.frame = self.eventImageView.frame;
     //[self.eventImageView addSubview:self.blurView];
-    
-    self.darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
-    self.darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
-    [self.eventImageView addSubview:self.darkOverlay];
-    
-    [self.eventNameLabel setText:[[self event] name]];
-    
-    [self.eventVenueButton setTitle:[[self event] eventVenue] forState:UIControlStateNormal];
-    [self.eventVenueButton sizeToFit];
+//    
+//    self.darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.eventImageView.frame.size.width, self.eventImageView.frame.size.height)];
+//    self.darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
+//    [self.eventImageView addSubview:self.darkOverlay];
+//    
+//    [self.eventNameLabel setText:[[self event] name]];
+//    
+//    [self.eventVenueButton setTitle:[[self event] eventVenue] forState:UIControlStateNormal];
+//    [self.eventVenueButton sizeToFit];
     
     //    // Event Name
     //    self.eventNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.eventImageView.frame)/2 - 40, width - padding, 70)];

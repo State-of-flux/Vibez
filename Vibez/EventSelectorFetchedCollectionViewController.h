@@ -7,7 +7,7 @@
 //
 
 #import "SQKFetchedCollectionViewController.h"
-#import <UIScrollView+EmptyDataSet.h>
+#import "UIScrollView+EmptyDataSet.h"
 #import "PIKContextManager.h"
 #import "EventSelectorCollectionViewCell.h"
 #import "Event+Additions.h"

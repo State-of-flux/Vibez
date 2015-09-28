@@ -68,6 +68,7 @@
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchBar setBarStyle:UIBarStyleBlack];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self

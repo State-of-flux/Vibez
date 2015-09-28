@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EFB60E3B08CBB7F2BF7964A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B17B9CC57D0D36B97F73DA76 /* libPods.a */; };
 		6C066FD21B1BAEEF009EA34D /* first_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FBE1B1BAEEF009EA34D /* first_normal.png */; };
 		6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FBF1B1BAEEF009EA34D /* first_normal@2x.png */; };
 		6C066FD41B1BAEEF009EA34D /* first_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FC01B1BAEEF009EA34D /* first_selected.png */; };
@@ -66,6 +65,7 @@
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
 		6C4FB7A51BB4CEB3006AF4EE /* EventRightCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A41BB4CEB3006AF4EE /* EventRightCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */; settings = {ASSET_TAGS = (); }; };
 		6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D14E1B864C8A0087A6BC /* Order+Additions.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
 		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
@@ -140,6 +140,7 @@
 		6CFEBE281BAA2B4E00DCF1F6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE271BAA2B4E00DCF1F6 /* Event.m */; };
 		6CFEBE2B1BAA2B4E00DCF1F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE2A1BAA2B4E00DCF1F6 /* User.m */; };
 		6CFEBE2E1BAA2B4E00DCF1F6 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE2D1BAA2B4E00DCF1F6 /* Order.m */; };
+		7E6F3082426E62B3C4B91CDD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAE895145815D6665385B45 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CAE895145815D6665385B45 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3B4DCC358B802FE7FB6BBF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6C066FBE1B1BAEEF009EA34D /* first_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_normal.png; sourceTree = "<group>"; };
 		6C066FBF1B1BAEEF009EA34D /* first_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_normal@2x.png"; sourceTree = "<group>"; };
@@ -234,6 +236,8 @@
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
 		6C4FB7A31BB4CEB3006AF4EE /* EventRightCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventRightCollectionViewCell.h; sourceTree = "<group>"; };
 		6C4FB7A41BB4CEB3006AF4EE /* EventRightCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventRightCollectionViewCell.m; sourceTree = "<group>"; };
+		6C4FB7A61BB5C10E006AF4EE /* UIScrollView+TwitterCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TwitterCover.h"; sourceTree = "<group>"; };
+		6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TwitterCover.m"; sourceTree = "<group>"; };
 		6C53D14D1B864C8A0087A6BC /* Order+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+Additions.h"; sourceTree = "<group>"; };
 		6C53D14E1B864C8A0087A6BC /* Order+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+Additions.m"; sourceTree = "<group>"; };
 		6C53D17D1B88E7640087A6BC /* UIViewController+NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationController.h"; sourceTree = "<group>"; };
@@ -366,7 +370,6 @@
 		6CFEBE2C1BAA2B4E00DCF1F6 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		6CFEBE2D1BAA2B4E00DCF1F6 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		B17B9CC57D0D36B97F73DA76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,7 +399,7 @@
 				6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */,
 				6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */,
 				6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */,
-				4EFB60E3B08CBB7F2BF7964A /* libPods.a in Frameworks */,
+				7E6F3082426E62B3C4B91CDD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +586,7 @@
 		6C37D2381AE079240078154E /* Customs */ = {
 			isa = PBXGroup;
 			children = (
+				6C4FB7A91BB5C117006AF4EE /* ScrollView */,
 				6C0929751B85328300851DA8 /* UILabel */,
 				6CDBAF821B4F415500ED75CD /* Alert */,
 				6C79FF681B28940A006293C9 /* Swift */,
@@ -622,6 +626,15 @@
 				6CDBAF891B4F4A8A00ED75CD /* More */,
 			);
 			name = General;
+			sourceTree = "<group>";
+		};
+		6C4FB7A91BB5C117006AF4EE /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				6C4FB7A61BB5C10E006AF4EE /* UIScrollView+TwitterCover.h */,
+				6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */,
+			);
+			name = ScrollView;
 			sourceTree = "<group>";
 		};
 		6C60B0991B2F906D004632C0 /* Table */ = {
@@ -1033,7 +1046,7 @@
 				6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */,
 				6C0A4A161ACF1107004818F1 /* CFNetwork.framework */,
 				6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */,
-				B17B9CC57D0D36B97F73DA76 /* libPods.a */,
+				0CAE895145815D6665385B45 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1218,6 +1231,7 @@
 				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
 				6CFEBE251BAA2B4E00DCF1F6 /* Ticket.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
+				6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,

@@ -355,7 +355,7 @@
         <!--Event Info View Controller-->
         <scene sceneID="bfB-TU-aL2">
             <objects>
-                <viewController id="vEC-Gg-kRV" customClass="EventInfoViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="vEC-Gg-kRV" customClass="EventInfoViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0z1-pg-drH"/>
                         <viewControllerLayoutGuide type="bottom" id="Sm5-55-dw6"/>
@@ -385,53 +385,48 @@
                                     <action selector="getTicketsButtonTapped:" destination="vEC-Gg-kRV" eventType="touchUpInside" id="12W-hb-FUg"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="130" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yuS-v8-JFJ">
-                                <rect key="frame" x="0.0" y="64" width="600" height="436"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="111" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Sg-Jk-acU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="180" id="oTe-zY-KwX">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="180"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="P1x-Km-UJH">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oTe-zY-KwX" id="1ig-bf-wnQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="179.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lxt-Vh-OLs">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
-                                                </imageView>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="J7x-Ny-gvi">
-                                        <rect key="frame" x="0.0" y="208" width="600" height="130"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J7x-Ny-gvi" id="OmE-wg-ymy">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="129.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P1x-Km-UJH" id="gVO-Hf-RRS">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <sections/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="trailing" secondItem="ej2-qf-x0O" secondAttribute="trailingMargin" constant="20" id="3DY-ep-0P4"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yuS-v8-JFJ" secondAttribute="trailing" constant="-20" id="Ki5-Jd-Nae"/>
-                            <constraint firstItem="yuS-v8-JFJ" firstAttribute="leading" secondItem="ej2-qf-x0O" secondAttribute="leadingMargin" constant="-20" id="Kju-Sb-0NV"/>
+                            <constraint firstItem="8Sg-Jk-acU" firstAttribute="top" secondItem="0z1-pg-drH" secondAttribute="bottom" id="Bb4-jB-7qp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Sg-Jk-acU" secondAttribute="trailing" constant="-20" id="NZe-Bv-Emb"/>
                             <constraint firstAttribute="centerX" secondItem="6AQ-Mc-Fi6" secondAttribute="centerX" id="Obf-az-8O3"/>
-                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="top" secondItem="yuS-v8-JFJ" secondAttribute="bottom" constant="1" id="Via-7v-qnn"/>
+                            <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="top" secondItem="8Sg-Jk-acU" secondAttribute="bottom" id="cRO-wg-n23"/>
                             <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="leading" secondItem="ej2-qf-x0O" secondAttribute="leadingMargin" constant="-20" id="f5f-XE-D0B"/>
-                            <constraint firstItem="yuS-v8-JFJ" firstAttribute="top" secondItem="ej2-qf-x0O" secondAttribute="topMargin" id="uyc-rU-2KX"/>
+                            <constraint firstItem="8Sg-Jk-acU" firstAttribute="leading" secondItem="ej2-qf-x0O" secondAttribute="leadingMargin" constant="-20" id="m91-O9-CQJ"/>
                             <constraint firstItem="6AQ-Mc-Fi6" firstAttribute="bottom" secondItem="Sm5-55-dw6" secondAttribute="top" id="xC3-1Y-IMl"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="eventImageView" destination="Q4l-x8-YWp" id="Dke-bs-Oq3"/>
                         <outlet property="getTicketsButton" destination="6AQ-Mc-Fi6" id="udm-0Z-3vi"/>
-                        <outlet property="tableView" destination="yuS-v8-JFJ" id="tF7-lZ-IMJ"/>
+                        <outlet property="tableView" destination="8Sg-Jk-acU" id="sq1-16-oJE"/>
                         <segue destination="wT5-Uy-3m8" kind="show" identifier="eventInfoToOrderInfoSegue" id="rEi-30-fiT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gZB-Vo-aJe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Q4l-x8-YWp">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </objects>
             <point key="canvasLocation" x="1168" y="1337"/>
         </scene>

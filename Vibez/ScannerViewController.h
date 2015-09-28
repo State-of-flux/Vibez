@@ -24,6 +24,8 @@
 @property (strong, nonatomic) Event *eventSelected;
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
+@property (nonatomic) BOOL isScanning;
+@property (nonatomic) BOOL isShowingScanResponse;
 
 - (IBAction)buttonEventNamePressed:(id)sender;
 - (IBAction)buttonTorchPressed:(id)sender;

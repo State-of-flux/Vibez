@@ -51,6 +51,9 @@
     [imageViewTitle setImage:[UIImage imageNamed:@"logoTitleView"]];
     [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
     self.navigationItem.titleView = imageViewTitle;
+    
+    [self addBorder:UIRectEdgeBottom color:[UIColor blackColor] thickness:1.0f toView:self.viewSegmentedControl];
+    
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -59,6 +62,34 @@
     CGFloat height = width;
     
     return CGSizeMake(width, height);
+}
+
+- (CALayer *)addBorder:(UIRectEdge)edge color:(UIColor *)color thickness:(CGFloat)thickness toView:(UIView *)view
+{
+    CALayer *border = [CALayer layer];
+    
+    switch (edge) {
+        case UIRectEdgeTop:
+            border.frame = CGRectMake(0, 0, CGRectGetWidth(view.frame), thickness);
+            break;
+        case UIRectEdgeBottom:
+            border.frame = CGRectMake(0, CGRectGetHeight(view.frame) - thickness, CGRectGetWidth(view.frame), thickness);
+            break;
+        case UIRectEdgeLeft:
+            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight(view.frame));
+            break;
+        case UIRectEdgeRight:
+            border.frame = CGRectMake(CGRectGetWidth(view.frame) - thickness, 0, thickness, CGRectGetHeight(view.frame));
+            break;
+        default:
+            break;
+    }
+    
+    border.backgroundColor = color.CGColor;
+    
+    [view.layer addSublayer:border];
+    
+    return border;
 }
 
 #pragma mark - UISegmentedControl

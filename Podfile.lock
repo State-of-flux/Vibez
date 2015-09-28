@@ -21,45 +21,45 @@ PODS:
   - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Braintree (3.9.3):
-    - Braintree/API (= 3.9.3)
-    - Braintree/Coinbase (= 3.9.3)
-    - Braintree/Drop-In (= 3.9.3)
-    - Braintree/Payments (= 3.9.3)
-    - Braintree/PayPal (= 3.9.3)
-    - Braintree/UI (= 3.9.3)
-    - Braintree/Venmo (= 3.9.3)
-  - Braintree/API (3.9.3)
-  - Braintree/Apple-Pay (3.9.3):
+  - Braintree (3.9.4):
+    - Braintree/API (= 3.9.4)
+    - Braintree/Coinbase (= 3.9.4)
+    - Braintree/Drop-In (= 3.9.4)
+    - Braintree/Payments (= 3.9.4)
+    - Braintree/PayPal (= 3.9.4)
+    - Braintree/UI (= 3.9.4)
+    - Braintree/Venmo (= 3.9.4)
+  - Braintree/API (3.9.4)
+  - Braintree/Apple-Pay (3.9.4):
     - Braintree/Payments
-  - Braintree/Coinbase (3.9.3):
+  - Braintree/Coinbase (3.9.4):
     - Braintree/API
-  - Braintree/Drop-In (3.9.3):
+  - Braintree/Drop-In (3.9.4):
     - Braintree/API
     - Braintree/Coinbase
     - Braintree/Payments
     - Braintree/PayPal
     - Braintree/UI
     - Braintree/Venmo
-  - Braintree/Payments (3.9.3):
+  - Braintree/Payments (3.9.4):
     - Braintree/API
     - Braintree/Coinbase
     - Braintree/PayPal
     - Braintree/Venmo
-  - Braintree/PayPal (3.9.3):
+  - Braintree/PayPal (3.9.4):
     - Braintree/API
     - Braintree/UI
-  - Braintree/UI (3.9.3):
+  - Braintree/UI (3.9.4):
     - Braintree/API
-  - Braintree/Venmo (3.9.3):
+  - Braintree/Venmo (3.9.4):
     - Braintree/API
   - CardIO (5.1.1)
-  - CLLocationManager-blocks (1.3.2)
+  - CLLocationManager-blocks (1.3.3)
   - DZNEmptyDataSet (1.7.1)
   - FLAnimatedImage (1.0.8)
-  - FontAwesomeIconFactory (2.1)
+  - FontAwesomeIconFactory (2.1.1)
   - MBProgressHUD (0.9.1)
-  - MTBBarcodeScanner (1.8.1)
+  - MTBBarcodeScanner (1.8.5)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
@@ -107,16 +107,16 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: de0f71e30495ed0192f7d16d0fddcab6882a0ca3
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
-  Braintree: 996027dcc8633569f2405bc57dca11f367050c60
+  Braintree: 468112f669ef890da2f65b6b3ea8568a3c81d845
   CardIO: 2c3a8ef9b9add4bd664c83bb653b83b2f32d9d7f
-  CLLocationManager-blocks: 3b0af033092491fcd3cd24ffddfeb13f65e52144
+  CLLocationManager-blocks: ae34b44992b3d26de10d27d51043a123444efb1b
   DZNEmptyDataSet: 2a398066c2bf5848f7f693fb50954b5064debd12
   FLAnimatedImage: f9422f796135aff80d8c00b2afc48015bb746e24
-  FontAwesomeIconFactory: 0be1c4e100bb228ea59645d5b1f8a933b7ebe73a
+  FontAwesomeIconFactory: bb9ce26d3dd13044854a82d380023c8e7d3ebf1a
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  MTBBarcodeScanner: 4b68473960d351a4359fafd4c9871790ad61cb5a
+  MTBBarcodeScanner: 0135798eb63d97f1f42baca61b52f8ad18a71212
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SQKDataKit: 529742619985d0902d6e361b3088bce0991a8684
 
-COCOAPODS: 0.36.4
+COCOAPODS: 0.38.2
