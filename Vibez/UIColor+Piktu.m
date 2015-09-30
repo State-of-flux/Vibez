@@ -17,6 +17,16 @@
 
 + (UIColor *)pku_purpleColor
 {
+    return [UIColor colorWithRed:148.0/255.0 green:34.0/255.0 blue:205.0/255.0 alpha:1.0];
+}
+
++ (UIColor *)pku_purpleColorandAlpha:(CGFloat)alpha
+{
+    return [UIColor colorWithRed:148.0/255.0 green:34.0/255.0 blue:205.0/255.0 alpha:alpha];
+}
+
++ (UIColor *)pku_purpleColorOld
+{
     return [UIColor colorWithRed:184.0/255.0 green:42.0/255.0 blue:255.0/255.0 alpha:1.0];
 }
 

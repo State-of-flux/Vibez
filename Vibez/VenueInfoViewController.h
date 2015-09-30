@@ -21,5 +21,7 @@
 @property (strong, nonatomic) Venue *venue;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *buttonGetDirections;
+- (IBAction)buttonGetDirectionsPressed:(id)sender;
 
 @end

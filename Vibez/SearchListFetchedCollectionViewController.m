@@ -34,8 +34,7 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
+    if (self) {
         self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
@@ -49,7 +48,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"Vibes List"];
+    [self.navigationItem setTitle:@"List"];
     
     [self.collectionView registerClass:[UserCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UserCollectionViewCell class])];
     
@@ -60,6 +59,8 @@
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchBar setBarStyle:UIBarStyleBlack];
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self

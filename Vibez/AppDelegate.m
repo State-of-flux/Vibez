@@ -34,12 +34,12 @@
     [self setupBrainTree];
     [self setupAppearance];
     [self monitorReachability];
-
+    
     if ([PFUser currentUser])
     {
         if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue])
         {
-             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+            self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         }
         else
         {
@@ -50,7 +50,7 @@
     {
         [self presentLoginView];
     }
-
+    
     return YES;
 }
 
@@ -65,7 +65,7 @@
 -(void)setupBrainTree
 {
     [Braintree setReturnURLScheme:@"com.Piktu.Vibez.payments"];
-//    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
+    //    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
 }
 
 -(void)setupParse:(NSDictionary *)launchOptions
@@ -236,27 +236,38 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextBoldWithSize:18.0f]}];
     //[[UINavigationBar appearance] setClipsToBounds:YES];
     
     [[UITabBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UITabBar appearance] setTintColor:[UIColor pku_purpleColor]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:12.0f]} forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_montserratRegWithSize:12.0f]} forState:UIControlStateNormal];
     
-    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont pik_avenirNextRegWithSize:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-     setDefaultTextAttributes:@{NSFontAttributeName: [UIFont fontWithName:@"AvenirNext-Regular" size:16.0f]}];
+     setDefaultTextAttributes:@{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:16.0f]}];
     
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
     
     // BAR BUTTON
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+    
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
      setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+    
+    
+    
+    //UIImage *backBtn = [UIImage imageNamed:@"first_selected.png"];
+    //backBtn = [backBtn imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //self.navigationItem.backBarButtonItem.title = @"";
+    //self.navigationController.navigationBar.backIndicatorImage = backBtn;
+    //[self.navigationItem.backBarButtonItem setTitle:@"Title here"];
+    //self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backBtn;
 }
 
 @end

@@ -30,6 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setCustomNavigationBackButton];
     
     self.viewSegmentedControl.clipsToBounds = YES;
     
@@ -38,7 +39,7 @@
     bottomBorder.borderWidth = 1;
     bottomBorder.frame = CGRectMake(-1, -1, CGRectGetWidth(self.viewSegmentedControl.frame), CGRectGetHeight(self.viewSegmentedControl.frame)+1);
     
-    [self.viewSegmentedControl.layer addSublayer:bottomBorder];
+    //[self.viewSegmentedControl.layer addSublayer:bottomBorder];
     
     eventVC = self.childViewControllers.lastObject;
     venueVC = self.childViewControllers.firstObject;
@@ -52,8 +53,28 @@
     [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
     self.navigationItem.titleView = imageViewTitle;
     
-    [self addBorder:UIRectEdgeBottom color:[UIColor blackColor] thickness:1.0f toView:self.viewSegmentedControl];
+    //[self addBorder:UIRectEdgeBottom color:[UIColor blackColor] thickness:0.3f toView:self.viewSegmentedControl];
+}
+
+- (void)setCustomNavigationBackButton {
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
+    UIImage *myIcon = [self imageWithImage:[UIImage imageNamed:@"backArrow.png"] scaledToSize:CGSizeMake(38, 38)];
+    
+    self.navigationController.navigationBar.backIndicatorImage = myIcon;
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = myIcon;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath

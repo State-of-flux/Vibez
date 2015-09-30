@@ -224,7 +224,7 @@
 
 -(void)LoginWithUsernameParse:(NSString *)username andPassword:(NSString *)password
 {
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
+    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
      {
          if(user)
          {

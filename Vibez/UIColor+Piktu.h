@@ -12,6 +12,7 @@
 
 + (UIColor *)pku_placeHolderTextColor;
 + (UIColor *)pku_purpleColor;
++ (UIColor *)pku_purpleColorandAlpha:(CGFloat)alpha;
 + (UIColor *)pku_blackColor;
 + (UIColor *)pku_greyColor;
 + (UIColor *)pku_lightBlack;

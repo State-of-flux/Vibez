@@ -34,12 +34,18 @@
     
     [self.buttonRefresh setImage:[factory createImageForIcon:NIKFontAwesomeIconRefresh] forState:UIControlStateNormal];
     [self.buttonRefresh setTintColor:[UIColor whiteColor]];
-
+    
     [self checkIfEventIsSelected];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self checkIfEventIsSelected];
+    //[self checkIfEventIsSelected];
+    
+    if (![Event eventIdForAdmin]) {
+        [[self buttonEventName] setTitle:@"No event selected" forState:UIControlStateNormal];
+    } else {
+        [self setupView];
+    }
 }
 
 - (void)checkIfEventIsSelected {
@@ -75,64 +81,102 @@
 - (void)startScanning {
     self.scanner = [[MTBBarcodeScanner alloc] initWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]
                                                               previewView:self.scanView];
-    
     [self.scanner startScanningWithResultBlock:^(NSArray *codes) {
-        for (AVMetadataMachineReadableCodeObject *code in codes)
-        {
-            // If qr code has not already been scanned, then search through all tickets on the device.
-            // If a ticket is found to match the qr code, set the property hasBeenUsed to true on the ticket and save it to Parse.
-            // If the ticket has not been found, then it must not exist, recommend refreshing the data, or say that it's not valid.
-            if ([self.uniqueCodes indexOfObject:code.stringValue] == NSNotFound)
-            {
-                [self.uniqueCodes addObject:code.stringValue];
-                NSLog(@"Found unique code: %@", code.stringValue);
-                
-                for(Ticket *ticket in [self.controller managedObjects]) {
-                    
-                    // VALID TICKET, NOT SCANNED
-                    if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                        [ticket setHasBeenUsed:[NSNumber numberWithBool:YES]];
-                        [ticket saveToParse];
-                        
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                    // VALID TICKET, ALREADY SCANNED
-                    else if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                    // INVALID TICKET
-                    else
-                    {
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:nil backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                }
-            }
-            // This code has already been scanned before, so it must either be a valid ticket that has already been scanned
-            // Or it must not be an invalid ticket.
-            // Or it is a code that has already been scanned, but wasn't found on the system because the data wasn't up to date.
-            else
-            {
-                for(Ticket *ticket in [self.controller managedObjects]) {
-                    
-                    // VALID TICKET, ALREADY SCANNED
-                    if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                    // VALID TICKET, NOT SCANNED, BUT HAS BEEN ON THE DEVICE SOMEHOW
-                    else if ([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                        [ticket setHasBeenUsed:@1];
-                        [ticket saveToParse];
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                    // INVALID TICKET
-                    else
-                    {
-                        [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:@"A refresh might be required" backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
-                    }
-                }
-            }
+        
+        // PAUSE THE SCANNER WHILE THE RESPONSE OCCURS
+        //[self.scanner stopScanning];
+        for (AVMetadataMachineReadableCodeObject *code in codes) {
+            [NSTimer scheduledTimerWithTimeInterval:1.0
+                                             target:self
+                                           selector:@selector(setIsShowingScanResponseToNo)
+                                           userInfo:nil
+                                            repeats:NO];
+            
+            [self handleCode:code];
         }
     }];
+}
+
+- (void)handleCode:(AVMetadataMachineReadableCodeObject *)code {
+    
+    // If qr code has not already been scanned, then search through all tickets on the device.
+    // If a ticket is found to match the qr code, set the property hasBeenUsed to true on the ticket and save it to Parse.
+    // If the ticket has not been found, then it must not exist, recommend refreshing the data, or say that it's not valid.
+    if ([self.uniqueCodes indexOfObject:code.stringValue] == NSNotFound)
+    {
+        [self.uniqueCodes addObject:code.stringValue];
+        NSLog(@"Found unique code: %@", code.stringValue);
+        
+        for(Ticket *ticket in [self.controller managedObjects]) {
+            
+            // VALID TICKET, NOT SCANNED
+            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketFound:ticket];
+            }
+            
+            // VALID TICKET, ALREADY SCANNED
+            else if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
+                    [self validTicketFoundAlreadyScanned:ticket];
+            }
+            
+            // INVALID TICKET
+            else {
+                [self invalidTicket:ticket];
+            }
+        }
+    }
+    // This code has already been scanned before, so it must either be a valid ticket that has already been scanned
+    // Or it must not be an invalid ticket.
+    // Or it is a code that has already been scanned, but wasn't found on the system because the data wasn't up to date.
+    else
+    {
+        for(Ticket *ticket in [self.controller managedObjects]) {
+            
+            // VALID TICKET, ALREADY SCANNED
+            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
+                [self validTicketFoundAlreadyScanned:ticket];
+            }
+            
+            // VALID TICKET, NOT SCANNED, BUT HAS BEEN ON THE DEVICE SOMEHOW
+            else if ([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketNotScannedOnDevice:ticket];
+            }
+            
+            // INVALID TICKET
+            else {
+                [self invalidTicket:ticket];
+            }
+        }
+    }
+}
+
+- (void)setIsShowingScanResponseToYes {
+    [self setIsShowingScanResponse:YES];
+}
+
+- (void)setIsShowingScanResponseToNo {
+    [self setIsShowingScanResponse:NO];
+}
+
+- (void)validTicketFound:(Ticket *)ticket {
+    [ticket setHasBeenUsed:[NSNumber numberWithBool:YES]];
+    [ticket saveToParse];
+    
+    [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
+}
+
+- (void)validTicketFoundAlreadyScanned:(Ticket *)ticket {
+    [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
+}
+
+- (void)validTicketNotScannedOnDevice:(Ticket *)ticket {
+    [ticket setHasBeenUsed:@1];
+    [ticket saveToParse];
+    [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
+}
+
+- (void)invalidTicket:(Ticket *)ticket {
+    [RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:@"A refresh might be required" backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)refresh:(id)sender
@@ -161,7 +205,7 @@
                 NSLog(@"Fetch Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
             }
         }
-                                              failureBlock:^(NSError *error)
+                      failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          }];
@@ -188,4 +232,7 @@
 - (IBAction)buttonRefreshPressed:(id)sender {
     [self refresh:self];
 }
+
+
+
 @end

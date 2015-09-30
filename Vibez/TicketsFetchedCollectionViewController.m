@@ -42,7 +42,7 @@
         [self.collectionView setEmptyDataSetDelegate:self];
         [self.collectionView setAlwaysBounceVertical:YES];
     }
-    
+
     return self;
 }
 
@@ -79,6 +79,19 @@
 //    }
 //}
 
+- (void)stackTickets {
+    NSMutableArray *ticketsStacked = [NSMutableArray array];
+    
+    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
+    
+    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
+        
+        if (ticket) {
+            
+        }
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -94,11 +107,14 @@
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    [self stackTickets];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -207,10 +223,12 @@
 {
     NSFetchRequest *request;
     
+    //request = [self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"];
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"ticketID" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
@@ -220,10 +238,25 @@
     }
     
     [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
-    
+    //[subpredicates addObject:[self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"]];
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
     return request;
+}
+
+- (NSPredicate *) fetchRequestForSingleInstanceOfEntity:(NSString*)entityName groupedBy:(NSString*)attributeName
+{
+    __block NSMutableSet *uniqueAttributes = [NSMutableSet set];
+    
+    NSPredicate *filter = [NSPredicate predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings) {
+        if( [uniqueAttributes containsObject:[evaluatedObject valueForKey:attributeName]] )
+            return NO;
+        
+        [uniqueAttributes addObject:[evaluatedObject valueForKey:attributeName]];
+        return YES;
+    }];
+    
+    return filter;
 }
 
 #pragma mark - DZN Empty Data Set Delegates
