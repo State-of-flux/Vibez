@@ -39,6 +39,7 @@
                   managedObject.name = dictionary[@"eventName"];
                   managedObject.eventDescription = dictionary[@"eventDescription"];
                   managedObject.eventVenue = [dictionary[@"venue"] objectForKey:@"venueName"];
+                  managedObject.eventVenueId = [dictionary[@"venue"] objectId];
                   managedObject.startDate = dictionary[@"eventDate"];
                   managedObject.lastEntry = dictionary[@"eventLastEntry"];
                   managedObject.endDate = dictionary[@"eventEnd"];

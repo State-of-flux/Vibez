@@ -15,16 +15,43 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface VenueInfoViewController ()
-
+{
+    CGFloat imageHeight;
+}
 @end
 
 @implementation VenueInfoViewController
+
++ (instancetype)createWithVenue:(Venue *)venue {
+    UIStoryboard *storyboardMain = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    VenueInfoViewController *instance = (VenueInfoViewController *)[storyboardMain instantiateViewControllerWithIdentifier:NSStringFromClass([VenueInfoViewController class])];
+    
+    [instance setVenue:venue];
+    
+    return instance;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTopBarButtons:@"Venue"];
     [self setCustomNavigationBackButton];
     [self layoutSubviews];
+    [self.scrollView setDelegate:self];
+    imageHeight = self.venueImageView.frame.size.height;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat yPos = -scrollView.contentOffset.y;
+    if (yPos > 0) {
+        CGRect imgRect = self.venueImageView.frame;
+        imgRect.origin.y = scrollView.contentOffset.y;
+        imgRect.size.height = imageHeight+yPos;
+        [self.venueImageView setFrame:imgRect];
+        [self.blurView setFrame:self.venueImageView.frame];
+        [self.venueNameLabel setCenter:CGPointMake(self.venueImageView.frame.size.width/2, self.venueImageView.frame.size.height/2)];
+    }
 }
 
 - (void)setCustomNavigationBackButton {
@@ -79,9 +106,9 @@
     [self.venueImageView.layer setMasksToBounds:YES];
     
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-    UIVisualEffectView *blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    blurView.frame = self.venueImageView.bounds;
-    [self.venueImageView addSubview:blurView];
+    self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    self.blurView.frame = self.venueImageView.bounds;
+    
     
     // Event Name
     self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.venueImageView.frame)/2 - 40, width - padding, 70)];
@@ -108,7 +135,9 @@
     self.venueDescriptionTextView.selectable = NO;
     [self.venueDescriptionTextView sizeToFit];
     
+    
     [self.scrollView addSubview:self.venueImageView];
+    [self.scrollView addSubview:self.blurView];
     [self.scrollView addSubview:self.venueNameLabel];
     [self.scrollView addSubview:self.venueTownLabel];
     [self.scrollView addSubview:self.venueDescriptionTextView];

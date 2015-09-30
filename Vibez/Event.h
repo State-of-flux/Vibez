@@ -2,8 +2,8 @@
 //  Event.h
 //  Vibez
 //
-//  Created by Harry Liddell on 16/09/2015.
-//  Copyright (c) 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 30/09/2015.
+//  Copyright © 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,29 +11,14 @@
 
 @class Venue;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Event : NSManagedObject
 
-@property (nonatomic, retain) NSDecimalNumber * bookingFee;
-@property (nonatomic, retain) NSDate * endDate;
-@property (nonatomic, retain) NSString * eventDescription;
-@property (nonatomic, retain) NSString * eventID;
-@property (nonatomic, retain) NSString * eventVenue;
-@property (nonatomic, retain) NSString * eventVenueLocation;
-@property (nonatomic, retain) NSNumber * hasBeenUpdated;
-@property (nonatomic, retain) NSString * image;
-@property (nonatomic, retain) NSDate * lastEntry;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSDecimalNumber * price;
-@property (nonatomic, retain) NSNumber * quantity;
-@property (nonatomic, retain) NSDate * startDate;
-@property (nonatomic, retain) NSSet *venues;
-@end
-
-@interface Event (CoreDataGeneratedAccessors)
-
-- (void)addVenuesObject:(Venue *)value;
-- (void)removeVenuesObject:(Venue *)value;
-- (void)addVenues:(NSSet *)values;
-- (void)removeVenues:(NSSet *)values;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Event+CoreDataProperties.h"

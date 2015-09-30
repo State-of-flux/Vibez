@@ -18,6 +18,7 @@
 @property (strong, nonatomic) UILabel *eventDateLabel;
 @property (strong, nonatomic) UILabel *eventDateEndLabel;
 @property (strong, nonatomic) UITextView *eventDescriptionTextView;
+@property (strong, nonatomic) UILabel *eventDescriptionLabel;
 @property (strong, nonatomic) UILabel *eventVenueLabel;
 
 @property (strong, nonatomic) Event *event;

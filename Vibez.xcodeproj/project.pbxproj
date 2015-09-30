@@ -70,6 +70,16 @@
 		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
 		6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */; };
 		6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */; };
+		6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63111BBC75A8001A336A /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FF1BBC75A8001A336A /* Venue.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63131BBC75A8001A336A /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63031BBC75A8001A336A /* Ticket.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63151BBC75A8001A336A /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63071BBC75A8001A336A /* Order.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63171BBC75A8001A336A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630B1BBC75A8001A336A /* Event.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; settings = {ASSET_TAGS = (); }; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -138,11 +148,6 @@
 		6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */; };
 		6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */; };
 		6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */; };
-		6CFEBE221BAA2B4D00DCF1F6 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE211BAA2B4D00DCF1F6 /* Venue.m */; };
-		6CFEBE251BAA2B4E00DCF1F6 /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE241BAA2B4E00DCF1F6 /* Ticket.m */; };
-		6CFEBE281BAA2B4E00DCF1F6 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE271BAA2B4E00DCF1F6 /* Event.m */; };
-		6CFEBE2B1BAA2B4E00DCF1F6 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE2A1BAA2B4E00DCF1F6 /* User.m */; };
-		6CFEBE2E1BAA2B4E00DCF1F6 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CFEBE2D1BAA2B4E00DCF1F6 /* Order.m */; };
 		7E6F3082426E62B3C4B91CDD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAE895145815D6665385B45 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -249,6 +254,26 @@
 		6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsFetchedCollectionViewController.m; sourceTree = "<group>"; };
 		6C53D1861B90D0660087A6BC /* TicketCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketCollectionViewCell.h; sourceTree = "<group>"; };
 		6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketCollectionViewCell.m; sourceTree = "<group>"; };
+		6C5C62FC1BBC75A8001A336A /* Venue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Venue+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Venue+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C62FE1BBC75A8001A336A /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C5C62FF1BBC75A8001A336A /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C5C63001BBC75A8001A336A /* Ticket+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C63021BBC75A8001A336A /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6C5C63031BBC75A8001A336A /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6C5C63041BBC75A8001A336A /* Order+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C63061BBC75A8001A336A /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6C5C63071BBC75A8001A336A /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6C5C63081BBC75A8001A336A /* Event+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C630A1BBC75A8001A336A /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C5C630B1BBC75A8001A336A /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C5C630C1BBC75A8001A336A /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C630E1BBC75A8001A336A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6C5C630F1BBC75A8001A336A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -365,16 +390,6 @@
 		6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PIK.m"; sourceTree = "<group>"; };
 		6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ticket.jpg; sourceTree = "<group>"; };
 		6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfoAdmin.plist; sourceTree = "<group>"; };
-		6CFEBE201BAA2B4D00DCF1F6 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6CFEBE211BAA2B4D00DCF1F6 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
-		6CFEBE231BAA2B4E00DCF1F6 /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6CFEBE241BAA2B4E00DCF1F6 /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
-		6CFEBE261BAA2B4E00DCF1F6 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6CFEBE271BAA2B4E00DCF1F6 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6CFEBE291BAA2B4E00DCF1F6 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6CFEBE2A1BAA2B4E00DCF1F6 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		6CFEBE2C1BAA2B4E00DCF1F6 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6CFEBE2D1BAA2B4E00DCF1F6 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -856,16 +871,26 @@
 		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6CFEBE2C1BAA2B4E00DCF1F6 /* Order.h */,
-				6CFEBE2D1BAA2B4E00DCF1F6 /* Order.m */,
-				6CFEBE291BAA2B4E00DCF1F6 /* User.h */,
-				6CFEBE2A1BAA2B4E00DCF1F6 /* User.m */,
-				6CFEBE261BAA2B4E00DCF1F6 /* Event.h */,
-				6CFEBE271BAA2B4E00DCF1F6 /* Event.m */,
-				6CFEBE231BAA2B4E00DCF1F6 /* Ticket.h */,
-				6CFEBE241BAA2B4E00DCF1F6 /* Ticket.m */,
-				6CFEBE201BAA2B4D00DCF1F6 /* Venue.h */,
-				6CFEBE211BAA2B4D00DCF1F6 /* Venue.m */,
+				6C5C62FC1BBC75A8001A336A /* Venue+CoreDataProperties.h */,
+				6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */,
+				6C5C62FE1BBC75A8001A336A /* Venue.h */,
+				6C5C62FF1BBC75A8001A336A /* Venue.m */,
+				6C5C63001BBC75A8001A336A /* Ticket+CoreDataProperties.h */,
+				6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */,
+				6C5C63021BBC75A8001A336A /* Ticket.h */,
+				6C5C63031BBC75A8001A336A /* Ticket.m */,
+				6C5C63041BBC75A8001A336A /* Order+CoreDataProperties.h */,
+				6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */,
+				6C5C63061BBC75A8001A336A /* Order.h */,
+				6C5C63071BBC75A8001A336A /* Order.m */,
+				6C5C63081BBC75A8001A336A /* Event+CoreDataProperties.h */,
+				6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */,
+				6C5C630A1BBC75A8001A336A /* Event.h */,
+				6C5C630B1BBC75A8001A336A /* Event.m */,
+				6C5C630C1BBC75A8001A336A /* User+CoreDataProperties.h */,
+				6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */,
+				6C5C630E1BBC75A8001A336A /* User.h */,
+				6C5C630F1BBC75A8001A336A /* User.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -1238,24 +1263,28 @@
 			files = (
 				6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */,
 				6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */,
+				6C5C63191BBC75A8001A336A /* User.m in Sources */,
 				6C8607F31B9CA816009F9C76 /* EventSelectorViewController.m in Sources */,
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
 				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
-				6CFEBE251BAA2B4E00DCF1F6 /* Ticket.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
 				6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
+				6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
+				6C5C63171BBC75A8001A336A /* Event.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
 				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
+				6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */,
 				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */,
+				6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
 				6C8A741D1B24D70100AAD04E /* qrencode.c in Sources */,
 				6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */,
@@ -1263,8 +1292,7 @@
 				6C09297E1B8534C300851DA8 /* LabelTitle.m in Sources */,
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
-				6CFEBE2B1BAA2B4E00DCF1F6 /* User.m in Sources */,
-				6CFEBE281BAA2B4E00DCF1F6 /* Event.m in Sources */,
+				6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
 				6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */,
 				6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */,
@@ -1273,13 +1301,13 @@
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
 				6C8607ED1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m in Sources */,
 				6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */,
+				6C5C63131BBC75A8001A336A /* Ticket.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C8607FB1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m in Sources */,
 				6C945D971BAC79D300B7FDD6 /* PIKSegmentedControl.m in Sources */,
 				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
-				6CFEBE2E1BAA2B4E00DCF1F6 /* Order.m in Sources */,
 				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
 				6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */,
 				6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */,
@@ -1290,6 +1318,8 @@
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
 				6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */,
 				6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */,
+				6C5C63151BBC75A8001A336A /* Order.m in Sources */,
+				6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */,
 				6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
@@ -1306,8 +1336,8 @@
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
 				6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
-				6CFEBE221BAA2B4D00DCF1F6 /* Venue.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
+				6C5C63111BBC75A8001A336A /* Venue.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,
 				6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */,
 				6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */,

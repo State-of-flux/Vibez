@@ -24,6 +24,16 @@
 
 @implementation OrderInfoViewController
 
++ (instancetype)createWithOrder:(PFObject *)order {
+    UIStoryboard *storyboardMain = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    OrderInfoViewController *instance = (OrderInfoViewController *)[storyboardMain instantiateViewControllerWithIdentifier:NSStringFromClass([OrderInfoViewController class])];
+    
+    [instance setOrder:order];
+    
+    return instance;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavBar:@"Order"];
@@ -127,9 +137,25 @@
     return overallPrice;
 }
 
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell) {
+        
+    }
+    
+    return cell;
+}
+
 -(void)setNavBar:(NSString*)titleText
 {
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelOrder:)];
+    self.navigationItem.leftBarButtonItem = buttonCancel;
     [self.navigationItem setTitle:titleText];
+}
+
+- (void)cancelOrder:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)buttonCheckoutPressed:(id)sender {

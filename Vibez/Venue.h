@@ -2,8 +2,8 @@
 //  Venue.h
 //  Vibez
 //
-//  Created by Harry Liddell on 16/09/2015.
-//  Copyright (c) 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 30/09/2015.
+//  Copyright © 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,22 +11,14 @@
 
 @class Event;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Venue : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * hasBeenUpdated;
-@property (nonatomic, retain) NSString * image;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * town;
-@property (nonatomic, retain) NSString * venueDescription;
-@property (nonatomic, retain) NSString * venueID;
-@property (nonatomic, retain) NSSet *events;
-@end
-
-@interface Venue (CoreDataGeneratedAccessors)
-
-- (void)addEventsObject:(Event *)value;
-- (void)removeEventsObject:(Event *)value;
-- (void)addEvents:(NSSet *)values;
-- (void)removeEvents:(NSSet *)values;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Venue+CoreDataProperties.h"

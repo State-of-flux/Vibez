@@ -23,6 +23,9 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
 #import "UIScrollView+TwitterCover.h"
+#import "VenueInfoViewController.h"
+#import "UIViewController+NavigationController.h"
+#import "Venue+Additions.h"
 
 static CGFloat kImageOriginHight = 180.f;
 
@@ -70,7 +73,7 @@ static CGFloat kImageOriginHight = 180.f;
         imgRect.origin.y = scrollView.contentOffset.y;
         imgRect.size.height = imageHeight+yPos;
         [self.eventImageView setFrame:imgRect];
-        [self.blurView setFrame:imgRect];
+        [self.blurView setFrame:self.eventImageView.frame];
         [self.eventNameLabel setCenter:CGPointMake(self.eventImageView.frame.size.width/2, self.eventImageView.frame.size.height/2)];
     }
 }
@@ -121,7 +124,6 @@ static CGFloat kImageOriginHight = 180.f;
     CGFloat height = self.view.frame.size.height;
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (self.getTicketsButton.frame.size.height));
-    
 
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus)];
     [self.view addSubview:self.scrollView];
@@ -139,7 +141,7 @@ static CGFloat kImageOriginHight = 180.f;
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.blurView.frame = self.eventImageView.frame;
-    [self.eventImageView addSubview:self.blurView];
+    
     
     [self.eventNameLabel setText:[[self event] name]];
     
@@ -162,14 +164,14 @@ static CGFloat kImageOriginHight = 180.f;
     [buttonVenue setFrame:CGRectMake(paddingDouble + 7.5f, CGRectGetMaxY(self.eventImageView.frame) + padding, width - 32, 25)];
     [buttonVenue setTitle:[[self event] eventVenue] forState:UIControlStateNormal];
     [[buttonVenue titleLabel] setFont:[UIFont pik_avenirNextBoldWithSize:18.0f]];
-    [buttonVenue setBackgroundColor:[UIColor pku_purpleColorandAlpha:1.0f]];
+    [buttonVenue setBackgroundColor:[UIColor pku_purpleColor]];
     [buttonVenue sizeToFit];
     buttonVenue.layer.cornerRadius = 2;
     buttonVenue.layer.borderWidth = 2;
     buttonVenue.layer.borderColor = [UIColor pku_purpleColor].CGColor;
     [buttonVenue setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self adjustButtonView:buttonVenue toSize:CGSizeMake(buttonVenue.frame.size.width + 15.0f, buttonVenue.frame.size.height - 5.0f)];
-    [buttonVenue addTarget:self action:@selector(pushVenue:) forControlEvents:UIControlEventAllEvents];
+    [buttonVenue addTarget:self action:@selector(pushVenue:) forControlEvents:UIControlEventTouchUpInside];
     
     // Event Date
     self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + paddingDouble, width - 32, 25)];
@@ -178,16 +180,16 @@ static CGFloat kImageOriginHight = 180.f;
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
+    [dateFormatter setDateFormat:@"EEE dd MMMM"];
     NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:self.event.startDate]];
     [dateFormatString insertString:[NSString daySuffixForDate:self.event.startDate] atIndex:6];
     self.eventDateLabel.text = dateFormatString;
     
     // Event Date
-    self.eventDateEndLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.eventDateLabel.frame)/2, CGRectGetMaxY(self.eventVenueLabel.frame) + padding, width / 2 - 32, 25)];
+    self.eventDateEndLabel =[[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 25)];
     self.eventDateEndLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
     self.eventDateEndLabel.textColor = [UIColor whiteColor];
-    self.eventDateEndLabel.textAlignment = NSTextAlignmentRight;
+    self.eventDateEndLabel.textAlignment = NSTextAlignmentLeft;
     
     [dateFormatter setDateFormat:@"HH:mma"];
     NSMutableString *dateFormatStringBegin = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.startDate] lowercaseString]];
@@ -196,32 +198,41 @@ static CGFloat kImageOriginHight = 180.f;
     
     self.eventDateEndLabel.text = beginningEnd;
     
-    // Event Description
-    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
-    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
-    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
-    self.eventDescriptionTextView.text = self.event.eventDescription;
-    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
-    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
-    self.eventDescriptionTextView.editable = NO;
-    self.eventDescriptionTextView.selectable = NO;
+    // Event description Label
+    
+    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + paddingDouble, width - 32, 25)];
+    self.eventDescriptionLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+    self.eventDescriptionLabel.textColor = [UIColor pku_greyColor];
+    self.eventDescriptionLabel.text = self.event.eventDescription;
+    self.eventDescriptionLabel.numberOfLines = 0;
     [self.eventDescriptionTextView sizeToFit];
     
+//    // Event Description
+//    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
+//    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
+//    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+//    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
+//    self.eventDescriptionTextView.text = self.event.eventDescription;
+//    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
+//    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+//    self.eventDescriptionTextView.editable = NO;
+//    self.eventDescriptionTextView.selectable = NO;
+//    [self.eventDescriptionTextView sizeToFit];
+    
     [self.scrollView addSubview:self.eventImageView];
-    //[self.scrollView addSubview:self.darkOverlay];
-    [self.eventImageView addSubview:self.eventNameLabel];
+    [self.scrollView addSubview:self.blurView];
+    [self.scrollView addSubview:self.eventNameLabel];
+    
     [self.scrollView addSubview:self.eventDateLabel];
     [self.scrollView addSubview:self.eventDateEndLabel];
     [self.scrollView addSubview:buttonVenue];
-    [self.scrollView addSubview:self.eventDescriptionTextView];
+    [self.scrollView addSubview:self.eventDescriptionLabel];
     
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
     [self.scrollView setContentSize:CGSizeMake(0, self.scrollView.frame.size.height + 200 + self.getTicketsButton.frame.size.height)];
-    //
-    //
-    //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
-    //[self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
+    
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
+    [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [self.getTicketsButton setTintColor:[UIColor whiteColor]];
     
     if([[self.event quantity] isEqualToNumber:@0])
@@ -235,10 +246,17 @@ static CGFloat kImageOriginHight = 180.f;
     }
     
     [self.view bringSubviewToFront:self.getTicketsButton];
+    [self.scrollView bringSubviewToFront:self.eventNameLabel];
 }
 
-- (void)pushEvent:(id)sender {
+- (void)pushVenue:(id)sender {
     
+    NSError *error;
+    Venue *venue = [Venue sqk_insertOrFetchWithKey:@"venueID" value:self.event.eventVenueId context:[PIKContextManager mainContext] error:&error];
+    
+    VenueInfoViewController *venueVC = [VenueInfoViewController createWithVenue:venue];
+    [self.navigationController pushViewController:venueVC animated:YES];
+    //[self presentViewController:[venueVC withNavigationControllerWithOpaque] animated:YES completion:nil];
 }
 
 -(void)shareEvent
@@ -399,7 +417,15 @@ static CGFloat kImageOriginHight = 180.f;
          
          if(self.eventPFObject)
          {
-             [self performSegueWithIdentifier:@"eventInfoToOrderInfoSegue" sender:self];
+             if([reachability isReachable]) {
+                 
+                 OrderInfoViewController *orderModalVC = [OrderInfoViewController createWithOrder:[Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected]];
+                 
+                 [self presentViewController:[orderModalVC withNavigationControllerWithOpaque] animated:YES completion:nil];
+             } else {
+                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alertView show];
+             }
          }
          else
          {
@@ -419,13 +445,7 @@ static CGFloat kImageOriginHight = 180.f;
     if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"])
     {
         // Here we create the order using the event and quantity, the quantity denotes the amount of ticket objects created.
-        if([reachability isReachable]) {
-            OrderInfoViewController *destinationVC = segue.destinationViewController;
-            destinationVC.order = [Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected];
-        } else {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-            [alertView show];
-        }
+        
     }
 }
 

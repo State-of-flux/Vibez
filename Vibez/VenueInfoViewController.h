@@ -9,7 +9,7 @@
 #import "GlobalViewController.h"
 #import "Venue.h"
 
-@interface VenueInfoViewController : GlobalViewController
+@interface VenueInfoViewController : GlobalViewController <UIScrollViewDelegate>
 
 @property (strong, nonatomic) UIImageView *venueImageView;
 @property (strong, nonatomic) UILabel *venueNameLabel;
@@ -21,7 +21,12 @@
 @property (strong, nonatomic) Venue *venue;
 
 @property (strong, nonatomic) UIScrollView *scrollView;
+
+@property (strong, nonatomic) UIVisualEffectView *blurView;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonGetDirections;
 - (IBAction)buttonGetDirectionsPressed:(id)sender;
+
++ (instancetype)createWithVenue:(Venue *)venue;
 
 @end

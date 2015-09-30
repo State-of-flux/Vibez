@@ -12,10 +12,11 @@
 #import "GlobalViewController.h"
 #import <AFNetworking/AFNetworking.h>
 
-@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate>
+@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) Braintree *braintree;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) BTDropInViewController *paymentVC;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *labelEventName;
@@ -40,5 +41,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonCheckout;
 - (IBAction)buttonCheckoutPressed:(id)sender;
++ (instancetype)createWithOrder:(PFObject *)order;
 
 @end
