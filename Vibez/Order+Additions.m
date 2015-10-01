@@ -149,23 +149,25 @@
     [newOrder setObject:@0 forKey:@"discount"];
     [newOrder setObject:[PFUser currentUser] forKey:@"user"];
     
+    return newOrder;
+}
+
++ (NSMutableArray *)createTicketsForOrder:(PFObject *)order {
     NSMutableArray *arrayOfTickets = [NSMutableArray array];
     
-    for(NSInteger i = 0; i < quantity; i++)
+    for(NSInteger i = 0; i < [[order objectForKey:@"quantity"] integerValue]; i++)
     {
         PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
         
         [ticket setObject:@NO forKey:@"hasBeenUsed"];
-        [ticket setObject:event forKey:@"event"];
+        [ticket setObject:[order objectForKey:@"event"] forKey:@"event"];
         [ticket setObject:[PFUser currentUser] forKey:@"user"];
         [ticket setObject:@"" forKey:@"nameIdentifier"];
         
         [arrayOfTickets addObject:ticket];
     }
-   
-    [newOrder setObject:arrayOfTickets forKey:@"tickets"];
     
-    return newOrder;
+    return arrayOfTickets;
 }
 
 @end

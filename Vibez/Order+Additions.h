@@ -19,5 +19,5 @@
 + (void)getOrdersForEvent:(PFObject *)event fromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
 - (void)saveToParse;
 + (PFObject *)createOrderForEvent:(PFObject *)event withQuantity:(NSInteger)quantity;
-
++ (NSMutableArray *)createTicketsForOrder:(PFObject *)order;
 @end

@@ -117,6 +117,9 @@ static CGFloat kImageOriginHight = 180.f;
 
 -(void)layoutSubviews
 {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
+    
     CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
     CGFloat padding = 8;
     CGFloat paddingDouble = 16;
@@ -161,16 +164,18 @@ static CGFloat kImageOriginHight = 180.f;
     self.eventVenueLabel.text = self.event.eventVenue;
     
     UIButton *buttonVenue = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonVenue setFrame:CGRectMake(paddingDouble + 7.5f, CGRectGetMaxY(self.eventImageView.frame) + padding, width - 32, 25)];
+    [buttonVenue setFrame:CGRectMake(paddingDouble + 7.5f, CGRectGetMaxY(self.eventImageView.frame) + paddingDouble, width - 32, 25)];
     [buttonVenue setTitle:[[self event] eventVenue] forState:UIControlStateNormal];
     [[buttonVenue titleLabel] setFont:[UIFont pik_avenirNextBoldWithSize:18.0f]];
     [buttonVenue setBackgroundColor:[UIColor pku_purpleColor]];
-    [buttonVenue sizeToFit];
-    buttonVenue.layer.cornerRadius = 2;
-    buttonVenue.layer.borderWidth = 2;
-    buttonVenue.layer.borderColor = [UIColor pku_purpleColor].CGColor;
+    [[buttonVenue layer] setCornerRadius:2];
+    [[buttonVenue layer] setBorderWidth:2];
+    [[buttonVenue layer] setBorderColor:[UIColor pku_purpleColor].CGColor];
     [buttonVenue setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self adjustButtonView:buttonVenue toSize:CGSizeMake(buttonVenue.frame.size.width + 15.0f, buttonVenue.frame.size.height - 5.0f)];
+    [buttonVenue setImage:[factory createImageForIcon:NIKFontAwesomeIconHome] forState:UIControlStateNormal];
+    [buttonVenue setTintColor:[UIColor whiteColor]];
+    [buttonVenue sizeToFit];
+    [self adjustButtonView:buttonVenue toSize:CGSizeMake(buttonVenue.frame.size.width + 15.0f, buttonVenue.frame.size.height + 5.0f)];
     [buttonVenue addTarget:self action:@selector(pushVenue:) forControlEvents:UIControlEventTouchUpInside];
     
     // Event Date
@@ -200,12 +205,13 @@ static CGFloat kImageOriginHight = 180.f;
     
     // Event description Label
     
-    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + paddingDouble, width - 32, 25)];
-    self.eventDescriptionLabel.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-    self.eventDescriptionLabel.textColor = [UIColor pku_greyColor];
-    self.eventDescriptionLabel.text = self.event.eventDescription;
-    self.eventDescriptionLabel.numberOfLines = 0;
-    [self.eventDescriptionTextView sizeToFit];
+    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 25)];
+    [[self eventDescriptionLabel] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
+    [[self eventDescriptionLabel] setTextColor:[UIColor pku_greyColor]];
+    [[self eventDescriptionLabel] setLineBreakMode:NSLineBreakByWordWrapping];
+    [[self eventDescriptionLabel] setNumberOfLines:0];
+    [[self eventDescriptionLabel] setText:[[self event] eventDescription]];
+
     
 //    // Event Description
 //    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
@@ -231,7 +237,6 @@ static CGFloat kImageOriginHight = 180.f;
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
     [self.scrollView setContentSize:CGSizeMake(0, self.scrollView.frame.size.height + 200 + self.getTicketsButton.frame.size.height)];
     
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [self.getTicketsButton setTintColor:[UIColor whiteColor]];
     
@@ -442,10 +447,8 @@ static CGFloat kImageOriginHight = 180.f;
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"])
-    {
+    if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"]) {
         // Here we create the order using the event and quantity, the quantity denotes the amount of ticket objects created.
-        
     }
 }
 

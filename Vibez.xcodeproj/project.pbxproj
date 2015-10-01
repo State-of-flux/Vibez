@@ -80,6 +80,7 @@
 		6C5C63171BBC75A8001A336A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630B1BBC75A8001A336A /* Event.m */; settings = {ASSET_TAGS = (); }; };
 		6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C631A1BBC8CC0001A336A /* Order.plist */; settings = {ASSET_TAGS = (); }; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -274,6 +275,7 @@
 		6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6C5C630E1BBC75A8001A336A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		6C5C630F1BBC75A8001A336A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6C5C631A1BBC8CC0001A336A /* Order.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Order.plist; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
 				6C3471631AE481A100FC789A /* Images */,
+				6C5C631A1BBC8CC0001A336A /* Order.plist */,
 				6C1E55B51ACF08D9003965A0 /* Info.plist */,
 				6C1E55B61ACF08D9003965A0 /* main.m */,
 				6C79FF761B28B49A006293C9 /* PrefixHeader.pch */,
@@ -1199,6 +1202,7 @@
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
+				6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */,
 				6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
 				6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */,
