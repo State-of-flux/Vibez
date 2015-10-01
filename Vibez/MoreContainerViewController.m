@@ -11,6 +11,8 @@
 #import <Parse/Parse.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import "EventSelectorViewController.h"
+#import "UIViewController+NavigationController.h"
 
 @interface MoreContainerViewController ()
 
@@ -21,7 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"MorePageInfo" ofType:@"plist"];
+    NSString *path = [NSString string];
+    
+    if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
+        path = [[NSBundle mainBundle] pathForResource:@"MorePageInfo" ofType:@"plist"];
+    } else {
+        path = [[NSBundle mainBundle] pathForResource:@"MorePageInfoAdmin" ofType:@"plist"];
+    }
+   
     self.data = [[[NSDictionary alloc] initWithContentsOfFile:path] objectForKey:@"Sections"];
     self.accountData = [self.data objectForKey:@"Account"];
     self.filterData = [self.data objectForKey:@"Filter"];
@@ -92,7 +101,9 @@
     else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
     {
         [self setShareTheVibesCell:cell];
-        
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Event Selected"]) {
+        [self setEventSelectedCell:cell];
     }
 
     return cell;
@@ -152,7 +163,14 @@
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
-    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconFighterJet]];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconSignOut]];
+}
+
+-(void)setEventSelectedCell:(UITableViewCell *)cell
+{
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
+    //[cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
 }
 
 -(void)setLinkToFacebookCell:(UITableViewCell *)cell
@@ -190,6 +208,9 @@
     else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
     {
         [self shareTheVibes];
+    }
+    else if ([[[cell textLabel] text] isEqualToString:@"Event Selected"]) {
+        [self eventSelectedPressed];
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -277,6 +298,11 @@
     [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)eventSelectedPressed {
+    EventSelectorViewController *vc = [EventSelectorViewController create];
+    [self presentViewController:[vc withNavigationControllerWithOpaque] animated:self completion:nil];
 }
 
 - (void)linkToFacebook {

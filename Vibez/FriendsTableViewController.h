@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <UIScrollView+EmptyDataSet.h>
+#import "UIScrollView+EmptyDataSet.h"
 #import <Parse/Parse.h>
 
 @interface FriendsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>

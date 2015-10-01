@@ -2,22 +2,15 @@
 //  User.m
 //  Vibez
 //
-//  Created by Harry Liddell on 20/08/2015.
-//  Copyright (c) 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 30/09/2015.
+//  Copyright © 2015 Pikture. All rights reserved.
 //
 
 #import "User.h"
 #import "Order.h"
 
-
 @implementation User
 
-@dynamic emailAddress;
-@dynamic friends;
-@dynamic hasBeenUpdated;
-@dynamic location;
-@dynamic userID;
-@dynamic username;
-@dynamic orders;
+// Insert code here to add functionality to your managed object subclass
 
 @end

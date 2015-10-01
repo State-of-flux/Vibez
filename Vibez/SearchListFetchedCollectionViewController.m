@@ -11,6 +11,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <Reachability/Reachability.h>
 #import "UserCollectionViewCell.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface SearchListFetchedCollectionViewController ()
 {
@@ -32,9 +34,8 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+    if (self) {
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
@@ -47,21 +48,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"Vibes List"];
+    [self.navigationItem setTitle:@"List"];
     
     [self.collectionView registerClass:[UserCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UserCollectionViewCell class])];
     
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search by username or email"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchBar setBarStyle:UIBarStyleBlack];
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -72,15 +81,15 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getTicketsForEvent:self.event fromParseWithSuccessBlock:^(NSArray *objects) {
+        PFObject *eventObject = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[Event eventIdForAdmin]];
+        
+        [Order getOrdersForEvent:eventObject fromParseWithSuccessBlock:^(NSArray *objects) {
             NSError *error;
             
             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-            [Ticket importTickets:objects intoContext:newPrivateContext];
-            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+            [Order importOrders:objects intoContext:newPrivateContext];
+            [Order deleteInvalidOrdersInContext:newPrivateContext];
             [newPrivateContext save:&error];
-            
-            [self reloadFetchedResultsControllerForSearch:nil];
             
             if(error)
             {
@@ -106,10 +115,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
-    [self setTicketSelected:ticket];
+    Order *order = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    [self setOrderSelected:order];
     self.indexPathSelected = indexPath;
-    //[self.parentViewController performSegueWithIdentifier:@"" sender:self];
+    [self.parentViewController performSegueWithIdentifier:@"listToUserInfoSegue" sender:self];
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -129,29 +138,39 @@
 
 -(void)fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController configureItemCell:(UICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    UserCollectionViewCell *ticketCell = (UserCollectionViewCell *)cell;
-    Ticket *ticket = [fetchedResultsController objectAtIndexPath:indexPath];
+    UserCollectionViewCell *orderCell = (UserCollectionViewCell *)cell;
+    Order *order = [fetchedResultsController objectAtIndexPath:indexPath];
 
-    ticketCell.ticketNameLabel.text = ticket.username;
-    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
+    orderCell.ticketNameLabel.text = order.username;
+    orderCell.ticketDateLabel.text = order.email;
+    
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:35.0f];
+    [orderCell.ticketImage setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
+    [orderCell.ticketImage setContentMode:UIViewContentModeCenter];
+    
+    [orderCell setBackgroundColor:[UIColor pku_lightBlack]];
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
     NSFetchRequest *request;
     
-    request = [Ticket sqk_fetchRequest]; //Create ticket additions
+    request = [Order sqk_fetchRequest]; //Create ticket additions
+    
+    //[request setResultType:NSDictionaryResultType];
+    //[request setReturnsDistinctResults:YES];
+    //[request setPropertiesToFetch:@[@"user.username"]];
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES] ];
+                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString]];
-        //[subpredicates addObject:[NSPredicate predicateWithFormat:@"firstName CONTAINS[cd] %@", searchString]];
-        //[subpredicates addObject:[NSPredicate predicateWithFormat:@"lastName CONTAINS[cd] %@", searchString]];
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"email CONTAINS[cd] %@", searchString]];
     }
     
     //[subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
@@ -180,7 +199,7 @@
 
 - (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
 {
-    NSString *text = @"No users exist with that username or name.";
+    NSString *text = @"No users exist with that username or email.";
     
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;

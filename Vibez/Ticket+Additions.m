@@ -39,6 +39,7 @@
                    managedObject.eventID = [dictionary[@"event"] objectForKey:@"objectId"];
                    managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
+                   managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
                    managedObject.venue = [[dictionary[@"event"] objectForKey:@"venue"] objectForKey:@"venueName"];
                    //managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
@@ -67,7 +68,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user = %@", [PFUser currentUser]];
     
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event.venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -84,7 +85,7 @@
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"event = %@", event];
     
-    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event.venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -133,10 +134,7 @@
 {
     PFObject *object = [PFObject objectWithClassName:NSStringFromClass([self class])
                                           dictionary:@{@"objectId" : self.ticketID,
-                                                       @"hasBeenUsed" : self.hasBeenUsed,
-                                                       @"referenceNumber" : self.referenceNumber,
-                                                       //@"user" : user,
-                                                       //@"event" : event
+                                                       @"hasBeenUsed" : [NSNumber numberWithBool:self.hasBeenUsed]
                                                        }];
     
     return object;

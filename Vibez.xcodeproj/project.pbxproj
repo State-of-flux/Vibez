@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4EFB60E3B08CBB7F2BF7964A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B17B9CC57D0D36B97F73DA76 /* libPods.a */; };
 		6C066FD21B1BAEEF009EA34D /* first_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FBE1B1BAEEF009EA34D /* first_normal.png */; };
 		6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FBF1B1BAEEF009EA34D /* first_normal@2x.png */; };
 		6C066FD41B1BAEEF009EA34D /* first_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C066FC01B1BAEEF009EA34D /* first_selected.png */; };
@@ -65,16 +64,23 @@
 		6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2441AE083ED0078154E /* VenueInfoViewController.m */; };
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
+		6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */; settings = {ASSET_TAGS = (); }; };
 		6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D14E1B864C8A0087A6BC /* Order+Additions.m */; };
-		6C53D1701B867ADA0087A6BC /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D16F1B867ADA0087A6BC /* Order.m */; };
-		6C53D1731B867ADA0087A6BC /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1721B867ADA0087A6BC /* User.m */; };
-		6C53D1761B867ADB0087A6BC /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1751B867ADB0087A6BC /* Venue.m */; };
-		6C53D1791B867ADB0087A6BC /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1781B867ADB0087A6BC /* Event.m */; };
-		6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17B1B867ADB0087A6BC /* Ticket.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
 		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
 		6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */; };
 		6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */; };
+		6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63111BBC75A8001A336A /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FF1BBC75A8001A336A /* Venue.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63131BBC75A8001A336A /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63031BBC75A8001A336A /* Ticket.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63151BBC75A8001A336A /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63071BBC75A8001A336A /* Order.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63171BBC75A8001A336A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630B1BBC75A8001A336A /* Event.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; settings = {ASSET_TAGS = (); }; };
+		6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C631A1BBC8CC0001A336A /* Order.plist */; settings = {ASSET_TAGS = (); }; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
 		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
 		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
@@ -108,13 +114,17 @@
 		6C8A74201B24D70100AAD04E /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74171B24D70100AAD04E /* rscode.c */; };
 		6C8A74211B24D70100AAD04E /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74191B24D70100AAD04E /* split.c */; };
 		6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */; };
+		6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8C05071BB9C525006406BC /* Ailerons.ttf */; };
 		6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C64F1B38717100C82735 /* PIKContextManager.m */; };
 		6C90C6541B3875F700C82735 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6531B3875F700C82735 /* User+Additions.m */; };
 		6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6561B3876AA00C82735 /* PFObject+PIK.m */; };
 		6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6591B3877BD00C82735 /* PIKParseManager.m */; };
 		6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6621B38787E00C82735 /* Venue+Additions.m */; };
 		6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */; };
+		6C945D971BAC79D300B7FDD6 /* PIKSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C945D961BAC79D300B7FDD6 /* PIKSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
 		6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6C96DB9C1B7A83FF00B4CF2F /* background.gif */; };
+		6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */; settings = {ASSET_TAGS = (); }; };
+		6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */; settings = {ASSET_TAGS = (); }; };
 		6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0F7801B212C3900DF867D /* loginBG.jpg */; };
 		6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A4321B3CC9AB00121975 /* Event+Additions.m */; };
 		6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5721B5835BD00EA9A09 /* Constants.m */; };
@@ -126,11 +136,12 @@
 		6CB75FF41B93B48D00CEB31A /* VibesTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */; };
 		6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864241B55BE5100E2838A /* MoreTabViewController.m */; };
 		6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB864271B55BEA400E2838A /* MoreContainerViewController.m */; };
-		6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */; };
 		6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E041ADED8B800CDBC29 /* Social.framework */; };
 		6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E061ADED8BD00CDBC29 /* Accounts.framework */; };
 		6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBAF831B4F416400ED75CD /* RKDropdownAlert.m */; };
 		6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBAF8B1B4F4AEC00ED75CD /* TicketsViewController.m */; };
+		6CE7B3701BB9BB98000EB03D /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE7B36F1BB9BB98000EB03D /* backArrow.png */; settings = {ASSET_TAGS = (); }; };
+		6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CE7B3711BB9BE34000EB03D /* Montserrat-Light.otf */; };
 		6CEF066D1B49B057001F1E7C /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */; };
 		6CEF066E1B49B057001F1E7C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */; };
 		6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */; };
@@ -138,6 +149,7 @@
 		6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */; };
 		6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */; };
 		6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */; };
+		7E6F3082426E62B3C4B91CDD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CAE895145815D6665385B45 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +163,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CAE895145815D6665385B45 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F3B4DCC358B802FE7FB6BBF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		6C066FBE1B1BAEEF009EA34D /* first_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = first_normal.png; sourceTree = "<group>"; };
 		6C066FBF1B1BAEEF009EA34D /* first_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "first_normal@2x.png"; sourceTree = "<group>"; };
@@ -230,18 +243,10 @@
 		6C37D2471AE085130078154E /* EventInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInfoViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
+		6C4FB7A61BB5C10E006AF4EE /* UIScrollView+TwitterCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TwitterCover.h"; sourceTree = "<group>"; };
+		6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TwitterCover.m"; sourceTree = "<group>"; };
 		6C53D14D1B864C8A0087A6BC /* Order+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+Additions.h"; sourceTree = "<group>"; };
 		6C53D14E1B864C8A0087A6BC /* Order+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+Additions.m"; sourceTree = "<group>"; };
-		6C53D16E1B867ADA0087A6BC /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
-		6C53D16F1B867ADA0087A6BC /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
-		6C53D1711B867ADA0087A6BC /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		6C53D1721B867ADA0087A6BC /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		6C53D1741B867ADB0087A6BC /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
-		6C53D1751B867ADB0087A6BC /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
-		6C53D1771B867ADB0087A6BC /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		6C53D1781B867ADB0087A6BC /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		6C53D17A1B867ADB0087A6BC /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
-		6C53D17B1B867ADB0087A6BC /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
 		6C53D17D1B88E7640087A6BC /* UIViewController+NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NavigationController.h"; sourceTree = "<group>"; };
 		6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NavigationController.m"; sourceTree = "<group>"; };
 		6C53D1801B8A3E1E0087A6BC /* AddFriendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddFriendViewController.h; sourceTree = "<group>"; };
@@ -250,6 +255,27 @@
 		6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsFetchedCollectionViewController.m; sourceTree = "<group>"; };
 		6C53D1861B90D0660087A6BC /* TicketCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketCollectionViewCell.h; sourceTree = "<group>"; };
 		6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketCollectionViewCell.m; sourceTree = "<group>"; };
+		6C5C62FC1BBC75A8001A336A /* Venue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Venue+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Venue+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C62FE1BBC75A8001A336A /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		6C5C62FF1BBC75A8001A336A /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		6C5C63001BBC75A8001A336A /* Ticket+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Ticket+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C63021BBC75A8001A336A /* Ticket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ticket.h; sourceTree = "<group>"; };
+		6C5C63031BBC75A8001A336A /* Ticket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ticket.m; sourceTree = "<group>"; };
+		6C5C63041BBC75A8001A336A /* Order+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Order+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C63061BBC75A8001A336A /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		6C5C63071BBC75A8001A336A /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		6C5C63081BBC75A8001A336A /* Event+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C630A1BBC75A8001A336A /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		6C5C630B1BBC75A8001A336A /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		6C5C630C1BBC75A8001A336A /* User+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+CoreDataProperties.m"; sourceTree = "<group>"; };
+		6C5C630E1BBC75A8001A336A /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6C5C630F1BBC75A8001A336A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6C5C631A1BBC8CC0001A336A /* Order.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Order.plist; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
@@ -307,6 +333,7 @@
 		6C8A741A1B24D70100AAD04E /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
 		6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayTicketViewController.h; sourceTree = "<group>"; };
 		6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayTicketViewController.m; sourceTree = "<group>"; };
+		6C8C05071BB9C525006406BC /* Ailerons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ailerons.ttf; sourceTree = "<group>"; };
 		6C90C64E1B38717100C82735 /* PIKContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKContextManager.h; sourceTree = "<group>"; };
 		6C90C64F1B38717100C82735 /* PIKContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKContextManager.m; sourceTree = "<group>"; };
 		6C90C6521B3875F700C82735 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
@@ -319,7 +346,12 @@
 		6C90C6621B38787E00C82735 /* Venue+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Venue+Additions.m"; sourceTree = "<group>"; };
 		6C90C66A1B38861E00C82735 /* FetchedCollectionViewContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FetchedCollectionViewContainerViewController.h; sourceTree = "<group>"; };
 		6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
+		6C945D951BAC79D300B7FDD6 /* PIKSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKSegmentedControl.h; sourceTree = "<group>"; };
+		6C945D961BAC79D300B7FDD6 /* PIKSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKSegmentedControl.m; sourceTree = "<group>"; };
 		6C96DB9C1B7A83FF00B4CF2F /* background.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = background.gif; sourceTree = "<group>"; };
+		6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVSegmentedControl.swift; sourceTree = "<group>"; };
+		6C9CD7D61BB9DB4D00C3996C /* ProfileListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileListViewController.h; sourceTree = "<group>"; };
+		6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileListViewController.m; sourceTree = "<group>"; };
 		6CA0F7801B212C3900DF867D /* loginBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginBG.jpg; sourceTree = "<group>"; };
 		6CB4A4311B3CC9AB00121975 /* Event+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+Additions.h"; sourceTree = "<group>"; };
 		6CB4A4321B3CC9AB00121975 /* Event+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+Additions.m"; sourceTree = "<group>"; };
@@ -342,13 +374,14 @@
 		6CB864261B55BEA400E2838A /* MoreContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreContainerViewController.h; sourceTree = "<group>"; };
 		6CB864271B55BEA400E2838A /* MoreContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreContainerViewController.m; sourceTree = "<group>"; };
 		6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vibez-Bridging-Header.h"; sourceTree = "<group>"; };
-		6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADVSegmentedControl.swift; sourceTree = "<group>"; };
 		6CD58E041ADED8B800CDBC29 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		6CD58E061ADED8BD00CDBC29 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		6CDBAF831B4F416400ED75CD /* RKDropdownAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKDropdownAlert.m; sourceTree = "<group>"; };
 		6CDBAF841B4F416400ED75CD /* RKDropdownAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKDropdownAlert.h; sourceTree = "<group>"; };
 		6CDBAF8A1B4F4AEC00ED75CD /* TicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TicketsViewController.h; sourceTree = "<group>"; };
 		6CDBAF8B1B4F4AEC00ED75CD /* TicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TicketsViewController.m; sourceTree = "<group>"; };
+		6CE7B36F1BB9BB98000EB03D /* backArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backArrow.png; sourceTree = "<group>"; };
+		6CE7B3711BB9BE34000EB03D /* Montserrat-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Light.otf"; sourceTree = "<group>"; };
 		6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.otf"; sourceTree = "<group>"; };
 		6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.otf"; sourceTree = "<group>"; };
 		6CEF06721B49B0EB001F1E7C /* UIFont+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+PIK.h"; sourceTree = "<group>"; };
@@ -360,7 +393,6 @@
 		6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ticket.jpg; sourceTree = "<group>"; };
 		6CFEBDE21BA34F5600DCF1F6 /* MorePageInfoAdmin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MorePageInfoAdmin.plist; sourceTree = "<group>"; };
 		6D0ECC5C9F4AE10CBA0EFE6C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		B17B9CC57D0D36B97F73DA76 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -390,7 +422,7 @@
 				6C0A4A191ACF110E004818F1 /* CoreGraphics.framework in Frameworks */,
 				6C0A4A171ACF1107004818F1 /* CFNetwork.framework in Frameworks */,
 				6C0A4A151ACF10EC004818F1 /* AudioToolbox.framework in Frameworks */,
-				4EFB60E3B08CBB7F2BF7964A /* libPods.a in Frameworks */,
+				7E6F3082426E62B3C4B91CDD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -460,8 +492,6 @@
 				6CD58E091ADED90400CDBC29 /* Interface */,
 				6C1E55C11ACF08D9003965A0 /* Images.xcassets */,
 				6C1E55B41ACF08D9003965A0 /* Supporting Files */,
-				6CB5B5711B5835BD00EA9A09 /* Constants.h */,
-				6CB5B5721B5835BD00EA9A09 /* Constants.m */,
 			);
 			path = Vibez;
 			sourceTree = "<group>";
@@ -472,6 +502,7 @@
 				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
 				6C3471631AE481A100FC789A /* Images */,
+				6C5C631A1BBC8CC0001A336A /* Order.plist */,
 				6C1E55B51ACF08D9003965A0 /* Info.plist */,
 				6C1E55B61ACF08D9003965A0 /* main.m */,
 				6C79FF761B28B49A006293C9 /* PrefixHeader.pch */,
@@ -519,6 +550,7 @@
 		6C3471631AE481A100FC789A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6CE7B36F1BB9BB98000EB03D /* backArrow.png */,
 				6CB5B5771B5882D700EA9A09 /* vibesLogo.jpg */,
 				6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */,
 				6CA0F7801B212C3900DF867D /* loginBG.jpg */,
@@ -579,6 +611,7 @@
 		6C37D2381AE079240078154E /* Customs */ = {
 			isa = PBXGroup;
 			children = (
+				6C4FB7A91BB5C117006AF4EE /* ScrollView */,
 				6C0929751B85328300851DA8 /* UILabel */,
 				6CDBAF821B4F415500ED75CD /* Alert */,
 				6C79FF681B28940A006293C9 /* Swift */,
@@ -620,6 +653,15 @@
 			name = General;
 			sourceTree = "<group>";
 		};
+		6C4FB7A91BB5C117006AF4EE /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				6C4FB7A61BB5C10E006AF4EE /* UIScrollView+TwitterCover.h */,
+				6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */,
+			);
+			name = ScrollView;
+			sourceTree = "<group>";
+		};
 		6C60B0991B2F906D004632C0 /* Table */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,7 +686,9 @@
 			isa = PBXGroup;
 			children = (
 				6CC098F41AFEBE120089E4B7 /* Vibez-Bridging-Header.h */,
-				6CC098F91AFEC3DF0089E4B7 /* ADVSegmentedControl.swift */,
+				6C945D951BAC79D300B7FDD6 /* PIKSegmentedControl.h */,
+				6C945D961BAC79D300B7FDD6 /* PIKSegmentedControl.m */,
+				6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -652,6 +696,8 @@
 		6C79FF721B28B3D9006293C9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				6CB5B5711B5835BD00EA9A09 /* Constants.h */,
+				6CB5B5721B5835BD00EA9A09 /* Constants.m */,
 				6C53D17D1B88E7640087A6BC /* UIViewController+NavigationController.h */,
 				6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */,
 				6C0929271B7F780E00851DA8 /* NSString+MD5.h */,
@@ -728,6 +774,8 @@
 				6C8607EA1B9A1DA5009F9C76 /* Containers */,
 				6C8607E41B9A0CE2009F9C76 /* SearchListViewController.h */,
 				6C8607E51B9A0CE2009F9C76 /* SearchListViewController.m */,
+				6C9CD7D61BB9DB4D00C3996C /* ProfileListViewController.h */,
+				6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -826,16 +874,26 @@
 		6C90C64D1B38709A00C82735 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				6C53D17A1B867ADB0087A6BC /* Ticket.h */,
-				6C53D17B1B867ADB0087A6BC /* Ticket.m */,
-				6C53D1771B867ADB0087A6BC /* Event.h */,
-				6C53D1781B867ADB0087A6BC /* Event.m */,
-				6C53D1741B867ADB0087A6BC /* Venue.h */,
-				6C53D1751B867ADB0087A6BC /* Venue.m */,
-				6C53D1711B867ADA0087A6BC /* User.h */,
-				6C53D1721B867ADA0087A6BC /* User.m */,
-				6C53D16E1B867ADA0087A6BC /* Order.h */,
-				6C53D16F1B867ADA0087A6BC /* Order.m */,
+				6C5C62FC1BBC75A8001A336A /* Venue+CoreDataProperties.h */,
+				6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */,
+				6C5C62FE1BBC75A8001A336A /* Venue.h */,
+				6C5C62FF1BBC75A8001A336A /* Venue.m */,
+				6C5C63001BBC75A8001A336A /* Ticket+CoreDataProperties.h */,
+				6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */,
+				6C5C63021BBC75A8001A336A /* Ticket.h */,
+				6C5C63031BBC75A8001A336A /* Ticket.m */,
+				6C5C63041BBC75A8001A336A /* Order+CoreDataProperties.h */,
+				6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */,
+				6C5C63061BBC75A8001A336A /* Order.h */,
+				6C5C63071BBC75A8001A336A /* Order.m */,
+				6C5C63081BBC75A8001A336A /* Event+CoreDataProperties.h */,
+				6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */,
+				6C5C630A1BBC75A8001A336A /* Event.h */,
+				6C5C630B1BBC75A8001A336A /* Event.m */,
+				6C5C630C1BBC75A8001A336A /* User+CoreDataProperties.h */,
+				6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */,
+				6C5C630E1BBC75A8001A336A /* User.h */,
+				6C5C630F1BBC75A8001A336A /* User.m */,
 			);
 			name = "Managed Objects";
 			sourceTree = "<group>";
@@ -983,6 +1041,8 @@
 		6CEF066A1B49AF85001F1E7C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				6C8C05071BB9C525006406BC /* Ailerons.ttf */,
+				6CE7B3711BB9BE34000EB03D /* Montserrat-Light.otf */,
 				6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */,
 				6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */,
 			);
@@ -1023,7 +1083,7 @@
 				6C0A4A181ACF110E004818F1 /* CoreGraphics.framework */,
 				6C0A4A161ACF1107004818F1 /* CFNetwork.framework */,
 				6C0A4A141ACF10EC004818F1 /* AudioToolbox.framework */,
-				B17B9CC57D0D36B97F73DA76 /* libPods.a */,
+				0CAE895145815D6665385B45 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1074,11 +1134,13 @@
 		6C1E55A91ACF08D9003965A0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Pikture;
 				TargetAttributes = {
 					6C1E55B01ACF08D9003965A0 = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = GUUT9QSKM3;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 0;
@@ -1116,6 +1178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */,
+				6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */,
 				6C066FD21B1BAEEF009EA34D /* first_normal.png in Resources */,
 				6C066FDA1B1BAEEF009EA34D /* second_normal.png in Resources */,
 				6C066FD91B1BAEEF009EA34D /* navigationbar_background@2x.png in Resources */,
@@ -1139,12 +1202,15 @@
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
+				6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */,
+				6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
 				6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */,
 				6C066FD41B1BAEEF009EA34D /* first_selected.png in Resources */,
 				6C066FE01B1BAEEF009EA34D /* tabbar_selected_background.png in Resources */,
 				6C3471611AE4818A00FC789A /* error@2x.png in Resources */,
 				6C066FDB1B1BAEEF009EA34D /* second_normal@2x.png in Resources */,
+				6CE7B3701BB9BB98000EB03D /* backArrow.png in Resources */,
 				6CB5B5781B5882D700EA9A09 /* vibesLogo.jpg in Resources */,
 				6C288E921AF5814A001D44C1 /* plug.jpg in Resources */,
 				6CEF066D1B49B057001F1E7C /* Montserrat-Bold.otf in Resources */,
@@ -1201,30 +1267,36 @@
 			files = (
 				6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */,
 				6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */,
+				6C5C63191BBC75A8001A336A /* User.m in Sources */,
 				6C8607F31B9CA816009F9C76 /* EventSelectorViewController.m in Sources */,
 				6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */,
 				6C0929501B80B40C00851DA8 /* FriendsTableViewController.m in Sources */,
 				6C8A741B1B24D70100AAD04E /* bitstream.c in Sources */,
+				6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */,
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
+				6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
 				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
+				6C5C63171BBC75A8001A336A /* Event.m in Sources */,
 				6C8A741F1B24D70100AAD04E /* qrspec.c in Sources */,
-				6C53D1791B867ADB0087A6BC /* Event.m in Sources */,
 				6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */,
 				6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */,
 				6CEF067A1B4B6D4A001F1E7C /* TicketsFetchedTableViewController.m in Sources */,
+				6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */,
 				6CEF067D1B4CA0C0001F1E7C /* NSString+PIK.m in Sources */,
-				6C53D1701B867ADA0087A6BC /* Order.m in Sources */,
 				6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */,
 				6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */,
+				6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */,
 				6C8A741E1B24D70100AAD04E /* qrinput.c in Sources */,
 				6C8A741D1B24D70100AAD04E /* qrencode.c in Sources */,
+				6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */,
 				6C37D23C1AE079820078154E /* GlobalViewController.m in Sources */,
 				6C09297E1B8534C300851DA8 /* LabelTitle.m in Sources */,
 				6C34715D1AE46F2500FC789A /* AccountController.m in Sources */,
 				6C1E55B71ACF08D9003965A0 /* main.m in Sources */,
+				6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */,
 				6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */,
 				6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */,
 				6C0929291B7F780E00851DA8 /* NSString+MD5.m in Sources */,
@@ -1233,9 +1305,10 @@
 				6CEF06741B49B0EB001F1E7C /* UIFont+PIK.m in Sources */,
 				6C8607ED1B9A1DCA009F9C76 /* SearchListFetchedCollectionViewController.m in Sources */,
 				6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */,
-				6C53D17C1B867ADB0087A6BC /* Ticket.m in Sources */,
+				6C5C63131BBC75A8001A336A /* Ticket.m in Sources */,
 				6C7BD75D1AEB31290092483F /* Validator.m in Sources */,
 				6C8607FB1B9CA9D2009F9C76 /* EventSelectorCollectionViewCell.m in Sources */,
+				6C945D971BAC79D300B7FDD6 /* PIKSegmentedControl.m in Sources */,
 				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
@@ -1246,11 +1319,11 @@
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
 				6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */,
-				6CC098FA1AFEC3DF0089E4B7 /* ADVSegmentedControl.swift in Sources */,
-				6C53D1731B867ADA0087A6BC /* User.m in Sources */,
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
 				6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */,
 				6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */,
+				6C5C63151BBC75A8001A336A /* Order.m in Sources */,
+				6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */,
 				6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
@@ -1267,10 +1340,11 @@
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
 				6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
-				6C53D1761B867ADB0087A6BC /* Venue.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
+				6C5C63111BBC75A8001A336A /* Venue.m in Sources */,
 				6CB864281B55BEA400E2838A /* MoreContainerViewController.m in Sources */,
 				6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */,
+				6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */,
 				6C8607E01B99B2B1009F9C76 /* AdminTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1334,6 +1408,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1348,7 +1423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_MODULE_NAME = Vibez;
@@ -1385,7 +1460,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_MODULE_NAME = Vibez;
 				SDKROOT = iphoneos;
@@ -1400,15 +1475,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					/Users/harryliddell/Documents/FacebookSDK,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Vibez/PrefixHeader.pch";
 				INFOPLIST_FILE = Vibez/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1422,15 +1501,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
 					/Users/harryliddell/Documents/FacebookSDK,
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Vibez/PrefixHeader.pch";
 				INFOPLIST_FILE = Vibez/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1450,6 +1533,7 @@
 				);
 				INFOPLIST_FILE = VibezTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vibez.app/Vibez";
 			};
@@ -1465,6 +1549,7 @@
 				);
 				INFOPLIST_FILE = VibezTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vibez.app/Vibez";
 			};

@@ -7,7 +7,7 @@
 //
 
 #import "SQKFetchedCollectionViewController.h"
-#import "Vibez-Swift.h"
+//#import "Vibez-Swift.h"
 #import "PIKContextManager.h"
 #import <UIScrollView+EmptyDataSet.h>
 

@@ -12,10 +12,11 @@
 #import "GlobalViewController.h"
 #import <AFNetworking/AFNetworking.h>
 
-@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate>
+@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) Braintree *braintree;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) BTDropInViewController *paymentVC;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *labelEventName;
@@ -30,7 +31,9 @@
 
 @property (strong, nonatomic) NSDecimalNumber *price;
 @property (strong, nonatomic) NSDecimalNumber *bookingFee;
+@property (strong, nonatomic) NSDecimalNumber *pricePerTicket;
 @property (strong, nonatomic) NSDecimalNumber *overallPrice;
+@property (nonatomic) NSInteger quantity;
 
 @property (weak, nonatomic) IBOutlet UILabel *transactionIDLabel;
 @property (strong, nonatomic) NSString *clientToken;
@@ -38,7 +41,14 @@
 
 @property (strong, nonatomic) PFObject *order;
 
+@property (strong, nonatomic) NSDictionary *data;
+@property (strong, nonatomic) NSArray *eventInfoData;
+@property (strong, nonatomic) NSArray *paymentData;
+@property (strong, nonatomic) NSArray *totalData;
+@property (strong, nonatomic) NSMutableArray *arrayOfQuantities;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonCheckout;
 - (IBAction)buttonCheckoutPressed:(id)sender;
++ (instancetype)createWithOrder:(PFObject *)order;
 
 @end

@@ -10,12 +10,13 @@
 #import <UIScrollView+EmptyDataSet.h>
 #import "PIKContextManager.h"
 #import "Ticket+Additions.h"
+#import "Order+Additions.h"
 #import "User+Additions.h"
 
 @interface SearchListFetchedCollectionViewController : SQKFetchedCollectionViewController <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 
 @property (nonatomic, strong) NSIndexPath *indexPathSelected;
-@property (nonatomic, strong) Ticket *ticketSelected;
+@property (nonatomic, strong) Order *orderSelected;
 @property (nonatomic, strong) PFObject *event;
 
 @end

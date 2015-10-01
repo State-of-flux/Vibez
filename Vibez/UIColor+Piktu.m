@@ -17,6 +17,16 @@
 
 + (UIColor *)pku_purpleColor
 {
+    return [UIColor colorWithRed:148.0/255.0 green:34.0/255.0 blue:205.0/255.0 alpha:1.0];
+}
+
++ (UIColor *)pku_purpleColorandAlpha:(CGFloat)alpha
+{
+    return [UIColor colorWithRed:148.0/255.0 green:34.0/255.0 blue:205.0/255.0 alpha:alpha];
+}
+
++ (UIColor *)pku_purpleColorOld
+{
     return [UIColor colorWithRed:184.0/255.0 green:42.0/255.0 blue:255.0/255.0 alpha:1.0];
 }
 
@@ -33,6 +43,11 @@
 + (UIColor *)pku_greyColor
 {
     return [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.5];
+}
+
++ (UIColor *)pku_SuccessColor
+{
+    return [UIColor colorWithRed:11.0f/255.0f green:211.0f/255.0f blue:24.0f/255.0f alpha:1.0];
 }
 
 @end

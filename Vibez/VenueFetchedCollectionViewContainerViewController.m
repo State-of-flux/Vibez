@@ -34,7 +34,7 @@
     
     if (self)
     {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
@@ -52,14 +52,22 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search for venues"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchBar setBarStyle:UIBarStyleBlack];
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -79,7 +87,7 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             //[self reloadFetchedResultsControllerForSearch:nil];
+             [self.collectionView reloadData];
              
              if(error)
              {

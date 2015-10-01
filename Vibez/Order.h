@@ -2,8 +2,8 @@
 //  Order.h
 //  Vibez
 //
-//  Created by Harry Liddell on 20/08/2015.
-//  Copyright (c) 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 30/09/2015.
+//  Copyright © 2015 Pikture. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,21 +11,14 @@
 
 @class Ticket, User;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Order : NSManagedObject
 
-@property (nonatomic, retain) NSDecimalNumber * discount;
-@property (nonatomic, retain) NSString * orderID;
-@property (nonatomic, retain) NSString * priceTotal;
-@property (nonatomic, retain) NSNumber * hasBeenUpdated;
-@property (nonatomic, retain) User *user;
-@property (nonatomic, retain) NSSet *tickets;
-@end
-
-@interface Order (CoreDataGeneratedAccessors)
-
-- (void)addTicketsObject:(Ticket *)value;
-- (void)removeTicketsObject:(Ticket *)value;
-- (void)addTickets:(NSSet *)values;
-- (void)removeTickets:(NSSet *)values;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Order+CoreDataProperties.h"

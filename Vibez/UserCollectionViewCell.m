@@ -87,12 +87,6 @@
     
     self.ticketImage.frame = CGRectMake(padding, padding, height - paddingDouble, height - paddingDouble);
     
-    self.ticketImage.layer.masksToBounds = YES;
-    self.ticketImage.layer.cornerRadius = height/2 - padding;
-    
-    UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.ticketImage.frame.size.width, self.ticketImage.frame.size.height)];
-    darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
-    
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     [self.chevronImage setFrame:CGRectMake(width - 25, 35, 10, 17.5)];
     [self.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconChevronRight]];

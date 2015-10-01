@@ -125,6 +125,8 @@
         [query includeKey:includeKey];
         [query includeKey:@"venue"];
         [query includeKey:@"user"];
+        [query includeKey:@"event"];
+        [query includeKey:@"tickets"];
     }
     
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error)
@@ -138,6 +140,8 @@
              failureBlock(error);
          }
      }];
+    
+    query = nil;
 }
 
 + (void)reloadDataSuccess:(void (^)(void))successBlock failure:(void (^)(NSError *error))failureBlock

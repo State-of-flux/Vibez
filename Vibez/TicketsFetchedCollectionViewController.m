@@ -13,9 +13,11 @@
 #import "UIColor+Piktu.h"
 #import "NSString+PIK.h"
 #import "UIFont+PIK.h"
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
-@interface TicketsFetchedCollectionViewController ()
-{
+
+@interface TicketsFetchedCollectionViewController () {
     Reachability *reachability;
 }
 @end
@@ -33,16 +35,61 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
-        self.view.backgroundColor = [UIColor pku_blackColor];
+    if (self) {
+        self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
         [self.collectionView setAlwaysBounceVertical:YES];
     }
-    
+
     return self;
+}
+
+//- (void) setupDataSource:(NSArray*)sortedDateArray
+//{
+//    self.tableViewSections = [NSMutableArray arrayWithCapacity:0];
+//    self.tableViewCells = [NSMutableDictionary dictionaryWithCapacity:0];
+//    
+//    NSCalendar* calendar = [NSCalendar currentCalendar];
+//    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+//    dateFormatter.locale = [NSLocale currentLocale];
+//    dateFormatter.timeZone = calendar.timeZone;
+//    [dateFormatter setDateFormat:@"MMMM YYYY"];
+//    
+//    NSUInteger dateComponents = NSYearCalendarUnit | NSMonthCalendarUnit;
+//    NSInteger previousYear = -1;
+//    NSInteger previousMonth = -1;
+//    NSMutableArray* tableViewCellsForSection = nil;
+//    for (NSDate* date in sortedDateArray)
+//    {
+//        NSDateComponents* components = [calendar components:dateComponents fromDate:date];
+//        NSInteger year = [components year];
+//        NSInteger month = [components month];
+//        if (year != previousYear || month != previousMonth)
+//        {
+//            NSString* sectionHeading = [dateFormatter stringFromDate:date];
+//            [self.tableViewSections addObject:sectionHeading];
+//            tableViewCellsForSection = [NSMutableArray arrayWithCapacity:0];
+//            [self.tableViewCells setObject:tableViewCellsForSection forKey:sectionHeading];
+//            previousYear = year;
+//            previousMonth = month;
+//        }
+//        [tableViewCellsForSection addObject:date];
+//    }
+//}
+
+- (void)stackTickets {
+    NSMutableArray *ticketsStacked = [NSMutableArray array];
+    
+    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
+    
+    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
+        
+        if (ticket) {
+            
+        }
+    }
 }
 
 - (void)viewDidLoad {
@@ -55,14 +102,24 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
+    [self.searchBar setPlaceholder:@"Search by event"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
+    [self.searchBar setBarStyle:UIBarStyleBlack];
+    [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    [self stackTickets];
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.searchBar resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -73,27 +130,26 @@
         
         __weak typeof(self) weakSelf = self;
         
-        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects) {
-            NSError *error;
-            
-            NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
-            [Ticket importTickets:objects intoContext:newPrivateContext];
-            [Ticket deleteInvalidTicketsInContext:newPrivateContext];
-            [newPrivateContext save:&error];
-            
-            //[self reloadFetchedResultsControllerForSearch:nil];
-            
-            if(error)
-            {
-                NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-            }
-            
-            [weakSelf.refreshControl endRefreshing];
-        }
+        [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects)
+         {
+             NSError *error;
+             
+             NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
+             [Ticket importTickets:objects intoContext:newPrivateContext];
+             [Ticket deleteInvalidTicketsInContext:newPrivateContext];
+             [newPrivateContext save:&error];
+             
+             [self.collectionView reloadEmptyDataSet];
+             
+             if(error) {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
+             
+             [weakSelf.refreshControl endRefreshing];
+         }
                                               failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             [weakSelf.refreshControl endRefreshing];
          }];
     }
     else
@@ -145,27 +201,34 @@
     ticketCell.ticketDateLabel.text = dateFormatString;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
-    if ([[ticket image] isEqual:nil] || [[ticket image] isEqualToString:@""]) {
-        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+//    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+//
+//    if ([[ticket hasBeenUsed] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
+//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconCheckSquareO]];
+//    } else {
+//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconSquareO]];
+//    }
+    
+    [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                              placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+         if(error)
          {
-             if(error)
-             {
-                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-             }
-         }];
-    }
+             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         }
+     }];
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
 {
     NSFetchRequest *request;
     
+    //request = [self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"];
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES] ];
+                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"ticketID" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
@@ -174,12 +237,26 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"endDate >= %@", [NSDate date]]];
-    
-    
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
+    //[subpredicates addObject:[self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"]];
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
     return request;
+}
+
+- (NSPredicate *) fetchRequestForSingleInstanceOfEntity:(NSString*)entityName groupedBy:(NSString*)attributeName
+{
+    __block NSMutableSet *uniqueAttributes = [NSMutableSet set];
+    
+    NSPredicate *filter = [NSPredicate predicateWithBlock:^(id evaluatedObject, NSDictionary *bindings) {
+        if( [uniqueAttributes containsObject:[evaluatedObject valueForKey:attributeName]] )
+            return NO;
+        
+        [uniqueAttributes addObject:[evaluatedObject valueForKey:attributeName]];
+        return YES;
+    }];
+    
+    return filter;
 }
 
 #pragma mark - DZN Empty Data Set Delegates

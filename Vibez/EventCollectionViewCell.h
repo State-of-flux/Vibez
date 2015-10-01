@@ -20,6 +20,8 @@
 @property (strong, nonatomic) IBOutlet UILabel *eventPriceLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *eventImage;
 @property (strong, nonatomic) IBOutlet CLLocation *eventCLLocation;
+@property (strong, nonatomic) UIView *innerView;
+
 
 -(id)initWithFrame:(CGRect)frame;
 -(void)setModel:(NSString *)eventName eventDescription:(NSString *)eventDescription eventGenres:(NSString *)eventGenres eventVenueName:(NSString *)eventVenueName eventDate:(NSString *)eventDate eventImageData:(NSData *)eventImageData eventLocation:(NSString *)eventLocation;

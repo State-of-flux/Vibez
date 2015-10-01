@@ -224,7 +224,7 @@
 
 -(void)LoginWithUsernameParse:(NSString *)username andPassword:(NSString *)password
 {
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
+    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
      {
          if(user)
          {
@@ -232,11 +232,13 @@
              [defaults setObject:user.username forKey:@"username"];
              [defaults setObject:user.email forKey:@"emailAddress"];
              
+             self.hud.labelText = @"Fetching data...";
              if(![[user objectForKey:@"isAdmin"] boolValue])
              {
                  [self loadAllCustomerData:^(BOOL finished) {
                      if(finished)
                      {
+                         self.hud.labelText = @"Done!";
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }
@@ -247,6 +249,7 @@
                  [self loadAllAdminData:^(BOOL finished) {
                      if(finished)
                      {
+                         self.hud.labelText = @"Done!";
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }

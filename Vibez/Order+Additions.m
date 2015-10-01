@@ -33,9 +33,11 @@
                    
                    managedObject.orderID = dictionary[@"objectId"];
                    managedObject.discount = dictionary[@"discount"];
-                   managedObject.user = dictionary[@"user"];
+                   managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
+                   managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
                    managedObject.priceTotal = dictionary[@"priceTotal"];
-                   managedObject.tickets = dictionary[@"tickets"];
+                   [managedObject.tickets setByAddingObjectsFromArray:dictionary[@"tickets"]];
+                   managedObject.quantity = dictionary[@"quantity"];
                    managedObject.hasBeenUpdated = @YES;
                }
                     privateContext:context
@@ -62,6 +64,23 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user = %@", [PFUser currentUser]];
     
     [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event"
+                                success:^(NSArray *objects) {
+                                    if (successBlock) {
+                                        successBlock(objects);
+                                    }
+                                }
+                                failure:^(NSError *error) {
+                                    if (failureBlock) {
+                                        failureBlock(error);
+                                    }
+                                }];
+}
+
++ (void)getOrdersForEvent:(PFObject *)event fromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"event = %@", event];
+    
+    [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"event.venue"
                                 success:^(NSArray *objects) {
                                     if (successBlock) {
                                         successBlock(objects);
@@ -113,7 +132,8 @@
                                                        @"priceTotal" : self.priceTotal,
                                                        @"discount" : self.discount,
                                                        @"user" : self.user,
-                                                       @"tickets" : self.tickets
+                                                       @"tickets" : self.tickets,
+                                                       @"quantity" : self.quantity
                                                        }];
     
     return object;
@@ -126,26 +146,28 @@
     [newOrder setObject:event forKey:@"event"];
     [newOrder setObject:[NSNumber numberWithInteger:quantity] forKey:@"quantity"];
     [newOrder setObject:[event objectForKey:@"price"] forKey:@"priceTotal"];
-    
-    NSMutableArray *arrayOfTickets = [NSMutableArray array];
-    
-    for(NSInteger i = 0; i < quantity; i++)
-    {
-        PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
-        
-        [ticket setObject:@NO forKey:@"hasBeenUsed"];
-        [ticket setObject:event forKey:@"event"];
-        [ticket setObject:[PFUser currentUser] forKey:@"user"];
-        [ticket setObject:@"" forKey:@"referenceNumber"];
-        
-        [arrayOfTickets addObject:ticket];
-    }
-   
-    [newOrder setObject:arrayOfTickets forKey:@"tickets"];
+    [newOrder setObject:@0 forKey:@"discount"];
+    [newOrder setObject:[PFUser currentUser] forKey:@"user"];
     
     return newOrder;
 }
 
-
++ (NSMutableArray *)createTicketsForOrder:(PFObject *)order {
+    NSMutableArray *arrayOfTickets = [NSMutableArray array];
+    
+    for(NSInteger i = 0; i < [[order objectForKey:@"quantity"] integerValue]; i++)
+    {
+        PFObject *ticket = [PFObject objectWithClassName:@"Ticket"];
+        
+        [ticket setObject:@NO forKey:@"hasBeenUsed"];
+        [ticket setObject:[order objectForKey:@"event"] forKey:@"event"];
+        [ticket setObject:[PFUser currentUser] forKey:@"user"];
+        [ticket setObject:@"" forKey:@"nameIdentifier"];
+        
+        [arrayOfTickets addObject:ticket];
+    }
+    
+    return arrayOfTickets;
+}
 
 @end

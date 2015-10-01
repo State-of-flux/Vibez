@@ -13,4 +13,7 @@
 - (UINavigationController *)withNavigationController;
 - (UINavigationController *)withNavigationControllerWithModalPresentationStyle:(UIModalPresentationStyle)modalPresentationStyle;
 
+- (UINavigationController *)withNavigationControllerWithOpaque;
+- (UINavigationController *)withNavigationControllerWithOpaqueWithModalPresentationStyle:(UIModalPresentationStyle)modalPresentationStyle;
+
 @end

@@ -2,29 +2,15 @@
 //  Event.m
 //  Vibez
 //
-//  Created by Harry Liddell on 20/08/2015.
-//  Copyright (c) 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 30/09/2015.
+//  Copyright © 2015 Pikture. All rights reserved.
 //
 
 #import "Event.h"
 #import "Venue.h"
 
-
 @implementation Event
 
-@dynamic bookingFee;
-@dynamic endDate;
-@dynamic eventDescription;
-@dynamic eventID;
-@dynamic eventVenue;
-@dynamic eventVenueLocation;
-@dynamic hasBeenUpdated;
-@dynamic image;
-@dynamic lastEntry;
-@dynamic name;
-@dynamic price;
-@dynamic quantity;
-@dynamic startDate;
-@dynamic venues;
+// Insert code here to add functionality to your managed object subclass
 
 @end

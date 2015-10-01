@@ -7,7 +7,8 @@
 //
 
 #import "SQKFetchedCollectionViewController.h"
-#import "Vibez-Swift.h"
+//#import "Vibez-Swift.h"
+#import "PIKSegmentedControl.h"
 #import "PIKContextManager.h"
 #import "VenueCollectionViewCell.h"
 #import "EventCollectionViewCell.h"

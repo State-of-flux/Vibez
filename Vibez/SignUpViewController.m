@@ -190,11 +190,10 @@
 -(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password
 {
     PFUser *user = [PFUser user];
-    user.username = username;
+    user.username = [username lowercaseString];
     user.password = password;
     user.email = emailAddress;
     [user setObject:[NSArray array] forKey:@"friends"];
-    //[user setObject:@NO forKey:@"emailVerified"];
     [user setObject:@"Sheffield" forKey:@"location"];
     [user setObject:@NO forKey:@"isLinkedToFacebook"];
     [user setObject:@NO forKey:@"isAdmin"];
