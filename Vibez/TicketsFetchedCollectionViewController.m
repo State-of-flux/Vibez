@@ -80,21 +80,21 @@
 //}
 
 - (void)stackTickets {
-    NSMutableArray *ticketsStacked = [NSMutableArray array];
-    
-    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
-    
-    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
-        
-        if (ticket) {
-            
-        }
-    }
+//    NSMutableArray *ticketsStacked = [NSMutableArray array];
+//    
+//    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
+//    
+//    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
+//        if (ticket) {
+//            
+//        }
+//    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     [self.navigationItem setTitle:@"Tickets"];
     
     [self.collectionView registerClass:[TicketCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([TicketCollectionViewCell class])];

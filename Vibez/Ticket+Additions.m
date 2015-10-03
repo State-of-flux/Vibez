@@ -36,7 +36,7 @@
                    managedObject.image = imageFile.url;
                    managedObject.ticketID = dictionary[@"objectId"];
                    managedObject.eventName = [dictionary[@"event"] objectForKey:@"eventName"];
-                   managedObject.eventID = [dictionary[@"event"] objectForKey:@"objectId"];
+                   managedObject.eventID = [dictionary[@"event"] objectId];
                    managedObject.eventDate = [dictionary[@"event"] objectForKey:@"eventDate"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
@@ -145,18 +145,28 @@
     NSFetchRequest *request = [Ticket sqk_fetchRequest];
     
     SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
+    NSError *error;
+    //[controller setDelegate:self];
+    [controller fetchRequest];
+    [controller performFetch:&error];
     
-    NSInteger counterQuantityOfTicketsOnEvent = 0;
-    
-    for(Ticket *ticket in controller.managedObjects)
-    {
-        if([ticket.eventID isEqual:event.eventID])
+    if(!error) {
+        NSInteger counterQuantityOfTicketsOnEvent = 0;
+        
+        for(Ticket *ticket in controller.managedObjects)
         {
-            counterQuantityOfTicketsOnEvent++;
+            if([[ticket eventID] isEqual:[event eventID]])
+            {
+                counterQuantityOfTicketsOnEvent++;
+            }
         }
+        
+        NSLog(@"Amount of tickets user owns already: %ld", (long)counterQuantityOfTicketsOnEvent);
+        return counterQuantityOfTicketsOnEvent;
+    } else {
+        NSLog(@"%@", [error localizedDescription]);
+        return -1;
     }
-    
-    return counterQuantityOfTicketsOnEvent;
 }
 
 @end

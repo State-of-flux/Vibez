@@ -42,15 +42,14 @@
     [self setupView];
     [self setPaymentValues];
     
-    self.arrayOfQuantities = [NSMutableArray array];
+    [self setArrayOfQuantities:[NSMutableArray array]];
     
     for(NSInteger i = 1; i <= 10; i++) {
         [self.arrayOfQuantities addObject:[NSString stringWithFormat:@"%ld", (long)i]];
     }
     
     reachability = [Reachability reachabilityForInternetConnection];
-    self.manager = [AFHTTPRequestOperationManager manager];
-    [self getToken];
+    [self setManager:[AFHTTPRequestOperationManager manager]];
 }
 
 - (void)setPaymentValues
@@ -148,7 +147,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:formatString];
-
+    
     NSString *dateString = [dateFormatter stringFromDate:[[self.order objectForKey:@"event"] objectForKey:@"eventDate"]];
     [[cell detailTextLabel] setText:dateString];
 }
@@ -169,7 +168,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-
+    
     if ([[[cell textLabel] text] isEqualToString:@"Quantity"]) {
         [self showQuantityPicker:cell];
     }
@@ -194,36 +193,35 @@
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
     if([reachability isReachable]) {
-        Braintree *braintree = [Braintree braintreeWithClientToken:self.clientToken];
-        BTDropInViewController *dropInViewController = [braintree dropInViewControllerWithDelegate:self];
-        
-        dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                                                 initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                 target:self
-                                                                 action:@selector(userDidCancelPayment)];
-        
-        PFObject *event = [self.order objectForKey:@"event"];
-        
-        //Customize the UI
-        dropInViewController.summaryTitle = [event objectForKey:@"eventName"];
-        dropInViewController.summaryDescription = [event objectForKey:@"eventDescription"];
-        dropInViewController.displayAmount = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]];
-        
-        //[self.order saveInBackground]; // TO BE REMOVED, JUST FOR TESTING AT THE MOMENT
-        
-        [self presentViewController:[dropInViewController withNavigationController]
-                           animated:YES
-                         completion:nil];
-    }
-    else
-    {
+        [self getTokenAndShowBrainTree];
+    } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
 
--(void)getToken
-{
+- (void)showBrainTreeViewController {
+    Braintree *braintree = [Braintree braintreeWithClientToken:[self clientToken]];
+    BTDropInViewController *dropInViewController = [braintree dropInViewControllerWithDelegate:self];
+    
+    dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+                                                             initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                             target:self
+                                                             action:@selector(userDidCancelPayment)];
+    
+    PFObject *event = [[self order] objectForKey:@"event"];
+    
+    //Customize the UI
+    [dropInViewController setSummaryTitle:[event objectForKey:@"eventName"]];
+    [dropInViewController setSummaryDescription:[event objectForKey:@"eventDescription"]];
+    [dropInViewController setDisplayAmount:[NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]]];
+    [dropInViewController setCallToActionText:NSLocalizedString(@"Pay for Tickets", nil)];
+    [self presentViewController:[dropInViewController withNavigationController]
+                       animated:YES
+                     completion:nil];
+}
+
+-(void)getTokenAndShowBrainTree {
     // TODO: Switch this URL to your own authenticated API
     NSURL *clientTokenURL = [NSURL URLWithString:@"https://protected-brook-8899.herokuapp.com/token.php"];
     NSMutableURLRequest *clientTokenRequest = [NSMutableURLRequest requestWithURL:clientTokenURL];
@@ -238,9 +236,12 @@
              NSString *clientToken = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              
              // Initialize `Braintree` once per checkout session
-             self.clientToken = clientToken;
-             self.braintree = [Braintree braintreeWithClientToken:self.clientToken];
-             self.buttonCheckout.enabled = YES;
+             [self setClientToken:clientToken];
+             
+             if (clientToken) {
+                 [self showBrainTreeViewController];
+                 [[self buttonCheckout] setEnabled:YES];
+             }
          } else {
              if([(NSHTTPURLResponse *)response statusCode] == 0)
              {
@@ -256,10 +257,13 @@
      }];
 }
 
-
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
     // Payment has succeeded, so now we can save all the orders to parse.
-    [self postNonceToServer:paymentMethod.nonce];
+    [self postNonceToServer:[paymentMethod nonce]];
+    [self uploadOrderToParse];
+}
+
+- (void)uploadOrderToParse {
     // Create the tickets and set them to the order, then save.
     [[self order] setObject:[Order createTicketsForOrder:[self order]] forKey:@"tickets"];
     [[self order] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
@@ -278,10 +282,6 @@
             NSLog(@"Error: %@", [error localizedDescription]);
         }
     }];
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [[self parentViewController] dismissViewControllerAnimated:YES completion:nil];
-    }];
 }
 
 - (void)dropInViewControllerDidCancel:(__unused BTDropInViewController *)viewController {
@@ -294,17 +294,17 @@
 
 #pragma mark POST NONCE TO SERVER method
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
-    [self.manager POST:@"https://protected-brook-8899.herokuapp.com/payment-methods.php"
-            parameters:@{@"paymentMethodNonce": paymentMethodNonce,
-                         @"amount": self.overallPrice}
-               success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                   NSString *transactionID = responseObject[@"transaction"][@"id"];
-                   self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
-                   
-               }
-               failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                   NSLog(@"Error: %@", error);
-               }];
+    [[self manager] POST:@"https://protected-brook-8899.herokuapp.com/payment-methods.php"
+              parameters:@{@"paymentMethodNonce": paymentMethodNonce,
+                           @"amount": [[self overallPrice] stringValue]}
+                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     NSString *transactionID = responseObject[@"transaction"][@"id"];
+                     self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
+                 }
+                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     NSLog(@"Error: %@", [error localizedDescription]);
+                      NSLog(@"Operation: %@", operation);
+                 }];
 }
 
 //- (void)postNonceToServer:(NSString *)paymentMethodNonce {
@@ -380,33 +380,10 @@
                                            [[self order] setObject:quantityValue forKey:@"quantity"];
                                            [self setPaymentValues];
                                            [[self tableView] reloadData];
-//                                           
-//                                           if(self.quantitySelected)
-//                                           {
-//                                               NSInteger quantityOfTickets = [Ticket getAmountOfTicketsUserOwnsOnEvent:self.event];
-//                                               
-//                                               if((quantityOfTickets + self.quantitySelected) <= 10)
-//                                               {
-//                                                   
-//                                               }
-//                                               else
-//                                               {
-//                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:NSLocalizedString(@"You can only buy up to 10 tickets per event.", @"You can only buy up to 10 tickets per event.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-//                                                   [alert show];
-//                                               }
-//                                           }
-//                                           else
-//                                           {
-//                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app may resolve this issue.", @"An error occured, restarting the app may resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-//                                               [alert show];
-//                                           }
-                                           
-                                       }
-                                     cancelBlock:^(ActionSheetStringPicker *picker) {
+                                       } cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");
-                                     }
-                                          origin:sender];
-
+                                       } origin:sender];
+    
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -420,6 +397,5 @@
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return self.arrayOfQuantities[row];
 }
-
 
 @end

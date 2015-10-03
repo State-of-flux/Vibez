@@ -33,10 +33,12 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
+    if (self) {
         self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
+        [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
+        [self.collectionView setDelegate:self];
+        [self.collectionView setDataSource:self];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
         [self.collectionView setAlwaysBounceVertical:YES];
@@ -50,27 +52,24 @@
     [self.searchBar resignFirstResponder];
 }
 
--(NSDate*)dateNoTime:(NSDate*)myDate
-{
+-(NSDate*)dateNoTime:(NSDate*)myDate {
     NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:myDate];
     return [[NSCalendar currentCalendar] dateFromComponents:comp];
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
-    [self.collectionView setDelegate:self];
-    [self.collectionView setDataSource:self];
-    
+- (void)setSearchBarAppearance {
     [self.searchBar setPlaceholder:@"Search for events"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
     [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
-    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setSearchBarAppearance];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)

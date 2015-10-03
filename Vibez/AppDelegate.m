@@ -174,34 +174,28 @@
     }
 }
 
--(void)linkParseAccountToFacebook
-{
+-(void)linkParseAccountToFacebook {
     PFUser* user = [PFUser currentUser];
     
     if (![PFFacebookUtils isLinkedWithUser:user]) {
         [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"User has linked to Facebook");
-            }
-            else if(!succeeded && error)
-            {
+            } else if(!succeeded && error) {
                 NSLog(@"Link failed: %@", error);
             }
         }];
     }
 }
 
--(void)unlinkParseAccountFromFacebook
-{
+-(void)unlinkParseAccountFromFacebook {
     PFUser* user = [PFUser currentUser];
     
     if ([PFFacebookUtils isLinkedWithUser:user]) {
         [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
             if (succeeded) {
                 NSLog(@"User has unlinked from Facebook");
-            }
-            else if(!succeeded && error)
-            {
+            } else if(!succeeded && error) {
                 NSLog(@"Unlink failed: %@", error);
             }
         }];
@@ -229,12 +223,15 @@
     [hostReach startNotifier];
 }
 
-- (void)setupAppearance
-{
+- (void)setupAppearance {
+    UIImage *backButtonIcon = [self imageWithImage:[UIImage imageNamed:@"backArrow.png"] scaledToSize:CGSizeMake(36, 36)];
+    [[UINavigationBar appearance] setBackIndicatorImage:[backButtonIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[backButtonIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor pku_purpleColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextBoldWithSize:18.0f]}];
     //[[UINavigationBar appearance] setClipsToBounds:YES];
@@ -247,27 +244,27 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont pik_avenirNextRegWithSize:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil]
-     setDefaultTextAttributes:@{NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:16.0f]}];
-    
-    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
-    
+     setDefaultTextAttributes:@{ NSFontAttributeName: [UIFont pik_avenirNextRegWithSize:16.0f], NSForegroundColorAttributeName:[UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor clearColor] }];
     // BAR BUTTON
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor pku_purpleColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
-    
-    
-    
-    //UIImage *backBtn = [UIImage imageNamed:@"first_selected.png"];
-    //backBtn = [backBtn imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    //self.navigationItem.backBarButtonItem.title = @"";
-    //self.navigationController.navigationBar.backIndicatorImage = backBtn;
-    //[self.navigationItem.backBarButtonItem setTitle:@"Title here"];
-    //self.navigationController.navigationBar.backIndicatorTransitionMaskImage = backBtn;
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_purpleColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    //UIGraphicsBeginImageContext(newSize);
+    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
+    // Pass 1.0 to force exact pixel size.
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

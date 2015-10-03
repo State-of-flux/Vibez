@@ -30,7 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setCustomNavigationBackButton];
+    
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     
     self.viewSegmentedControl.clipsToBounds = YES;
     
@@ -54,15 +55,6 @@
     self.navigationItem.titleView = imageViewTitle;
     
     //[self addBorder:UIRectEdgeBottom color:[UIColor blackColor] thickness:0.3f toView:self.viewSegmentedControl];
-}
-
-- (void)setCustomNavigationBackButton {
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    UIImage *myIcon = [self imageWithImage:[UIImage imageNamed:@"backArrow.png"] scaledToSize:CGSizeMake(38, 38)];
-    
-    self.navigationController.navigationBar.backIndicatorImage = myIcon;
-    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = myIcon;
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize

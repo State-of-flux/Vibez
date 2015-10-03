@@ -42,7 +42,7 @@ static CGFloat kImageOriginHight = 180.f;
     
     [self setTopBarButtons:@"Event"];
     [self layoutSubviews];
-    [self setCustomNavigationBackButton];
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     
     imageHeight = self.eventImageView.frame.size.height;
     
@@ -76,28 +76,6 @@ static CGFloat kImageOriginHight = 180.f;
         [self.blurView setFrame:self.eventImageView.frame];
         [self.eventNameLabel setCenter:CGPointMake(self.eventImageView.frame.size.width/2, self.eventImageView.frame.size.height/2)];
     }
-}
-
-- (void)setCustomNavigationBackButton {
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    UIImage *myIcon = [self imageWithImage:[UIImage imageNamed:@"backArrow.png"] scaledToSize:CGSizeMake(36, 36)];
-    
-    [self.navigationController.navigationBar setTintColor:[UIColor pku_purpleColor]];
-    self.navigationController.navigationBar.backIndicatorImage = myIcon;
-    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = myIcon;
-}
-
-- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
-{
-    //UIGraphicsBeginImageContext(newSize);
-    // In next line, pass 0.0 to use the current device's pixel scaling factor (and thus account for Retina resolution).
-    // Pass 1.0 to force exact pixel size.
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
-    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
 }
 
 - (void)adjustButtonView:(UIButton *)button toSize:(CGSize)size
@@ -237,8 +215,9 @@ static CGFloat kImageOriginHight = 180.f;
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
     [self.scrollView setContentSize:CGSizeMake(0, self.scrollView.frame.size.height + 200 + self.getTicketsButton.frame.size.height)];
     
-    [self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
-    [self.getTicketsButton setTintColor:[UIColor whiteColor]];
+    [[self getTicketsButton] setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
+    [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
+    [[self getTicketsButton] setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     
     if([[self.event quantity] isEqualToNumber:@0])
     {
@@ -260,7 +239,7 @@ static CGFloat kImageOriginHight = 180.f;
     Venue *venue = [Venue sqk_insertOrFetchWithKey:@"venueID" value:self.event.eventVenueId context:[PIKContextManager mainContext] error:&error];
     
     VenueInfoViewController *venueVC = [VenueInfoViewController createWithVenue:venue];
-    [self.navigationController pushViewController:venueVC animated:YES];
+    [[self navigationController] pushViewController:venueVC animated:YES];
     //[self presentViewController:[venueVC withNavigationControllerWithOpaque] animated:YES completion:nil];
 }
 

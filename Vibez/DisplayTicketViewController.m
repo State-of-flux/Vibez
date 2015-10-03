@@ -27,6 +27,7 @@
     [super viewDidLoad];
     [self setNavBar:@"Your Ticket"];
     [self layoutSubviews];
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
 }
 
 -(void)layoutSubviews
@@ -75,8 +76,7 @@
     //[self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];
 }
 
--(void)setNavBar:(NSString*)titleText
-{
+-(void)setNavBar:(NSString*)titleText {
     self.navigationItem.title = titleText;
     //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     

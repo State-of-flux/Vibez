@@ -25,7 +25,8 @@
 {
     [super viewDidLoad];
     [self setNavBar:@"Tickets"];
-    [self.view setBackgroundColor:[UIColor pku_lightBlack]];
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
+    //[self.view setBackgroundColor:[UIColor pku_lightBlack]];
 
     fetchVC = self.childViewControllers.firstObject;
 }
