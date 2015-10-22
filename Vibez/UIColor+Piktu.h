@@ -17,5 +17,8 @@
 + (UIColor *)pku_greyColor;
 + (UIColor *)pku_lightBlack;
 + (UIColor *)pku_SuccessColor;
++ (UIColor *)pku_FacebookColor;
++ (UIColor *)pku_TwitterColor;
++ (UIColor *)pku_InstagramColor;
 
 @end

@@ -31,12 +31,43 @@
                   uniqueRemoteKey:@"objectId"
               propertySetterBlock:^(NSDictionary *dictionary, Venue *managedObject) {
                   
-                  PFFile* imageFile = dictionary[@"venueImage"];
-                  managedObject.image = imageFile.url;
-                  managedObject.venueID = dictionary[@"objectId"];
-                  managedObject.venueDescription = dictionary[@"venueDescription"];
-                  managedObject.name = dictionary[@"venueName"];
-                  managedObject.town = dictionary[@"town"];
+                  if (dictionary[@"venueImage"]) {
+                      PFFile* imageFile = dictionary[@"venueImage"];
+                      managedObject.image = imageFile.url;
+                  }
+                  
+                  if (dictionary[@"objectId"]) {
+                      managedObject.venueID = dictionary[@"objectId"];
+                  }
+                  
+                  if (dictionary[@"venueDescription"]) {
+                       managedObject.venueDescription = dictionary[@"venueDescription"];
+                  }
+                  
+                  if (dictionary[@"venueName"]) {
+                      managedObject.name = dictionary[@"venueName"];
+                  }
+                  
+                  if (dictionary[@"town"]) {
+                      managedObject.town = dictionary[@"town"];
+                  }
+                 
+                  if (dictionary[@"location"]) {
+                      managedObject.location = dictionary[@"location"];
+                  }
+                  
+                  if (dictionary[@"facebook"]) {
+                      managedObject.facebook = dictionary[@"facebook"];
+                  }
+                  
+                  if (dictionary[@"twitter"]) {
+                      managedObject.twitter = dictionary[@"twitter"];
+                  }
+                  
+                  if (dictionary[@"instagram"]) {
+                      managedObject.instagram = dictionary[@"instagram"];
+                  }
+                  
                   managedObject.hasBeenUpdated = @YES;
                   
               }

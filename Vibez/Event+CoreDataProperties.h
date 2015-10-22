@@ -2,7 +2,7 @@
 //  Event+CoreDataProperties.h
 //  Vibez
 //
-//  Created by Harry Liddell on 30/09/2015.
+//  Created by Harry Liddell on 04/10/2015.
 //  Copyright © 2015 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *eventDescription;
 @property (nullable, nonatomic, retain) NSString *eventID;
 @property (nullable, nonatomic, retain) NSString *eventVenue;
+@property (nullable, nonatomic, retain) NSString *eventVenueId;
 @property (nullable, nonatomic, retain) NSString *eventVenueLocation;
 @property (nullable, nonatomic, retain) NSNumber *hasBeenUpdated;
 @property (nullable, nonatomic, retain) NSString *image;
@@ -28,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSDecimalNumber *price;
 @property (nullable, nonatomic, retain) NSNumber *quantity;
 @property (nullable, nonatomic, retain) NSDate *startDate;
-@property (nullable, nonatomic, retain) NSString *eventVenueId;
 @property (nullable, nonatomic, retain) NSSet<Venue *> *venues;
 
 @end

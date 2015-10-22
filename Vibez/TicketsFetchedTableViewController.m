@@ -85,6 +85,7 @@
 -(void)setNavBar:(NSString*)titleText
 {
     self.navigationItem.title = titleText;
+    
 }
 
 - (void)refresh:(id)sender

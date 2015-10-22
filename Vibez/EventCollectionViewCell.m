@@ -44,8 +44,8 @@
         
         self.eventPriceLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, outerFrame.size.height -30, outerFrame.size.width - 5, 25)];
         [self.eventPriceLabel setTextAlignment:NSTextAlignmentCenter];
-        self.eventPriceLabel.font = [UIFont pik_avenirNextBoldWithSize:14.0f];
-        self.eventPriceLabel.textColor = [UIColor pku_purpleColor];
+        self.eventPriceLabel.font = [UIFont pik_avenirNextRegWithSize:12.0f];
+        self.eventPriceLabel.textColor = [UIColor whiteColor];
     
         self.eventImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, outerFrame.size.width, outerFrame.size.height)];
         

@@ -2,7 +2,7 @@
 //  Event+CoreDataProperties.m
 //  Vibez
 //
-//  Created by Harry Liddell on 30/09/2015.
+//  Created by Harry Liddell on 04/10/2015.
 //  Copyright © 2015 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -18,6 +18,7 @@
 @dynamic eventDescription;
 @dynamic eventID;
 @dynamic eventVenue;
+@dynamic eventVenueId;
 @dynamic eventVenueLocation;
 @dynamic hasBeenUpdated;
 @dynamic image;
@@ -26,7 +27,6 @@
 @dynamic price;
 @dynamic quantity;
 @dynamic startDate;
-@dynamic eventVenueId;
 @dynamic venues;
 
 @end

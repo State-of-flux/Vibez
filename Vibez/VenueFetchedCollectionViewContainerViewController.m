@@ -32,10 +32,12 @@
                                        context:[PIKContextManager mainContext]
                               searchingEnabled:YES];
     
-    if (self)
-    {
+    if (self) {
         self.view.backgroundColor = [UIColor pku_lightBlack];
         reachability = [Reachability reachabilityForInternetConnection];
+        [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class])];
+        [self.collectionView setDelegate:self];
+        [self.collectionView setDataSource:self];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
         [self.collectionView setAlwaysBounceVertical:YES];
@@ -44,25 +46,23 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    [self setSearchBarAppearance];
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh:)
+                  forControlEvents:UIControlEventValueChanged];
+}
 
-    [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class])];
-    [self.collectionView setDelegate:self];
-    [self.collectionView setDataSource:self];
-    
+- (void)setSearchBarAppearance {
     [self.searchBar setPlaceholder:@"Search for venues"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
     [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self
-                            action:@selector(refresh:)
-                  forControlEvents:UIControlEventValueChanged];
+    [self.searchBar setTintColor:[UIColor whiteColor]];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -87,7 +87,7 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self.collectionView reloadData];
+             [[self collectionView] reloadData];
              
              if(error)
              {
@@ -101,9 +101,7 @@
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
          }];
-    }
-    else
-    {
+    } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
@@ -152,15 +150,22 @@
     VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)cell;
     Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
     
-    venueCell.venueNameLabel.text = [venue.name capitalizedString];
-    venueCell.venueTownLabel.text = venue.town;
+    if ([venue name]) {
+        [[venueCell venueNameLabel] setText:[venue name]];
+    }
     
-    [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
-                            placeholderImage:nil
-                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
+    if ([venue town]) {
+        [[venueCell venueTownLabel] setText:[venue town]];
+    }
+    
+    if ([venueCell venueImage]) {
+        [[venueCell venueImage] sd_setImageWithURL:[NSURL URLWithString:[venue image]]
+                                  placeholderImage:nil
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+         {
+             
+         }];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -187,8 +192,7 @@
     return cell;
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
@@ -252,6 +256,11 @@
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
     [self refresh:self];
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
+{
+    return YES;
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state

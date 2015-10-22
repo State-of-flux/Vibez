@@ -16,6 +16,10 @@
 @property (strong, nonatomic) UILabel *venueTownLabel;
 @property (strong, nonatomic) UITextView *venueDescriptionTextView;
 
+@property (strong, nonatomic) UIButton *buttonFacebook;
+@property (strong, nonatomic) UIButton *buttonTwitter;
+@property (strong, nonatomic) UIButton *buttonInstagram;
+
 @property (strong, nonatomic) NSIndexPath *indexPathVenueSelected;
 
 @property (strong, nonatomic) Venue *venue;

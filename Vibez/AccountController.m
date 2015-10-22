@@ -7,7 +7,8 @@
 //
 
 #import "AccountController.h"
-
+#import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 
 @interface AccountController ()
 {
@@ -46,15 +47,15 @@
 
 -(void)LoginWithFacebook
 {
-    [PFFacebookUtils logInInBackgroundWithReadPermissions:[AccountController FacebookPermissions] block:^(PFUser *user, NSError *error) {
-        if (!user) {
-            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-        } else if (user.isNew) {
-            NSLog(@"User signed up and logged in through Facebook!");
-        } else {
-            NSLog(@"User logged in through Facebook!");
-        }
-    }];
+//    [PFFacebookUtils logInInBackgroundWithReadPermissions:[AccountController FacebookPermissions] block:^(PFUser *user, NSError *error) {
+//        if (!user) {
+//            NSLog(@"Uh oh. The user cancelled the Facebook login.");
+//        } else if (user.isNew) {
+//            NSLog(@"User signed up and logged in through Facebook!");
+//        } else {
+//            NSLog(@"User logged in through Facebook!");
+//        }
+//    }];
 }
 
 -(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password
@@ -80,27 +81,25 @@
     }];
 }
 
--(void)LinkAccountToFacebook
-{
-    PFUser* user = [PFUser currentUser];
-    
-    if (![PFFacebookUtils isLinkedWithUser:user]) {
-        [PFFacebookUtils linkUserInBackground:user withReadPermissions:[AccountController FacebookPermissions] block:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"Woohoo, user is linked with Facebook!");
-                [[PFUser currentUser] setObject:@YES forKey:@"isLinkedToFacebook"];
-                [[PFUser currentUser] saveInBackground];
-            }
-            else if(!succeeded && error)
-            {
-                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
-            }
-        }];
-    }
+-(void)LinkAccountToFacebook {
+//    PFUser* user = [PFUser currentUser];
+//    
+//    if (![PFFacebookUtils isLinkedWithUser:user]) {
+//        [PFFacebookUtils linkUserInBackground:user withReadPermissions:[AccountController FacebookPermissions] block:^(BOOL succeeded, NSError *error) {
+//            if (succeeded) {
+//                NSLog(@"Woohoo, user is linked with Facebook!");
+//                [[PFUser currentUser] setObject:@YES forKey:@"isLinkedToFacebook"];
+//                [[PFUser currentUser] saveInBackground];
+//            }
+//            else if(!succeeded && error)
+//            {
+//                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
+//            }
+//        }];
+//    }
 }
 
--(void)UnlinkFacebookAccount
-{
+-(void)UnlinkFacebookAccount {
     PFUser* user = [PFUser currentUser];
     
     [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {

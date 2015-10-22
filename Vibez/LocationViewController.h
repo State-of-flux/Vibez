@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <CLLocationManager-blocks/CLLocationManager+blocks.h>
+#import "Venue+Additions.h"
 
 @interface LocationViewController : UIViewController <CLLocationManagerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonGetDirections;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) NSString *pinTitle;
+@property (strong, nonatomic) Venue *venue;
 
 @property (strong, nonatomic) NSMutableArray *annotations;
 

@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTopBarButtons:@"Venue"];
-    [self setCustomNavigationBackButton];
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     [self layoutSubviews];
     [self.scrollView setDelegate:self];
     imageHeight = self.venueImageView.frame.size.height;
@@ -50,18 +50,63 @@
         imgRect.size.height = imageHeight+yPos;
         [self.venueImageView setFrame:imgRect];
         [self.blurView setFrame:self.venueImageView.frame];
-        [self.venueNameLabel setCenter:CGPointMake(self.venueImageView.frame.size.width/2, self.venueImageView.frame.size.height/2)];
+        [self.venueNameLabel setCenter:CGPointMake(self.venueImageView.frame.size.width/2, self.venueImageView.frame.size.height/2)  ];
     }
 }
 
-- (void)setCustomNavigationBackButton {
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+- (void)createSocialMediaButtons {
+    CGFloat paddingDouble = 16;
+    CGRect frame = [[self scrollView] frame];
+    CGFloat yValue = CGRectGetMaxY(self.venueImageView.frame);
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    [factory setColors:@[[UIColor pku_FacebookColor], [UIColor pku_FacebookColor]]];
     
-    UIImage *myIcon = [self imageWithImage:[UIImage imageNamed:@"backArrow.png"] scaledToSize:CGSizeMake(38, 38)];
+    [self setButtonFacebook:[UIButton buttonWithType:UIButtonTypeCustom]];
+    [[self buttonFacebook] setFrame:CGRectMake(0, yValue, frame.size.width/3 , 50.0f)];
+    [[self buttonFacebook] setBackgroundColor:[UIColor clearColor]];
+    [[self buttonFacebook] setImage:[factory createImageForIcon:NIKFontAwesomeIconFacebook] forState:UIControlStateNormal];
+    [[self buttonFacebook] addTarget:self action:@selector(buttonFacebookPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.navigationController.navigationBar setTintColor:[UIColor pku_purpleColor]];
-    self.navigationController.navigationBar.backIndicatorImage = myIcon;
-    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = myIcon;
+    [self setButtonTwitter:[UIButton buttonWithType:UIButtonTypeCustom]];
+    [[self buttonTwitter] setFrame:CGRectMake(CGRectGetMaxX([[self buttonFacebook] frame]), yValue, frame.size.width/3, 50.0f)];
+    [[self buttonTwitter] setBackgroundColor:[UIColor clearColor]];
+    [factory setColors:@[[UIColor pku_TwitterColor], [UIColor pku_TwitterColor]]];
+    [[self buttonTwitter] setImage:[factory createImageForIcon:NIKFontAwesomeIconTwitter] forState:UIControlStateNormal];
+    [[self buttonTwitter] addTarget:self action:@selector(buttonTwitterPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self setButtonInstagram:[UIButton buttonWithType:UIButtonTypeCustom]];
+    [[self buttonInstagram] setFrame:CGRectMake(CGRectGetMaxX([[self buttonTwitter] frame]), yValue, frame.size.width/3, 50.0f)];
+    [[self buttonInstagram] setBackgroundColor:[UIColor clearColor]];
+    [factory setColors:@[[UIColor pku_InstagramColor], [UIColor pku_InstagramColor]]];
+    [[self buttonInstagram] setImage:[factory createImageForIcon:NIKFontAwesomeIconInstagram] forState:UIControlStateNormal];
+    [[self buttonInstagram] addTarget:self action:@selector(buttonInstagramPressed:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)buttonFacebookPressed:(id)sender {
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://facebook.com/%@", [[self venue] facebook]]]];
+    }
+}
+
+- (void)buttonTwitterPressed:(id)sender {
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://twitter.com/%@", [[self venue] twitter]]]];
+    }
+}
+
+- (void)buttonInstagramPressed:(id)sender {
+    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
+    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+        [[UIApplication sharedApplication] openURL:facebookURL];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://instagram.com/%@", [[self venue] instagram]]]];
+    }
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
@@ -109,16 +154,19 @@
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.blurView.frame = self.venueImageView.bounds;
     
+    [self createSocialMediaButtons];
     
     // Event Name
-    self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.venueImageView.frame)/2 - 40, width - padding, 70)];
+    self.venueNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(self.buttonFacebook.frame)/2 - 40, width - padding, 70)];
     self.venueNameLabel.font = [UIFont pik_montserratBoldWithSize:28.0f];
     self.venueNameLabel.textColor = [UIColor whiteColor];
     self.venueNameLabel.textAlignment = NSTextAlignmentCenter;
     [self.venueNameLabel setText:self.venue.name];
+    [self.venueNameLabel sizeToFit];
+    [self.venueNameLabel setCenter:CGPointMake(self.venueImageView.frame.size.width/2, self.venueImageView.frame.size.height/2)];
     
     // Event Venue
-    self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.venueImageView.frame) + padding, width - 32, 25)];
+    self.venueTownLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.buttonFacebook.frame) + paddingDouble, width - 32, 25)];
     self.venueTownLabel.font = [UIFont pik_avenirNextBoldWithSize:20.0f];
     self.venueTownLabel.textColor = [UIColor whiteColor];
     self.venueTownLabel.text = self.venue.town;
@@ -133,30 +181,41 @@
     self.venueDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
     self.venueDescriptionTextView.editable = NO;
     self.venueDescriptionTextView.selectable = NO;
+    [self.venueDescriptionTextView setScrollEnabled:NO];
     [self.venueDescriptionTextView sizeToFit];
-    
     
     [self.scrollView addSubview:self.venueImageView];
     [self.scrollView addSubview:self.blurView];
+    
+    if ([[self venue] facebook]) {
+        [self.scrollView addSubview:self.buttonFacebook];
+    }
+    
+    if ([[self venue] twitter]) {
+        [self.scrollView addSubview:self.buttonTwitter];
+    }
+    
+    if ([[self venue] instagram]) {
+        [self.scrollView addSubview:self.buttonInstagram];
+    }
+
     [self.scrollView addSubview:self.venueNameLabel];
     [self.scrollView addSubview:self.venueTownLabel];
     [self.scrollView addSubview:self.venueDescriptionTextView];
     
-    [self.scrollView setContentSize:CGSizeMake(width, 800/*CGRectGetMaxY(self.venueDescriptionTextView.frame)*/)];
+    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.venueDescriptionTextView.frame) + [[self buttonGetDirections] frame].size.height + paddingDouble)];
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
+-(void)setTopBarButtons:(NSString*)titleText {
 
--(void)setTopBarButtons:(NSString*)titleText
-{
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
-    [factory setColors:@[[UIColor pku_purpleColor], [UIColor pku_purpleColor]]];
-    UIBarButtonItem *buttonMapMarker = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker] style:UIBarButtonItemStylePlain target:self action:@selector(buttonLocationPressed)];
+    [[self navigationItem] setTitle:titleText];
     
-    self.navigationItem.rightBarButtonItem = buttonMapMarker;
-    self.navigationItem.title = titleText;
+    if ([[self venue] location]) {
+        NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+        [factory setColors:@[[UIColor pku_purpleColor], [UIColor pku_purpleColor]]];
+        UIBarButtonItem *buttonMapMarker = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker] style:UIBarButtonItemStylePlain target:self action:@selector(buttonLocationPressed)];
+        [[self navigationItem] setRightBarButtonItem:buttonMapMarker];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -176,12 +235,13 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"toMapSegue"]) {
-        LocationViewController *locationVC = segue.destinationViewController;
-        locationVC.latCoord = 53.3764;
-        locationVC.longCoord = -1.4716;
+        LocationViewController *locationVC = [segue destinationViewController];
+        [locationVC setVenue:[self venue]];
     }
 }
 
 - (IBAction)buttonGetDirectionsPressed:(id)sender {
+    [self performSegueWithIdentifier:@"toMapSegue" sender:self];
+    NSLog(@"location button clicked");
 }
 @end

@@ -11,6 +11,7 @@
 #import "Event+Additions.h"
 #import "Ticket+Additions.h"
 #import <SQKDataKit/SQKManagedObjectController.h>
+#import "MBProgressHUD+Vibes.h"
 
 @interface ScannerViewController : UIViewController <SQKManagedObjectControllerDelegate>
 
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) NSMutableArray *uniqueCodes;
 @property (strong, nonatomic) MTBBarcodeScanner *scanner;
 @property (strong, nonatomic) Event *eventSelected;
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @property (nonatomic, strong) SQKManagedObjectController *controller;
 @property (nonatomic) BOOL isScanning;

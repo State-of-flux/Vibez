@@ -27,6 +27,7 @@
     [super viewDidLoad];
     [self setNavBar:@"Your Ticket"];
     [self layoutSubviews];
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
 }
 
 -(void)layoutSubviews
@@ -58,25 +59,69 @@
     
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-    [dateFormatter setDateFormat:@"EEE, dd MMM, YYYY"];
+    [dateFormatter setDateFormat:@"HH:mm, EEE, dd MMM, YYYY"];
     NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:self.ticket
 .eventDate]];
-    [dateFormatString insertString:[NSString daySuffixForDate:self.ticket.eventDate] atIndex:7];
+    [dateFormatString insertString:[NSString daySuffixForDate:[[self ticket] eventDate]] atIndex:14];
     [self.eventDateLabel setText:dateFormatString];
     
     [self.view addSubview:self.eventNameLabel];
     [self.view addSubview:self.venueNameLabel];
     [self.view addSubview:self.eventDateLabel];
     [self.view addSubview:self.qrImageView];
+    
+    [self movingDot];
 }
 
-- (void)sendToFriend
-{
+- (void)movingDot {
+    UIView *dot = [[UIView alloc] initWithFrame:CGRectMake(self.eventDateLabel.frame.origin.x, CGRectGetMaxY(self.eventDateLabel.frame) - self.eventDateLabel.frame.size.height, 50, 50)];
+    [dot setBackgroundColor:[UIColor pku_purpleColor]];
+    [dot setAlpha:0.25];
+    [[dot layer] setCornerRadius:[dot frame].size.height/2];
+    
+    
+    [[self view] addSubview:dot];
+    
+    CGPoint finishPoint = CGPointMake(CGRectGetMaxX(self.eventDateLabel.frame) - 25, CGRectGetMaxY(self.eventDateLabel.frame) - self.eventDateLabel.frame.size.height + 25);
+    
+    [UIView animateWithDuration:1.0
+                          delay:0.0
+                        options:UIViewAnimationOptionAutoreverse | UIViewAnimationOptionRepeat | UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         // do whatever animation you want, e.g.,
+                         
+                         [dot setCenter:finishPoint];
+                     }
+                     completion:NULL];
+    
+    //[self animationLoop:@"id" finished:@10 context:nil onView:dot];
+}
+
+-(void)animationLoop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context onView:(UIView *)object{
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1];
+    // remove:
+      //[UIView setAnimationRepeatCount:1000];
+      [UIView setAnimationRepeatAutoreverses:YES];
+    
+    CGFloat x = (CGFloat) (arc4random() % (int) self.view.bounds.size.width);
+    CGFloat y = (CGFloat) (arc4random() % (int) self.view.bounds.size.height);
+    
+    CGPoint squarePostion = CGPointMake(x, y);
+    object.center = squarePostion;
+    // add:
+    [UIView setAnimationDelegate:self]; // as suggested by @Carl Veazey in a comment
+    [UIView setAnimationDidStopSelector:@selector(animationLoop:finished:context:onView:)];
+    
+    [UIView commitAnimations];
+}
+
+- (void)sendToFriend {
     //[self performSegueWithIdentifier:@"goToSendTicketSegue" sender:self];
 }
 
--(void)setNavBar:(NSString*)titleText
-{
+-(void)setNavBar:(NSString*)titleText {
     self.navigationItem.title = titleText;
     //NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
@@ -89,8 +134,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
-    if([segue.identifier isEqualToString:@"goToSendTicketSegue"])
-    {
+    if([segue.identifier isEqualToString:@"goToSendTicketSegue"]) {
         SendTicketToFriendViewController *vc = segue.destinationViewController;
         [vc setTicket:self.ticket];
     }

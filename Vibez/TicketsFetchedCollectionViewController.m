@@ -40,6 +40,8 @@
         reachability = [Reachability reachabilityForInternetConnection];
         [self.collectionView setEmptyDataSetSource:self];
         [self.collectionView setEmptyDataSetDelegate:self];
+        [self.collectionView setDelegate:self];
+        [self.collectionView setDataSource:self];
         [self.collectionView setAlwaysBounceVertical:YES];
     }
 
@@ -80,27 +82,24 @@
 //}
 
 - (void)stackTickets {
-    NSMutableArray *ticketsStacked = [NSMutableArray array];
-    
-    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
-    
-    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
-        
-        if (ticket) {
-            
-        }
-    }
+//    NSMutableArray *ticketsStacked = [NSMutableArray array];
+//    
+//    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
+//    
+//    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
+//        if (ticket) {
+//            
+//        }
+//    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     [self.navigationItem setTitle:@"Tickets"];
     
     [self.collectionView registerClass:[TicketCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([TicketCollectionViewCell class])];
-    
-    [self.collectionView setDelegate:self];
-    [self.collectionView setDataSource:self];
     
     [self.searchBar setPlaceholder:@"Search by event"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
@@ -139,7 +138,7 @@
              [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self.collectionView reloadEmptyDataSet];
+             [[self collectionView] reloadData];
              
              if(error) {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
@@ -304,6 +303,11 @@
 -(void)emptyDataSetDidTapView:(UIScrollView *)scrollView
 {
     [self refresh:self];
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
+{
+    return YES;
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state
