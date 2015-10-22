@@ -10,17 +10,13 @@
 #import <Reachability/Reachability.h>
 #import <Parse/Parse.h>
 #import <Bolts/Bolts.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
 #import <Braintree/Braintree.h>
 #import <Reachability/Reachability.h>
 
-@interface AppDelegate ()
-{
+@interface AppDelegate () {
     BOOL loggedIn;
     LoginViewController* loginViewController;
 }
@@ -28,30 +24,30 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupParse:launchOptions];
     [self setupBrainTree];
+    [self setupLookBack];
     [self setupAppearance];
     [self monitorReachability];
     
-    if ([PFUser currentUser])
-    {
-        if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue])
-        {
+    if ([PFUser currentUser]) {
+        if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-        }
-        else
-        {
+        } else {
             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         }
-    }
-    else
-    {
+    } else {
         [self presentLoginView];
     }
     
     return YES;
+}
+
+- (void)setupLookBack {
+    //[Lookback setupWithAppToken:@"2uJt7XXBvSn5aApEL"];
+    //[Lookback sharedLookback].shakeToRecord = YES;
+    //[Lookback sharedLookback].feedbackBubbleVisible = YES;
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -82,7 +78,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Override point for customization after application launch.
-    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    //[PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 }

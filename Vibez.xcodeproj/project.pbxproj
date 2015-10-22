@@ -82,18 +82,13 @@
 		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; settings = {ASSET_TAGS = (); }; };
 		6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C631A1BBC8CC0001A336A /* Order.plist */; settings = {ASSET_TAGS = (); }; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
-		6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6C1B28B2A4006293C9 /* Bolts.framework */; };
-		6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6D1B28B2A4006293C9 /* Parse.framework */; };
-		6C79FF711B28B2A4006293C9 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C79FF6E1B28B2A4006293C9 /* ParseFacebookUtilsV4.framework */; };
+		6C64F74F1BD707FA0037704D /* MBProgressHUD+Vibes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */; settings = {ASSET_TAGS = (); }; };
 		6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF741B28B40C006293C9 /* UIColor+Piktu.m */; };
 		6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF861B2A66B9006293C9 /* TicketTableViewCell.m */; };
 		6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF891B2A66F2006293C9 /* TicketDataSource.m */; };
 		6C7BD75D1AEB31290092483F /* Validator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD75C1AEB31290092483F /* Validator.m */; };
 		6C7BD7631AEC2A5B0092483F /* EventDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD7621AEC2A5B0092483F /* EventDataSource.m */; };
 		6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */; };
-		6C7C97211AE45AC4001EE1FD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */; };
-		6C7C97221AE45AC4001EE1FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */; };
-		6C7C97231AE45AC4001EE1FD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */; };
 		6C8607DD1B99B286009F9C76 /* TicketReading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C8607DC1B99B286009F9C76 /* TicketReading.storyboard */; };
 		6C8607E01B99B2B1009F9C76 /* AdminTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */; };
 		6C8607E61B9A0CE2009F9C76 /* ScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8607E31B9A0CE2009F9C76 /* ScannerViewController.m */; };
@@ -130,7 +125,6 @@
 		6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5721B5835BD00EA9A09 /* Constants.m */; };
 		6CB5B5761B583D6100EA9A09 /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5751B583D6100EA9A09 /* LocationViewController.m */; };
 		6CB5B5781B5882D700EA9A09 /* vibesLogo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CB5B5771B5882D700EA9A09 /* vibesLogo.jpg */; };
-		6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57B1B5D93DE00EA9A09 /* PaymentViewController.m */; };
 		6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */; };
 		6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5C11B69717E00EA9A09 /* Ticket+Additions.m */; };
 		6CB75FF41B93B48D00CEB31A /* VibesTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB75FF31B93B48D00CEB31A /* VibesTabBarViewController.m */; };
@@ -277,9 +271,8 @@
 		6C5C630F1BBC75A8001A336A /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		6C5C631A1BBC8CC0001A336A /* Order.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Order.plist; sourceTree = "<group>"; };
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
-		6C79FF6C1B28B2A4006293C9 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		6C79FF6D1B28B2A4006293C9 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		6C79FF6E1B28B2A4006293C9 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
+		6C64F74D1BD707FA0037704D /* MBProgressHUD+Vibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Vibes.h"; sourceTree = "<group>"; };
+		6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Vibes.m"; sourceTree = "<group>"; };
 		6C79FF731B28B40C006293C9 /* UIColor+Piktu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Piktu.h"; sourceTree = "<group>"; };
 		6C79FF741B28B40C006293C9 /* UIColor+Piktu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Piktu.m"; sourceTree = "<group>"; };
 		6C79FF761B28B49A006293C9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -293,9 +286,6 @@
 		6C7BD7621AEC2A5B0092483F /* EventDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventDataSource.m; sourceTree = "<group>"; };
 		6C7BD7651AEC2C9D0092483F /* VenueDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueDataSource.h; sourceTree = "<group>"; };
 		6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueDataSource.m; sourceTree = "<group>"; };
-		6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../Documents/FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
-		6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../Documents/FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		6C8607DC1B99B286009F9C76 /* TicketReading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TicketReading.storyboard; sourceTree = "<group>"; };
 		6C8607DE1B99B2B1009F9C76 /* AdminTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminTabBarController.m; sourceTree = "<group>"; };
 		6C8607DF1B99B2B1009F9C76 /* AdminTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminTabBarController.h; sourceTree = "<group>"; };
@@ -360,8 +350,6 @@
 		6CB5B5741B583D6100EA9A09 /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
 		6CB5B5751B583D6100EA9A09 /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		6CB5B5771B5882D700EA9A09 /* vibesLogo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = vibesLogo.jpg; sourceTree = "<group>"; };
-		6CB5B57A1B5D93DE00EA9A09 /* PaymentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentViewController.h; sourceTree = "<group>"; };
-		6CB5B57B1B5D93DE00EA9A09 /* PaymentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentViewController.m; sourceTree = "<group>"; };
 		6CB5B57E1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VenueFetchedCollectionViewContainerViewController.h; sourceTree = "<group>"; };
 		6CB5B57F1B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VenueFetchedCollectionViewContainerViewController.m; sourceTree = "<group>"; };
 		6CB5B5C01B69717E00EA9A09 /* Ticket+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Ticket+Additions.h"; sourceTree = "<group>"; };
@@ -405,16 +393,10 @@
 				6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */,
 				6CD58E051ADED8B800CDBC29 /* Social.framework in Frameworks */,
 				6C0A4A2D1ACF120F004818F1 /* libsqlite3.dylib in Frameworks */,
-				6C79FF6F1B28B2A4006293C9 /* Bolts.framework in Frameworks */,
-				6C79FF701B28B2A4006293C9 /* Parse.framework in Frameworks */,
-				6C79FF711B28B2A4006293C9 /* ParseFacebookUtilsV4.framework in Frameworks */,
 				6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */,
-				6C7C97211AE45AC4001EE1FD /* FBSDKCoreKit.framework in Frameworks */,
-				6C7C97231AE45AC4001EE1FD /* FBSDKShareKit.framework in Frameworks */,
 				6C0A4A1B1ACF1113004818F1 /* CoreLocation.framework in Frameworks */,
 				6C0A4A1F1ACF111E004818F1 /* QuartzCore.framework in Frameworks */,
 				6C0A4A271ACF1137004818F1 /* libz.dylib in Frameworks */,
-				6C7C97221AE45AC4001EE1FD /* FBSDKLoginKit.framework in Frameworks */,
 				6C0A4A251ACF1132004818F1 /* SystemConfiguration.framework in Frameworks */,
 				6C0A4A231ACF112D004818F1 /* StoreKit.framework in Frameworks */,
 				6C0A4A211ACF1127004818F1 /* Security.framework in Frameworks */,
@@ -480,9 +462,6 @@
 			isa = PBXGroup;
 			children = (
 				6CD58E081ADED8FA00CDBC29 /* App Delegate */,
-				6CB5B5791B5D93BB00EA9A09 /* Payment */,
-				6C90C6581B3877BD00C82735 /* PIKParseManager.h */,
-				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
 				6C90C64C1B38708C00C82735 /* Core Data */,
 				6C79FF721B28B3D9006293C9 /* Categories */,
 				6C37D2381AE079240078154E /* Customs */,
@@ -710,6 +689,8 @@
 				6CEF06731B49B0EB001F1E7C /* UIFont+PIK.m */,
 				6CEF067B1B4CA0C0001F1E7C /* NSString+PIK.h */,
 				6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */,
+				6C64F74D1BD707FA0037704D /* MBProgressHUD+Vibes.h */,
+				6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -862,9 +843,11 @@
 		6C90C64C1B38708C00C82735 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				6C90C6511B3875D100C82735 /* Categories */,
+				6C90C6581B3877BD00C82735 /* PIKParseManager.h */,
+				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
 				6C90C64E1B38717100C82735 /* PIKContextManager.h */,
 				6C90C64F1B38717100C82735 /* PIKContextManager.m */,
+				6C90C6511B3875D100C82735 /* Categories */,
 				6C90C64D1B38709A00C82735 /* Managed Objects */,
 				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
 			);
@@ -932,15 +915,6 @@
 				6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */,
 			);
 			name = Containers;
-			sourceTree = "<group>";
-		};
-		6CB5B5791B5D93BB00EA9A09 /* Payment */ = {
-			isa = PBXGroup;
-			children = (
-				6CB5B57A1B5D93DE00EA9A09 /* PaymentViewController.h */,
-				6CB5B57B1B5D93DE00EA9A09 /* PaymentViewController.m */,
-			);
-			name = Payment;
 			sourceTree = "<group>";
 		};
 		6CB5B57D1B5F009A00EA9A09 /* Containers */ = {
@@ -1061,14 +1035,8 @@
 		EFC515811E31CF4B6BEC1045 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6C79FF6C1B28B2A4006293C9 /* Bolts.framework */,
-				6C79FF6D1B28B2A4006293C9 /* Parse.framework */,
-				6C79FF6E1B28B2A4006293C9 /* ParseFacebookUtilsV4.framework */,
 				6C8A73F51B24D66100AAD04E /* UIKit.framework */,
 				6C8A73F31B24D5BE00AAD04E /* Foundation.framework */,
-				6C7C971E1AE45AC4001EE1FD /* FBSDKCoreKit.framework */,
-				6C7C971F1AE45AC4001EE1FD /* FBSDKLoginKit.framework */,
-				6C7C97201AE45AC4001EE1FD /* FBSDKShareKit.framework */,
 				6CD58E061ADED8BD00CDBC29 /* Accounts.framework */,
 				6CD58E041ADED8B800CDBC29 /* Social.framework */,
 				6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */,
@@ -1100,6 +1068,7 @@
 				6C1E55AE1ACF08D9003965A0 /* Frameworks */,
 				6C1E55AF1ACF08D9003965A0 /* Resources */,
 				5A59E8E09BDF5F4263C37312 /* Copy Pods Resources */,
+				779954E6F1C8BEF7AD2D8A60 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1243,6 +1212,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		779954E6F1C8BEF7AD2D8A60 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E094460845974A5080B80544 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1276,7 +1260,6 @@
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
 				6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
-				6CB5B57C1B5D93DE00EA9A09 /* PaymentViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C5C63171BBC75A8001A336A /* Event.m in Sources */,
@@ -1325,6 +1308,7 @@
 				6C5C63151BBC75A8001A336A /* Order.m in Sources */,
 				6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */,
 				6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */,
+				6C64F74F1BD707FA0037704D /* MBProgressHUD+Vibes.m in Sources */,
 				6C8A74201B24D70100AAD04E /* rscode.c in Sources */,
 				6C37D2331AE078840078154E /* SignUpViewController.m in Sources */,
 				6C8A74211B24D70100AAD04E /* split.c in Sources */,

@@ -9,8 +9,13 @@
 #import "GlobalViewController.h"
 #import "Event.h"
 #import "Ticket+Additions.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import "OrderInfoViewController.h"
 
-@interface EventInfoViewController : GlobalViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate>
+@interface EventInfoViewController : GlobalViewController <UIActionSheetDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIScrollViewDelegate, PIKOrderDelegate>
+
+@property (strong, nonatomic) MBProgressHUD *hud;
+
 @property (weak, nonatomic) UITableView *tableView;
 
 @property (strong, nonatomic) UIImageView *eventImageView;

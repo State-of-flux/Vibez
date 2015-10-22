@@ -8,9 +8,6 @@
 
 #import <Bolts/Bolts.h>
 #import <Parse/Parse.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Foundation/Foundation.h>
 
 @interface AccountController : NSObject

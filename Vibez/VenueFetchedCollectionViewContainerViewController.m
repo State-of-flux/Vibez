@@ -87,7 +87,7 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self.collectionView reloadData];
+             [[self collectionView] reloadData];
              
              if(error)
              {
@@ -150,15 +150,22 @@
     VenueCollectionViewCell *venueCell = (VenueCollectionViewCell *)cell;
     Venue *venue = [fetchedResultsController objectAtIndexPath:indexPath];
     
-    venueCell.venueNameLabel.text = [venue.name capitalizedString];
-    venueCell.venueTownLabel.text = venue.town;
+    if ([venue name]) {
+        [[venueCell venueNameLabel] setText:[venue name]];
+    }
     
-    [venueCell.venueImage sd_setImageWithURL:[NSURL URLWithString:venue.image]
-                            placeholderImage:nil
-                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
+    if ([venue town]) {
+        [[venueCell venueTownLabel] setText:[venue town]];
+    }
+    
+    if ([venueCell venueImage]) {
+        [[venueCell venueImage] sd_setImageWithURL:[NSURL URLWithString:[venue image]]
+                                  placeholderImage:nil
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+         {
+             
+         }];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
@@ -249,6 +256,11 @@
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
     [self refresh:self];
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
+{
+    return YES;
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state

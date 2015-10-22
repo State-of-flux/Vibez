@@ -11,10 +11,19 @@
 #import <Braintree/Braintree.h>
 #import "GlobalViewController.h"
 #import <AFNetworking/AFNetworking.h>
+#import "MBProgressHUD+Vibes.h"
+
+@protocol PIKOrderDelegate <NSObject>
+@required
+
+- (void)paymentSuccessful:(BOOL)success;
+
+@end
 
 @interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) Braintree *braintree;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) BTDropInViewController *paymentVC;
@@ -48,7 +57,10 @@
 @property (strong, nonatomic) NSMutableArray *arrayOfQuantities;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonCheckout;
+
 - (IBAction)buttonCheckoutPressed:(id)sender;
 + (instancetype)createWithOrder:(PFObject *)order;
+
+@property (nonatomic, weak) id <PIKOrderDelegate> delegate;
 
 @end

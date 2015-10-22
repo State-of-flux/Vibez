@@ -19,6 +19,7 @@
 @property BOOL isEventDataDisplayed;
 
 @property (strong, nonatomic) Event *event;
+@property (strong, nonatomic) NSIndexPath *indexPathSelected;
 //@property (nonatomic, strong) SQKManagedObjectController *controller;
 
 @end

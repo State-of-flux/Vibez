@@ -2,7 +2,7 @@
 //  Venue+CoreDataProperties.h
 //  Vibez
 //
-//  Created by Harry Liddell on 30/09/2015.
+//  Created by Harry Liddell on 04/10/2015.
 //  Copyright © 2015 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -21,6 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *town;
 @property (nullable, nonatomic, retain) NSString *venueDescription;
 @property (nullable, nonatomic, retain) NSString *venueID;
+@property (nullable, nonatomic, retain) id location;
+@property (nullable, nonatomic, retain) NSString *facebook;
+@property (nullable, nonatomic, retain) NSString *twitter;
+@property (nullable, nonatomic, retain) NSString *instagram;
 @property (nullable, nonatomic, retain) NSSet<Event *> *events;
 
 @end

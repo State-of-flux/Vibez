@@ -10,13 +10,11 @@
 #import "UIFont+PIK.h"
 #import "UIColor+Piktu.h"
 #import "RKDropdownAlert.h"
-#import "PaymentViewController.h"
 #import <SDWebImage/SDWebImageDownloader.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "PIKContextManager.h"
 #import "NSString+PIK.h"
 #import "Order+Additions.h"
-#import "OrderInfoViewController.h"
 #import "PIKParseManager.h"
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
@@ -26,8 +24,7 @@
 #import "VenueInfoViewController.h"
 #import "UIViewController+NavigationController.h"
 #import "Venue+Additions.h"
-
-static CGFloat kImageOriginHight = 180.f;
+#import "MBProgressHUD+Vibes.h"
 
 @interface EventInfoViewController () {
     Reachability *reachability;
@@ -42,10 +39,9 @@ static CGFloat kImageOriginHight = 180.f;
     
     [self setTopBarButtons:@"Event"];
     [self layoutSubviews];
-    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
-    
     imageHeight = self.eventImageView.frame.size.height;
-    
+    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
+
     reachability = [Reachability reachabilityForInternetConnection];
     
     UIPickerView *picker = [[UIPickerView alloc] init];
@@ -133,6 +129,7 @@ static CGFloat kImageOriginHight = 180.f;
     self.eventNameLabel.textAlignment = NSTextAlignmentCenter;
     self.eventNameLabel.text = self.event.name;
     self.eventNameLabel.numberOfLines = 2;
+    [self.eventNameLabel sizeToFit];
     [self.eventNameLabel setCenter:CGPointMake(self.eventImageView.frame.size.width/2, self.eventImageView.frame.size.height/2)];
     
     // Event Venue
@@ -157,7 +154,7 @@ static CGFloat kImageOriginHight = 180.f;
     [buttonVenue addTarget:self action:@selector(pushVenue:) forControlEvents:UIControlEventTouchUpInside];
     
     // Event Date
-    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventVenueLabel.frame) + paddingDouble, width - 32, 25)];
+    self.eventDateLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(buttonVenue.frame) + padding, width - 32, 25)];
     self.eventDateLabel.font = [UIFont pik_avenirNextRegWithSize:16.0f];
     self.eventDateLabel.textColor = [UIColor whiteColor];
     
@@ -182,26 +179,25 @@ static CGFloat kImageOriginHight = 180.f;
     self.eventDateEndLabel.text = beginningEnd;
     
     // Event description Label
-    
-    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 25)];
-    [[self eventDescriptionLabel] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
-    [[self eventDescriptionLabel] setTextColor:[UIColor pku_greyColor]];
-    [[self eventDescriptionLabel] setLineBreakMode:NSLineBreakByWordWrapping];
-    [[self eventDescriptionLabel] setNumberOfLines:0];
-    [[self eventDescriptionLabel] setText:[[self event] eventDescription]];
+//    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 25)];
+//    [[self eventDescriptionLabel] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
+//    [[self eventDescriptionLabel] setTextColor:[UIColor pku_greyColor]];
+//    [[self eventDescriptionLabel] setLineBreakMode:NSLineBreakByWordWrapping];
+//    [[self eventDescriptionLabel] setNumberOfLines:0];
+//    [[self eventDescriptionLabel] setText:[[self event] eventDescription]];
 
-    
-//    // Event Description
-//    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateLabel.frame) + padding, width - 32, 400)];
-//    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
-//    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
-//    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
-//    self.eventDescriptionTextView.text = self.event.eventDescription;
-//    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
-//    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
-//    self.eventDescriptionTextView.editable = NO;
-//    self.eventDescriptionTextView.selectable = NO;
-//    [self.eventDescriptionTextView sizeToFit];
+    // Event Description
+    self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 400)];
+    self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
+    self.eventDescriptionTextView.font = [UIFont pik_avenirNextRegWithSize:14.0f];
+    self.eventDescriptionTextView.textColor = [UIColor pku_greyColor];
+    self.eventDescriptionTextView.text = self.event.eventDescription;
+    self.eventDescriptionTextView.textContainer.lineFragmentPadding = 0;
+    self.eventDescriptionTextView.textContainerInset = UIEdgeInsetsZero;
+    self.eventDescriptionTextView.editable = NO;
+    self.eventDescriptionTextView.selectable = NO;
+    [self.eventDescriptionTextView setScrollEnabled:NO];
+    [self.eventDescriptionTextView sizeToFit];
     
     [self.scrollView addSubview:self.eventImageView];
     [self.scrollView addSubview:self.blurView];
@@ -210,10 +206,10 @@ static CGFloat kImageOriginHight = 180.f;
     [self.scrollView addSubview:self.eventDateLabel];
     [self.scrollView addSubview:self.eventDateEndLabel];
     [self.scrollView addSubview:buttonVenue];
-    [self.scrollView addSubview:self.eventDescriptionLabel];
+    [self.scrollView addSubview:self.eventDescriptionTextView];
     
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
-    [self.scrollView setContentSize:CGSizeMake(0, self.scrollView.frame.size.height + 200 + self.getTicketsButton.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble)];
     
     [[self getTicketsButton] setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
@@ -243,8 +239,7 @@ static CGFloat kImageOriginHight = 180.f;
     //[self presentViewController:[venueVC withNavigationControllerWithOpaque] animated:YES completion:nil];
 }
 
--(void)shareEvent
-{
+-(void)shareEvent {
     NSString* title = self.event.name;
     NSDate* startDate = self.event.startDate;
     NSString* description = self.event.eventDescription;
@@ -348,20 +343,20 @@ static CGFloat kImageOriginHight = 180.f;
     // Grabbing the event here so it can be attached to the Order object.
     if([reachability isReachable])
     {
-        [ActionSheetStringPicker showPickerWithTitle:@"How many tickets?"
+        [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
                                                 rows:[self.arrayOfQuantities copy]
                                     initialSelection:0
                                            doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                                                NSLog(@"Picker: %@, Index: %ld, value: %@",
                                                      picker, (long)selectedIndex, selectedValue);
                                                
-                                               self.quantitySelected = [selectedValue integerValue];
+                                               [self setQuantitySelected:[selectedValue integerValue]];
                                                
-                                               if(self.quantitySelected)
+                                               if([self quantitySelected])
                                                {
-                                                   NSInteger quantityOfTickets = [Ticket getAmountOfTicketsUserOwnsOnEvent:self.event];
+                                                   NSInteger quantityOfTickets = [Ticket getAmountOfTicketsUserOwnsOnEvent:[self event]];
                                                    
-                                                   if((quantityOfTickets + self.quantitySelected) <= 10)
+                                                   if((quantityOfTickets + [self quantitySelected]) <= 10)
                                                    {
                                                        [self createOrderAndProceed];
                                                    }
@@ -391,21 +386,24 @@ static CGFloat kImageOriginHight = 180.f;
     }
 }
 
-- (void)createOrderAndProceed
-{
+- (void)createOrderAndProceed {
+    
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
+    
     [PIKParseManager pfObjectForClassName:@"Event" remoteUniqueKey:@"objectId" uniqueValue:self.event.eventID success:^(PFObject *pfObject)
      {
-         self.eventPFObject = pfObject;
+         [self setEventPFObject:pfObject];
          
          // If found we can proceed to the next page.
          
-         if(self.eventPFObject)
+         if([self eventPFObject])
          {
              if([reachability isReachable]) {
                  
-                 OrderInfoViewController *orderModalVC = [OrderInfoViewController createWithOrder:[Order createOrderForEvent:self.eventPFObject withQuantity:self.quantitySelected]];
-                 
+                 OrderInfoViewController *orderModalVC = [OrderInfoViewController createWithOrder:[Order createOrderForEvent:[self eventPFObject] withQuantity:[self quantitySelected]]];
+                 [orderModalVC setDelegate:self];
                  [self presentViewController:[orderModalVC withNavigationControllerWithOpaque] animated:YES completion:nil];
+                 
              } else {
                  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
                  [alertView show];
@@ -417,10 +415,12 @@ static CGFloat kImageOriginHight = 180.f;
              [alert show];
          }
          
+         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
      }
                                   failure:^(NSError *error)
      {
          NSLog(@"Error: %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
      }];
 }
 
@@ -434,7 +434,7 @@ static CGFloat kImageOriginHight = 180.f;
 #pragma mark - UIPickerView Methods
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.arrayOfQuantities count];
+    return [[self arrayOfQuantities] count];
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -446,5 +446,13 @@ static CGFloat kImageOriginHight = 180.f;
 }
 
 - (IBAction)buttonVenuePressed:(id)sender {
+    
 }
+
+-(void)paymentSuccessful:(BOOL)success {
+    if (success) {
+        [MBProgressHUD showSuccessHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Success", nil) message:@"Check the ticket tab!"];
+    }
+}
+
 @end

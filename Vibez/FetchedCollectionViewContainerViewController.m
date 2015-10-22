@@ -13,6 +13,8 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "EventInfoViewController.h"
 #import <Reachability/Reachability.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
+#import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 
 @interface FetchedCollectionViewContainerViewController ()
 {
@@ -49,7 +51,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.searchBar resignFirstResponder];
+    [[self searchBar] resignFirstResponder];
 }
 
 -(NSDate*)dateNoTime:(NSDate*)myDate {
@@ -66,14 +68,26 @@
     [self.searchBar setKeyboardAppearance:UIKeyboardAppearanceDark];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self setSearchBarAppearance];
+    [self setCalendarIcon];
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+- (void)setCalendarIcon {
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
+    
+    UIBarButtonItem *buttonCalendar = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconCalendar] style:UIBarButtonItemStyleDone target:self action:@selector(buttonCalendarPressed:)];
+    [[self navigationItem] setRightBarButtonItem:buttonCalendar];
+}
+
+- (void)buttonCalendarPressed:(id)sender {
+    NSLog(@"Calender pressed");
 }
 
 - (void)refresh:(id)sender
@@ -93,7 +107,7 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [self.collectionView reloadData];
+             [[self collectionView] reloadData];
              
              if(error)
              {
@@ -115,10 +129,10 @@
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setEvent:event];
+    [self setIndexPathSelected:indexPath];
     [self.parentViewController performSegueWithIdentifier:@"eventToEventInfoSegue" sender:self];
 }
 
@@ -130,12 +144,12 @@
     
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+    [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
-    if (searchString.length)
+    if ([searchString length])
     {
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
@@ -151,22 +165,21 @@
 {
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)theItemCell;
     Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
+
+    if ([event name]) {
+        [eventCell.eventNameLabel setText:[event name]];
+    }
     
-//    if (!(indexPath.row % 2 == 0)) {
-//        [eventCell.contentView setBackgroundColor:[UIColor redColor]];
-//    } else if ((indexPath.row % 2 == 0)) {
-//        [eventCell.contentView setBackgroundColor:[UIColor blueColor]];
-//    }
-    
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
-    
-    NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
-    
-    [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
-    
-    [eventCell.eventNameLabel setText:[event name]];
-    [eventCell.eventDateLabel setText:dateFormatString];
+    if ([event startDate]) {
+        
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"EEE dd MMM"];
+        
+        NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:event.startDate]];
+        
+        [dateFormatString insertString:[NSString daySuffixForDate:event.startDate] atIndex:6];
+        [eventCell.eventDateLabel setText:dateFormatString];
+    }
     
     NSString *eventPriceString;
     
@@ -176,32 +189,32 @@
     }
     
     if([[event quantity] isEqualToNumber:@0]) {
-        eventCell.eventPriceLabel.text = @"SOLD OUT";
-        [eventCell.eventPriceLabel setTextColor:[UIColor redColor]];
+        [[eventCell eventPriceLabel] setText:@"SOLD OUT"];
+        [[eventCell eventPriceLabel] setTextColor:[UIColor redColor]];
     }
     else
     {
-        [eventCell.eventPriceLabel setTextColor:[UIColor pku_purpleColor]];
-        //eventCell.eventPriceLabel.text = eventPriceString; //eventPriceString
-        eventCell.eventPriceLabel.text = @""; //eventPriceString
+        [[eventCell eventPriceLabel] setText:eventPriceString];
+        [[eventCell eventPriceLabel] setTextColor:[UIColor whiteColor]];
     }
     
-    [eventCell.eventPriceLabel sizeToFit];
-    [eventCell.eventPriceLabel setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
+    [[eventCell eventPriceLabel] sizeToFit];
+    [[eventCell eventPriceLabel] setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
     
     // Here we use the new provided sd_setImageWithURL: method to load the web image
-    [eventCell.eventImage sd_setImageWithURL:[NSURL URLWithString:event.image]
-                            placeholderImage:nil
-                                   completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-     {
-         
-     }];
+    if ([eventCell eventImage]) {
+        [[eventCell eventImage] sd_setImageWithURL:[NSURL URLWithString:event.image]
+                                  placeholderImage:nil
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+         {
+             
+         }];
+    }
 }
 
 #pragma mark - UICollectionView Delegates
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     EventCollectionViewCell* cell = (EventCollectionViewCell*)[collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class]) forIndexPath:indexPath];
     
     if (cell == nil) {
@@ -266,6 +279,11 @@
 - (void)emptyDataSetDidTapButton:(UIScrollView *)scrollView
 {
     [self refresh:self];
+}
+
+- (BOOL)emptyDataSetShouldAllowScroll:(UIScrollView *)scrollView
+{
+    return YES;
 }
 
 - (NSAttributedString *)buttonTitleForEmptyDataSet:(UIScrollView *)scrollView forState:(UIControlState)state

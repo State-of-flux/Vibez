@@ -17,10 +17,9 @@
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
 #import "Order+Additions.h"
 
-@interface OrderInfoViewController ()
-{
+
+@interface OrderInfoViewController () {
     Reachability *reachability;
-    
 }
 @end
 
@@ -192,9 +191,12 @@
 }
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Processing order", nil)];
+    
     if([reachability isReachable]) {
         [self getTokenAndShowBrainTree];
     } else {
+        [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
@@ -208,12 +210,17 @@
                                                              initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                              target:self
                                                              action:@selector(userDidCancelPayment)];
+    [dropInViewController setTitle:NSLocalizedString(@"Payment", nil)];
     
     PFObject *event = [[self order] objectForKey:@"event"];
     
     //Customize the UI
     [dropInViewController setSummaryTitle:[event objectForKey:@"eventName"]];
-    [dropInViewController setSummaryDescription:[event objectForKey:@"eventDescription"]];
+    
+    NSString *description = [event objectForKey:@"eventDescription"];
+    NSString *shortString = ([description length] > 155 ? [description substringToIndex:155] : description);
+    
+    [dropInViewController setSummaryDescription:shortString];
     [dropInViewController setDisplayAmount:[NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]]];
     [dropInViewController setCallToActionText:NSLocalizedString(@"Pay for Tickets", nil)];
     [self presentViewController:[dropInViewController withNavigationController]
@@ -242,6 +249,8 @@
                  [self showBrainTreeViewController];
                  [[self buttonCheckout] setEnabled:YES];
              }
+             
+             [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
          } else {
              if([(NSHTTPURLResponse *)response statusCode] == 0)
              {
@@ -253,6 +262,8 @@
                  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
                  [alertView show];
              }
+             
+             [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
          }
      }];
 }
@@ -274,12 +285,22 @@
             [event saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
                 if (succeeded) {
                     NSLog(@"Successfully decremented the quantity");
+                    
+                    [self dismissViewControllerAnimated:NO completion:^{
+                        [[self parentViewController] dismissViewControllerAnimated:NO completion:^{
+                            [self notifyDelegateWithSuccess:YES];
+                        }];
+                    }];
                 } else {
                     NSLog(@"Error when decrementing quantity: %@", [error localizedDescription]);
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                    [alertView show];
                 }
             }];
         } else {
             NSLog(@"Error: %@", [error localizedDescription]);
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alertView show];
         }
     }];
 }
@@ -331,8 +352,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    switch (section)
-    {
+    switch (section) {
         case 0:
             return [self.eventInfoData count];
         case 1:
@@ -361,13 +381,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.data count];
+    return [[self data] count];
 }
 
 #pragma mark - UIPickerView Methods
 
 - (void)showQuantityPicker:(id)sender {
-    [ActionSheetStringPicker showPickerWithTitle:@"How many tickets?"
+    [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
                                             rows:[self.arrayOfQuantities copy]
                                 initialSelection:0
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
@@ -387,7 +407,7 @@
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    return [self.arrayOfQuantities count];
+    return [[self arrayOfQuantities] count];
 }
 
 -(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -396,6 +416,12 @@
 
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     return self.arrayOfQuantities[row];
+}
+
+- (void)notifyDelegateWithSuccess:(BOOL)success {
+    if (_delegate) {
+        [_delegate paymentSuccessful:success];
+    }
 }
 
 @end
