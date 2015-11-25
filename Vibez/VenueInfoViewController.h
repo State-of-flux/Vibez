@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UILabel *venueTownLabel;
 @property (strong, nonatomic) UITextView *venueDescriptionTextView;
 
+@property (strong, nonatomic) UIButton *buttonUpcomingEvent;
 @property (strong, nonatomic) UIButton *buttonFacebook;
 @property (strong, nonatomic) UIButton *buttonTwitter;
 @property (strong, nonatomic) UIButton *buttonInstagram;
@@ -29,8 +30,8 @@
 @property (strong, nonatomic) UIVisualEffectView *blurView;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonGetDirections;
-- (IBAction)buttonGetDirectionsPressed:(id)sender;
 
+- (IBAction)buttonGetDirectionsPressed:(id)sender;
 + (instancetype)createWithVenue:(Venue *)venue;
 
 @end

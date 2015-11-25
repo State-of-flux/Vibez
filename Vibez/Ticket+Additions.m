@@ -41,6 +41,7 @@
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
                    managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
                    managedObject.hasBeenUsed = dictionary[@"hasBeenUsed"];
+                   managedObject.eventEndDate = [dictionary[@"event"] objectForKey:@"eventLastEntry"];
                    managedObject.venue = [[dictionary[@"event"] objectForKey:@"venue"] objectForKey:@"venueName"];
                    //managedObject.location = [[[dictionary[@"event"] objectForKey:@"eventVenue"] objectForKey:@"location"] stringValue];
                    managedObject.hasBeenUpdated = @YES;
@@ -121,7 +122,7 @@
     [PIKParseManager insertOrUpdatePFObject:[self pfObject]
                               withClassName:NSStringFromClass([self class])
                             remoteUniqueKey:@"objectId"
-                                uniqueValue:self.ticketID
+                                uniqueValue:[self ticketID]
                                     success:^(PFObject *pfObject) {
                                         NSLog(@"Uploaded");
                                     }
@@ -140,33 +141,41 @@
     return object;
 }
 
-+ (NSInteger)getAmountOfTicketsUserOwnsOnEvent:(Event *)event
-{
-    NSFetchRequest *request = [Ticket sqk_fetchRequest];
++ (void)getAmountOfTicketsUserOwnsOnEvent:(Event *)event withBlock:(void (^)(int, NSError *))block {
     
-    SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
-    NSError *error;
-    //[controller setDelegate:self];
-    [controller fetchRequest];
-    [controller performFetch:&error];
+    PFQuery *query = [PFQuery queryWithClassName:@"Ticket"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event eventID]];
+    [query whereKey:@"event" equalTo:object];
+    [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+        block(count, error);
+    }];
     
-    if(!error) {
-        NSInteger counterQuantityOfTicketsOnEvent = 0;
-        
-        for(Ticket *ticket in controller.managedObjects)
-        {
-            if([[ticket eventID] isEqual:[event eventID]])
-            {
-                counterQuantityOfTicketsOnEvent++;
-            }
-        }
-        
-        NSLog(@"Amount of tickets user owns already: %ld", (long)counterQuantityOfTicketsOnEvent);
-        return counterQuantityOfTicketsOnEvent;
-    } else {
-        NSLog(@"%@", [error localizedDescription]);
-        return -1;
-    }
+//    NSFetchRequest *request = [Ticket sqk_fetchRequest];
+//    
+//    SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
+//    NSError *error;
+//    //[controller setDelegate:self];
+//    [controller fetchRequest];
+//    [controller performFetch:&error];
+//    
+//    if(!error) {
+//        NSInteger counterQuantityOfTicketsOnEvent = 0;
+//        
+//        for(Ticket *ticket in controller.managedObjects)
+//        {
+//            if([[ticket eventID] isEqual:[event eventID]])
+//            {
+//                counterQuantityOfTicketsOnEvent++;
+//            }
+//        }
+//        
+//        NSLog(@"Amount of tickets user owns already: %ld", (long)counterQuantityOfTicketsOnEvent);
+//        return counterQuantityOfTicketsOnEvent;
+//    } else {
+//        NSLog(@"%@", [error localizedDescription]);
+//        return -1;
+//    }
 }
 
 @end

@@ -113,7 +113,7 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-    [self stackTickets];
+    //[self stackTickets];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {

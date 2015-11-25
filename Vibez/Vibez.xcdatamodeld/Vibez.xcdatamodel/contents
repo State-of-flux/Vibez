@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="14F27" minimumToolsVersion="Xcode 4.3">
     <entity name="Event" representedClassName="Event" syncable="YES">
         <attribute name="bookingFee" optional="YES" attributeType="Decimal" minValueString="0" defaultValueString="0.0" syncable="YES"/>
         <attribute name="endDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -31,6 +31,7 @@
     <entity name="Ticket" representedClassName="Ticket" syncable="YES">
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="eventEndDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="eventID" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasBeenUpdated" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -67,7 +68,7 @@
     <elements>
         <element name="Event" positionX="-243" positionY="-2124" width="128" height="268"/>
         <element name="Order" positionX="-240" positionY="-1827" width="128" height="178"/>
-        <element name="Ticket" positionX="-432" positionY="-1947" width="128" height="223"/>
+        <element name="Ticket" positionX="-432" positionY="-1947" width="128" height="238"/>
         <element name="User" positionX="-27" positionY="-1831" width="128" height="148"/>
         <element name="Venue" positionX="-36" positionY="-2034" width="128" height="208"/>
     </elements>

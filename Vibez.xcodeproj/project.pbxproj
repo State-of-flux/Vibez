@@ -64,25 +64,26 @@
 		6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2441AE083ED0078154E /* VenueInfoViewController.m */; };
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
-		6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */; settings = {ASSET_TAGS = (); }; };
+		6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */; };
 		6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D14E1B864C8A0087A6BC /* Order+Additions.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
 		6C53D1821B8A3E1E0087A6BC /* AddFriendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1811B8A3E1E0087A6BC /* AddFriendViewController.m */; };
 		6C53D1851B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1841B90CBF10087A6BC /* TicketsFetchedCollectionViewController.m */; };
 		6C53D1881B90D0660087A6BC /* TicketCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D1871B90D0660087A6BC /* TicketCollectionViewCell.m */; };
-		6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63111BBC75A8001A336A /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FF1BBC75A8001A336A /* Venue.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63131BBC75A8001A336A /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63031BBC75A8001A336A /* Ticket.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63151BBC75A8001A336A /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63071BBC75A8001A336A /* Order.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63171BBC75A8001A336A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630B1BBC75A8001A336A /* Event.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; settings = {ASSET_TAGS = (); }; };
-		6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C631A1BBC8CC0001A336A /* Order.plist */; settings = {ASSET_TAGS = (); }; };
+		6C5C63101BBC75A8001A336A /* Venue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FD1BBC75A8001A336A /* Venue+CoreDataProperties.m */; };
+		6C5C63111BBC75A8001A336A /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C62FF1BBC75A8001A336A /* Venue.m */; };
+		6C5C63121BBC75A8001A336A /* Ticket+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63011BBC75A8001A336A /* Ticket+CoreDataProperties.m */; };
+		6C5C63131BBC75A8001A336A /* Ticket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63031BBC75A8001A336A /* Ticket.m */; };
+		6C5C63141BBC75A8001A336A /* Order+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63051BBC75A8001A336A /* Order+CoreDataProperties.m */; };
+		6C5C63151BBC75A8001A336A /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63071BBC75A8001A336A /* Order.m */; };
+		6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C63091BBC75A8001A336A /* Event+CoreDataProperties.m */; };
+		6C5C63171BBC75A8001A336A /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630B1BBC75A8001A336A /* Event.m */; };
+		6C5C63181BBC75A8001A336A /* User+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630D1BBC75A8001A336A /* User+CoreDataProperties.m */; };
+		6C5C63191BBC75A8001A336A /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C5C630F1BBC75A8001A336A /* User.m */; };
+		6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C5C631A1BBC8CC0001A336A /* Order.plist */; };
 		6C60B0A61B3482DD004632C0 /* Vibez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */; };
-		6C64F74F1BD707FA0037704D /* MBProgressHUD+Vibes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */; settings = {ASSET_TAGS = (); }; };
+		6C64F74F1BD707FA0037704D /* MBProgressHUD+Vibes.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */; };
+		6C76A7201C066A13007FAEBB /* NFNotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C76A71F1C066A13007FAEBB /* NFNotificationController.m */; };
 		6C79FF751B28B40C006293C9 /* UIColor+Piktu.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF741B28B40C006293C9 /* UIColor+Piktu.m */; };
 		6C79FF871B2A66B9006293C9 /* TicketTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF861B2A66B9006293C9 /* TicketTableViewCell.m */; };
 		6C79FF8A1B2A66F2006293C9 /* TicketDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C79FF891B2A66F2006293C9 /* TicketDataSource.m */; };
@@ -116,10 +117,10 @@
 		6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6591B3877BD00C82735 /* PIKParseManager.m */; };
 		6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6621B38787E00C82735 /* Venue+Additions.m */; };
 		6C90C66C1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C66B1B38861E00C82735 /* FetchedCollectionViewContainerViewController.m */; };
-		6C945D971BAC79D300B7FDD6 /* PIKSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C945D961BAC79D300B7FDD6 /* PIKSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
+		6C945D971BAC79D300B7FDD6 /* PIKSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C945D961BAC79D300B7FDD6 /* PIKSegmentedControl.m */; };
 		6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6C96DB9C1B7A83FF00B4CF2F /* background.gif */; };
-		6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */; settings = {ASSET_TAGS = (); }; };
-		6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */; settings = {ASSET_TAGS = (); }; };
+		6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */; };
+		6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */; };
 		6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0F7801B212C3900DF867D /* loginBG.jpg */; };
 		6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A4321B3CC9AB00121975 /* Event+Additions.m */; };
 		6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5721B5835BD00EA9A09 /* Constants.m */; };
@@ -134,7 +135,7 @@
 		6CD58E071ADED8BD00CDBC29 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD58E061ADED8BD00CDBC29 /* Accounts.framework */; };
 		6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBAF831B4F416400ED75CD /* RKDropdownAlert.m */; };
 		6CDBAF8C1B4F4AEC00ED75CD /* TicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CDBAF8B1B4F4AEC00ED75CD /* TicketsViewController.m */; };
-		6CE7B3701BB9BB98000EB03D /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE7B36F1BB9BB98000EB03D /* backArrow.png */; settings = {ASSET_TAGS = (); }; };
+		6CE7B3701BB9BB98000EB03D /* backArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6CE7B36F1BB9BB98000EB03D /* backArrow.png */; };
 		6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CE7B3711BB9BE34000EB03D /* Montserrat-Light.otf */; };
 		6CEF066D1B49B057001F1E7C /* Montserrat-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */; };
 		6CEF066E1B49B057001F1E7C /* Montserrat-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */; };
@@ -273,6 +274,8 @@
 		6C60B0A51B3482DD004632C0 /* Vibez.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Vibez.xcdatamodel; sourceTree = "<group>"; };
 		6C64F74D1BD707FA0037704D /* MBProgressHUD+Vibes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Vibes.h"; sourceTree = "<group>"; };
 		6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Vibes.m"; sourceTree = "<group>"; };
+		6C76A71E1C066A13007FAEBB /* NFNotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NFNotificationController.h; sourceTree = "<group>"; };
+		6C76A71F1C066A13007FAEBB /* NFNotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NFNotificationController.m; sourceTree = "<group>"; };
 		6C79FF731B28B40C006293C9 /* UIColor+Piktu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Piktu.h"; sourceTree = "<group>"; };
 		6C79FF741B28B40C006293C9 /* UIColor+Piktu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Piktu.m"; sourceTree = "<group>"; };
 		6C79FF761B28B49A006293C9 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
@@ -511,6 +514,7 @@
 		6C3471591AE46EEC00FC789A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6C76A71D1C06699B007FAEBB /* Local Notification Controller */,
 				6C3471641AE481B700FC789A /* Validation */,
 				6C34715A1AE46EF300FC789A /* Account */,
 			);
@@ -659,6 +663,15 @@
 				6C7BD7661AEC2C9D0092483F /* VenueDataSource.m */,
 			);
 			name = Collection;
+			sourceTree = "<group>";
+		};
+		6C76A71D1C06699B007FAEBB /* Local Notification Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6C76A71E1C066A13007FAEBB /* NFNotificationController.h */,
+				6C76A71F1C066A13007FAEBB /* NFNotificationController.m */,
+			);
+			name = "Local Notification Controller";
 			sourceTree = "<group>";
 		};
 		6C79FF681B28940A006293C9 /* Swift */ = {
@@ -1299,6 +1312,7 @@
 				6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */,
 				6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */,
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
+				6C76A7201C066A13007FAEBB /* NFNotificationController.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
 				6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */,
