@@ -15,6 +15,7 @@
 #import "UIColor+Piktu.h"
 #import <Braintree/Braintree.h>
 #import <Reachability/Reachability.h>
+#import "NFNotificationController.h"
 
 @interface AppDelegate () {
     BOOL loggedIn;
@@ -30,6 +31,7 @@
     [self setupLookBack];
     [self setupAppearance];
     [self monitorReachability];
+    [NFNotificationController scheduleNotifications];
     
     if ([PFUser currentUser]) {
         if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
@@ -54,7 +56,7 @@
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    
+
     return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
 }
 
@@ -86,9 +88,9 @@
 -(void)presentLoginView
 {
     loginViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    UINavigationController* navigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
-    self.window.rootViewController = navigation;
-    [self.window makeKeyAndVisible];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    [[self window] setRootViewController:navigation];
+    [[self window] makeKeyAndVisible];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -115,7 +117,7 @@
 }
 
 - (BOOL)isParseReachable {
-    return self.networkStatus != NotReachable;
+    return [self networkStatus] != NotReachable;
 }
 
 -(void)logout:(completion)compblock
@@ -151,7 +153,7 @@
     compblock(YES);
 }
 
-- (void) deleteAllObjects: (NSString *) entityDescription  {
+- (void)deleteAllObjects:(NSString *) entityDescription {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[PIKContextManager mainContext]];

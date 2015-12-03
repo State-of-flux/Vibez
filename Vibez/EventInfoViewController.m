@@ -176,16 +176,8 @@
     NSMutableString *dateFormatStringEnd = [[NSMutableString alloc] initWithString:[[dateFormatter stringFromDate:self.event.endDate] lowercaseString]];
     NSMutableString *beginningEnd = [[NSMutableString alloc] initWithFormat:NSLocalizedString(@"%@ - %@", @"Beginning And End"), dateFormatStringBegin, dateFormatStringEnd];
     
-    self.eventDateEndLabel.text = beginningEnd;
+    [[self eventDateEndLabel] setText:beginningEnd];
     
-    // Event description Label
-//    self.eventDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 25)];
-//    [[self eventDescriptionLabel] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
-//    [[self eventDescriptionLabel] setTextColor:[UIColor pku_greyColor]];
-//    [[self eventDescriptionLabel] setLineBreakMode:NSLineBreakByWordWrapping];
-//    [[self eventDescriptionLabel] setNumberOfLines:0];
-//    [[self eventDescriptionLabel] setText:[[self event] eventDescription]];
-
     // Event Description
     self.eventDescriptionTextView = [[UITextView alloc] initWithFrame:CGRectMake(paddingDouble, CGRectGetMaxY(self.eventDateEndLabel.frame) + padding, width - 32, 400)];
     self.eventDescriptionTextView.backgroundColor = [UIColor clearColor];
@@ -209,7 +201,14 @@
     [self.scrollView addSubview:self.eventDescriptionTextView];
     
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
-    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble)];
+    
+    CGFloat yValueScrollView = CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble + 100;
+    
+    if (yValueScrollView <= [[self view] frame].size.height + 50) {
+        yValueScrollView = [[self view] frame].size.height + 50;
+    }
+    
+    [self.scrollView setContentSize:CGSizeMake(width, yValueScrollView)];
     
     [[self getTicketsButton] setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
@@ -226,17 +225,70 @@
     }
     
     [self.view bringSubviewToFront:self.getTicketsButton];
-    [self.scrollView bringSubviewToFront:self.eventNameLabel];
+    [[self scrollView] bringSubviewToFront:self.eventNameLabel];
 }
 
 - (void)pushVenue:(id)sender {
     
     NSError *error;
-    Venue *venue = [Venue sqk_insertOrFetchWithKey:@"venueID" value:self.event.eventVenueId context:[PIKContextManager mainContext] error:&error];
+    Venue *venue = [Venue sqk_insertOrFetchWithKey:@"venueID" value:[[self event] eventVenueId] context:[PIKContextManager mainContext] error:&error];
     
+    if (!venue) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objectId = %@", [[self event] eventVenueId]];
+        PFQuery *query = [PFQuery queryWithClassName:@"Venue" predicate:predicate];
+        
+        [query getFirstObjectInBackgroundWithBlock:^(PFObject * _Nullable object, NSError * _Nullable error) {
+            if (!error) {
+                
+                Venue *venueDownloaded = [[Venue alloc] init];
+                
+                if (object[@"objectId"]) {
+                    [venueDownloaded setVenueID:object[@"objectId"]];
+                }
+                
+                if (object[@"venueDescription"]) {
+                    [venueDownloaded setVenueDescription:object[@"venueDescription"]];
+                }
+                
+                if (object[@"venueName"]) {
+                    [venueDownloaded setName:object[@"venueName"]];
+                }
+                
+                if (object[@"town"]) {
+                    [venueDownloaded setTown:object[@"town"]];
+                }
+                
+                if (object[@"location"]) {
+                    [venueDownloaded setLocation:object[@"location"]];
+                }
+                
+                if (object[@"facebook"]) {
+                    [venueDownloaded setFacebook:object[@"facebook"]];
+                }
+                
+                if (object[@"twitter"]) {
+                    [venueDownloaded setTwitter:object[@"twitter"]];
+                }
+                
+                if (object[@"instagram"]) {
+                    [venueDownloaded setInstagram:object[@"instagram"]];
+                }
+                
+                [self moveToVenueViewControllerWithVenue:venueDownloaded];
+                
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Venue couldn't be found, please try again later.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }];
+    } else {
+        [self moveToVenueViewControllerWithVenue:venue];
+    }
+}
+
+- (void)moveToVenueViewControllerWithVenue:(Venue *)venue {
     VenueInfoViewController *venueVC = [VenueInfoViewController createWithVenue:venue];
     [[self navigationController] pushViewController:venueVC animated:YES];
-    //[self presentViewController:[venueVC withNavigationControllerWithOpaque] animated:YES completion:nil];
 }
 
 -(void)shareEvent {
@@ -347,24 +399,34 @@
                                                 rows:[self.arrayOfQuantities copy]
                                     initialSelection:0
                                            doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                               NSLog(@"Picker: %@, Index: %ld, value: %@",
-                                                     picker, (long)selectedIndex, selectedValue);
+                                               //NSLog(@"Picker: %@, Index: %ld, value: %@",
+                                               //      picker, (long)selectedIndex, selectedValue);
                                                
                                                [self setQuantitySelected:[selectedValue integerValue]];
                                                
                                                if([self quantitySelected])
                                                {
-                                                   NSInteger quantityOfTickets = [Ticket getAmountOfTicketsUserOwnsOnEvent:[self event]];
+                                                   [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
                                                    
-                                                   if((quantityOfTickets + [self quantitySelected]) <= 10)
-                                                   {
-                                                       [self createOrderAndProceed];
-                                                   }
-                                                   else
-                                                   {
-                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:NSLocalizedString(@"You can only buy up to 10 tickets per event.", @"You can only buy up to 10 tickets per event.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                       [alert show];
-                                                   }
+                                                   [Ticket getAmountOfTicketsUserOwnsOnEvent:[self event] withBlock:^(int quantityOfTickets, NSError *error) {
+                                                       
+                                                       if (!error) {
+                                                           if((quantityOfTickets + [self quantitySelected]) <= 10)
+                                                           {
+                                                               [self createOrderAndProceed];
+                                                           }
+                                                           else
+                                                           {
+                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                               [alert show];
+                                                               [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                                                           }
+                                                       } else {
+                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                           [alert show];
+                                                           [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                                                       }
+                                                   }];
                                                }
                                                else
                                                {
@@ -380,15 +442,13 @@
     }
     else
     {
-        
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
 
 - (void)createOrderAndProceed {
-    
-    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
+
     
     [PIKParseManager pfObjectForClassName:@"Event" remoteUniqueKey:@"objectId" uniqueValue:self.event.eventID success:^(PFObject *pfObject)
      {
@@ -426,7 +486,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if([segue.identifier isEqualToString:@"eventInfoToOrderInfoSegue"]) {
+    if([[segue identifier] isEqualToString:@"eventInfoToOrderInfoSegue"]) {
         // Here we create the order using the event and quantity, the quantity denotes the amount of ticket objects created.
     }
 }

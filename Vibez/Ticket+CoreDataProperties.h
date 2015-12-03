@@ -2,7 +2,7 @@
 //  Ticket+CoreDataProperties.h
 //  Vibez
 //
-//  Created by Harry Liddell on 04/10/2015.
+//  Created by Harry Liddell on 18/11/2015.
 //  Copyright © 2015 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSString *ticketID;
 @property (nullable, nonatomic, retain) NSString *username;
 @property (nullable, nonatomic, retain) NSString *venue;
+@property (nullable, nonatomic, retain) NSDate *eventEndDate;
 @property (nullable, nonatomic, retain) Order *order;
 
 @end

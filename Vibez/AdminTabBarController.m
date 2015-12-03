@@ -22,13 +22,13 @@
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     UITabBarItem *item0 = self.tabBar.items[0];
     item0.title = @"Scan";
-    item0.image = [factory createImageForIcon:NIKFontAwesomeIconCamera];
-    item0.selectedImage = [factory createImageForIcon:NIKFontAwesomeIconCamera];
+    item0.image = [UIImage imageNamed:@"scanningIcon"];//[factory createImageForIcon:NIKFontAwesomeIconCamera];
+    item0.selectedImage = [UIImage imageNamed:@"scanningIcon"];//[factory createImageForIcon:NIKFontAwesomeIconCamera];
     
     UITabBarItem *item1 = self.tabBar.items[1];
     item1.title = @"Search";
-    item1.image = [factory createImageForIcon:NIKFontAwesomeIconSearch];
-    item1.selectedImage = [factory createImageForIcon:NIKFontAwesomeIconSearch];
+    item1.image = [UIImage imageNamed:@"searchIcon"];//[factory createImageForIcon:NIKFontAwesomeIconSearch];
+    item1.selectedImage = [UIImage imageNamed:@"searchIcon"];//[factory createImageForIcon:NIKFontAwesomeIconSearch];
     
     UITabBarItem *item2 = self.tabBar.items[2];
     item2.title = @"More";

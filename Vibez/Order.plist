@@ -11,12 +11,16 @@
 				<string>Event</string>
 				<key>isInteractable</key>
 				<false/>
+				<key>Id</key>
+				<string>eventId</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Date</string>
 				<key>isInteractable</key>
 				<false/>
+				<key>Id</key>
+				<string>dateId</string>
 			</dict>
 		</array>
 		<key>Payment</key>
@@ -26,12 +30,16 @@
 				<string>Price per ticket</string>
 				<key>isInteractable</key>
 				<true/>
+				<key>Id</key>
+				<string>pricePerTicketId</string>
 			</dict>
 			<dict>
 				<key>name</key>
 				<string>Quantity</string>
 				<key>isInteractable</key>
 				<true/>
+				<key>Id</key>
+				<string>quantityId</string>
 			</dict>
 		</array>
 		<key>Total</key>
@@ -41,6 +49,8 @@
 				<string>Total</string>
 				<key>isInteractable</key>
 				<false/>
+				<key>Id</key>
+				<string>totalId</string>
 			</dict>
 		</array>
 	</dict>

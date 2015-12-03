@@ -16,6 +16,7 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
 #import <MBProgressHUD/MBProgressHUD.h>
+#import "NFNotificationController.h"
 
 @interface LoginViewController () {
     Reachability *reachability;
@@ -186,17 +187,18 @@
 
 #pragma mark - Parse Login
 
--(void)Login
-{
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.mode = MBProgressHUDModeIndeterminate;
-    self.hud.labelText = @"Logging in...";
-    
-    NSString *emailIdentifier = @"@";
-    NSString *usernameOrEmailString = self.emailAddressTextField.text;
-    NSString *passwordString = self.passwordTextField.text;
+-(void)Login {
     
     if([reachability isReachable]) {
+        
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.mode = MBProgressHUDModeIndeterminate;
+        self.hud.labelText = @"Logging in...";
+        
+        NSString *emailIdentifier = @"@";
+        NSString *usernameOrEmailString = self.emailAddressTextField.text;
+        NSString *passwordString = self.passwordTextField.text;
+        
         if ([usernameOrEmailString rangeOfString:emailIdentifier].location != NSNotFound) {
             //"username" contains the email identifier @, therefore this is an email. Pull down the username.
             PFQuery *query = [PFUser query];
@@ -217,13 +219,13 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        [self internetErrorOccurred];
     }
 }
 
 -(void)LoginWithUsernameParse:(NSString *)username andPassword:(NSString *)password
 {
+    if([reachability isReachable]) {
     [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
      {
          if(user)
@@ -232,13 +234,13 @@
              [defaults setObject:user.username forKey:@"username"];
              [defaults setObject:user.email forKey:@"emailAddress"];
              
-             self.hud.labelText = @"Fetching data...";
+             self.hud.labelText = NSLocalizedString(@"Fetching data...", nil);
              if(![[user objectForKey:@"isAdmin"] boolValue])
              {
                  [self loadAllCustomerData:^(BOOL finished) {
                      if(finished)
                      {
-                         self.hud.labelText = @"Done!";
+                         self.hud.labelText = NSLocalizedString(@"Done!", nil);
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }
@@ -249,7 +251,7 @@
                  [self loadAllAdminData:^(BOOL finished) {
                      if(finished)
                      {
-                         self.hud.labelText = @"Done!";
+                         self.hud.labelText = NSLocalizedString(@"Done!", nil);
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }
@@ -263,16 +265,25 @@
                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
                  [alert show];
              }
-             
          }
          
          [self.hud hide:YES];
          self.loginButton.enabled = true;
          self.signUpButton.enabled = true;
      }];
+    } else {
+        [self internetErrorOccurred];
+    }
 }
 
--(void)loadAllCustomerData:(completion) compblock {
+- (void)internetErrorOccurred {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+    [alertView show];
+    self.loginButton.enabled = true;
+    self.signUpButton.enabled = true;
+}
+
+-(void)loadAllCustomerData:(completion)compblock {
     
     [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
      {
@@ -328,6 +339,7 @@
          }
          
          compblock(YES);
+         [NFNotificationController scheduleNotifications];
      }
                                           failureBlock:^(NSError *error)
      {
@@ -352,7 +364,7 @@
          
          compblock(YES);
      }
-                              failureBlock:^(NSError *error)
+                         failureBlock:^(NSError *error)
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          compblock(YES);
@@ -361,8 +373,7 @@
 
 #pragma mark - Facebook Login
 
-- (IBAction)FacebookLoginButtonTapped:(id)sender
-{
+- (IBAction)FacebookLoginButtonTapped:(id)sender {
     //[accountController LoginWithFacebook];
 }
 

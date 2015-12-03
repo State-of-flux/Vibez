@@ -13,8 +13,11 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import "EventSelectorViewController.h"
 #import "UIViewController+NavigationController.h"
+#import <Reachability/Reachability.h>
 
-@interface MoreContainerViewController ()
+@interface MoreContainerViewController () {
+    Reachability *reachability;
+}
 
 @end
 
@@ -22,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    reachability = [Reachability reachabilityForInternetConnection];
     NSString *path = [NSString string];
     
     if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
@@ -30,7 +33,7 @@
     } else {
         path = [[NSBundle mainBundle] pathForResource:@"MorePageInfoAdmin" ofType:@"plist"];
     }
-   
+    
     self.data = [[[NSDictionary alloc] initWithContentsOfFile:path] objectForKey:@"Sections"];
     self.accountData = [self.data objectForKey:@"Account"];
     self.filterData = [self.data objectForKey:@"Filter"];
@@ -105,7 +108,7 @@
     else if([[[cell textLabel] text] isEqualToString:@"Event Selected"]) {
         [self setEventSelectedCell:cell];
     }
-
+    
     return cell;
 }
 
@@ -274,30 +277,38 @@
 }
 
 - (void)logout {
-    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.mode = MBProgressHUDModeIndeterminate;
-    self.hud.labelText = @"Logging out...";
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Logout" message:@"Are you sure you want to logout?" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        [appDelegate logout:^(BOOL complete) {
-            if(complete) {
-                [self.hud hide:YES];
-            }
+    if ([reachability isReachable]) {
+        
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.mode = MBProgressHUDModeIndeterminate;
+        self.hud.labelText = @"Logging out...";
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Logout", nil) message:NSLocalizedString(@"Are you sure you want to logout?", nil) preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Logout", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            [appDelegate logout:^(BOOL complete) {
+                if(complete) {
+                    [self.hud hide:YES];
+                }
+            }];
+            
         }];
-
-    }];
-    
-    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        [self.hud hide:YES];
-    }];
-    
-    [alertController addAction:logoutAction];
-    [alertController addAction:cancelAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+        
+        UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+            [self.hud hide:YES];
+        }];
+        
+        [alertController addAction:logoutAction];
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } else {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 - (void)eventSelectedPressed {
@@ -318,6 +329,5 @@
 - (UIStatusBarStyle) preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-
 
 @end
