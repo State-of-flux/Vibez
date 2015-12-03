@@ -57,27 +57,25 @@
 
 - (void)createSocialMediaButtons {
     CGRect frame = [[self scrollView] frame];
-    CGFloat yValue = CGRectGetMaxY(self.buttonUpcomingEvent.frame);
+    CGFloat yValue = CGRectGetMaxY(self.venueDescriptionTextView.frame) + 16;
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
-    [factory setColors:@[[UIColor pku_FacebookColor], [UIColor pku_FacebookColor]]];
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
     
     [self setButtonFacebook:[UIButton buttonWithType:UIButtonTypeCustom]];
     [[self buttonFacebook] setFrame:CGRectMake(0, yValue, frame.size.width/3 , 50.0f)];
-    [[self buttonFacebook] setBackgroundColor:[UIColor clearColor]];
+    [[self buttonFacebook] setBackgroundColor:[UIColor pku_FacebookColor]];
     [[self buttonFacebook] setImage:[factory createImageForIcon:NIKFontAwesomeIconFacebook] forState:UIControlStateNormal];
     [[self buttonFacebook] addTarget:self action:@selector(buttonFacebookPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [self setButtonTwitter:[UIButton buttonWithType:UIButtonTypeCustom]];
     [[self buttonTwitter] setFrame:CGRectMake(CGRectGetMaxX([[self buttonFacebook] frame]), yValue, frame.size.width/3, 50.0f)];
-    [[self buttonTwitter] setBackgroundColor:[UIColor clearColor]];
-    [factory setColors:@[[UIColor pku_TwitterColor], [UIColor pku_TwitterColor]]];
+    [[self buttonTwitter] setBackgroundColor:[UIColor pku_TwitterColor]];
     [[self buttonTwitter] setImage:[factory createImageForIcon:NIKFontAwesomeIconTwitter] forState:UIControlStateNormal];
     [[self buttonTwitter] addTarget:self action:@selector(buttonTwitterPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [self setButtonInstagram:[UIButton buttonWithType:UIButtonTypeCustom]];
     [[self buttonInstagram] setFrame:CGRectMake(CGRectGetMaxX([[self buttonTwitter] frame]), yValue, frame.size.width/3, 50.0f)];
-    [[self buttonInstagram] setBackgroundColor:[UIColor clearColor]];
-    [factory setColors:@[[UIColor pku_InstagramColor], [UIColor pku_InstagramColor]]];
+    [[self buttonInstagram] setBackgroundColor:[UIColor pku_InstagramColor]];
     [[self buttonInstagram] setImage:[factory createImageForIcon:NIKFontAwesomeIconInstagram] forState:UIControlStateNormal];
     [[self buttonInstagram] addTarget:self action:@selector(buttonInstagramPressed:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -179,7 +177,7 @@
     [self.venueDescriptionTextView setScrollEnabled:NO];
     [self.venueDescriptionTextView sizeToFit];
     
-    [self createUpcomingEventButton];
+    //[self createUpcomingEventButton];
     [self createSocialMediaButtons];
     
     [self.scrollView addSubview:self.venueImageView];
@@ -194,8 +192,13 @@
     [self.scrollView addSubview:self.venueDescriptionTextView];
     [[self scrollView] addSubview:[self buttonUpcomingEvent]];
     
-
-    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.buttonFacebook.frame) + [[self buttonGetDirections] frame].size.height + paddingDouble)];
+    CGFloat yValueScrollView = CGRectGetMaxY(self.buttonFacebook.frame) + [[self buttonGetDirections] frame].size.height + paddingDouble + 50;
+    
+    if (yValueScrollView <= [[self view] frame].size.height + 50) {
+        yValueScrollView = [[self view] frame].size.height + 50;
+    }
+    
+    [[self scrollView] setContentSize:CGSizeMake(width, yValueScrollView)];
 }
 
 - (void)createUpcomingEventButton {

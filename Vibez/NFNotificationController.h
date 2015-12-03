@@ -7,7 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SQKDataKit/SQKManagedObjectController.h>
 
 @interface NFNotificationController : NSObject
+
+@property (strong, nonatomic) SQKManagedObjectController *controller;
+
++ (void)scheduleNotifications;
 
 @end

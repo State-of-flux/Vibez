@@ -86,14 +86,33 @@
         case 0:
             name = [[self.eventInfoData objectAtIndex:indexPath.row] objectForKey:@"name"];
             isInteractableCell = [[[self.eventInfoData objectAtIndex:indexPath.row] objectForKey:@"isInteractable"] boolValue];
+            
+            if ([[[self.eventInfoData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"eventId"]) {
+                [cell setTag:100];
+            } else if ([[[self.eventInfoData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"dateId"]) {
+                [cell setTag:101];
+            }
+            
             break;
         case 1:
             name = [[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"name"];
             isInteractableCell = [[[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"isInteractable"] boolValue];
+            
+            if ([[[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"pricePerTicketId"]) {
+                [cell setTag:102];
+            } else if ([[[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"quantityId"]) {
+                [cell setTag:103];
+            }
+            
             break;
         case 2:
             name = [[self.totalData objectAtIndex:indexPath.row] objectForKey:@"name"];
             isInteractableCell = [[[self.totalData objectAtIndex:indexPath.row] objectForKey:@"isInteractable"] boolValue];
+
+            if ([[[self.totalData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"totalId"]) {
+                [cell setTag:104];
+            }
+            
             break;
         default:
             [cell.textLabel setText:@""];
@@ -110,24 +129,24 @@
         [cell setUserInteractionEnabled:NO];
     }
     
-    if([[[cell textLabel] text] isEqualToString:@"Event"])
+    if([cell tag] == 100)
     {
         [self setEventCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Date"])
+    else if([cell tag] == 101)
     {
         [self setDateCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Price per ticket"])
+    else if([cell tag] == 102)
     {
+        [self setIndexPathPricePerTicket:indexPath];
         [self setPricePerTicketCell:cell];
-        
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Quantity"])
+    else if([cell tag] == 103)
     {
         [self setQuantityCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Total"])
+    else if([cell tag] == 104)
     {
         [self setTotalCell:cell];
     }
@@ -152,6 +171,7 @@
 }
 
 - (void)setPricePerTicketCell:(UITableViewCell *)cell {
+
     [cell setAccessoryType:UITableViewCellAccessoryDetailButton];
     [[cell detailTextLabel] setText:[NSMutableString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [[self pricePerTicket] floatValue]]];
 }
@@ -176,7 +196,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    
+    if ([[self indexPathPricePerTicket] isEqual:indexPath]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"Error", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 -(void)setNavBar:(NSString*)titleText
@@ -197,7 +220,7 @@
         [self getTokenAndShowBrainTree];
     } else {
         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }

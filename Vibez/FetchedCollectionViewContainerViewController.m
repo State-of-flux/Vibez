@@ -92,12 +92,12 @@
 
 - (void)refresh:(id)sender
 {
+    [self.refreshControl beginRefreshing];
+    
+    __weak typeof(self) weakSelf = self;
+    
     if([reachability isReachable])
     {
-        [self.refreshControl beginRefreshing];
-        
-        __weak typeof(self) weakSelf = self;
-        
         [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
          {
              NSError *error;
@@ -126,6 +126,7 @@
     {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alertView show];
+        [weakSelf.refreshControl endRefreshing];
     }
 }
 

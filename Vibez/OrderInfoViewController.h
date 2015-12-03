@@ -44,6 +44,8 @@
 @property (strong, nonatomic) NSDecimalNumber *overallPrice;
 @property (nonatomic) NSInteger quantity;
 
+@property (strong, nonatomic) NSIndexPath *indexPathPricePerTicket;
+
 @property (weak, nonatomic) IBOutlet UILabel *transactionIDLabel;
 @property (strong, nonatomic) NSString *clientToken;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;

@@ -15,7 +15,7 @@
     [[target view] setUserInteractionEnabled:NO];
     hud =[[MBProgressHUD alloc] initWithView:[target view]];
     [hud setDelegate:target];
-    [hud setDimBackground:YES];
+    //[hud setDimBackground:YES];
     [[target view] addSubview:hud];
     [hud setLabelText:(title ? title : @"")];
     [hud setDetailsLabelText:(message ? message : @"")];

@@ -201,7 +201,14 @@
     [self.scrollView addSubview:self.eventDescriptionTextView];
     
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
-    [self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble)];
+    
+    CGFloat yValueScrollView = CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble + 100;
+    
+    if (yValueScrollView <= [[self view] frame].size.height + 50) {
+        yValueScrollView = [[self view] frame].size.height + 50;
+    }
+    
+    [self.scrollView setContentSize:CGSizeMake(width, yValueScrollView)];
     
     [[self getTicketsButton] setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateNormal];
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
@@ -218,7 +225,7 @@
     }
     
     [self.view bringSubviewToFront:self.getTicketsButton];
-    [self.scrollView bringSubviewToFront:self.eventNameLabel];
+    [[self scrollView] bringSubviewToFront:self.eventNameLabel];
 }
 
 - (void)pushVenue:(id)sender {
