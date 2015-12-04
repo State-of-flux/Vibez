@@ -15,5 +15,6 @@
 @property (strong, nonatomic) UILabel *ticketVenueLabel;
 @property (strong, nonatomic) UIImageView *ticketImage;
 @property (strong, nonatomic) UIImageView *chevronImage;
+@property (strong, nonatomic) UIImageView *isValidImage;
 
 @end

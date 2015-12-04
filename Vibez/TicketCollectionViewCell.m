@@ -30,6 +30,7 @@
         
         self.ticketImage = [[UIImageView alloc] init];
         self.chevronImage = [[UIImageView alloc] init];
+        self.isValidImage = [[UIImageView alloc] init];
     }
     
     return self;
@@ -99,6 +100,12 @@
     [self.chevronImage setTintColor:[UIColor lightGrayColor]];
     [self.chevronImage setCenter:CGPointMake(self.chevronImage.frame.origin.x, height/2)];
     
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
+    
+    [self.isValidImage setFrame:CGRectMake(CGRectGetMinX([self.chevronImage frame]) - 25, 35, 15, 15)];
+    [self.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
+    [self.isValidImage setCenter:CGPointMake(self.isValidImage.frame.origin.x, height/2)];
+    
     self.ticketNameLabel.frame = CGRectMake(CGRectGetMaxX(self.ticketImage.frame) + padding, height / 4.2, width, 20);
     self.ticketDateLabel.frame = CGRectMake(CGRectGetMaxX(self.ticketImage.frame) + padding, height / 1.8, width / 2, 20);
     
@@ -109,6 +116,7 @@
     [self.contentView addSubview:self.ticketImage];
     //[self.ticketImage addSubview:darkOverlay];
     [self.contentView addSubview:self.chevronImage];
+    [self.contentView addSubview:self.isValidImage];
     //[self setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
 }
 

@@ -17,6 +17,9 @@
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
 #import "Order+Additions.h"
 
+//#define kBTendpoint @"https://protected-brook-8899.herokuapp.com"
+#define kBTendpoint @"http://192.168.1.13:8080"
+
 
 @interface OrderInfoViewController () {
     Reachability *reachability;
@@ -253,7 +256,7 @@
 
 -(void)getTokenAndShowBrainTree {
     // TODO: Switch this URL to your own authenticated API
-    NSURL *clientTokenURL = [NSURL URLWithString:@"https://protected-brook-8899.herokuapp.com/token.php"];
+    NSURL *clientTokenURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/token.php", kBTendpoint]];
     NSMutableURLRequest *clientTokenRequest = [NSMutableURLRequest requestWithURL:clientTokenURL];
     [clientTokenRequest setValue:@"text/plain" forHTTPHeaderField:@"Accept"];
     
@@ -338,10 +341,16 @@
 
 #pragma mark POST NONCE TO SERVER method
 - (void)postNonceToServer:(NSString *)paymentMethodNonce {
-    [[self manager] POST:@"https://protected-brook-8899.herokuapp.com/payment-methods.php"
+    [[self manager] POST:[NSString stringWithFormat:@"%@/payment-methods.php", kBTendpoint]
               parameters:@{@"paymentMethodNonce": paymentMethodNonce,
                            @"amount": [[self overallPrice] stringValue]}
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                     if([responseObject isKindOfClass:[NSDictionary class]]) {
+                         if([[responseObject objectForKey:@"success"] boolValue]) {
+                             NSDictionary *tx  = [[responseObject objectForKey:@"response"] objectForKey:@"transaction"];
+                             NSLog(@"TX: %@", [tx objectForKey:@"id"]);
+                         }
+                     }
                      NSString *transactionID = responseObject[@"transaction"][@"id"];
                      self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
                  }

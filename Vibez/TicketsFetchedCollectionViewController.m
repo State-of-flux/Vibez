@@ -19,6 +19,8 @@
 
 @interface TicketsFetchedCollectionViewController () {
     Reachability *reachability;
+    NIKFontAwesomeIconFactory *factory;
+    NSDateFormatter* dateFormatter;
 }
 @end
 
@@ -113,6 +115,10 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
+     factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    
+    dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"EEE dd MMM"];
     //[self stackTickets];
 }
 
@@ -190,8 +196,6 @@
     
     NSDate *date = [ticket eventDate];
     
-    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"EEE dd MMM"];
     NSMutableString* dateFormatString = [[NSMutableString alloc] initWithString:[dateFormatter stringFromDate:date]];
     
     [dateFormatString insertString:[NSString daySuffixForDate:date] atIndex:6];
@@ -200,13 +204,18 @@
     ticketCell.ticketDateLabel.text = dateFormatString;
     [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
-//    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
-//
-//    if ([[ticket hasBeenUsed] isEqualToNumber:[NSNumber numberWithBool:YES]]) {
-//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconCheckSquareO]];
-//    } else {
-//         [ticketCell.chevronImage setImage:[factory createImageForIcon:NIKFontAwesomeIconSquareO]];
-//    }
+    //[ticketCell.isValidImage setImage:nil];
+    
+    UIColor *color = [[UIColor alloc] init];
+    
+    if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
+        color = [UIColor greenColor];
+    } else {
+        color = [UIColor redColor];
+    }
+    
+    [factory setColors:@[color, color]];
+    [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
     
     [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
                               placeholderImage:[UIImage imageNamed:@"plug.jpg"]
