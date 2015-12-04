@@ -16,9 +16,10 @@
 #import <CardIO/CardIO.h>
 #import <ActionSheetPicker-3.0/ActionSheetStringPicker.h>
 #import "Order+Additions.h"
+#import "Ticket+Additions.h"
 
-//#define kBTendpoint @"https://protected-brook-8899.herokuapp.com"
-#define kBTendpoint @"http://192.168.1.13:8080"
+#define kBTendpoint @"https://protected-brook-8899.herokuapp.com"
+//#define kBTendpoint @"http://192.168.1.13:8080"
 
 
 @interface OrderInfoViewController () {
@@ -176,6 +177,7 @@
 - (void)setPricePerTicketCell:(UITableViewCell *)cell {
 
     [cell setAccessoryType:UITableViewCellAccessoryDetailButton];
+    [[cell accessoryView] setTintColor:[UIColor pku_purpleColor]];
     [[cell detailTextLabel] setText:[NSMutableString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [[self pricePerTicket] floatValue]]];
 }
 
@@ -200,7 +202,7 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([[self indexPathPricePerTicket] isEqual:indexPath]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"Error", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"A small booking fee is applied to tickets to cover the cost of the transaction and support us! Look at our Terms and Conditions for more details.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }
@@ -208,8 +210,8 @@
 -(void)setNavBar:(NSString*)titleText
 {
     UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelOrder:)];
-    self.navigationItem.leftBarButtonItem = buttonCancel;
-    [self.navigationItem setTitle:titleText];
+    [[self navigationItem] setLeftBarButtonItem:buttonCancel];
+    [[self navigationItem] setTitle:titleText];
 }
 
 - (void)cancelOrder:(id)sender {
@@ -423,16 +425,49 @@
                                             rows:[self.arrayOfQuantities copy]
                                 initialSelection:0
                                        doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           NSLog(@"Picker: %@, Index: %ld, value: %@",
-                                                 picker, (long)selectedIndex, selectedValue);
                                            
-                                           NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-                                           [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                                           NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
-                                           [[self order] setObject:quantityValue forKey:@"quantity"];
-                                           [self setPaymentValues];
-                                           [[self tableView] reloadData];
-                                       } cancelBlock:^(ActionSheetStringPicker *picker) {
+                                               //NSLog(@"Picker: %@, Index: %ld, value: %@",
+                                               //      picker, (long)selectedIndex, selectedValue);
+                                               
+                                               [self setQuantitySelected:[selectedValue integerValue]];
+                                               
+                                               if([self quantitySelected])
+                                               {
+                                                   [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
+                                                   
+                                                   [Ticket getAmountOfTicketsUserOwnsOnEventPFObject:[[self order] objectForKey:@"event"] withBlock:^(int quantityOfTickets, NSError *error) {
+                                                       
+                                                       if (!error) {
+                                                           if((quantityOfTickets + [self quantitySelected]) <= 10)
+                                                           {
+                                                               //[self createOrderAndProceed];
+                                                               NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
+                                                               [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                                                               NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
+                                                               [[self order] setObject:quantityValue forKey:@"quantity"];
+                                                               [self setPaymentValues];
+                                                               [[self tableView] reloadData];
+                                                           }
+                                                           else
+                                                           {
+                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                               [alert show];
+                                                           }
+                                                       } else {
+                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                           [alert show];
+                                                       }
+                                                       
+                                                       [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                                                   }];
+                                               }
+                                               else
+                                               {
+                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                                                   [alert show];
+                                               }
+                                           }
+                                        cancelBlock:^(ActionSheetStringPicker *picker) {
                                          NSLog(@"Block Picker Canceled");
                                        } origin:sender];
     

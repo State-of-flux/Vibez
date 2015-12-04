@@ -385,9 +385,9 @@
 -(void)setTopBarButtons:(NSString*)titleText
 {
     UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareEvent)];
-    self.navigationItem.rightBarButtonItem = buttonShare;
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor pku_purpleColor]];
-    self.navigationItem.title = titleText;
+    [[self navigationItem] setRightBarButtonItem:buttonShare];
+    [[[self navigationItem] rightBarButtonItem] setTintColor:[UIColor pku_purpleColor]];
+    [[self navigationItem] setTitle:titleText];
 }
 
 - (IBAction)getTicketsButtonTapped:(id)sender
@@ -396,7 +396,7 @@
     if([reachability isReachable])
     {
         [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
-                                                rows:[self.arrayOfQuantities copy]
+                                                rows:[[self arrayOfQuantities] copy]
                                     initialSelection:0
                                            doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
                                                //NSLog(@"Picker: %@, Index: %ld, value: %@",
@@ -419,13 +419,14 @@
                                                            {
                                                                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
                                                                [alert show];
-                                                               [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
                                                            }
                                                        } else {
                                                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
                                                            [alert show];
-                                                           [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                                                           
                                                        }
+                                                       
+                                                       [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
                                                    }];
                                                }
                                                else
@@ -449,7 +450,6 @@
 
 - (void)createOrderAndProceed {
 
-    
     [PIKParseManager pfObjectForClassName:@"Event" remoteUniqueKey:@"objectId" uniqueValue:self.event.eventID success:^(PFObject *pfObject)
      {
          [self setEventPFObject:pfObject];
@@ -459,6 +459,7 @@
          if([self eventPFObject])
          {
              if([reachability isReachable]) {
+                 [[self eventPFObject] setObject:[[self event] eventID] forKey:@"eventID"];
                  
                  OrderInfoViewController *orderModalVC = [OrderInfoViewController createWithOrder:[Order createOrderForEvent:[self eventPFObject] withQuantity:[self quantitySelected]]];
                  [orderModalVC setDelegate:self];
@@ -511,7 +512,7 @@
 
 -(void)paymentSuccessful:(BOOL)success {
     if (success) {
-        [MBProgressHUD showSuccessHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Success", nil) message:@"Check the ticket tab!"];
+        [MBProgressHUD showSuccessHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Check the ticket tab!", nil)];
     }
 }
 

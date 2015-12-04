@@ -145,37 +145,36 @@
     
     PFQuery *query = [PFQuery queryWithClassName:@"Ticket"];
     [query whereKey:@"user" equalTo:[PFUser currentUser]];
-    PFObject *object = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event eventID]];
+    
+    PFObject *object;
+    
+    if ([event eventID]) {
+        object = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event eventID]];
+    }
+    
     [query whereKey:@"event" equalTo:object];
     [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
         block(count, error);
     }];
+}
+
++ (void)getAmountOfTicketsUserOwnsOnEventPFObject:(PFObject *)event withBlock:(void (^)(int, NSError *))block {
     
-//    NSFetchRequest *request = [Ticket sqk_fetchRequest];
-//    
-//    SQKManagedObjectController *controller = [[SQKManagedObjectController alloc] initWithFetchRequest:request managedObjectContext:[PIKContextManager mainContext]];
-//    NSError *error;
-//    //[controller setDelegate:self];
-//    [controller fetchRequest];
-//    [controller performFetch:&error];
-//    
-//    if(!error) {
-//        NSInteger counterQuantityOfTicketsOnEvent = 0;
-//        
-//        for(Ticket *ticket in controller.managedObjects)
-//        {
-//            if([[ticket eventID] isEqual:[event eventID]])
-//            {
-//                counterQuantityOfTicketsOnEvent++;
-//            }
-//        }
-//        
-//        NSLog(@"Amount of tickets user owns already: %ld", (long)counterQuantityOfTicketsOnEvent);
-//        return counterQuantityOfTicketsOnEvent;
-//    } else {
-//        NSLog(@"%@", [error localizedDescription]);
-//        return -1;
-//    }
+    PFQuery *query = [PFQuery queryWithClassName:@"Ticket"];
+    [query whereKey:@"user" equalTo:[PFUser currentUser]];
+    
+    PFObject *object;
+    
+    if ([event objectForKey:@"eventID"]) {
+        object = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event objectForKey:@"eventID"]];
+    } else if ([event objectId]) {
+        object = [PFObject objectWithoutDataWithClassName:@"Event" objectId:[event objectId]];
+    }
+    
+    [query whereKey:@"event" equalTo:object];
+    [query countObjectsInBackgroundWithBlock:^(int count, NSError *error) {
+        block(count, error);
+    }];
 }
 
 @end
