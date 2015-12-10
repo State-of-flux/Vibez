@@ -248,5 +248,10 @@
     return CGSizeMake(width, height);
 }
 
+-(void)dealloc {
+    [[self collectionView] setEmptyDataSetSource:nil];
+    [[self collectionView] setEmptyDataSetDelegate:nil];
+}
+
 @end
 

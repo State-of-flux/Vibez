@@ -33,12 +33,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="nbm-gZ-nvW"/>
+                        <segue destination="mTI-2q-80l" kind="relationship" relationship="rootViewController" id="UUr-vQ-Ssh"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eMi-1D-FEB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2776" y="2071"/>
+            <point key="canvasLocation" x="-3626" y="2071"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="lyW-rg-owz">
@@ -52,7 +52,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52Y-n6-JRo">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="52Y-n6-JRo">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msX-fh-jDE">
@@ -351,7 +351,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1yP-14-Hst" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RSy-cx-bFM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1304" y="2071"/>
+            <point key="canvasLocation" x="-1995" y="2485"/>
         </scene>
         <!--Event Info View Controller-->
         <scene sceneID="bfB-TU-aL2">
@@ -622,6 +622,43 @@
             </objects>
             <point key="canvasLocation" x="2696" y="1337"/>
         </scene>
+        <!--Introduction View Controller-->
+        <scene sceneID="nB1-Hp-Tmd">
+            <objects>
+                <viewController storyboardIdentifier="IntroductionViewController" id="mTI-2q-80l" customClass="IntroductionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nyz-u2-TCq"/>
+                        <viewControllerLayoutGuide type="bottom" id="ubb-rV-QHw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RHw-lF-b9p">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQf-bU-4vA" userLabel="MoviePlayer">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="IQf-bU-4vA" secondAttribute="trailing" id="9hm-ld-sDd"/>
+                            <constraint firstItem="IQf-bU-4vA" firstAttribute="bottom" secondItem="ubb-rV-QHw" secondAttribute="top" id="CbZ-Ot-hr6"/>
+                            <constraint firstItem="IQf-bU-4vA" firstAttribute="top" secondItem="RHw-lF-b9p" secondAttribute="top" id="Ipe-LU-t35"/>
+                            <constraint firstItem="IQf-bU-4vA" firstAttribute="leading" secondItem="RHw-lF-b9p" secondAttribute="leading" id="bpU-lH-mJy"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Zf1-vN-rUk"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="viewPlayer" destination="IQf-bU-4vA" id="Udy-st-zIC"/>
+                        <segue destination="vXZ-lx-hvc" kind="show" identifier="introToLogin" id="xld-Ub-KCT"/>
+                        <segue destination="GoN-4v-VSy" kind="show" identifier="introToRegister" id="bgz-qo-Q4W"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jKu-8L-wzH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2804" y="2071"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -634,7 +671,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dis-y2-hhY">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dis-y2-hhY">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sfi-x4-Esp">
@@ -824,12 +861,11 @@
                         <outlet property="signUpButton" destination="tvs-wr-5NM" id="yfD-3r-tDg"/>
                         <outlet property="viewPassword" destination="q3i-AU-uGa" id="yhM-QF-rmP"/>
                         <outlet property="viewUsername" destination="U1b-hq-HS7" id="Z2G-SL-o41"/>
-                        <segue destination="GoN-4v-VSy" kind="show" identifier="loginToSignUpSegue" id="c4f-fj-mig"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2013" y="2071"/>
+            <point key="canvasLocation" x="-1995" y="1751"/>
         </scene>
         <!--Item-->
         <scene sceneID="fkT-kf-UJI">

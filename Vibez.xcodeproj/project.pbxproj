@@ -47,6 +47,9 @@
 		6C0A4A271ACF1137004818F1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A261ACF1137004818F1 /* libz.dylib */; };
 		6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */; };
 		6C0A4A2D1ACF120F004818F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */; };
+		6C1C53291C18D5C60046B7D1 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */; };
+		6C1C532B1C18D8180046B7D1 /* vibesBackgroundVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */; };
+		6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */; };
 		6C1E55B71ACF08D9003965A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B61ACF08D9003965A0 /* main.m */; };
 		6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B91ACF08D9003965A0 /* AppDelegate.m */; };
 		6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55BE1ACF08D9003965A0 /* Main.storyboard */; };
@@ -207,6 +210,10 @@
 		6C0A4A261ACF1137004818F1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		6C1C53271C18D5C60046B7D1 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
+		6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.m4v; sourceTree = "<group>"; };
+		6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OnboardingData.plist; sourceTree = "<group>"; };
 		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -441,6 +448,15 @@
 			name = UILabel;
 			sourceTree = "<group>";
 		};
+		6C1C53261C18D5A00046B7D1 /* Introduction */ = {
+			isa = PBXGroup;
+			children = (
+				6C1C53271C18D5C60046B7D1 /* IntroductionViewController.h */,
+				6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */,
+			);
+			name = Introduction;
+			sourceTree = "<group>";
+		};
 		6C1E55A81ACF08D9003965A0 = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +497,7 @@
 		6C1E55B41ACF08D9003965A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */,
 				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
 				6C3471631AE481A100FC789A /* Images */,
@@ -628,6 +645,7 @@
 		6C37D24A1AE0858A0078154E /* General */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C53261C18D5A00046B7D1 /* Introduction */,
 				6C8607E11B9A0CCC009F9C76 /* Admin */,
 				6CDBAF861B4F4A4F00ED75CD /* What's On */,
 				6CDBAF871B4F4A5700ED75CD /* Tickets */,
@@ -914,6 +932,7 @@
 		6C96DB9B1B7A83E300B4CF2F /* Gifs */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */,
 				6C96DB9C1B7A83FF00B4CF2F /* background.gif */,
 			);
 			name = Gifs;
@@ -1169,6 +1188,7 @@
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
 				6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */,
+				6C1C532B1C18D8180046B7D1 /* vibesBackgroundVideo.m4v in Resources */,
 				6C066FE31B1BAEEF009EA34D /* third_normal@2x.png in Resources */,
 				6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */,
 				6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */,
@@ -1185,6 +1205,7 @@
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
 				6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */,
+				6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */,
 				6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
 				6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */,
@@ -1308,6 +1329,7 @@
 				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
+				6C1C53291C18D5C60046B7D1 /* IntroductionViewController.m in Sources */,
 				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
 				6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */,
 				6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */,

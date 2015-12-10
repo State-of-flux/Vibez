@@ -277,8 +277,6 @@
                  [self showBrainTreeViewController];
                  [[self buttonCheckout] setEnabled:YES];
              }
-             
-             [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
          } else {
              if([(NSHTTPURLResponse *)response statusCode] == 0)
              {
@@ -290,22 +288,20 @@
                  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
                  [alertView show];
              }
-             
-             [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
          }
+        [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
      }];
 }
 
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
     // Payment has succeeded, so now we can save all the orders to parse.
     [self postNonceToServer:[paymentMethod nonce]];
-    [self uploadOrderToParse];
 }
 
 - (void)uploadOrderToParse {
     // Create the tickets and set them to the order, then save.
     [[self order] setObject:[Order createTicketsForOrder:[self order]] forKey:@"tickets"];
-    [[self order] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+    [[self order] saveEventually:^(BOOL succeeded, NSError * _Nullable error) {
         if(succeeded) {
             PFObject *event = [[self order] objectForKey:@"event"];
             NSInteger quantity = [self quantity];
@@ -349,12 +345,15 @@
                  success:^(AFHTTPRequestOperation *operation, id responseObject) {
                      if([responseObject isKindOfClass:[NSDictionary class]]) {
                          if([[responseObject objectForKey:@"success"] boolValue]) {
-                             NSDictionary *tx  = [[responseObject objectForKey:@"response"] objectForKey:@"transaction"];
-                             NSLog(@"TX: %@", [tx objectForKey:@"id"]);
+                             //NSDictionary *tx  = [[responseObject objectForKey:@"response"] objectForKey:@"transaction"];
+                             //NSLog(@"TX: %@", [tx objectForKey:@"id"]);
+                             [self uploadOrderToParse];
+                             NSLog(@"TRANSACTION SUCCESSFUL: %@", [[self overallPrice] stringValue]);
                          }
                      }
-                     NSString *transactionID = responseObject[@"transaction"][@"id"];
-                     self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
+                     
+                     //NSString *transactionID = responseObject[@"transaction"][@"id"];
+                     //self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                      NSLog(@"Error: %@", [error localizedDescription]);

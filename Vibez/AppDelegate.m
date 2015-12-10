@@ -16,10 +16,12 @@
 #import <Braintree/Braintree.h>
 #import <Reachability/Reachability.h>
 #import "NFNotificationController.h"
+#import "IntroductionViewController.h"
 
 @interface AppDelegate () {
     BOOL loggedIn;
     LoginViewController* loginViewController;
+    IntroductionViewController *introViewController;
 }
 @end
 
@@ -87,8 +89,10 @@
 
 -(void)presentLoginView
 {
-    loginViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:loginViewController];
+    //loginViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"LoginViewController"]; //
+    
+    introViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"IntroductionViewController"];
+    UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:introViewController];
     [[self window] setRootViewController:navigation];
     [[self window] makeKeyAndVisible];
 }
@@ -161,7 +165,7 @@
     [fetchRequest setEntity:entity];
     
     NSError *error;
-    NSArray *items = [[self.contextManager mainContext] executeFetchRequest:fetchRequest error:&error];
+    NSArray *items = [[PIKContextManager mainContext] executeFetchRequest:fetchRequest error:&error];
     
     for (NSManagedObject *managedObject in items) {
         [[PIKContextManager mainContext] deleteObject:managedObject];

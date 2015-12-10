@@ -29,6 +29,7 @@
 {
     [super viewDidLoad];
     
+    [[self navigationItem] setTitle:NSLocalizedString(@"LOG IN", nil)];
     reachability = [Reachability reachabilityForInternetConnection];
     
     //    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
@@ -44,7 +45,6 @@
     
     [self tapOffKeyboardGestureSetup];
     [self placeholderTextColor];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
 }
@@ -136,7 +136,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow)
@@ -151,6 +150,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        [[self navigationController] setNavigationBarHidden:YES];
+    }
+    
     // unregister for keyboard notifications while not visible.
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
@@ -165,7 +169,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self.navigationController setNavigationBarHidden:YES];
     
     self.emailAddressTextField.text = @"123";
     self.passwordTextField.text = @"123456789";

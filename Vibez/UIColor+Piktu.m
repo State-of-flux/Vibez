@@ -42,6 +42,12 @@
     //return [UIColor colorWithRed:245.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
 }
 
++ (UIColor *)pku_lightBlackAndAlpha:(CGFloat)alpha
+{
+    return [UIColor colorWithRed:46.0/255.0 green:47.0/255.0 blue:51.0/255.0 alpha:alpha];
+    //return [UIColor colorWithRed:245.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0];
+}
+
 + (UIColor *)pku_greyColor
 {
     return [UIColor colorWithRed:255.0/255.0 green:255.0/255.0 blue:255.0/255.0 alpha:0.5];
