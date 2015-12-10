@@ -14,8 +14,9 @@
 
 @property (strong, nonatomic) EAIntroView *intro;
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
-@property (weak, nonatomic) IBOutlet UIView *viewPlayer;
 
+@property (strong, nonatomic) UIImageView *imageViewLogo;
+@property (strong, nonatomic) UIView *viewDarkOverlay;
 @property (strong, nonatomic) UIButton *buttonLogin;
 @property (strong, nonatomic) UIButton *buttonSignup;
 

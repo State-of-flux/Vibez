@@ -24,33 +24,52 @@
     [self setupandShowIntro];
     [self createAndAddLoginButton];
     [self createAndAddSignupButton];
+    [self createAndAddLogo];
 }
 
 - (void)playBackgroundMovie {
     [[self navigationController] setNavigationBarHidden:YES];
-    NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"m4v"];
-    
+    NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
+
     if ([[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
-        [self setMoviePlayer:[[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:mediaPath]]];
-        [[[self moviePlayer] view] setFrame:[[self viewPlayer] bounds]];
+        [self setMoviePlayer:[[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:@"http://www.ebookfrenzy.com/ios_book/movie/movie.mov"]]];
+        [[self moviePlayer] prepareToPlay];
+        [[[self moviePlayer] view] setFrame:[[self view] frame]];
         [[self moviePlayer] setRepeatMode:MPMovieRepeatModeOne];
         [[self moviePlayer] setFullscreen:YES];
         [[self moviePlayer] setControlStyle:MPMovieControlStyleNone];
         [[self moviePlayer] setScalingMode:MPMovieScalingModeFill];
-        [[self viewPlayer] addSubview:[[self moviePlayer] view]];
-        [[self viewPlayer] bringSubviewToFront:[[self moviePlayer] view]];
+        
+        [self setViewDarkOverlay:[[UIView alloc] initWithFrame:[[self view] frame]]];
+        [[self viewDarkOverlay] setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.8f]];
+        [[self view] addSubview:[self viewDarkOverlay]];
+        [[self view] addSubview:[[self moviePlayer] view]];
+        [[self view] sendSubviewToBack:[[self moviePlayer] view]];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(moviePlayBackDidFinish:)
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
                                                    object:[self moviePlayer]];
         
-        [[self moviePlayer] prepareToPlay];
+        [[self moviePlayer] setInitialPlaybackTime:-1.0];
         [[self moviePlayer] play];
         [[self moviePlayer] setShouldAutoplay:YES];
     } else {
         NSLog(@"Movie not found at path: %@", mediaPath);
     }
+}
+
+- (void)createAndAddLogo {
+    
+    CGFloat widthScreen = [[self view] frame].size.width;
+    CGFloat widthLogo = 200.f;
+    CGFloat a = (widthScreen - widthLogo) / 2;
+    
+    [self setImageViewLogo:[[UIImageView alloc] initWithFrame:CGRectMake(a, 50, widthLogo, 100)]];
+    [[self imageViewLogo] setImage:[UIImage imageNamed:@"logo"]];
+    [[self imageViewLogo] setContentMode:UIViewContentModeScaleAspectFit];
+    [[self view] addSubview:[self imageViewLogo]];
+    [[self view] bringSubviewToFront:[self imageViewLogo]];
 }
 
 - (void)createAndAddLoginButton {

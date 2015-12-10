@@ -633,24 +633,11 @@
                     <view key="view" contentMode="scaleToFill" id="RHw-lF-b9p">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQf-bU-4vA" userLabel="MoviePlayer">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="IQf-bU-4vA" secondAttribute="trailing" id="9hm-ld-sDd"/>
-                            <constraint firstItem="IQf-bU-4vA" firstAttribute="bottom" secondItem="ubb-rV-QHw" secondAttribute="top" id="CbZ-Ot-hr6"/>
-                            <constraint firstItem="IQf-bU-4vA" firstAttribute="top" secondItem="RHw-lF-b9p" secondAttribute="top" id="Ipe-LU-t35"/>
-                            <constraint firstItem="IQf-bU-4vA" firstAttribute="leading" secondItem="RHw-lF-b9p" secondAttribute="leading" id="bpU-lH-mJy"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zf1-vN-rUk"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="viewPlayer" destination="IQf-bU-4vA" id="Udy-st-zIC"/>
                         <segue destination="vXZ-lx-hvc" kind="show" identifier="introToLogin" id="xld-Ub-KCT"/>
                         <segue destination="GoN-4v-VSy" kind="show" identifier="introToRegister" id="bgz-qo-Q4W"/>
                     </connections>

@@ -48,8 +48,9 @@
 		6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */; };
 		6C0A4A2D1ACF120F004818F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */; };
 		6C1C53291C18D5C60046B7D1 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */; };
-		6C1C532B1C18D8180046B7D1 /* vibesBackgroundVideo.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */; };
 		6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */; };
+		6C1C532F1C19F1FC0046B7D1 /* sample_iTunes.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */; };
+		6C1C53311C19F8200046B7D1 /* vibesBackgroundVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */; };
 		6C1E55B71ACF08D9003965A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B61ACF08D9003965A0 /* main.m */; };
 		6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B91ACF08D9003965A0 /* AppDelegate.m */; };
 		6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55BE1ACF08D9003965A0 /* Main.storyboard */; };
@@ -212,8 +213,9 @@
 		6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		6C1C53271C18D5C60046B7D1 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
 		6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
-		6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.m4v; sourceTree = "<group>"; };
 		6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OnboardingData.plist; sourceTree = "<group>"; };
+		6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_iTunes.mov; sourceTree = "<group>"; };
+		6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.mp4; sourceTree = "<group>"; };
 		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -497,6 +499,8 @@
 		6C1E55B41ACF08D9003965A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */,
+				6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */,
 				6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */,
 				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
@@ -932,7 +936,6 @@
 		6C96DB9B1B7A83E300B4CF2F /* Gifs */ = {
 			isa = PBXGroup;
 			children = (
-				6C1C532A1C18D8180046B7D1 /* vibesBackgroundVideo.m4v */,
 				6C96DB9C1B7A83FF00B4CF2F /* background.gif */,
 			);
 			name = Gifs;
@@ -1188,10 +1191,10 @@
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
 				6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */,
-				6C1C532B1C18D8180046B7D1 /* vibesBackgroundVideo.m4v in Resources */,
 				6C066FE31B1BAEEF009EA34D /* third_normal@2x.png in Resources */,
 				6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */,
 				6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */,
+				6C1C53311C19F8200046B7D1 /* vibesBackgroundVideo.mp4 in Resources */,
 				6C066FDF1B1BAEEF009EA34D /* tabbar_normal_background@2x.png in Resources */,
 				6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */,
 				6C066FD51B1BAEEF009EA34D /* first_selected@2x.png in Resources */,
@@ -1201,6 +1204,7 @@
 				6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */,
 				6C066FE11B1BAEEF009EA34D /* tabbar_selected_background@2x.png in Resources */,
 				6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */,
+				6C1C532F1C19F1FC0046B7D1 /* sample_iTunes.mov in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
