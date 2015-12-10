@@ -78,7 +78,7 @@
     CGFloat yValue = [[self view] frame].size.height - 50.0f;
     
     [self setButtonLogin:[UIButton buttonWithType:UIButtonTypeCustom]];
-    [[self buttonLogin] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:0.8f]];
+    [[self buttonLogin] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:1.0f]];
     [[self buttonLogin] setFrame:CGRectMake(0, yValue, halfWidth, 50)];
     [[self buttonLogin] setTitle:NSLocalizedString(@"LOG IN", nil) forState:UIControlStateNormal];
     [[[self buttonLogin] titleLabel] setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
@@ -93,7 +93,7 @@
     CGFloat yValue = [[self view] frame].size.height - 50.0f;
     
     [self setButtonSignup:[UIButton buttonWithType:UIButtonTypeCustom]];
-    [[self buttonSignup] setBackgroundColor:[UIColor pku_purpleColorandAlpha:0.8f]];
+    [[self buttonSignup] setBackgroundColor:[UIColor pku_purpleColorandAlpha:1.0f]];
     [[self buttonSignup] setFrame:CGRectMake(halfWidth, yValue, halfWidth, 50)];
     [[self buttonSignup] setTitle:NSLocalizedString(@"REGISTER", nil) forState:UIControlStateNormal];
     [[[self buttonSignup] titleLabel] setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
