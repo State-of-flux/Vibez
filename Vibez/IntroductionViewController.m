@@ -108,12 +108,12 @@
 }
 
 - (void)buttonLoginPressed {
-    [[self navigationController] setNavigationBarHidden:NO];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     [self performSegueWithIdentifier:@"introToLogin" sender:self];
 }
 
 - (void)buttonSignupPressed {
-    [[self navigationController] setNavigationBarHidden:NO];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
     [self performSegueWithIdentifier:@"introToRegister" sender:self];
 }
 

@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
 
 - (IBAction)buttonLoginPressed:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *contentViewEmailUsername;
 
 @end

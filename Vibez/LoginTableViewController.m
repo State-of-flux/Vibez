@@ -9,6 +9,7 @@
 #import "LoginTableViewController.h"
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
+#import "AccountController.h"
 
 @interface LoginTableViewController ()
 
@@ -30,6 +31,7 @@
     [[self tableView] setBackgroundColor:[UIColor pku_lightBlack]];
     [[self tableView] setTableFooterView:[UIView new]];
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
+    [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmailUsername]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
@@ -43,7 +45,7 @@
     [super viewWillDisappear:animated];
     
     if (self.isMovingFromParentViewController || self.isBeingDismissed) {
-        [[self navigationController] setNavigationBarHidden:YES animated:NO];
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
     }
 }
 
@@ -58,7 +60,7 @@
 }
 
 - (IBAction)buttonLoginPressed:(id)sender {
-    
+    [AccountController login];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -78,7 +80,69 @@
 }
 
 - (void)buttonForgotPasswordPressed:(id)sender {
-    NSLog(@"Pressed");
+    NSLog(@"Forgot Password pressed.");
+    [self resignFirstResponder];
+    [AccountController forgotPasswordWithEmail:[[self textFieldEmailUsername] text] sender:self];
+}
+
+#pragma mark - UITextField delegate methods
+
+//- (void)textFieldDidBeginEditing:(UITextField *)textField {
+//    switch ([textField tag]) {
+//        case 0:
+//            [[self textFieldEmailUsername] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:0.8f]];
+//            break;
+//        case 1:
+//            [[self textFieldEmailUsername] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:0.8f]];
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//}
+
+- (BOOL)textFieldShouldReturn:(UITextField*)textField
+{
+    switch ([textField tag]) {
+        case 0:
+            [[self textFieldPassword] becomeFirstResponder];
+            break;
+        case 1:
+            [self buttonLoginPressed:self];
+            break;
+            
+        default:
+            break;
+    }
+    
+    return NO;
+}
+
+- (CALayer *)addBorder:(UIRectEdge)edge color:(UIColor *)color thickness:(CGFloat)thickness view:(UIView *)view
+{
+    CALayer *border = [CALayer layer];
+    
+    switch (edge) {
+        case UIRectEdgeTop:
+            border.frame = CGRectMake(0, 0, CGRectGetWidth([view frame]), thickness);
+            break;
+        case UIRectEdgeBottom:
+            border.frame = CGRectMake(0, CGRectGetHeight([view frame]) - thickness, CGRectGetWidth([view frame]), thickness);
+            break;
+        case UIRectEdgeLeft:
+            border.frame = CGRectMake(0, 0, thickness, CGRectGetHeight([view frame]));
+            break;
+        case UIRectEdgeRight:
+            border.frame = CGRectMake(CGRectGetWidth([view frame]) - thickness, 0, thickness, CGRectGetHeight([view frame]));
+            break;
+        default:
+            break;
+    }
+    
+    [border setBackgroundColor:[color CGColor]];
+    [[view layer] addSublayer:border];
+    
+    return border;
 }
 
 @end
