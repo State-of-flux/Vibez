@@ -27,12 +27,23 @@
     [self createAndAddLogo];
 }
 
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([self moviePlayer]) {
+        [[self moviePlayer] play];
+    }
+}
+
 - (void)playBackgroundMovie {
     [[self navigationController] setNavigationBarHidden:YES];
     NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
-        [self setMoviePlayer:[[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:@"http://www.ebookfrenzy.com/ios_book/movie/movie.mov"]]];
+        
+        //[self setMoviePlayer:[[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:@"http://www.ebookfrenzy.com/ios_book/movie/movie.mov"]]];
+        
+        [self setMoviePlayer:[[MPMoviePlayerController alloc] initWithContentURL:[NSURL URLWithString:mediaPath]]];
         [[self moviePlayer] prepareToPlay];
         [[[self moviePlayer] view] setFrame:[[self view] frame]];
         [[self moviePlayer] setRepeatMode:MPMovieRepeatModeOne];
@@ -109,11 +120,13 @@
 
 - (void)buttonLoginPressed {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[self moviePlayer] pause];
     [self performSegueWithIdentifier:@"introToLogin" sender:self];
 }
 
 - (void)buttonSignupPressed {
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    [[self moviePlayer] pause];
     [self performSegueWithIdentifier:@"introToRegister" sender:self];
 }
 

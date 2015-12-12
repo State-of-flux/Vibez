@@ -35,7 +35,7 @@
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmail]];
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewUsername]];
     
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmail] setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [[self imageViewUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];

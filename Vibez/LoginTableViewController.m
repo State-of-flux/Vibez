@@ -10,8 +10,11 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import "AccountController.h"
+#import <Reachability/Reachability.h>
 
-@interface LoginTableViewController ()
+@interface LoginTableViewController () {
+    Reachability *reachability;
+}
 
 @end
 
@@ -23,6 +26,15 @@
     [super viewDidLoad];
     [[self navigationItem] setTitle:NSLocalizedString(@"LOG IN", nil)];
     [self setupTableView];
+    
+    reachability = [Reachability reachabilityForInternetConnection];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[self textFieldEmailUsername] setText:@"123"];
+    [[self textFieldPassword] setText:@"123456789"];
 }
 
 - (void)setupTableView {
@@ -33,7 +45,7 @@
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmailUsername]];
     
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmailUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [[self imageViewPassword] setImage:[factory createImageForIcon:NIKFontAwesomeIconLock]];
@@ -60,7 +72,14 @@
 }
 
 - (IBAction)buttonLoginPressed:(id)sender {
-    [AccountController login];
+    if (![reachability isReachable]) {
+        
+        return;
+    }
+    
+    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in....", nil) message:nil];
+    
+    [AccountController loginWithUsernameOrEmail:[[self textFieldEmailUsername] text] andPassword:[[self textFieldPassword] text] sender:self];
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {

@@ -117,6 +117,7 @@
 		6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */; };
 		6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8C05071BB9C525006406BC /* Ailerons.ttf */; };
 		6C8C10651C1A1A860053E15C /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */; };
+		6C8C10681C1C951F0053E15C /* PIKDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10671C1C951F0053E15C /* PIKDataLoader.m */; };
 		6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C64F1B38717100C82735 /* PIKContextManager.m */; };
 		6C90C6541B3875F700C82735 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6531B3875F700C82735 /* User+Additions.m */; };
 		6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6561B3876AA00C82735 /* PFObject+PIK.m */; };
@@ -342,6 +343,8 @@
 		6C8C05071BB9C525006406BC /* Ailerons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ailerons.ttf; sourceTree = "<group>"; };
 		6C8C10631C1A1A860053E15C /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
 		6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
+		6C8C10661C1C951F0053E15C /* PIKDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKDataLoader.h; sourceTree = "<group>"; };
+		6C8C10671C1C951F0053E15C /* PIKDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKDataLoader.m; sourceTree = "<group>"; };
 		6C90C64E1B38717100C82735 /* PIKContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKContextManager.h; sourceTree = "<group>"; };
 		6C90C64F1B38717100C82735 /* PIKContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKContextManager.m; sourceTree = "<group>"; };
 		6C90C6521B3875F700C82735 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
@@ -892,6 +895,8 @@
 				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
 				6C90C64E1B38717100C82735 /* PIKContextManager.h */,
 				6C90C64F1B38717100C82735 /* PIKContextManager.m */,
+				6C8C10661C1C951F0053E15C /* PIKDataLoader.h */,
+				6C8C10671C1C951F0053E15C /* PIKDataLoader.m */,
 				6C90C6511B3875D100C82735 /* Categories */,
 				6C90C64D1B38709A00C82735 /* Managed Objects */,
 				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
@@ -1374,6 +1379,7 @@
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
 				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
+				6C8C10681C1C951F0053E15C /* PIKDataLoader.m in Sources */,
 				6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,

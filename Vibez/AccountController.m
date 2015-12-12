@@ -9,6 +9,9 @@
 #import "AccountController.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "PIKDataLoader.h"
+#import "AppDelegate.h"
+#import "MBProgressHUD+Vibes.h"
 
 @interface AccountController () {
     
@@ -35,7 +38,9 @@
             username = [foundUser username];
             [self loginWithUsernameParse:username andPassword:password sender:sender];
         } else {
-            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"An error occurred, please try again later.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+            [alert show];
+            [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
         }
     }
     else
@@ -46,55 +51,47 @@
 
 + (void)loginWithUsernameParse:(NSString *)username andPassword:(NSString *)password sender:(id)sender
 {
-    //    if([reachability isReachable]) {
-    //        [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
-    //         {
-    //             if(user)
-    //             {
-    //                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //                 [defaults setObject:user.username forKey:@"username"];
-    //                 [defaults setObject:user.email forKey:@"emailAddress"];
-    //
-    //                 self.hud.labelText = NSLocalizedString(@"Fetching data...", nil);
-    //                 if(![[user objectForKey:@"isAdmin"] boolValue])
-    //                 {
-    //                     [self loadAllCustomerData:^(BOOL finished) {
-    //                         if(finished)
-    //                         {
-    //                             self.hud.labelText = NSLocalizedString(@"Done!", nil);
-    //                             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-    //                             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-    //                         }
-    //                     }];
-    //                 }
-    //                 else
-    //                 {
-    //                     [self loadAllAdminData:^(BOOL finished) {
-    //                         if(finished)
-    //                         {
-    //                             self.hud.labelText = NSLocalizedString(@"Done!", nil);
-    //                             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-    //                             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-    //                         }
-    //                     }];
-    //                 }
-    //             }
-    //             else
-    //             {
-    //                 if(error.code == 101)
-    //                 {
-    //                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-    //                     [alert show];
-    //                 }
-    //             }
-    //
-    //             [self.hud hide:YES];
-    //             self.loginButton.enabled = true;
-    //             self.signUpButton.enabled = true;
-    //         }];
-    //    } else {
-    //        [self internetErrorOccurred];
-    //    }
+    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
+     {
+         if(user)
+         {
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             [defaults setObject:[user username] forKey:@"username"];
+             [defaults setObject:[user email] forKey:@"emailAddress"];
+             
+             if(![[user objectForKey:@"isAdmin"] boolValue])
+             {
+                 [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
+             else
+             {
+                 [PIKDataLoader loadAllAdminData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
+         }
+         else
+         {
+             if(error.code == 101)
+             {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+         }
+     }];
 }
 
 + (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender {
