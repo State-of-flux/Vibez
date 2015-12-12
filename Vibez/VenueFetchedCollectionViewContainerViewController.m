@@ -38,8 +38,7 @@
         [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class])];
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
-        [self.collectionView setEmptyDataSetSource:self];
-        [self.collectionView setEmptyDataSetDelegate:self];
+
         [self.collectionView setAlwaysBounceVertical:YES];
     }
     
@@ -53,6 +52,9 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    [self.collectionView setEmptyDataSetSource:self];
+    [self.collectionView setEmptyDataSetDelegate:self];
 }
 
 - (void)setSearchBarAppearance {
@@ -279,6 +281,11 @@
     CGFloat height = width;
     
     return CGSizeMake(width, height);
+}
+
+-(void)dealloc {
+    [[self collectionView] setEmptyDataSetSource:nil];
+    [[self collectionView] setEmptyDataSetDelegate:nil];
 }
 
 @end

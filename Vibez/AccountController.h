@@ -13,10 +13,9 @@
 @interface AccountController : NSObject
 
 +(NSArray *)FacebookPermissions;
--(void)LoginWithFacebook;
--(void)LoginWithUsername:(NSString *)username andPassword:(NSString *)password;
--(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password;
--(void)LinkAccountToFacebook;
-//-(void)Logout;
+
++ (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender;
++ (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender;
++ (void)sendResetEmail:(NSString *)email;
 
 @end

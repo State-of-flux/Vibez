@@ -29,6 +29,7 @@
 {
     [super viewDidLoad];
     
+    [[self navigationItem] setTitle:NSLocalizedString(@"LOG IN", nil)];
     reachability = [Reachability reachabilityForInternetConnection];
     
     //    NSString *filePath = [[NSBundle mainBundle] pathForResource: @"background" ofType: @"gif"];
@@ -44,7 +45,6 @@
     
     [self tapOffKeyboardGestureSetup];
     [self placeholderTextColor];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
 }
@@ -136,7 +136,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow)
@@ -151,6 +150,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        [[self navigationController] setNavigationBarHidden:YES];
+    }
+    
     // unregister for keyboard notifications while not visible.
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification
@@ -165,7 +169,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:YES];
-    [self.navigationController setNavigationBarHidden:YES];
     
     self.emailAddressTextField.text = @"123";
     self.passwordTextField.text = @"123456789";
@@ -226,51 +229,51 @@
 -(void)LoginWithUsernameParse:(NSString *)username andPassword:(NSString *)password
 {
     if([reachability isReachable]) {
-    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
-     {
-         if(user)
+        [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
          {
-             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-             [defaults setObject:user.username forKey:@"username"];
-             [defaults setObject:user.email forKey:@"emailAddress"];
-             
-             self.hud.labelText = NSLocalizedString(@"Fetching data...", nil);
-             if(![[user objectForKey:@"isAdmin"] boolValue])
+             if(user)
              {
-                 [self loadAllCustomerData:^(BOOL finished) {
-                     if(finished)
-                     {
-                         self.hud.labelText = NSLocalizedString(@"Done!", nil);
-                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-                     }
-                 }];
+                 NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                 [defaults setObject:user.username forKey:@"username"];
+                 [defaults setObject:user.email forKey:@"emailAddress"];
+                 
+                 self.hud.labelText = NSLocalizedString(@"Fetching data...", nil);
+                 if(![[user objectForKey:@"isAdmin"] boolValue])
+                 {
+                     [self loadAllCustomerData:^(BOOL finished) {
+                         if(finished)
+                         {
+                             self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                         }
+                     }];
+                 }
+                 else
+                 {
+                     [self loadAllAdminData:^(BOOL finished) {
+                         if(finished)
+                         {
+                             self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                             AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                             appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                         }
+                     }];
+                 }
              }
              else
              {
-                 [self loadAllAdminData:^(BOOL finished) {
-                     if(finished)
-                     {
-                         self.hud.labelText = NSLocalizedString(@"Done!", nil);
-                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
-                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
-                     }
-                 }];
+                 if(error.code == 101)
+                 {
+                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                     [alert show];
+                 }
              }
-         }
-         else
-         {
-             if(error.code == 101)
-             {
-                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                 [alert show];
-             }
-         }
-         
-         [self.hud hide:YES];
-         self.loginButton.enabled = true;
-         self.signUpButton.enabled = true;
-     }];
+             
+             [self.hud hide:YES];
+             self.loginButton.enabled = true;
+             self.signUpButton.enabled = true;
+         }];
     } else {
         [self internetErrorOccurred];
     }
@@ -283,8 +286,7 @@
     self.signUpButton.enabled = true;
 }
 
--(void)loadAllCustomerData:(completion)compblock {
-    
+- (void)loadEvents:(completion)compblock {
     [Event getAllFromParseWithSuccessBlock:^(NSArray *objects)
      {
          NSError *error;
@@ -304,7 +306,9 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
      }];
-    
+}
+
+- (void)loadVenues:(completion)compblock {
     [Venue getAllFromParseWithSuccessBlock:^(NSArray *objects) {
         NSError *error;
         NSManagedObjectContext *newPrivateContext = [PIKContextManager newPrivateContext];
@@ -323,7 +327,9 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
      }];
-    
+}
+
+- (void)loadTickets:(completion)compblock {
     [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects)
      {
          NSError *error;
@@ -345,6 +351,22 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
      }];
+}
+
+-(void)loadAllCustomerData:(completion)compblock {
+    [self loadEvents:^(BOOL finishedEvents) {
+        if (finishedEvents) {
+            [self loadVenues:^(BOOL finishedVenues) {
+                if (finishedVenues) {
+                    [self loadTickets:^(BOOL finishedTickets) {
+                        if (finishedTickets) {
+                            compblock(YES);
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
 }
 
 -(void)loadAllAdminData:(completion) compblock {

@@ -9,110 +9,148 @@
 #import "AccountController.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtilsV4/PFFacebookUtils.h>
+#import "PIKDataLoader.h"
+#import "AppDelegate.h"
+#import "MBProgressHUD+Vibes.h"
 
-@interface AccountController ()
-{
-    NSString* currentErrorMessage;
+@interface AccountController () {
+    
 }
 @end
 
 @implementation AccountController
 
-+(NSArray *)FacebookPermissions
-{
++ (NSArray *)FacebookPermissions {
     return @[@"public_profile", @"email", @"user_friends"];
 }
 
--(NSString *)GetErrorMessage
-{
-    return currentErrorMessage;
-}
-
--(void)LoginWithUsername:(NSString *)username andPassword:(NSString *)password
-{
-    [PFUser logInWithUsernameInBackground:username password:password block:^(PFUser *user, NSError *error)
++ (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender {
+    NSString *emailIdentifier = @"@";
+    
+    if ([username rangeOfString:emailIdentifier].location != NSNotFound) {
+        //"username" contains the email identifier @, therefore this is an email. Pull down the username.
+        PFQuery *query = [PFUser query];
+        [query whereKey:@"email" equalTo:username];
+        NSArray *foundUsers = [query findObjects];
+        
+        if([foundUsers count] == 1) {
+            PFUser *foundUser = [foundUsers firstObject];
+            username = [foundUser username];
+            [self loginWithUsernameParse:username andPassword:password sender:sender];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"An error occurred, please try again later.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+            [alert show];
+            [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+        }
+    }
+    else
     {
-        if(user)
-        {
-            NSLog(@"Login Successful");
-            
-        }
-        else
-        {
-            NSLog(@"Login Failed: %@", error.description);
-            currentErrorMessage = error.description;
-        }
-    }];
+        [self loginWithUsernameParse:username andPassword:password sender:sender];
+    }
 }
 
--(void)LoginWithFacebook
++ (void)loginWithUsernameParse:(NSString *)username andPassword:(NSString *)password sender:(id)sender
 {
-//    [PFFacebookUtils logInInBackgroundWithReadPermissions:[AccountController FacebookPermissions] block:^(PFUser *user, NSError *error) {
-//        if (!user) {
-//            NSLog(@"Uh oh. The user cancelled the Facebook login.");
-//        } else if (user.isNew) {
-//            NSLog(@"User signed up and logged in through Facebook!");
-//        } else {
-//            NSLog(@"User logged in through Facebook!");
-//        }
-//    }];
+    [PFUser logInWithUsernameInBackground:[username lowercaseString] password:password block:^(PFUser *user, NSError *error)
+     {
+         if(user)
+         {
+             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+             [defaults setObject:[user username] forKey:@"username"];
+             [defaults setObject:[user email] forKey:@"emailAddress"];
+             
+             if(![[user objectForKey:@"isAdmin"] boolValue])
+             {
+                 [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
+             else
+             {
+                 [PIKDataLoader loadAllAdminData:^(BOOL finished) {
+                     if(finished)
+                     {
+                         [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                         AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                         appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                     }
+                 }];
+             }
+         }
+         else
+         {
+             if(error.code == 101)
+             {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                 [alert show];
+             }
+         }
+     }];
 }
 
--(void)SignUpWithUsername:(NSString *)username emailAddress:(NSString *)emailAddress password:(NSString *)password
++ (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Password Reset", @"Password Reset") message:NSLocalizedString(@"Please enter your username or email. If the username or email exists, a password reset email will be sent.", nil) preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textFieldPassword)
+     {
+         textFieldPassword.placeholder = NSLocalizedString(@"Email", @"Email");
+         [textFieldPassword setKeyboardAppearance:UIKeyboardAppearanceDark];
+         [textFieldPassword setKeyboardType:UIKeyboardTypeEmailAddress];
+         [textFieldPassword setText:email ? email : @""];
+     }];
+    
+    UIAlertAction *actionValidate = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send Reset", @"Send Reset")
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction *action){
+                                                               
+                                                               UITextField *textField = alert.textFields.firstObject;
+                                                               NSString *input = textField.text;
+                                                               NSString *emailIdentifier = @"@";
+                                                               
+                                                               // If entered input is an email just go straight to password reset.
+                                                               if ([input rangeOfString:emailIdentifier].location != NSNotFound) {
+                                                                   [PFUser requestPasswordResetForEmail:input];
+                                                               }
+                                                               else
+                                                               {
+                                                                   // If it's not an email, it must be a username, so find that usernames email, and send it to that.
+                                                                   PFQuery *query = [PFUser query];
+                                                                   [query whereKey:@"username" equalTo:input];
+                                                                   NSArray *foundUsers = [query findObjects];
+                                                                   
+                                                                   if([foundUsers count]  == 1) {
+                                                                       for (PFUser *foundUser in foundUsers) {
+                                                                           input = [foundUser email];
+                                                                           
+                                                                           [PFUser requestPasswordResetForEmail:input];
+                                                                       }
+                                                                   }
+                                                               }
+                                                           }];
+    
+    UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"Cancel")
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    [alert addAction:actionValidate];
+    [alert addAction:actionCancel];
+    
+    [sender presentViewController:alert animated:YES completion:nil];
+}
+
++ (void)sendResetEmail:(NSString *)email
 {
-    PFUser *user = [PFUser user];
-    user.username = username;
-    user.password = password;
-    user.email = emailAddress;
+    [PFUser requestPasswordResetForEmail:email];
     
-    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Success!" message:@"Account created, welcome to Vibes." delegate:self cancelButtonTitle:@"Feel the Vibes" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-        else
-        {
-            currentErrorMessage = [error userInfo][@"error"];
-            NSLog(@"%@", error);
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.description delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
-            [alert show];
-        }
-    }];
-}
-
--(void)LinkAccountToFacebook {
-//    PFUser* user = [PFUser currentUser];
-//    
-//    if (![PFFacebookUtils isLinkedWithUser:user]) {
-//        [PFFacebookUtils linkUserInBackground:user withReadPermissions:[AccountController FacebookPermissions] block:^(BOOL succeeded, NSError *error) {
-//            if (succeeded) {
-//                NSLog(@"Woohoo, user is linked with Facebook!");
-//                [[PFUser currentUser] setObject:@YES forKey:@"isLinkedToFacebook"];
-//                [[PFUser currentUser] saveInBackground];
-//            }
-//            else if(!succeeded && error)
-//            {
-//                NSLog(@"Action failed. User is not linked to their Facebook account. Error: %@", error);
-//            }
-//        }];
-//    }
-}
-
--(void)UnlinkFacebookAccount {
-    PFUser* user = [PFUser currentUser];
-    
-    [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            [[PFUser currentUser] setObject:@NO forKey:@"isLinkedToFacebook"];
-            [[PFUser currentUser] saveInBackground];
-            NSLog(@"The user is no longer associated with their Facebook account.");
-        }
-        else if(!succeeded && error)
-        {
-            NSLog(@"Action failed. User still associated with their Facebook account. Error: %@", error);
-        }
-    }];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Sent", nil) message:NSLocalizedString(@"Please search your email now.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+    [alert show];
 }
 
 @end

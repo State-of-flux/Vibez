@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>titleText</key>
+		<string>Welcome</string>
+		<key>descText</key>
+		<string>Buy e-tickets to the events you love.</string>
+		<key>image</key>
+		<string>PDQ_Logo_Large</string>
+	</dict>
+	<dict>
+		<key>titleText</key>
+		<string>Discover</string>
+		<key>descText</key>
+		<string>Find the best events happening in your area.</string>
+		<key>image</key>
+		<string>OnboardingTempScreenshot</string>
+	</dict>
+	<dict>
+		<key>titleText</key>
+		<string>Buy</string>
+		<key>descText</key>
+		<string>Purchase your tickets within the app and receive your unique e-ticket.</string>
+		<key>image</key>
+		<string>OnboardingTempScreenshot</string>
+	</dict>
+	<dict>
+		<key>titleText</key>
+		<string>Scan</string>
+		<key>descText</key>
+		<string>Arrive at the venue and get your QR code ticket scanned on the door.</string>
+		<key>image</key>
+		<string>OnboardingTempScreenshot</string>
+	</dict>
+	<dict>
+		<key>titleText</key>
+		<string>Live it, feel it, sense it.</string>
+		<key>descText</key>
+		<string>That&apos;s all there is to it, it just makes sense.</string>
+		<key>image</key>
+		<string>OnboardingTempScreenshot</string>
+	</dict>
+</array>
+</plist>

@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self navigationItem] setTitle:NSLocalizedString(@"REGISTER", nil)];
     reachability = [Reachability reachabilityForInternetConnection];
     accountController = [[AccountController alloc] init];
     validator = [[Validator alloc] init];
@@ -124,7 +125,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[self navigationController] setNavigationBarHidden:YES animated:YES];
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow)
@@ -139,6 +139,11 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    if (self.isMovingFromParentViewController || self.isBeingDismissed) {
+        [[self navigationController] setNavigationBarHidden:YES];
+    }
+    
     // unregister for keyboard notifications while not visible.
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UIKeyboardWillShowNotification

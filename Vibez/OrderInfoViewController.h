@@ -42,7 +42,8 @@
 @property (strong, nonatomic) NSDecimalNumber *bookingFee;
 @property (strong, nonatomic) NSDecimalNumber *pricePerTicket;
 @property (strong, nonatomic) NSDecimalNumber *overallPrice;
-@property (nonatomic) NSInteger quantity;
+@property (assign, nonatomic) NSInteger quantity;
+@property (assign, nonatomic) NSInteger quantitySelected;
 
 @property (strong, nonatomic) NSIndexPath *indexPathPricePerTicket;
 

@@ -41,8 +41,7 @@
         [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
-        [self.collectionView setEmptyDataSetSource:self];
-        [self.collectionView setEmptyDataSetDelegate:self];
+
         [self.collectionView setAlwaysBounceVertical:YES];
     }
     
@@ -76,6 +75,9 @@
     [self.refreshControl addTarget:self
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
+    
+    [self.collectionView setEmptyDataSetSource:self];
+    [self.collectionView setEmptyDataSetDelegate:self];
 }
 
 - (void)setCalendarIcon {
@@ -302,6 +304,11 @@
     CGFloat height = width;
     
     return CGSizeMake(width, height);
+}
+
+-(void)dealloc {
+    [[self collectionView] setEmptyDataSetSource:nil];
+    [[self collectionView] setEmptyDataSetDelegate:nil];
 }
 
 @end

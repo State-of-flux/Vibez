@@ -15,7 +15,9 @@
 + (UIColor *)pku_purpleColorandAlpha:(CGFloat)alpha;
 + (UIColor *)pku_blackColor;
 + (UIColor *)pku_greyColor;
++ (UIColor *)pku_greyColorWithAlpha:(CGFloat)alpha;
 + (UIColor *)pku_lightBlack;
++ (UIColor *)pku_lightBlackAndAlpha:(CGFloat)alpha;
 + (UIColor *)pku_SuccessColor;
 + (UIColor *)pku_FacebookColor;
 + (UIColor *)pku_TwitterColor;

@@ -47,6 +47,11 @@
 		6C0A4A271ACF1137004818F1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A261ACF1137004818F1 /* libz.dylib */; };
 		6C0A4A2B1ACF11E6004818F1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */; };
 		6C0A4A2D1ACF120F004818F1 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */; };
+		6C1C53291C18D5C60046B7D1 /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */; };
+		6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */; };
+		6C1C532F1C19F1FC0046B7D1 /* sample_iTunes.mov in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */; };
+		6C1C53311C19F8200046B7D1 /* vibesBackgroundVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */; };
+		6C1C53341C1A0B050046B7D1 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1C53331C1A0B050046B7D1 /* LoginTableViewController.m */; };
 		6C1E55B71ACF08D9003965A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B61ACF08D9003965A0 /* main.m */; };
 		6C1E55BA1ACF08D9003965A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55B91ACF08D9003965A0 /* AppDelegate.m */; };
 		6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6C1E55BE1ACF08D9003965A0 /* Main.storyboard */; };
@@ -111,6 +116,8 @@
 		6C8A74211B24D70100AAD04E /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74191B24D70100AAD04E /* split.c */; };
 		6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */; };
 		6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8C05071BB9C525006406BC /* Ailerons.ttf */; };
+		6C8C10651C1A1A860053E15C /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */; };
+		6C8C10681C1C951F0053E15C /* PIKDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10671C1C951F0053E15C /* PIKDataLoader.m */; };
 		6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C64F1B38717100C82735 /* PIKContextManager.m */; };
 		6C90C6541B3875F700C82735 /* User+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6531B3875F700C82735 /* User+Additions.m */; };
 		6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C6561B3876AA00C82735 /* PFObject+PIK.m */; };
@@ -207,6 +214,13 @@
 		6C0A4A261ACF1137004818F1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		6C0A4A2A1ACF11E6004818F1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6C0A4A2C1ACF120F004818F1 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		6C1C53271C18D5C60046B7D1 /* IntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
+		6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OnboardingData.plist; sourceTree = "<group>"; };
+		6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample_iTunes.mov; sourceTree = "<group>"; };
+		6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.mp4; sourceTree = "<group>"; };
+		6C1C53321C1A0B050046B7D1 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
+		6C1C53331C1A0B050046B7D1 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
 		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -327,6 +341,10 @@
 		6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayTicketViewController.h; sourceTree = "<group>"; };
 		6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayTicketViewController.m; sourceTree = "<group>"; };
 		6C8C05071BB9C525006406BC /* Ailerons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ailerons.ttf; sourceTree = "<group>"; };
+		6C8C10631C1A1A860053E15C /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
+		6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
+		6C8C10661C1C951F0053E15C /* PIKDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKDataLoader.h; sourceTree = "<group>"; };
+		6C8C10671C1C951F0053E15C /* PIKDataLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKDataLoader.m; sourceTree = "<group>"; };
 		6C90C64E1B38717100C82735 /* PIKContextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKContextManager.h; sourceTree = "<group>"; };
 		6C90C64F1B38717100C82735 /* PIKContextManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PIKContextManager.m; sourceTree = "<group>"; };
 		6C90C6521B3875F700C82735 /* User+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Additions.h"; sourceTree = "<group>"; };
@@ -441,6 +459,15 @@
 			name = UILabel;
 			sourceTree = "<group>";
 		};
+		6C1C53261C18D5A00046B7D1 /* Introduction */ = {
+			isa = PBXGroup;
+			children = (
+				6C1C53271C18D5C60046B7D1 /* IntroductionViewController.h */,
+				6C1C53281C18D5C60046B7D1 /* IntroductionViewController.m */,
+			);
+			name = Introduction;
+			sourceTree = "<group>";
+		};
 		6C1E55A81ACF08D9003965A0 = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +508,9 @@
 		6C1E55B41ACF08D9003965A0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */,
+				6C1C532E1C19F1FC0046B7D1 /* sample_iTunes.mov */,
+				6C1C532C1C18F7CC0046B7D1 /* OnboardingData.plist */,
 				6C96DB9B1B7A83E300B4CF2F /* Gifs */,
 				6CEF066A1B49AF85001F1E7C /* Fonts */,
 				6C3471631AE481A100FC789A /* Images */,
@@ -579,6 +609,10 @@
 				6C37D22D1AE062920078154E /* LoginViewController.m */,
 				6C37D2311AE078840078154E /* SignUpViewController.h */,
 				6C37D2321AE078840078154E /* SignUpViewController.m */,
+				6C1C53321C1A0B050046B7D1 /* LoginTableViewController.h */,
+				6C1C53331C1A0B050046B7D1 /* LoginTableViewController.m */,
+				6C8C10631C1A1A860053E15C /* RegisterTableViewController.h */,
+				6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */,
 			);
 			name = "Profile Controllers";
 			sourceTree = "<group>";
@@ -628,6 +662,7 @@
 		6C37D24A1AE0858A0078154E /* General */ = {
 			isa = PBXGroup;
 			children = (
+				6C1C53261C18D5A00046B7D1 /* Introduction */,
 				6C8607E11B9A0CCC009F9C76 /* Admin */,
 				6CDBAF861B4F4A4F00ED75CD /* What's On */,
 				6CDBAF871B4F4A5700ED75CD /* Tickets */,
@@ -860,6 +895,8 @@
 				6C90C6591B3877BD00C82735 /* PIKParseManager.m */,
 				6C90C64E1B38717100C82735 /* PIKContextManager.h */,
 				6C90C64F1B38717100C82735 /* PIKContextManager.m */,
+				6C8C10661C1C951F0053E15C /* PIKDataLoader.h */,
+				6C8C10671C1C951F0053E15C /* PIKDataLoader.m */,
 				6C90C6511B3875D100C82735 /* Categories */,
 				6C90C64D1B38709A00C82735 /* Managed Objects */,
 				6C60B0A41B3482DD004632C0 /* Vibez.xcdatamodeld */,
@@ -1172,6 +1209,7 @@
 				6C066FE31B1BAEEF009EA34D /* third_normal@2x.png in Resources */,
 				6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */,
 				6C066FD31B1BAEEF009EA34D /* first_normal@2x.png in Resources */,
+				6C1C53311C19F8200046B7D1 /* vibesBackgroundVideo.mp4 in Resources */,
 				6C066FDF1B1BAEEF009EA34D /* tabbar_normal_background@2x.png in Resources */,
 				6C1E55C51ACF08D9003965A0 /* LaunchScreen.xib in Resources */,
 				6C066FD51B1BAEEF009EA34D /* first_selected@2x.png in Resources */,
@@ -1181,10 +1219,12 @@
 				6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */,
 				6C066FE11B1BAEEF009EA34D /* tabbar_selected_background@2x.png in Resources */,
 				6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */,
+				6C1C532F1C19F1FC0046B7D1 /* sample_iTunes.mov in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
 				6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */,
+				6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */,
 				6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
 				6C066FE51B1BAEEF009EA34D /* third_selected@2x.png in Resources */,
@@ -1273,6 +1313,7 @@
 				6CDBAF851B4F416400ED75CD /* RKDropdownAlert.m in Sources */,
 				6C5C63161BBC75A8001A336A /* Event+CoreDataProperties.m in Sources */,
 				6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */,
+				6C8C10651C1A1A860053E15C /* RegisterTableViewController.m in Sources */,
 				6C37D23F1AE07A5F0078154E /* EventCollectionViewCell.m in Sources */,
 				6C90C65A1B3877BD00C82735 /* PIKParseManager.m in Sources */,
 				6C5C63171BBC75A8001A336A /* Event.m in Sources */,
@@ -1308,8 +1349,10 @@
 				6C8607E71B9A0CE2009F9C76 /* SearchListViewController.m in Sources */,
 				6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */,
 				6C7BD7671AEC2C9D0092483F /* VenueDataSource.m in Sources */,
+				6C1C53291C18D5C60046B7D1 /* IntroductionViewController.m in Sources */,
 				6C90C6631B38787E00C82735 /* Venue+Additions.m in Sources */,
 				6C8607F01B9A1E85009F9C76 /* UserCollectionViewCell.m in Sources */,
+				6C1C53341C1A0B050046B7D1 /* LoginTableViewController.m in Sources */,
 				6CB5B5801B5F00E500EA9A09 /* VenueFetchedCollectionViewContainerViewController.m in Sources */,
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
 				6C76A7201C066A13007FAEBB /* NFNotificationController.m in Sources */,
@@ -1336,6 +1379,7 @@
 				6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */,
 				6C90C6571B3876AA00C82735 /* PFObject+PIK.m in Sources */,
 				6CB864251B55BE5100E2838A /* MoreTabViewController.m in Sources */,
+				6C8C10681C1C951F0053E15C /* PIKDataLoader.m in Sources */,
 				6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */,
 				6C37D2421AE07A720078154E /* VenueCollectionViewCell.m in Sources */,
 				6C37D22E1AE062920078154E /* LoginViewController.m in Sources */,
