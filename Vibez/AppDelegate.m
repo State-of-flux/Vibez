@@ -255,10 +255,14 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
     
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[BTPayPalViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[BTPayPalViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+    
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor pku_purpleColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_purpleColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize

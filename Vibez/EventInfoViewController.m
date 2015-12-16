@@ -386,7 +386,7 @@
 {
     UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareEvent)];
     [[self navigationItem] setRightBarButtonItem:buttonShare];
-    [[[self navigationItem] rightBarButtonItem] setTintColor:[UIColor pku_purpleColor]];
+    [[[self navigationItem] rightBarButtonItem] setTintColor:[UIColor whiteColor]];
     [[self navigationItem] setTitle:titleText];
 }
 

@@ -38,10 +38,14 @@
         [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
         
         if (succeeded && !error) {
-            [MBProgressHUD showSuccessHUD:[sender hud] target:sender title:NSLocalizedString(@"Account Created", nil) message:NSLocalizedString(@"Welcome to Clubfeed.", nil)];
-            
-            AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
-            [[appDelegateTemp window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+            [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
+                if(finished)
+                {
+                    [MBProgressHUD showSuccessHUD:[sender hud] target:sender title:NSLocalizedString(@"Account Created", nil) message:NSLocalizedString(@"Welcome to Clubfeed.", nil)];
+                    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+                    [[appDelegateTemp window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+                }
+            }];
         }
         else if (error)
         {
