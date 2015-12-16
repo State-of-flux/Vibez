@@ -15,6 +15,7 @@
 +(NSArray *)FacebookPermissions;
 
 + (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender;
++ (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender;
 + (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender;
 + (void)sendResetEmail:(NSString *)email;
 

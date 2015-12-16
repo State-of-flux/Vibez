@@ -24,6 +24,43 @@
     return @[@"public_profile", @"email", @"user_friends"];
 }
 
++ (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender {
+    PFUser *user = [PFUser user];
+    [user setUsername:[username lowercaseString]];
+    [user setEmail:[email lowercaseString]];
+    [user setPassword:password];
+    [user setObject:[NSArray array] forKey:@"friends"];
+    [user setObject:@"Sheffield" forKey:@"location"];
+    [user setObject:@NO forKey:@"isLinkedToFacebook"];
+    [user setObject:@NO forKey:@"isAdmin"];
+    
+    [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+        
+        if (succeeded && !error) {
+            [MBProgressHUD showSuccessHUD:[sender hud] target:sender title:NSLocalizedString(@"Account Created", nil) message:NSLocalizedString(@"Welcome to Clubfeed.", nil)];
+            
+            AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
+            [[appDelegateTemp window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+        }
+        else if (error)
+        {
+            if([error code] == 203)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"That email address is already taken", @"That email address is already taken") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"A problem occured, please try again later.", @"A problem occured, please try again later.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                [alert show];
+            }
+        }
+        
+        [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+    }];
+}
+
 + (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender {
     NSString *emailIdentifier = @"@";
     
@@ -64,7 +101,7 @@
                  [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
                      if(finished)
                      {
-                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
+                         [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }
@@ -76,7 +113,6 @@
                      if(finished)
                      {
                          [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
-                         //self.hud.labelText = NSLocalizedString(@"Done!", nil);
                          AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
                          appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"TicketReading" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
                      }

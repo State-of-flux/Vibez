@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MBProgressHUD+Vibes.h"
 
 @interface RegisterTableViewController : UITableViewController <UITextFieldDelegate>
+
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewEmail;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewUsername;

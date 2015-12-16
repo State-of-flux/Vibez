@@ -21,7 +21,7 @@
 
 @implementation Validator
 
--(BOOL)isValidUsername:(NSString *)usernameString
++ (BOOL)isValidUsername:(NSString *)usernameString
 {
     NSPredicate *usernameTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", REGEX_USERNAME];
     
@@ -36,7 +36,7 @@
     return YES;
 }
 
--(BOOL)isValidEmail:(NSString *)emailString
++ (BOOL)isValidEmail:(NSString *)emailString
 {
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", REGEX_EMAIL];
     
@@ -51,11 +51,11 @@
     return YES;
 }
 
--(BOOL)isValidPassword:(NSString *)password confirmPassword:(NSString *)confirmPassword
++ (BOOL)isValidPassword:(NSString *)password confirmPassword:(NSString *)confirmPassword
 {
     if ([password length] < 6)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Short" message:@"Password must be a minimum of 6 characters." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Short" message:@"Password must be a minimum of 6 characters." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert show];
         
         return NO;
@@ -63,14 +63,14 @@
     
     if ([password length] > 32)
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Long" message:@"Password must be a maximum of 32 characters." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Long" message:@"Password must be a maximum of 32 characters." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }
     
     if(![password isEqualToString:confirmPassword])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Passwords Do Not Match" message:@"Please enter matching passwords." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Passwords Do Not Match" message:@"Please enter matching passwords." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert show];
         return NO;
     }

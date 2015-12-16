@@ -10,9 +10,12 @@
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import "AccountController.h"
+#import "Validator.h"
+#import <Reachability/Reachability.h>
 
-@interface RegisterTableViewController ()
-
+@interface RegisterTableViewController (){
+    Reachability *reachability;
+}
 @end
 
 @implementation RegisterTableViewController
@@ -23,6 +26,8 @@
     [super viewDidLoad];
     [[self navigationItem] setTitle:NSLocalizedString(@"REGISTER", nil)];
     [self setupTableView];
+    
+    reachability = [Reachability reachabilityForInternetConnection];
 }
 
 - (void)setupTableView {
@@ -36,6 +41,7 @@
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewUsername]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:10.0f];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmail] setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [[self imageViewUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
@@ -66,6 +72,36 @@
 
 - (IBAction)buttonRegisterPressed:(id)sender {
     
+    if(![reachability isReachable]){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Registering", nil) message:nil];
+    
+    if([self SignUpValidation])
+    {
+        [AccountController signupWithUsername:[[self textFieldUsername] text] email:[[self textFieldEmail] text] password:[[self textFieldPassword] text] sender:self];
+    }
+}
+
+-(BOOL)SignUpValidation
+{
+    if([Validator isValidUsername:[[self textFieldUsername] text]])
+    {
+        if([Validator isValidEmail:[[self textFieldEmail] text]])
+        {
+            if([Validator isValidPassword:[[self textFieldPassword] text] confirmPassword:[[self textFieldPassword] text]])
+            {
+                return YES;
+            }
+        }
+    }
+    
+    [MBProgressHUD hideStandardHUD:[self hud] target:self];
+    
+    return NO;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -87,7 +123,7 @@
 }
 
 - (void)buttonTermsAndConditionsPressed:(id)sender {
-    NSLog(@"Pressed");
+    
 }
 
 #pragma mark - UITextField delegate methods

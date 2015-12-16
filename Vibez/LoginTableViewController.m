@@ -46,6 +46,7 @@
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmailUsername]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    [factory setSize:10.0f];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmailUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [[self imageViewPassword] setImage:[factory createImageForIcon:NIKFontAwesomeIconLock]];
@@ -73,7 +74,8 @@
 
 - (IBAction)buttonLoginPressed:(id)sender {
     if (![reachability isReachable]) {
-        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
         return;
     }
     

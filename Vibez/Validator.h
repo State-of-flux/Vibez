@@ -11,8 +11,8 @@
 
 @interface Validator : NSObject
 
--(BOOL)isValidUsername:(NSString *)usernameString;
--(BOOL)isValidEmail:(NSString *)emailString;
--(BOOL)isValidPassword:(NSString *)password confirmPassword:(NSString *)confirmPassword;
++ (BOOL)isValidUsername:(NSString *)usernameString;
++ (BOOL)isValidEmail:(NSString *)emailString;
++ (BOOL)isValidPassword:(NSString *)password confirmPassword:(NSString *)confirmPassword;
 
 @end
