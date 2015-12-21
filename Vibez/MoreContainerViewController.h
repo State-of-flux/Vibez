@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <SQKDataKit/SQKManagedObjectController.h>
 #import "User+Additions.h"
-#import <MBProgressHUD/MBProgressHUD.h>
+#import "MBProgressHUD+Vibes.h"
 
 @interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate>
 

@@ -9,11 +9,13 @@
 #import "MoreContainerViewController.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import "EventSelectorViewController.h"
 #import "UIViewController+NavigationController.h"
 #import <Reachability/Reachability.h>
+#import "AccountController.h"
 
 @interface MoreContainerViewController () {
     Reachability *reachability;
@@ -185,7 +187,9 @@
 
 -(void)setLinkToFacebookCell:(UITableViewCell *)cell
 {
-    if([[[PFUser currentUser] objectForKey:@"isLinkedToFacebook"] boolValue])
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconFacebookSquare]];
+    
+    if([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]])
     {
         [[cell textLabel] setText:@"Unlink from Facebook"];
     }
@@ -197,7 +201,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UITableViewCell *cell = [[self tableView] cellForRowAtIndexPath:indexPath];
     
     if([[[cell textLabel] text] isEqualToString:@"Logout"])
     {
@@ -205,11 +209,11 @@
     }
     else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
     {
-        [self linkToFacebook];
+        [AccountController linkOrUnlinkParseAccountFromFacebook];
     }
     else if([[[cell textLabel] text] isEqualToString:@"Unlink from Facebook"])
     {
-        [self unlinkFromFacebook];
+        [AccountController linkOrUnlinkParseAccountFromFacebook];
     }
     else if([[[cell textLabel] text] isEqualToString:@"Friends"])
     {
@@ -292,27 +296,25 @@
 }
 
 - (void)logout {
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Logging Out", nil) message:nil];
     
     if ([reachability isReachable]) {
-        
-        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        self.hud.mode = MBProgressHUDModeIndeterminate;
-        self.hud.labelText = @"Logging out...";
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Logout", nil) message:NSLocalizedString(@"Are you sure you want to logout?", nil) preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction* logoutAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Logout", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate logout:^(BOOL complete) {
                 if(complete) {
-                    [self.hud hide:YES];
+                    [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
                 }
             }];
             
         }];
         
         UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            [self.hud hide:YES];
+                [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
         }];
         
         [alertController addAction:logoutAction];
@@ -329,16 +331,6 @@
 - (void)eventSelectedPressed {
     EventSelectorViewController *vc = [EventSelectorViewController create];
     [self presentViewController:[vc withNavigationControllerWithOpaque] animated:self completion:nil];
-}
-
-- (void)linkToFacebook {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate linkParseAccountToFacebook];
-}
-
-- (void)unlinkFromFacebook {
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate unlinkParseAccountFromFacebook];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {

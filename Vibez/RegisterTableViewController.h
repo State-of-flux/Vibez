@@ -28,9 +28,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonRegister;
 @property (weak, nonatomic) IBOutlet UIButton *buttonRegisterWithFacebook;
 @property (weak, nonatomic) IBOutlet UIButton *buttonTermsConditionsPrivacy;
+@property (weak, nonatomic) IBOutlet UIButton *buttonShowPassword;
+
+@property (nonatomic) BOOL isShowingPassword;
 
 - (IBAction)buttonRegisterPressed:(id)sender;
 - (IBAction)buttonRegisterWithFacebookPressed:(id)sender;
 - (IBAction)buttonTermsConditionsPrivacyPressed:(id)sender;
+- (IBAction)buttonShowPasswordPressed:(id)sender;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Bolts/Bolts.h>
-#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 
 @interface AccountController : NSObject
@@ -19,5 +18,6 @@
 + (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender;
 + (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender;
 + (void)sendResetEmail:(NSString *)email;
++ (void)linkOrUnlinkParseAccountFromFacebook;
 
 @end

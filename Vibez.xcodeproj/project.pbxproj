@@ -59,6 +59,7 @@
 		6C1E55D11ACF08D9003965A0 /* VibezTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C1E55D01ACF08D9003965A0 /* VibezTests.m */; };
 		6C288E921AF5814A001D44C1 /* plug.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6C288E911AF5814A001D44C1 /* plug.jpg */; };
 		6C2EFDBB1C27957E00D1EEC8 /* AboutTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2EFDBA1C27957E00D1EEC8 /* AboutTableViewController.m */; };
+		6C2EFDBE1C27B17700D1EEC8 /* NSArray+PIK.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2EFDBD1C27B17700D1EEC8 /* NSArray+PIK.m */; };
 		6C34715D1AE46F2500FC789A /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C34715C1AE46F2500FC789A /* AccountController.m */; };
 		6C3471611AE4818A00FC789A /* error@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C34715E1AE4818A00FC789A /* error@2x.png */; };
 		6C37D22E1AE062920078154E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D22D1AE062920078154E /* LoginViewController.m */; };
@@ -220,7 +221,7 @@
 		6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.mp4; sourceTree = "<group>"; };
 		6C1C53321C1A0B050046B7D1 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		6C1C53331C1A0B050046B7D1 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
-		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1E55B11ACF08D9003965A0 /* Clubfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clubfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C1E55B81ACF08D9003965A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -234,6 +235,8 @@
 		6C288E911AF5814A001D44C1 /* plug.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = plug.jpg; sourceTree = "<group>"; };
 		6C2EFDB91C27957E00D1EEC8 /* AboutTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutTableViewController.h; sourceTree = "<group>"; };
 		6C2EFDBA1C27957E00D1EEC8 /* AboutTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutTableViewController.m; sourceTree = "<group>"; };
+		6C2EFDBC1C27B17700D1EEC8 /* NSArray+PIK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PIK.h"; sourceTree = "<group>"; };
+		6C2EFDBD1C27B17700D1EEC8 /* NSArray+PIK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PIK.m"; sourceTree = "<group>"; };
 		6C34715B1AE46F2500FC789A /* AccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountController.h; sourceTree = "<group>"; };
 		6C34715C1AE46F2500FC789A /* AccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountController.m; sourceTree = "<group>"; };
 		6C34715E1AE4818A00FC789A /* error@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "error@2x.png"; sourceTree = "<group>"; };
@@ -482,7 +485,7 @@
 		6C1E55B21ACF08D9003965A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C1E55B11ACF08D9003965A0 /* Vibez.app */,
+				6C1E55B11ACF08D9003965A0 /* Clubfeed.app */,
 				6C1E55CA1ACF08D9003965A0 /* VibezTests.xctest */,
 			);
 			name = Products;
@@ -739,6 +742,8 @@
 				6CEF067C1B4CA0C0001F1E7C /* NSString+PIK.m */,
 				6C64F74D1BD707FA0037704D /* MBProgressHUD+Vibes.h */,
 				6C64F74E1BD707FA0037704D /* MBProgressHUD+Vibes.m */,
+				6C2EFDBC1C27B17700D1EEC8 /* NSArray+PIK.h */,
+				6C2EFDBD1C27B17700D1EEC8 /* NSArray+PIK.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1127,7 +1132,7 @@
 			);
 			name = Vibez;
 			productName = Vibez;
-			productReference = 6C1E55B11ACF08D9003965A0 /* Vibez.app */;
+			productReference = 6C1E55B11ACF08D9003965A0 /* Clubfeed.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6C1E55C91ACF08D9003965A0 /* VibezTests */ = {
@@ -1361,6 +1366,7 @@
 				6CB5B5C21B69717E00EA9A09 /* Ticket+Additions.m in Sources */,
 				6C76A7201C066A13007FAEBB /* NFNotificationController.m in Sources */,
 				6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */,
+				6C2EFDBE1C27B17700D1EEC8 /* NSArray+PIK.m in Sources */,
 				6C8A741C1B24D70100AAD04E /* mask.c in Sources */,
 				6C0929711B826AC600851DA8 /* SendTicketToFriendViewController.m in Sources */,
 				6C90C6541B3875F700C82735 /* User+Additions.m in Sources */,
@@ -1533,7 +1539,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1559,7 +1565,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";

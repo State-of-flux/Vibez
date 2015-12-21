@@ -27,6 +27,8 @@
     [[self navigationItem] setTitle:NSLocalizedString(@"REGISTER", nil)];
     [self setupTableView];
     
+    [self setIsShowingPassword:NO];
+    
     reachability = [Reachability reachabilityForInternetConnection];
 }
 
@@ -59,6 +61,8 @@
     
     [[[self buttonTermsConditionsPrivacy] titleLabel] setNumberOfLines:2];
     [[[self buttonTermsConditionsPrivacy] titleLabel] setTextAlignment:NSTextAlignmentCenter];
+    
+    [[self buttonShowPassword] setImage:[factory createImageForIcon:NIKFontAwesomeIconEye] forState:UIControlStateNormal];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -159,18 +163,36 @@
 }
 
 - (IBAction)buttonRegisterWithFacebookPressed:(id)sender {
+    //[[self buttonRegisterWithFacebook] setEnabled:NO];
+    //[[self buttonRegister] setEnabled:NO];
+    
     if (![reachability isReachable]) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Registering...", nil) message:NSLocalizedString(@"with Facebook", nil)];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Registering...", nil) message:NSLocalizedString(@"with Facebook", nil)];
     
     [AccountController loginWithFacebook:self];
 }
 
 - (IBAction)buttonTermsConditionsPrivacyPressed:(id)sender {
     NSLog(@"Terms Conditions and Privacy Policy button pressed.");
+}
+
+- (IBAction)buttonShowPasswordPressed:(id)sender {
+    [[self textFieldPassword] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
+    
+    if ([self isShowingPassword]) {
+        [self setIsShowingPassword:NO];
+        [[self textFieldPassword] setSecureTextEntry:YES];
+    } else {
+        [self setIsShowingPassword:YES];
+        [[self textFieldPassword] setSecureTextEntry:NO];
+    }
+    
+//    [[self textFieldPassword] setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightRegular]];
+    [[self textFieldPassword] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
 }
 @end

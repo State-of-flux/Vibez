@@ -129,7 +129,7 @@
 
 - (void)buttonForgotPasswordPressed:(id)sender {
     NSLog(@"Forgot Password pressed.");
-    [self resignFirstResponder];
+    //[self resignFirstResponder];
     [AccountController forgotPasswordWithEmail:[[self textFieldEmailUsername] text] sender:self];
 }
 

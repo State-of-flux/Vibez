@@ -9,6 +9,7 @@
 #import "NFNotificationController.h"
 #import "Ticket+Additions.h"
 #import <DateTools/DateTools.h>
+#import "NSArray+PIK.h"
 
 @interface NFNotificationController ()
 
@@ -25,10 +26,12 @@
     [controller fetchRequest];
     [controller performFetch:&error];
     
+    NSArray *uniqueValues = [[controller managedObjects] arrayFilteredForUniqueValuesOfKeyPath:@"eventID"];
     
+    //NSArray *uniqueValues = [[controller managedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
     
     if(!error) {
-        for(Ticket *ticket in [controller managedObjects]) {
+        for(Ticket *ticket in uniqueValues) {
             
             NSDate *dayBeforeAlert = [[[ticket eventDate] dateBySubtractingDays:1] dateBySubtractingHours:1];
             NSDate *hourBeforeAlert = [[ticket eventDate] dateBySubtractingHours:1];
