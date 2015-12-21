@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <EAIntroView/EAIntroView.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface IntroductionViewController : UIViewController <EAIntroDelegate>
 
 @property (strong, nonatomic) EAIntroView *intro;
 @property (strong, nonatomic) MPMoviePlayerController *moviePlayer;
+@property (strong, nonatomic) AVPlayer *mPlayer;
 
 @property (strong, nonatomic) UIImageView *imageViewLogo;
 @property (strong, nonatomic) UIView *viewDarkOverlay;

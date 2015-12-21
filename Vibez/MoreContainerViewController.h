@@ -14,6 +14,7 @@
 
 @interface MoreContainerViewController : UITableViewController <SQKManagedObjectControllerDelegate>
 
+
 @property (strong, nonatomic) NSDictionary *data;
 @property (strong, nonatomic) NSArray *accountData;
 @property (strong, nonatomic) NSArray *filterData;

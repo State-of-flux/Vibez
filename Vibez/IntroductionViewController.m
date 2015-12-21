@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self navigationController] setNavigationBarHidden:YES];
+
     [self playBackgroundMovie];
     [self setupandShowIntro];
     [self createAndAddLoginButton];
@@ -35,8 +37,36 @@
     }
 }
 
+- (void)setupAudio {
+    NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
+    
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:mediaPath] options:nil];
+    NSArray *audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
+    
+    // Mute all the audio tracks
+    NSMutableArray * allAudioParams = [NSMutableArray array];
+    for (AVAssetTrack *track in audioTracks) {
+        AVMutableAudioMixInputParameters *audioInputParams =[AVMutableAudioMixInputParameters audioMixInputParameters];
+        [audioInputParams setVolume:0.0 atTime:kCMTimeZero ];
+        [audioInputParams setTrackID:[track trackID]];
+        [allAudioParams addObject:audioInputParams];
+    }
+    AVMutableAudioMix * audioZeroMix = [AVMutableAudioMix audioMix];
+    [audioZeroMix setInputParameters:allAudioParams];
+    
+    // Create a player item
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    [playerItem setAudioMix:audioZeroMix]; // Mute the player item
+    
+    // Create a new Player, and set the player to use the player item
+    // with the muted audio mix
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    [self setMPlayer:player];
+}
+
 - (void)playBackgroundMovie {
-    [[self navigationController] setNavigationBarHidden:YES];
+    
     NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
@@ -47,7 +77,7 @@
         [[self moviePlayer] prepareToPlay];
         [[[self moviePlayer] view] setFrame:[[self view] frame]];
         [[self moviePlayer] setRepeatMode:MPMovieRepeatModeOne];
-        [[self moviePlayer] setFullscreen:YES];
+        [[self moviePlayer] setFullscreen:NO];
         [[self moviePlayer] setControlStyle:MPMovieControlStyleNone];
         [[self moviePlayer] setScalingMode:MPMovieScalingModeFill];
         
@@ -64,7 +94,7 @@
         
         [[self moviePlayer] setInitialPlaybackTime:-1.0];
         [[self moviePlayer] play];
-        [[self moviePlayer] setShouldAutoplay:YES];
+        //[[self moviePlayer] setShouldAutoplay:YES];
     } else {
         NSLog(@"Movie not found at path: %@", mediaPath);
     }

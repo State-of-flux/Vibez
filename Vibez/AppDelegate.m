@@ -18,6 +18,7 @@
 #import "NFNotificationController.h"
 #import "IntroductionViewController.h"
 
+
 @interface AppDelegate () {
     BOOL loggedIn;
     LoginViewController* loginViewController;
@@ -72,7 +73,7 @@
 {
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS
-    [Parse enableLocalDatastore];
+    //[Parse enableLocalDatastore];
     
     // Initialize Parse.
     [Parse setApplicationId:@"l0l32W658tvwkjbkre94nNCwhSKijWaYTZxzgDYe"
@@ -82,7 +83,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Override point for customization after application launch.
-    //[PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 }
@@ -139,6 +140,7 @@
     
     // Log out
     [PFUser logOut];
+    //[FBSession setActiveSession:nil];
     
     // clear out cached data, view controllers, etc
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;

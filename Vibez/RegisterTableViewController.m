@@ -41,7 +41,13 @@
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewUsername]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
-    [factory setSize:10.0f];
+    
+    [factory setSize:20.0f];
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
+    [[self buttonRegisterWithFacebook] setImage:[factory createImageForIcon:NIKFontAwesomeIconFacebookSquare] forState:UIControlStateNormal];
+    [[self buttonRegisterWithFacebook] setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    
+    [factory setSize:12.0f];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmail] setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [[self imageViewUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
@@ -50,6 +56,9 @@
     [[self textFieldEmail] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
     [[self textFieldUsername] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
     [[self textFieldPassword] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    [[[self buttonTermsConditionsPrivacy] titleLabel] setNumberOfLines:2];
+    [[[self buttonTermsConditionsPrivacy] titleLabel] setTextAlignment:NSTextAlignmentCenter];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -61,14 +70,6 @@
 }
 
 #pragma mark - TableView Delegate Methods
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 40;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
 
 - (IBAction)buttonRegisterPressed:(id)sender {
     
@@ -102,24 +103,6 @@
     [MBProgressHUD hideStandardHUD:[self hud] target:self];
     
     return NO;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(25, 0, CGRectGetWidth([[self tableView] frame]) - 25, 40)];
-    
-    UIButton *buttonForgotPassword = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonForgotPassword setFrame:CGRectMake(0, 0, CGRectGetWidth([view frame]), CGRectGetHeight([view frame]))];
-    [buttonForgotPassword setTitle:NSLocalizedString(@"By registering, you agree to Clubfeed's Terms and Conditions.", nil) forState:UIControlStateNormal];
-    [[buttonForgotPassword titleLabel] setFont:[UIFont systemFontOfSize:10.0f weight:UIFontWeightLight]];
-    [[buttonForgotPassword titleLabel] setTextColor:[UIColor whiteColor]];
-    [[buttonForgotPassword titleLabel] setNumberOfLines:2];
-    [[buttonForgotPassword titleLabel] setTextAlignment:NSTextAlignmentCenter];
-    [buttonForgotPassword addTarget:self action:@selector(buttonTermsAndConditionsPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [view addSubview:buttonForgotPassword];
-    
-    return view;
 }
 
 - (void)buttonTermsAndConditionsPressed:(id)sender {
@@ -175,4 +158,19 @@
     return border;
 }
 
+- (IBAction)buttonRegisterWithFacebookPressed:(id)sender {
+    if (![reachability isReachable]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
+    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Registering...", nil) message:NSLocalizedString(@"with Facebook", nil)];
+    
+    [AccountController loginWithFacebook:self];
+}
+
+- (IBAction)buttonTermsConditionsPrivacyPressed:(id)sender {
+    NSLog(@"Terms Conditions and Privacy Policy button pressed.");
+}
 @end

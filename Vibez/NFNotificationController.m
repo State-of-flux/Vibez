@@ -25,6 +25,8 @@
     [controller fetchRequest];
     [controller performFetch:&error];
     
+    
+    
     if(!error) {
         for(Ticket *ticket in [controller managedObjects]) {
             
@@ -35,8 +37,6 @@
             [self createLocalNotification:[NSString stringWithFormat:@"%@ will begin in 1 hour!", [ticket eventName]] date:hourBeforeAlert userInfo:@{}];
             [self createLocalNotification:[NSString stringWithFormat:@"%@ has begun!", [ticket eventName]] date:[ticket eventDate] userInfo:@{}];
             [self createLocalNotification:[NSString stringWithFormat:@"Hope you had a good night! Stay safe, stay lively."] date:[ticket eventEndDate] userInfo:@{}];
-            
-            break;
         }
     } else {
         NSLog(@"Error Occurred while fetching the tickets to schedule notifications: %@", [error localizedDescription]);
@@ -49,9 +49,9 @@
     [localNotification setFireDate:date];
     //[localNotification setSoundName:@"pdq.caf"];
     [localNotification setUserInfo:userInfo];
-    [localNotification setTimeZone:[NSTimeZone localTimeZone]];
+    [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    NSLog(@"%@", localNotification);
+    NSLog(@"%@ --- %@", message, [localNotification fireDate]);
 }
 
 @end

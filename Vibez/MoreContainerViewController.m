@@ -17,6 +17,7 @@
 
 @interface MoreContainerViewController () {
     Reachability *reachability;
+    NIKFontAwesomeIconFactory *factory;
 }
 
 @end
@@ -26,6 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     reachability = [Reachability reachabilityForInternetConnection];
+    factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    //[factory setColors:@[[UIColor pku_purpleColor], [UIColor pku_purpleColor]]];
+    
     NSString *path = [NSString string];
     
     if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
@@ -101,6 +105,10 @@
     {
         [self setLinkToFacebookCell:cell];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"About"])
+    {
+        [self setAboutCell:cell];
+    }
     else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
     {
         [self setShareTheVibesCell:cell];
@@ -114,14 +122,12 @@
 
 -(void)setUsernameCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [cell.detailTextLabel setText:[[PFUser currentUser] username]];
 }
 
 -(void)setEmailCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [cell.detailTextLabel setText:[[PFUser currentUser] email]];
 }
@@ -152,26 +158,27 @@
 
 -(void)setLocationCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker]];
     [cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
 }
 
+-(void)setAboutCell:(UITableViewCell *)cell
+{
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconInfo]];
+}
+
 -(void)setShareTheVibesCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconShare]];
 }
 
 -(void)setLogoutCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconSignOut]];
 }
 
 -(void)setEventSelectedCell:(UITableViewCell *)cell
 {
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
     //[cell.detailTextLabel setText:[[PFUser currentUser] objectForKey:@"location"]];
 }
@@ -208,6 +215,10 @@
     {
         [self.parentViewController performSegueWithIdentifier:@"goToFriendsSegue" sender:self];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"About"])
+    {
+        [self aboutSelected];
+    }
     else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
     {
         [self shareTheVibes];
@@ -217,6 +228,10 @@
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)aboutSelected {
+    [self performSegueWithIdentifier:@"goToAboutSegue" sender:self];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -306,7 +321,7 @@
         [self presentViewController:alertController animated:YES completion:nil];
         
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
 }

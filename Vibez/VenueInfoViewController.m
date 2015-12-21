@@ -192,10 +192,10 @@
     [self.scrollView addSubview:self.venueDescriptionTextView];
     [[self scrollView] addSubview:[self buttonUpcomingEvent]];
     
-    CGFloat yValueScrollView = CGRectGetMaxY(self.buttonFacebook.frame) + [[self buttonGetDirections] frame].size.height + paddingDouble + 50;
+    CGFloat yValueScrollView = CGRectGetMaxY(self.buttonFacebook.frame) + [[self buttonGetDirections] frame].size.height + paddingDouble;
     
-    if (yValueScrollView <= [[self view] frame].size.height + 50) {
-        yValueScrollView = [[self view] frame].size.height + 50;
+    if (yValueScrollView < [[self view] frame].size.height) {
+        yValueScrollView = [[self view] frame].size.height;
     }
     
     [[self scrollView] setContentSize:CGSizeMake(width, yValueScrollView)];

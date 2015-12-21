@@ -24,6 +24,49 @@
     return @[@"public_profile", @"email", @"user_friends"];
 }
 
++ (void)loginWithFacebook:(id)sender {
+    [[sender view] setUserInteractionEnabled:NO];
+    
+    [PFFacebookUtils logInInBackgroundWithReadPermissions:[self FacebookPermissions] block:^(PFUser * _Nullable user, NSError * _Nullable error) {
+        // Was login successful?
+        
+        if (!user) {
+                [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+            
+            if (!error) {
+                NSLog(@"The user cancelled the Facebook login.");
+            } else {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:[error localizedDescription] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+                [alert show];
+
+                NSLog(@"An error occurred: %@", [error localizedDescription]);
+            }
+        } else {
+            
+            if ([user isNew]) {
+                [self createNewUserForFacebook:user];
+                NSLog(@"User registered and logged in through Facebook!");
+
+            } else {
+                NSLog(@"User logged in through Facebook!");
+            }
+            
+            [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
+                if(finished)
+                {
+                    [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
+                    AppDelegate *appDelegateTemp = [[UIApplication sharedApplication] delegate];
+                    appDelegateTemp.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
+                }
+            }];
+        }
+    }];
+}
+
++ (void)createNewUserForFacebook:(PFUser *)user {
+    
+}
+
 + (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender {
     PFUser *user = [PFUser user];
     [user setUsername:[username lowercaseString]];
@@ -123,11 +166,14 @@
                  }];
              }
          }
-         else
+         else if (error)
          {
              if(error.code == 101)
              {
                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                 [alert show];
+             } else {
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"An error occurred, please try again later.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
                  [alert show];
              }
          }
