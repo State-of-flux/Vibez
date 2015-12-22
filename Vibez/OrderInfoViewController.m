@@ -326,7 +326,7 @@
 }
 
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
-    [MBProgressHUD showStandardHUD:[self hud] target:[self dropInViewController] title:NSLocalizedString(@"Authorising Payment", nil) message:NSLocalizedString(@"Please wait...", nil)];
+    [MBProgressHUD showStandardHUD:[self hud] target:[[self dropInViewController] navigationController] title:NSLocalizedString(@"Authorising Payment", nil) message:NSLocalizedString(@"Please wait...", nil)];
     // Payment has succeeded, so now we can save all the orders to parse.
     [self postNonceToServer:[paymentMethod nonce]];
 }
@@ -356,10 +356,10 @@
                     [alertView show];
                 }
                 
-                [MBProgressHUD hideStandardHUD:[self hud] target:[self dropInViewController]];
+                [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
             }];
         } else {
-            [MBProgressHUD hideStandardHUD:[self hud] target:[self dropInViewController]];
+            [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
             NSLog(@"Error: %@", [error localizedDescription]);
             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
             [alertView show];
@@ -398,7 +398,7 @@
                      //self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                     [MBProgressHUD hideStandardHUD:[self hud] target:[self dropInViewController]];
+                     [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
                      NSLog(@"Error: %@", [error localizedDescription]);
                      NSLog(@"Operation: %@", operation);
                  }];
