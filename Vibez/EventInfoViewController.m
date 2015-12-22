@@ -94,10 +94,8 @@
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
     
-    CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
     CGFloat padding = 8;
     CGFloat paddingDouble = 16;
-    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat height = self.view.frame.size.height;
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (self.getTicketsButton.frame.size.height));
@@ -118,7 +116,6 @@
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.blurView.frame = self.eventImageView.frame;
-    
     
     [self.eventNameLabel setText:[[self event] name]];
     

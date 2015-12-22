@@ -24,7 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setNavBar:@"Tickets"];
+    [self setNavBar:@"TICKETS"];
     [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     //[self.view setBackgroundColor:[UIColor pku_lightBlack]];
 

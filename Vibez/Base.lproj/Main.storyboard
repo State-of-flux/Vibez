@@ -327,7 +327,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wFF-4l-32b">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
-                                                    <state key="normal" title="Log in with Facebook">
+                                                    <state key="normal" title="Login with Facebook">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -374,7 +374,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username or Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vAP-Dd-JRc">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username or Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vAP-Dd-JRc">
                                                     <rect key="frame" x="50" y="0.0" width="535" height="49.5"/>
                                                     <color key="tintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -399,7 +399,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vDz-Q8-Vbb">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vDz-Q8-Vbb">
                                                     <rect key="frame" x="50" y="0.0" width="535" height="49.5"/>
                                                     <color key="tintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -427,7 +427,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHS-97-dHF">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                                     <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="17"/>
-                                                    <state key="normal" title="LOG IN">
+                                                    <state key="normal" title="LOGIN">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -561,16 +561,19 @@
                                         <rect key="frame" x="0.0" y="100" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Cdu-3j-BUo" id="rO1-Hv-rf0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="successIcon" translatesAutoresizingMaskIntoConstraints="NO" id="r7e-6O-aTu">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="successIcon" translatesAutoresizingMaskIntoConstraints="NO" id="r7e-6O-aTu">
                                                     <rect key="frame" x="15" y="16" width="16" height="16"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-q4-eJb">
-                                                    <rect key="frame" x="50" y="0.0" width="535" height="49.5"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-q4-eJb">
+                                                    <rect key="frame" x="50" y="0.0" width="534" height="50"/>
                                                     <color key="tintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="KPq-HF-roe"/>
+                                                    </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" keyboardAppearance="alert" returnKeyType="next"/>
@@ -579,6 +582,16 @@
                                                     </connections>
                                                 </textField>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Bn9-q4-eJb" firstAttribute="top" secondItem="rO1-Hv-rf0" secondAttribute="topMargin" constant="-8" id="10R-hY-RKu"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Bn9-q4-eJb" secondAttribute="bottom" constant="-8" id="24z-ct-aQq"/>
+                                                <constraint firstItem="Bn9-q4-eJb" firstAttribute="leading" secondItem="r7e-6O-aTu" secondAttribute="trailing" constant="19" id="Ddm-PC-7hh"/>
+                                                <constraint firstItem="Bn9-q4-eJb" firstAttribute="leading" secondItem="rO1-Hv-rf0" secondAttribute="leadingMargin" constant="42" id="PZO-wC-GXA"/>
+                                                <constraint firstItem="r7e-6O-aTu" firstAttribute="leading" secondItem="rO1-Hv-rf0" secondAttribute="leadingMargin" constant="7" id="Y9a-ao-e2I"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Bn9-q4-eJb" secondAttribute="trailing" constant="8" id="c7H-9n-Wmh"/>
+                                                <constraint firstItem="r7e-6O-aTu" firstAttribute="top" secondItem="rO1-Hv-rf0" secondAttribute="topMargin" constant="8" id="ydP-sh-F5S"/>
+                                                <constraint firstItem="r7e-6O-aTu" firstAttribute="centerY" secondItem="rO1-Hv-rf0" secondAttribute="centerY" id="yeO-5w-GDe"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
@@ -586,12 +599,15 @@
                                         <rect key="frame" x="0.0" y="150" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JDM-AD-hK1" id="tFZ-yp-zaa">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zG9-h8-wp0">
-                                                    <rect key="frame" x="50" y="0.0" width="535" height="49.5"/>
+                                                <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zG9-h8-wp0">
+                                                    <rect key="frame" x="50" y="0.0" width="534" height="50"/>
                                                     <color key="tintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="LaJ-MX-r6F"/>
+                                                    </constraints>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="next"/>
@@ -599,11 +615,21 @@
                                                         <outlet property="delegate" destination="3ft-sJ-x3a" id="71N-bc-RrK"/>
                                                     </connections>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="successIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ndb-JE-zW2">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="successIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Ndb-JE-zW2">
                                                     <rect key="frame" x="15" y="16" width="16" height="16"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zG9-h8-wp0" firstAttribute="top" secondItem="tFZ-yp-zaa" secondAttribute="topMargin" constant="-8" id="3IV-4k-SXI"/>
+                                                <constraint firstItem="zG9-h8-wp0" firstAttribute="leading" secondItem="Ndb-JE-zW2" secondAttribute="trailing" constant="19" id="5sa-EN-euu"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="zG9-h8-wp0" secondAttribute="bottom" constant="-8" id="6q9-uA-hKb"/>
+                                                <constraint firstItem="zG9-h8-wp0" firstAttribute="leading" secondItem="tFZ-yp-zaa" secondAttribute="leadingMargin" constant="42" id="84Y-cX-XIb"/>
+                                                <constraint firstItem="Ndb-JE-zW2" firstAttribute="centerY" secondItem="tFZ-yp-zaa" secondAttribute="centerY" id="IcU-9A-oo8"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zG9-h8-wp0" secondAttribute="trailing" constant="8" id="RHt-lK-zVT"/>
+                                                <constraint firstItem="Ndb-JE-zW2" firstAttribute="top" secondItem="tFZ-yp-zaa" secondAttribute="topMargin" constant="8" id="Rq4-CS-ZGe"/>
+                                                <constraint firstItem="Ndb-JE-zW2" firstAttribute="leading" secondItem="tFZ-yp-zaa" secondAttribute="leadingMargin" constant="7" id="r7E-4D-q1K"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
@@ -614,7 +640,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OHM-px-Dcs">
+                                                <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="OHM-px-Dcs">
                                                     <rect key="frame" x="50" y="0.0" width="500" height="50"/>
                                                     <color key="tintColor" red="0.57915376679999997" green="0.1321981425" blue="0.80263157890000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>

@@ -81,29 +81,57 @@
 }
 
 - (void)buttonFacebookPressed:(id)sender {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
+
+    NSURL *facebookURL = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", [[self venue] facebook]]];
+    
     if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
         [[UIApplication sharedApplication] openURL:facebookURL];
     } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://facebook.com/%@", [[self venue] facebook]]]];
+        // Change url to safari one.
+        
+        facebookURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.facebook.com/%@", [[self venue] facebook]]];
+        
+        if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
+            [[UIApplication sharedApplication] openURL:facebookURL];
+        } else {
+            NSLog(@"Could not open link %@", facebookURL);
+        }
     }
 }
 
 - (void)buttonTwitterPressed:(id)sender {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
-    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
-        [[UIApplication sharedApplication] openURL:facebookURL];
+    NSURL *twitterURL = [NSURL URLWithString:[NSString stringWithFormat:@"twitter://user?screen_name=%@", [[self venue] twitter]]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:twitterURL]) {
+        [[UIApplication sharedApplication] openURL:twitterURL];
     } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://twitter.com/%@", [[self venue] twitter]]]];
+        // Change url to safari one.
+        
+        twitterURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.twitter.com/%@", [[self venue] twitter]]];
+        
+        if ([[UIApplication sharedApplication] canOpenURL:twitterURL]) {
+            [[UIApplication sharedApplication] openURL:twitterURL];
+        } else {
+            NSLog(@"Could not open link %@", twitterURL);
+        }
     }
 }
 
 - (void)buttonInstagramPressed:(id)sender {
-    NSURL *facebookURL = [NSURL URLWithString:@"fb://profile/GWXTYwMaEvB"];
-    if ([[UIApplication sharedApplication] canOpenURL:facebookURL]) {
-        [[UIApplication sharedApplication] openURL:facebookURL];
+    NSURL *instagramURL = [NSURL URLWithString:[NSString stringWithFormat:@"instagram://user?username=%@", [[self venue] instagram]]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+        [[UIApplication sharedApplication] openURL:instagramURL];
     } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://instagram.com/%@", [[self venue] instagram]]]];
+        // Change url to safari one.
+        
+        instagramURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://www.instagram.com/%@", [[self venue] instagram]]];
+
+        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+            [[UIApplication sharedApplication] openURL:instagramURL];
+        } else {
+             NSLog(@"Could not open link %@", instagramURL);
+        }
     }
 }
 

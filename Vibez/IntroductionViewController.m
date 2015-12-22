@@ -120,7 +120,7 @@
     [self setButtonLogin:[UIButton buttonWithType:UIButtonTypeCustom]];
     [[self buttonLogin] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:1.0f]];
     [[self buttonLogin] setFrame:CGRectMake(0, yValue, halfWidth, 50)];
-    [[self buttonLogin] setTitle:NSLocalizedString(@"LOG IN", nil) forState:UIControlStateNormal];
+    [[self buttonLogin] setTitle:NSLocalizedString(@"LOGIN", nil) forState:UIControlStateNormal];
     [[[self buttonLogin] titleLabel] setFont:[UIFont pik_montserratBoldWithSize:17.0f]];
     [[self buttonLogin] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [[self buttonLogin] addTarget:self action:@selector(buttonLoginPressed) forControlEvents:UIControlEventTouchUpInside];

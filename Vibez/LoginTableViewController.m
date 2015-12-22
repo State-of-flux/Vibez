@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[self navigationItem] setTitle:NSLocalizedString(@"LOG IN", nil)];
+    [[self navigationItem] setTitle:NSLocalizedString(@"LOGIN", nil)];
     [self setupTableView];
     
     reachability = [Reachability reachabilityForInternetConnection];
@@ -33,8 +33,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[self textFieldEmailUsername] setText:@"123"];
-    [[self textFieldPassword] setText:@"123456789"];
+    [[self textFieldEmailUsername] setText:@"harry"];
+    [[self textFieldPassword] setText:@"pass123"];
 }
 
 - (void)setupTableView {

@@ -209,7 +209,7 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextBoldWithSize:18.0f]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_montserratRegWithSize:16.0f]}];
     //[[UINavigationBar appearance] setClipsToBounds:YES];
     
     // Hides back button text
