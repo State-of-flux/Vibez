@@ -844,7 +844,7 @@
         <!--More Tab View Controller-->
         <scene sceneID="nhc-LY-gUO">
             <objects>
-                <viewController id="YbI-NJ-DM0" customClass="MoreTabViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MoreTabViewController" id="YbI-NJ-DM0" customClass="MoreTabViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qP0-KS-TnC"/>
                         <viewControllerLayoutGuide type="bottom" id="PqH-hQ-BfA"/>
@@ -877,7 +877,7 @@
         <!--More Container View Controller-->
         <scene sceneID="XtJ-Lp-IXX">
             <objects>
-                <tableViewController id="clN-xz-zmf" customClass="MoreContainerViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MoreContainerViewController" id="clN-xz-zmf" customClass="MoreContainerViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="nq0-t2-ggT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

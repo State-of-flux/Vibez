@@ -18,7 +18,7 @@
     
     if(self)
     {
-        self.backgroundColor = [UIColor pku_blackColor];
+        self.backgroundColor = [UIColor pku_lighterBlack];
         
         self.ticketNameLabel = [[UILabel alloc] init];
         self.ticketNameLabel.textColor = [UIColor whiteColor];

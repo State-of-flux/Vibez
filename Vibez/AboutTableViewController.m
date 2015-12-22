@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[self navigationItem] setTitle:NSLocalizedString(@"About", nil)];
+    [[self navigationItem] setTitle:NSLocalizedString(@"ABOUT", nil)];
 }
 
 #pragma mark - UITableView Delegate Methods

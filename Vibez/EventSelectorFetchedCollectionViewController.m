@@ -53,6 +53,7 @@
     
     [self.searchBar setPlaceholder:@"Search for your event"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
@@ -208,7 +209,6 @@
     
     [ticketCell.ticketNameLabel setText:[event name]];
     [ticketCell.ticketDateLabel setText:dateFormatString];
-    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
     [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
                               placeholderImage:[UIImage imageNamed:@"plug.jpg"]

@@ -57,6 +57,7 @@
     
     [self.searchBar setPlaceholder:@"Search by username or email"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
@@ -148,8 +149,6 @@
     [factory setSize:35.0f];
     [orderCell.ticketImage setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [orderCell.ticketImage setContentMode:UIViewContentModeCenter];
-    
-    [orderCell setBackgroundColor:[UIColor pku_lightBlack]];
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
@@ -162,18 +161,14 @@
     //[request setReturnsDistinctResults:YES];
     //[request setPropertiesToFetch:@[@"user.username"]];
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES]];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
     if (searchString.length)
     {
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString]];
-        [subpredicates addObject:[NSPredicate predicateWithFormat:@"email CONTAINS[cd] %@", searchString]];
     }
-    
-    //[subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     

@@ -71,7 +71,7 @@
     
     self.uniqueCodes = [NSMutableArray array];
     
-    [self.buttonEventName setTitle:[Event eventNameForAdmin] forState:UIControlStateNormal];
+    [self.buttonEventName setTitle:[[Event eventNameForAdmin] uppercaseString] forState:UIControlStateNormal];
     
     if(![self scanner]) {
         [self startScanning];
