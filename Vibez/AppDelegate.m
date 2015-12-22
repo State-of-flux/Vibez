@@ -219,7 +219,7 @@
     [[UITabBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UITabBar appearance] setTintColor:[UIColor pku_purpleColor]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_montserratRegWithSize:12.0f]} forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_montserratRegWithSize:9.0f]} forState:UIControlStateNormal];
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont pik_avenirNextRegWithSize:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
