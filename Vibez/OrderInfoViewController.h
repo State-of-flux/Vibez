@@ -26,7 +26,7 @@
 @property (nonatomic, strong) MBProgressHUD *hud;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) BTDropInViewController *paymentVC;
+@property (strong, nonatomic) BTDropInViewController *dropInViewController;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UILabel *labelEventName;
 @property (strong, nonatomic) UILabel *labelPriceTotal;

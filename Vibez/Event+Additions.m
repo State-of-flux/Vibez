@@ -144,7 +144,53 @@
                                            @"eventVenue"       : self.eventVenue,
                                            @"eventDate"        : self.startDate,
                                            @"eventLastEntry"   : self.lastEntry,
-                                           @"eventEnd"         : self.endDate }];
+                                           @"eventEnd"         : self.endDate,
+                                           @"quantity"         : self.quantity}];
+}
+
+- (void)quantityRemainingFromParseWithBlock:(eventCompletion)compblock {
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    [query whereKey:@"objectId" equalTo:[self eventID]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        if ([objects count] == 1) {
+            
+            PFObject *returnedObject = [objects firstObject];
+            
+            if ([returnedObject objectForKey:@"quantity"]) {
+                compblock(YES, [[returnedObject objectForKey:@"quantity"] intValue], error);
+            } else {
+                compblock(NO, 0, error);
+            }
+            
+        } else {
+            compblock(NO, 0, error);
+        }
+    }];
+}
+
++ (void)quantityRemainingFromParseWithId:(NSString *)Id withBlock:(eventCompletion)compblock {
+    PFQuery *query = [PFQuery queryWithClassName:@"Event"];
+    [query whereKey:@"objectId" equalTo:Id];
+    [query selectKeys:@[@"quantity"]];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        if ([objects count] == 1) {
+            
+            PFObject *returnedObject = [objects firstObject];
+            
+            if (returnedObject) {
+                compblock(YES, [[returnedObject objectForKey:@"quantity"] intValue], error);
+            } else {
+                compblock(NO, 0, error);
+            }
+            
+        } else {
+            compblock(NO, 0, error);
+        }
+    }];
 }
 
 + (NSString *)eventIdForAdmin {

@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBarButtons:@"Venue"];
+    [self setTopBarButtons:@"VENUE"];
     [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     [self layoutSubviews];
     [[self scrollView] setDelegate:self];

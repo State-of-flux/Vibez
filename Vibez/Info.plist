@@ -12,6 +12,7 @@
 		<string>instagram</string>
 		<string>facebook</string>
 		<string>fb</string>
+		<string>org-appextension-feature-password-management</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

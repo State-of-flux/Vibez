@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTopBarButtons:@"Event"];
+    [self setTopBarButtons:@"EVENT"];
     [self layoutSubviews];
     imageHeight = self.eventImageView.frame.size.height;
     [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
