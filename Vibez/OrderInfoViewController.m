@@ -225,9 +225,9 @@
 }
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
-
+    
     [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Processing Order", nil) message:NSLocalizedString(@"Please wait...", nil)];
-
+    
     if([reachability isReachable]) {
         [[self hud] setDetailsLabelText:NSLocalizedString(@"Checking quantities...", nil)];
         
@@ -263,13 +263,19 @@
     [self setDropInViewController:[braintree dropInViewControllerWithDelegate:self]];
     
     [self dropInViewController].navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                                             initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                             target:self
-                                                             action:@selector(userDidCancelPayment)];
+                                                                    initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                    target:self
+                                                                    action:@selector(userDidCancelPayment)];
     
     [[self dropInViewController] setTitle:NSLocalizedString(@"PAYMENT", nil)];
     
     PFObject *event = [[self order] objectForKey:@"event"];
+    
+    if (!event) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     
     //Customize the UI
     [[self dropInViewController] setSummaryTitle:[event objectForKey:@"eventName"]];
@@ -280,6 +286,7 @@
     [[self dropInViewController] setSummaryDescription:shortString];
     [[self dropInViewController] setDisplayAmount:[NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]]];
     [[self dropInViewController] setCallToActionText:NSLocalizedString(@"Pay for Tickets", nil)];
+    //[self dropInViewController];
     [self presentViewController:[[self dropInViewController] withNavigationController]
                        animated:YES
                      completion:nil];
@@ -391,6 +398,9 @@
                              //NSLog(@"TX: %@", [tx objectForKey:@"id"]);
                              [self uploadOrderToParse];
                              NSLog(@"TRANSACTION SUCCESSFUL: %@", [[self overallPrice] stringValue]);
+                         } else {
+                             NSLog(@"TRANSACTION UNSUCCESSFUL");
+                             [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
                          }
                      }
                      
@@ -463,57 +473,62 @@
 #pragma mark - UIPickerView Methods
 
 - (void)showQuantityPicker:(id)sender {
-    [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
-                                            rows:[self.arrayOfQuantities copy]
-                                initialSelection:0
-                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           
-                                           if ([selectedValue integerValue] == [[[self order] objectForKey:@"quantity"] integerValue]) {
-                                               return;
-                                           }
-                                           
-                                           [self setQuantitySelected:[selectedValue integerValue]];
-                                           
-                                           if([self quantitySelected])
-                                           {
-                                               [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Modifying order", nil)];
-                                               
-                                               [Ticket getAmountOfTicketsUserOwnsOnEventPFObject:[[self order] objectForKey:@"event"] withBlock:^(int quantityOfTickets, NSError *error) {
-                                                   
-                                                   if (!error) {
-                                                       if((quantityOfTickets + [self quantitySelected]) <= 10)
-                                                       {
-                                                           //[self createOrderAndProceed];
-                                                           NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-                                                           [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                                                           NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
-                                                           [[self order] setObject:quantityValue forKey:@"quantity"];
-                                                           [self setPaymentValues];
-                                                           [[self tableView] reloadData];
-                                                       }
-                                                       else
-                                                       {
-                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                           [alert show];
-                                                       }
-                                                   } else {
-                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                       [alert show];
-                                                   }
-                                                   
-                                                   [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-                                               }];
-                                           }
-                                           else
-                                           {
-                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                               [alert show];
-                                           }
-                                       }
-                                     cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
-                                     } origin:sender];
+    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:NSLocalizedString(@"How many tickets?", nil) rows:[self.arrayOfQuantities copy] initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        
+        if ([selectedValue integerValue] == [[[self order] objectForKey:@"quantity"] integerValue]) {
+            return;
+        }
+        
+        [self setQuantitySelected:[selectedValue integerValue]];
+        
+        if([self quantitySelected])
+        {
+            [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Modifying order", nil)];
+            
+            [Ticket getAmountOfTicketsUserOwnsOnEventPFObject:[[self order] objectForKey:@"event"] withBlock:^(int quantityOfTickets, NSError *error) {
+                
+                if (!error) {
+                    if((quantityOfTickets + [self quantitySelected]) <= 10)
+                    {
+                        //[self createOrderAndProceed];
+                        NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
+                        [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                        NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
+                        [[self order] setObject:quantityValue forKey:@"quantity"];
+                        [self setPaymentValues];
+                        [[self tableView] reloadData];
+                    }
+                    else
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                    [alert show];
+                }
+                
+                [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+            }];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
+                                                                         cancelBlock:^(ActionSheetStringPicker *picker) {
+                                                                             NSLog(@"Block Picker Canceled");
+                                                                         } origin:sender];
+    [picker setDoneButton:[self fetchDoneBarButton]];
+    [picker setCancelButton:[self fetchCancelDoneBarButton]];
+    [picker setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_lighterBlack], NSFontAttributeName:[UIFont pik_montserratRegWithSize:16.0f]}];
     
+    UIView *view = [picker pickerView];
+    [view setBackgroundColor:[UIColor pku_lighterBlack]];
+    [picker setPickerView:view];
+    [picker setTapDismissAction:TapActionCancel];
+    [picker showActionSheetPicker];
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -532,6 +547,22 @@
     if (_delegate) {
         [_delegate paymentSuccessful:success];
     }
+}
+
+- (UIBarButtonItem *)fetchDoneBarButton {
+    UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonDone setTintColor:[UIColor pku_purpleColor]];
+    [buttonDone setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonDone;
+}
+
+- (UIBarButtonItem *)fetchCancelDoneBarButton {
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonCancel setTintColor:[UIColor pku_purpleColor]];
+    [buttonCancel setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonCancel;
 }
 
 @end

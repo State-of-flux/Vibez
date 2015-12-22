@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UILabel* eventDateLabel;
 @property (strong, nonatomic) UILabel* venueNameLabel;
 @property (strong, nonatomic) UIImageView* qrImageView;
+@property (strong, nonatomic) UIView *dot;
 
 @property (strong, nonatomic) Ticket *ticket;
 

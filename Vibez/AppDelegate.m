@@ -17,7 +17,7 @@
 #import <Reachability/Reachability.h>
 #import "NFNotificationController.h"
 #import "IntroductionViewController.h"
-
+#import <ActionSheetPicker-3.0/ActionSheetPicker.h>
 
 @interface AppDelegate () {
     BOOL loggedIn;
@@ -138,6 +138,9 @@
     // Clear all caches
     [PFQuery clearAllCachedResults];
     
+    // Cancel all notifications
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    
     // Log out
     [PFUser logOut];
     //[FBSession setActiveSession:nil];
@@ -146,11 +149,11 @@
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     //[navController popToRootViewControllerAnimated:YES];
     
-    [self deleteAllObjects:@"Event"];
-    [self deleteAllObjects:@"Venue"];
-    [self deleteAllObjects:@"Ticket"];
-    [self deleteAllObjects:@"User"];
-    [self deleteAllObjects:@"Order"];
+    [self deleteAllObjectsWithName:@"Event"];
+    [self deleteAllObjectsWithName:@"Venue"];
+    [self deleteAllObjectsWithName:@"Ticket"];
+    [self deleteAllObjectsWithName:@"User"];
+    [self deleteAllObjectsWithName:@"Order"];
     
     loginViewController = nil;
     
@@ -159,7 +162,7 @@
     compblock(YES);
 }
 
-- (void)deleteAllObjects:(NSString *) entityDescription {
+- (void)deleteAllObjectsWithName:(NSString *) entityDescription {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[PIKContextManager mainContext]];
