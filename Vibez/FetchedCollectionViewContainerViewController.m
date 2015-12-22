@@ -192,7 +192,7 @@
         eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
     }
     
-    if([[event quantity] isEqualToNumber:@0]) {
+    if([[event quantity] integerValue] <= 0) {
         [[eventCell eventPriceLabel] setText:@"SOLD OUT"];
         [[eventCell eventPriceLabel] setTextColor:[UIColor redColor]];
     }

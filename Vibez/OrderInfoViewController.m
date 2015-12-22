@@ -236,7 +236,7 @@
         if ([eventId length] > 0) {
             [Event quantityRemainingFromParseWithId:eventId withBlock:^(BOOL succeeded, int quantityRemaining, NSError *error) {
                 if (succeeded) {
-                    if ((quantityRemaining - [self quantity]) >= 0) {
+                    if ((quantityRemaining - [self quantity]) > 0) {
                         [[self hud] setDetailsLabelText:NSLocalizedString(@"Getting token...", nil)];
                         [self getTokenAndShowBrainTree];
                     } else {

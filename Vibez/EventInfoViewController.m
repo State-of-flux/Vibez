@@ -211,7 +211,7 @@
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
     [[self getTicketsButton] setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     
-    if([[self.event quantity] isEqualToNumber:@0]) {
+    if([[[self event] quantity] integerValue] <= 0) {
         //[self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
         [self.getTicketsButton setTintColor:[UIColor colorWithWhite:1.0f alpha:0.8f]];
         NSAttributedString *attrStringSoldOut = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"SOLD OUT", nil) attributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]}];

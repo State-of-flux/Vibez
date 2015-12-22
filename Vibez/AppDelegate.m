@@ -31,7 +31,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupParse:launchOptions];
     [self setupBrainTree];
-    [self setupLookBack];
     [self setupAppearance];
     [self monitorReachability];
     [NFNotificationController scheduleNotifications];
@@ -49,18 +48,21 @@
     return YES;
 }
 
-- (void)setupLookBack {
-    //[Lookback setupWithAppToken:@"2uJt7XXBvSn5aApEL"];
-    //[Lookback sharedLookback].shakeToRecord = YES;
-    //[Lookback sharedLookback].feedbackBubbleVisible = YES;
-}
-
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
+    
+    if ([[url scheme] isEqualToString:@"fb415506278620874"]) {
+        return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                              openURL:url
+                                                    sourceApplication:sourceApplication
+                                                           annotation:annotation];
+    } else if ([[url scheme] isEqualToString:@""]) {
+        return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+    }
 
-    return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+    return NO;
 }
 
 -(void)setupBrainTree
@@ -84,7 +86,7 @@
     
     // Override point for customization after application launch.
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
-    
+
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 }
 

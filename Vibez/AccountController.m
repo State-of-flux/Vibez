@@ -79,12 +79,12 @@
     
     [user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-        PFACL *userACL = [PFACL ACLWithUser:[PFUser currentUser]];
-        [userACL setPublicReadAccess:YES];
-        [userACL setPublicWriteAccess:NO];
-
-        [[PFUser currentUser] setACL:userACL];
-        [[PFUser currentUser] saveInBackground];
+//        PFACL *userACL = [PFACL ACLWithUser:[PFUser currentUser]];
+//        [userACL setPublicReadAccess:YES];
+//        [userACL setPublicWriteAccess:NO];
+//
+//        [[PFUser currentUser] setACL:userACL];
+//        [[PFUser currentUser] saveInBackground];
         
         [MBProgressHUD hideStandardHUD:[sender hud] target:sender];
         

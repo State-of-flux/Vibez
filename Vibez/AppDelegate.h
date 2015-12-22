@@ -22,8 +22,8 @@ typedef void(^completion)(BOOL);
 
 - (BOOL)isParseReachable;
 - (void)logout:(completion)compblock;
-- (void)linkParseAccountToFacebook;
-- (void)unlinkParseAccountFromFacebook;
+//- (void)linkParseAccountToFacebook;
+//- (void)unlinkParseAccountFromFacebook;
 
 @end
 
