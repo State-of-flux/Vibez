@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavBar:@"More"];
+    [self setNavBar:@"MORE"];
 }
 
 -(void)setNavBar:(NSString*)titleText

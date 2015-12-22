@@ -48,6 +48,8 @@
         self.eventPriceLabel.textColor = [UIColor whiteColor];
     
         self.eventImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, outerFrame.size.width, outerFrame.size.height)];
+        [self.eventImage setContentMode:UIViewContentModeScaleAspectFill];
+        [[self eventImage] setClipsToBounds:YES];
         
         UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, outerFrame.size.width, outerFrame.size.height)];
         darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];

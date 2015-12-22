@@ -178,11 +178,11 @@
 
 -(BOOL)SignUpValidation
 {
-    if([validator isValidUsername:self.usernameTextField.text])
+    if([Validator isValidUsername:self.usernameTextField.text])
     {
-        if([validator isValidEmail:self.emailAddressTextField.text])
+        if([Validator isValidEmail:self.emailAddressTextField.text])
         {
-            if([validator isValidPassword:self.passwordTextField.text confirmPassword:self.confirmPasswordTextField.text])
+            if([Validator isValidPassword:self.passwordTextField.text confirmPassword:self.confirmPasswordTextField.text])
             {
                 return YES;
             }

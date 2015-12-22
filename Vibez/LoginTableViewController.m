@@ -24,7 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[self navigationItem] setTitle:NSLocalizedString(@"LOG IN", nil)];
+    [[self navigationItem] setTitle:NSLocalizedString(@"LOGIN", nil)];
     [self setupTableView];
     
     reachability = [Reachability reachabilityForInternetConnection];
@@ -33,8 +33,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[self textFieldEmailUsername] setText:@"123"];
-    [[self textFieldPassword] setText:@"123456789"];
+    [[self textFieldEmailUsername] setText:@"harry"];
+    [[self textFieldPassword] setText:@"pass123"];
 }
 
 - (void)setupTableView {
@@ -46,11 +46,20 @@
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmailUsername]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
+    
+    [factory setSize:20.0f];
+    [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
+    [[self buttonLoginWithFacebook] setImage:[factory createImageForIcon:NIKFontAwesomeIconFacebookSquare] forState:UIControlStateNormal];
+    [[self buttonLoginWithFacebook] setImageEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 0)];
+    
+    factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
+    [factory setSize:12.0f];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
     [[self imageViewEmailUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
     [[self imageViewPassword] setImage:[factory createImageForIcon:NIKFontAwesomeIconLock]];
     [[self textFieldEmailUsername] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
     [[self textFieldPassword] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -63,17 +72,10 @@
 
 #pragma mark - TableView Delegate Methods
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 40;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
 - (IBAction)buttonLoginPressed:(id)sender {
     if (![reachability isReachable]) {
-        
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
         return;
     }
     
@@ -82,25 +84,52 @@
     [AccountController loginWithUsernameOrEmail:[[self textFieldEmailUsername] text] andPassword:[[self textFieldPassword] text] sender:self];
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+- (IBAction)buttonLoginWithFacebookPressed:(id)sender {
+    if (![reachability isReachable]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[self tableView] frame]), 40)];
+    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in...", nil) message:NSLocalizedString(@"with Facebook", nil)];
     
-    UIButton *buttonForgotPassword = [UIButton buttonWithType:UIButtonTypeCustom];
-    [buttonForgotPassword setFrame:CGRectMake(0, 0, CGRectGetWidth([view frame]), CGRectGetHeight([view frame]))];
-    [buttonForgotPassword setTitle:NSLocalizedString(@"Forgot your password?", nil) forState:UIControlStateNormal];
-    [[buttonForgotPassword titleLabel] setFont:[UIFont systemFontOfSize:12.0f weight:UIFontWeightLight]];
-    [[buttonForgotPassword titleLabel] setTextColor:[UIColor whiteColor]];
-    [buttonForgotPassword addTarget:self action:@selector(buttonForgotPasswordPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [view addSubview:buttonForgotPassword];
-
-    return view;
+    [AccountController loginWithFacebook:self];
 }
+
+//-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//    if (section == 0) {
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[self tableView] frame]), 40)];
+//        
+//        UILabel *labelOr = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([view frame]), CGRectGetHeight([view frame]))];
+//        [labelOr setText:NSLocalizedString(@"or", nil)];
+//        [labelOr setTextAlignment:NSTextAlignmentCenter];
+//        [labelOr setFont:[UIFont systemFontOfSize:12.0f weight:UIFontWeightLight]];
+//        [labelOr setTextColor:[UIColor whiteColor]];
+//        [view addSubview:labelOr];
+//        
+//        return view;
+//    }
+//    else if (section == 1) {
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth([[self tableView] frame]), 40)];
+//        
+//        UIButton *buttonForgotPassword = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [buttonForgotPassword setFrame:CGRectMake(0, 0, CGRectGetWidth([view frame]), CGRectGetHeight([view frame]))];
+//        [buttonForgotPassword setTitle:NSLocalizedString(@"Forgot your password?", nil) forState:UIControlStateNormal];
+//        [[buttonForgotPassword titleLabel] setFont:[UIFont systemFontOfSize:12.0f weight:UIFontWeightLight]];
+//        [[buttonForgotPassword titleLabel] setTextColor:[UIColor whiteColor]];
+//        [buttonForgotPassword addTarget:self action:@selector(buttonForgotPasswordPressed:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [view addSubview:buttonForgotPassword];
+//        
+//        return view;
+//    }
+//    
+//    return [UIView new];
+//}
 
 - (void)buttonForgotPasswordPressed:(id)sender {
     NSLog(@"Forgot Password pressed.");
-    [self resignFirstResponder];
+    //[self resignFirstResponder];
     [AccountController forgotPasswordWithEmail:[[self textFieldEmailUsername] text] sender:self];
 }
 

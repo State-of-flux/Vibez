@@ -10,7 +10,6 @@
 #import "UIColor+Piktu.h"
 #import "UIFont+PIK.h"
 
-
 @interface IntroductionViewController ()
 
 @end
@@ -20,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[self navigationController] setNavigationBarHidden:YES];
+
     [self playBackgroundMovie];
     [self setupandShowIntro];
     [self createAndAddLoginButton];
@@ -35,8 +36,36 @@
     }
 }
 
+- (void)setupAudio {
+    NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
+    
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:mediaPath] options:nil];
+    NSArray *audioTracks = [asset tracksWithMediaType:AVMediaTypeAudio];
+    
+    // Mute all the audio tracks
+    NSMutableArray * allAudioParams = [NSMutableArray array];
+    for (AVAssetTrack *track in audioTracks) {
+        AVMutableAudioMixInputParameters *audioInputParams =[AVMutableAudioMixInputParameters audioMixInputParameters];
+        [audioInputParams setVolume:0.0 atTime:kCMTimeZero ];
+        [audioInputParams setTrackID:[track trackID]];
+        [allAudioParams addObject:audioInputParams];
+    }
+    AVMutableAudioMix * audioZeroMix = [AVMutableAudioMix audioMix];
+    [audioZeroMix setInputParameters:allAudioParams];
+    
+    // Create a player item
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    [playerItem setAudioMix:audioZeroMix]; // Mute the player item
+    
+    // Create a new Player, and set the player to use the player item
+    // with the muted audio mix
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    
+    [self setMPlayer:player];
+}
+
 - (void)playBackgroundMovie {
-    [[self navigationController] setNavigationBarHidden:YES];
+    
     NSString *mediaPath = [[NSBundle mainBundle] pathForResource:@"vibesBackgroundVideo" ofType:@"mp4"];
 
     if ([[NSFileManager defaultManager] fileExistsAtPath:mediaPath]) {
@@ -47,7 +76,7 @@
         [[self moviePlayer] prepareToPlay];
         [[[self moviePlayer] view] setFrame:[[self view] frame]];
         [[self moviePlayer] setRepeatMode:MPMovieRepeatModeOne];
-        [[self moviePlayer] setFullscreen:YES];
+        [[self moviePlayer] setFullscreen:NO];
         [[self moviePlayer] setControlStyle:MPMovieControlStyleNone];
         [[self moviePlayer] setScalingMode:MPMovieScalingModeFill];
         
@@ -64,7 +93,7 @@
         
         [[self moviePlayer] setInitialPlaybackTime:-1.0];
         [[self moviePlayer] play];
-        [[self moviePlayer] setShouldAutoplay:YES];
+        //[[self moviePlayer] setShouldAutoplay:YES];
     } else {
         NSLog(@"Movie not found at path: %@", mediaPath);
     }
@@ -91,8 +120,8 @@
     [self setButtonLogin:[UIButton buttonWithType:UIButtonTypeCustom]];
     [[self buttonLogin] setBackgroundColor:[UIColor pku_lightBlackAndAlpha:1.0f]];
     [[self buttonLogin] setFrame:CGRectMake(0, yValue, halfWidth, 50)];
-    [[self buttonLogin] setTitle:NSLocalizedString(@"LOG IN", nil) forState:UIControlStateNormal];
-    [[[self buttonLogin] titleLabel] setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
+    [[self buttonLogin] setTitle:NSLocalizedString(@"LOGIN", nil) forState:UIControlStateNormal];
+    [[[self buttonLogin] titleLabel] setFont:[UIFont pik_montserratBoldWithSize:17.0f]];
     [[self buttonLogin] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [[self buttonLogin] addTarget:self action:@selector(buttonLoginPressed) forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:[self buttonLogin]];
@@ -107,7 +136,7 @@
     [[self buttonSignup] setBackgroundColor:[UIColor pku_purpleColorandAlpha:1.0f]];
     [[self buttonSignup] setFrame:CGRectMake(halfWidth, yValue, halfWidth, 50)];
     [[self buttonSignup] setTitle:NSLocalizedString(@"REGISTER", nil) forState:UIControlStateNormal];
-    [[[self buttonSignup] titleLabel] setFont:[UIFont systemFontOfSize:18.0f weight:UIFontWeightBold]];
+    [[[self buttonSignup] titleLabel] setFont:[UIFont pik_montserratBoldWithSize:17.0f]];
     [[self buttonSignup] setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [[self buttonSignup] addTarget:self action:@selector(buttonSignupPressed) forControlEvents:UIControlEventTouchUpInside];
     [[self view] addSubview:[self buttonSignup]];
@@ -140,11 +169,13 @@
     for (NSDictionary *object in onboardingData) {
         EAIntroPage *page = [EAIntroPage page];
         page.title = [object objectForKey:@"titleText"];
-        page.titleFont = [UIFont systemFontOfSize:18.0f weight:UIFontWeightBold];
+        //page.titleFont = [UIFont systemFontOfSize:18.0f weight:UIFontWeightBold];
+        page.titleFont = [UIFont pik_avenirNextBoldWithSize:18.0f];
         page.titleColor = [UIColor whiteColor];
         page.titlePositionY = 175.0f;
         page.desc = [object objectForKey:@"descText"];
-        page.descFont = [UIFont systemFontOfSize:14.0f weight:UIFontWeightLight];
+        //page.descFont = [UIFont systemFontOfSize:14.0f weight:UIFontWeightLight];
+        page.descFont = [UIFont pik_avenirNextRegWithSize:14.0f];
         page.descPositionY = 175.0f;
         page.bgColor = [UIColor clearColor];
         [pages addObject:page];
@@ -158,7 +189,7 @@
     [[self intro] setUseMotionEffects:YES];
     [[self intro] setSwipeToExit:NO];
     [[self intro] showInView:[self view] animateDuration:1.0];
-    [self performSelector:@selector(shiftPageWithIndex:) withObject:[NSNumber numberWithInteger:0] afterDelay:3.0];
+    //[self performSelector:@selector(shiftPageWithIndex:) withObject:[NSNumber numberWithInteger:0] afterDelay:3.0];
 }
 
 - (void)intro:(EAIntroView *)introView pageStartScrolling:(EAIntroPage *)page withIndex:(NSUInteger)pageIndex {

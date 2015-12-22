@@ -32,7 +32,19 @@
 		<array>
 			<dict>
 				<key>name</key>
+				<string>About</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>name</key>
 				<string>Share the Vibes</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>Link to Facebook</string>
 				<key>isInteractable</key>
 				<true/>
 			</dict>

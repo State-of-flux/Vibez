@@ -20,8 +20,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *textFieldPassword;
 
 @property (weak, nonatomic) IBOutlet UIButton *buttonLogin;
+@property (weak, nonatomic) IBOutlet UIButton *buttonLoginWithFacebook;
+@property (weak, nonatomic) IBOutlet UIButton *buttonForgotPassword;
+
 @property (weak, nonatomic) IBOutlet UIView *contentViewEmailUsername;
+@property (weak, nonatomic) IBOutlet UIView *contentViewPassword;
 
 - (IBAction)buttonLoginPressed:(id)sender;
+- (IBAction)buttonLoginWithFacebookPressed:(id)sender;
+- (IBAction)buttonForgotPasswordPressed:(id)sender;
 
 @end

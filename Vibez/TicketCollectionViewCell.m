@@ -18,7 +18,7 @@
     
     if(self)
     {
-        self.backgroundColor = [UIColor pku_blackColor];
+        self.backgroundColor = [UIColor pku_lighterBlack];
         
         self.ticketNameLabel = [[UILabel alloc] init];
         self.ticketNameLabel.textColor = [UIColor whiteColor];
@@ -90,6 +90,7 @@
     
     self.ticketImage.layer.masksToBounds = YES;
     self.ticketImage.layer.cornerRadius = height/2 - padding;
+    [[self ticketImage] setContentMode:UIViewContentModeScaleAspectFill];
     
     UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.ticketImage.frame.size.width, self.ticketImage.frame.size.height)];
     darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];
@@ -109,7 +110,7 @@
     self.ticketNameLabel.frame = CGRectMake(CGRectGetMaxX(self.ticketImage.frame) + padding, height / 4.2, width, 20);
     self.ticketDateLabel.frame = CGRectMake(CGRectGetMaxX(self.ticketImage.frame) + padding, height / 1.8, width / 2, 20);
     
-    [self.layer addSublayer:[self prefix_addUpperBorder:UIRectEdgeBottom color:[UIColor lightGrayColor] thickness:0.3f inset:self.ticketImage.frame.size.width + paddingDouble]];
+    [self.layer addSublayer:[self prefix_addUpperBorder:UIRectEdgeBottom color:[UIColor colorWithRed:127.f/255.f green:127.f/255.f blue:127.f/255.f alpha:1.0f] thickness:0.3f inset:self.ticketImage.frame.size.width + paddingDouble]];
     
     [self.contentView addSubview:self.ticketNameLabel];
     [self.contentView addSubview:self.ticketDateLabel];

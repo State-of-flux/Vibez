@@ -90,6 +90,7 @@
              [newPrivateContext save:&error];
              
              [[self collectionView] reloadData];
+             [[self collectionView] reloadEmptyDataSet];
              
              if(error)
              {

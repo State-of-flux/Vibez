@@ -202,7 +202,6 @@
     
     ticketCell.ticketNameLabel.text = ticket.eventName;
     ticketCell.ticketDateLabel.text = dateFormatString;
-    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
     //[ticketCell.isValidImage setImage:nil];
     

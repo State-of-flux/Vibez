@@ -94,10 +94,8 @@
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory buttonIconFactory];
     [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
     
-    CGFloat statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size.height;
     CGFloat padding = 8;
     CGFloat paddingDouble = 16;
-    CGFloat navBarHeight = self.navigationController.navigationBar.frame.size.height;
     CGFloat height = self.view.frame.size.height;
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (self.getTicketsButton.frame.size.height));
@@ -118,7 +116,6 @@
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
     self.blurView.frame = self.eventImageView.frame;
-    
     
     [self.eventNameLabel setText:[[self event] name]];
     
@@ -202,10 +199,10 @@
     
     //[self.scrollView setContentSize:CGSizeMake(width, CGRectGetMaxY(self.eventDescriptionTextView.frame))];
     
-    CGFloat yValueScrollView = CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble + 100;
+    CGFloat yValueScrollView = CGRectGetMaxY(self.eventDescriptionTextView.frame) + [[self getTicketsButton] frame].size.height + paddingDouble;
     
-    if (yValueScrollView <= [[self view] frame].size.height + 50) {
-        yValueScrollView = [[self view] frame].size.height + 50;
+    if (yValueScrollView < [[self view] frame].size.height) {
+        yValueScrollView = [[self view] frame].size.height;
     }
     
     [self.scrollView setContentSize:CGSizeMake(width, yValueScrollView)];
@@ -214,13 +211,13 @@
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
     [[self getTicketsButton] setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     
-    if([[self.event quantity] isEqualToNumber:@0])
-    {
+    if([[self.event quantity] isEqualToNumber:@0]) {
         //[self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
-        [self.getTicketsButton setTintColor:[UIColor darkGrayColor]];
-        [self.getTicketsButton setTitle:@"SOLD OUT" forState:UIControlStateDisabled];
-        [self.getTicketsButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateDisabled];
-        [self.getTicketsButton setBackgroundColor:[UIColor lightGrayColor]];
+        [self.getTicketsButton setTintColor:[UIColor colorWithWhite:1.0f alpha:0.8f]];
+        NSAttributedString *attrStringSoldOut = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"SOLD OUT", nil) attributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]}];
+        [self.getTicketsButton setAttributedTitle:attrStringSoldOut forState:UIControlStateDisabled];
+        [self.getTicketsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateDisabled];
+        [self.getTicketsButton setBackgroundColor:[UIColor pku_purpleColorandAlpha:0.6f]];
         [self.getTicketsButton setEnabled:NO];
     }
     
@@ -386,7 +383,7 @@
 {
     UIBarButtonItem *buttonShare = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareEvent)];
     [[self navigationItem] setRightBarButtonItem:buttonShare];
-    [[[self navigationItem] rightBarButtonItem] setTintColor:[UIColor pku_purpleColor]];
+    [[[self navigationItem] rightBarButtonItem] setTintColor:[UIColor whiteColor]];
     [[self navigationItem] setTitle:titleText];
 }
 

@@ -18,6 +18,7 @@
 #import "NFNotificationController.h"
 #import "IntroductionViewController.h"
 
+
 @interface AppDelegate () {
     BOOL loggedIn;
     LoginViewController* loginViewController;
@@ -72,7 +73,7 @@
 {
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS
-    [Parse enableLocalDatastore];
+    //[Parse enableLocalDatastore];
     
     // Initialize Parse.
     [Parse setApplicationId:@"l0l32W658tvwkjbkre94nNCwhSKijWaYTZxzgDYe"
@@ -82,7 +83,7 @@
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Override point for customization after application launch.
-    //[PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
+    [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
     
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 }
@@ -139,6 +140,7 @@
     
     // Log out
     [PFUser logOut];
+    //[FBSession setActiveSession:nil];
     
     // clear out cached data, view controllers, etc
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
@@ -176,34 +178,6 @@
     }
 }
 
--(void)linkParseAccountToFacebook {
-    PFUser* user = [PFUser currentUser];
-    
-    if (![PFFacebookUtils isLinkedWithUser:user]) {
-        [PFFacebookUtils linkUserInBackground:user withReadPermissions:nil block:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"User has linked to Facebook");
-            } else if(!succeeded && error) {
-                NSLog(@"Link failed: %@", error);
-            }
-        }];
-    }
-}
-
--(void)unlinkParseAccountFromFacebook {
-    PFUser* user = [PFUser currentUser];
-    
-    if ([PFFacebookUtils isLinkedWithUser:user]) {
-        [PFFacebookUtils unlinkUserInBackground:user block:^(BOOL succeeded, NSError *error) {
-            if (succeeded) {
-                NSLog(@"User has unlinked from Facebook");
-            } else if(!succeeded && error) {
-                NSLog(@"Unlink failed: %@", error);
-            }
-        }];
-    }
-}
-
 - (void)monitorReachability {
     Reachability *hostReach = [Reachability reachabilityWithHostname:@"api.parse.com"];
     
@@ -235,7 +209,7 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTranslucent:NO];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_avenirNextBoldWithSize:18.0f]}];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor], NSBackgroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont pik_montserratRegWithSize:16.0f]}];
     //[[UINavigationBar appearance] setClipsToBounds:YES];
     
     // Hides back button text
@@ -255,10 +229,14 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
     [[UIBarButtonItem appearanceWhenContainedIn:[BTDropInViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
     
+    
+    [[UIBarButtonItem appearanceWhenContainedIn:[BTPayPalViewController class], nil] setTintColor:[UIColor pku_lightBlack]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[BTPayPalViewController class], nil] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor pku_lightBlack], NSBackgroundColorAttributeName : [UIColor pku_lightBlack], NSFontAttributeName : [UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+    
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
-    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor pku_purpleColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_purpleColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize

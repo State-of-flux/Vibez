@@ -46,8 +46,8 @@
         self.venueTownLabel.textColor = [UIColor whiteColor];
         
         self.venueImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        //                   Image:[UIImage imageNamed:@"plug.jpg"]];
-        //self.backgroundView = self.venueImage;
+        [self.venueImage setContentMode:UIViewContentModeScaleAspectFill];
+        [[self venueImage] setClipsToBounds:YES];
         
         UIView* darkOverlay = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         darkOverlay.backgroundColor = [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.65f];

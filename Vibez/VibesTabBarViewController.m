@@ -22,8 +22,8 @@
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     UITabBarItem *item0 = self.tabBar.items[0];
     item0.title = NSLocalizedString(@"Search", nil);
-    item0.image = [factory createImageForIcon:NIKFontAwesomeIconMapMarker];
-    item0.selectedImage = [factory createImageForIcon:NIKFontAwesomeIconMapMarker];
+    item0.image = [factory createImageForIcon:NIKFontAwesomeIconMoonO];
+    item0.selectedImage = [factory createImageForIcon:NIKFontAwesomeIconMoonO];
     
     UITabBarItem *item1 = self.tabBar.items[1];
     item1.title = NSLocalizedString(@"Tickets", nil);

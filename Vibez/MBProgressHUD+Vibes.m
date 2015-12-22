@@ -19,7 +19,7 @@
     [[target view] addSubview:hud];
     [hud setLabelText:(title ? title : @"")];
     [hud setDetailsLabelText:(message ? message : @"")];
-    [hud setColor:[UIColor pku_purpleColorandAlpha:0.8f]];
+    //[hud setColor:[UIColor pku_purpleColorandAlpha:0.8f]];
     [hud show:YES];
 }
 
