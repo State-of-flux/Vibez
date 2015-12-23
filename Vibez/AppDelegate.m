@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Reachability/Reachability.h>
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Bolts/Bolts.h>
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
@@ -18,6 +19,7 @@
 #import "NFNotificationController.h"
 #import "IntroductionViewController.h"
 #import <ActionSheetPicker-3.0/ActionSheetPicker.h>
+#import "Constants.h"
 
 @interface AppDelegate () {
     BOOL loggedIn;
@@ -33,9 +35,10 @@
     [self setupBrainTree];
     [self setupAppearance];
     [self monitorReachability];
-    [NFNotificationController scheduleNotifications];
     
     if ([PFUser currentUser]) {
+        [NFNotificationController scheduleNotifications];
+        
         if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         } else {
@@ -53,21 +56,24 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     
-    if ([[url scheme] isEqualToString:@"fb415506278620874"]) {
-        return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                              openURL:url
-                                                    sourceApplication:sourceApplication
-                                                           annotation:annotation];
-    } else if ([[url scheme] isEqualToString:@""]) {
+    if([[FBSDKApplicationDelegate sharedInstance] application:application
+                                                       openURL:url
+                                             sourceApplication:sourceApplication
+                                                    annotation:annotation]) {
+        return YES;
+    }
+    
+    if ([[url scheme] localizedCaseInsensitiveCompare:pikBrainTreeURLScheme] == NSOrderedSame) {
         return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
     }
-
+    
     return NO;
 }
 
 -(void)setupBrainTree
 {
-    [Braintree setReturnURLScheme:@"com.Piktu.Vibez.payments"];
+    [Braintree setReturnURLScheme:pikBrainTreeURLScheme];
+    
     //    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
 }
 
@@ -78,15 +84,15 @@
     //[Parse enableLocalDatastore];
     
     // Initialize Parse.
-    [Parse setApplicationId:@"l0l32W658tvwkjbkre94nNCwhSKijWaYTZxzgDYe"
-                  clientKey:@"WkogSkhJvUKFOkjHEaWVM9hkFOFUkJVKsqPjFtB7"];
+    [Parse setApplicationId:pikBrainTreeApplicationID
+                  clientKey:pikBrainTreeClientKey];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
     // Override point for customization after application launch.
     [PFFacebookUtils initializeFacebookWithApplicationLaunchOptions:launchOptions];
-
+    
     //return [[FBSDKApplicationDelegate sharedInstance] application:applicationdidFinishLaunchingWithOptions:launchOptions];
 }
 
@@ -134,11 +140,12 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    // Unsubscribe from push notifications by removing the user association from the current installation.
-    [[PFInstallation currentInstallation] saveInBackground];
-    
     // Clear all caches
     [PFQuery clearAllCachedResults];
+    
+    // Unsubscribe from push notifications by removing the user association from the current installation.
+    //[[PFInstallation currentInstallation] removeObjectForKey:kPAPInstallationUserKey];
+    //[[PFInstallation currentInstallation] saveInBackground];
     
     // Cancel all notifications
     [[UIApplication sharedApplication] cancelAllLocalNotifications];

@@ -79,7 +79,7 @@
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in....", nil) message:nil];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Logging in....", nil) message:nil];
     
     [AccountController loginWithUsernameOrEmail:[[self textFieldEmailUsername] text] andPassword:[[self textFieldPassword] text] sender:self];
 }
@@ -91,7 +91,7 @@
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in...", nil) message:NSLocalizedString(@"with Facebook", nil)];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Logging in...", nil) message:NSLocalizedString(@"with Facebook", nil)];
     
     [AccountController loginWithFacebook:self];
 }

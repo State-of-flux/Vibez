@@ -45,8 +45,6 @@
     
     [self tapOffKeyboardGestureSetup];
     [self placeholderTextColor];
-    
-    self.FacebookLoginButton.readPermissions = [AccountController FacebookPermissions];
 }
 
 - (void)setMaskTo:(UIView*)view byRoundingCorners:(UIRectCorner)corners

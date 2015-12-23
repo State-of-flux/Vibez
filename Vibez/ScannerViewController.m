@@ -42,7 +42,7 @@
     //[self checkIfEventIsSelected];
     
     if (![Event eventIdForAdmin]) {
-        [[self buttonEventName] setTitle:@"No event selected" forState:UIControlStateNormal];
+        [[self buttonEventName] setTitle:@"SELECT EVENT" forState:UIControlStateNormal];
     } else {
         [self setupView];
     }

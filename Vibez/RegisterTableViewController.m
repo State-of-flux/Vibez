@@ -83,7 +83,7 @@
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Registering", nil) message:nil];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Registering", nil) message:nil];
     
     if([self SignUpValidation])
     {
@@ -104,7 +104,7 @@
         }
     }
     
-    [MBProgressHUD hideStandardHUD:[self hud] target:self];
+    [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
     
     return NO;
 }

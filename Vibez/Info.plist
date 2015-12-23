@@ -2,23 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-		<string>fb-messenger-api</string>
-		<string>twitter</string>
-		<string>instagram</string>
-		<string>facebook</string>
-		<string>fb</string>
-		<string>org-appextension-feature-password-management</string>
-	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDocumentTypes</key>
@@ -60,8 +43,25 @@
 	<string>415506278620874</string>
 	<key>FacebookDisplayName</key>
 	<string>Vibez</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+		<string>fb-messenger-api</string>
+		<string>twitter</string>
+		<string>instagram</string>
+		<string>facebook</string>
+		<string>fb</string>
+		<string>org-appextension-feature-password-management</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Vibes uses your location to find the closest events.</string>
 	<key>UIAppFonts</key>

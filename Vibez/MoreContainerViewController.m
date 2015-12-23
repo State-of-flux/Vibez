@@ -91,6 +91,10 @@
     {
         [self setEmailCell:cell];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"Payment Methods"])
+    {
+        [self setPaymentMethodsCell:cell];
+    }
     else if([[[cell textLabel] text] isEqualToString:@"Logout"])
     {
         [self setLogoutCell:cell];
@@ -134,6 +138,11 @@
     [cell.detailTextLabel setText:[[PFUser currentUser] email]];
 }
 
+-(void)setPaymentMethodsCell:(UITableViewCell *)cell
+{
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconCreditCard]];
+}
+
 -(void)setFriendsCell:(UITableViewCell *)cell
 {
     NSMutableArray *arrayOfFriends = [[PFUser currentUser] objectForKey:@"friends"];
@@ -166,7 +175,7 @@
 
 -(void)setAboutCell:(UITableViewCell *)cell
 {
-    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconInfo]];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconInfoCircle]];
 }
 
 -(void)setShareTheVibesCell:(UITableViewCell *)cell
@@ -206,6 +215,10 @@
     if([[[cell textLabel] text] isEqualToString:@"Logout"])
     {
         [self logout];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Payment Methods"])
+    {
+        [self paymentMethodsPressed];
     }
     else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
     {
@@ -326,6 +339,10 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
         [alertView show];
     }
+}
+
+- (void)paymentMethodsPressed {
+    NSLog(@"Payment Methods");
 }
 
 - (void)eventSelectedPressed {

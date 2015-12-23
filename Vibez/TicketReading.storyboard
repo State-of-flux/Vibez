@@ -74,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uP9-o7-QF3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAZ-Lb-Q5g">
                                         <rect key="frame" x="8" y="12" width="60" height="60"/>
@@ -140,7 +140,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uP9-o7-QF3" firstAttribute="top" secondItem="WvC-xh-4g1" secondAttribute="topMargin" id="N9T-ag-pw9"/>
-                            <constraint firstItem="yYl-8Q-e2v" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="bottom" id="l1X-BP-Qs7"/>
+                            <constraint firstItem="yYl-8Q-e2v" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="bottom" constant="-49" id="l1X-BP-Qs7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uP9-o7-QF3" secondAttribute="trailing" constant="-20" id="omM-1a-aSv"/>
                             <constraint firstItem="uP9-o7-QF3" firstAttribute="leading" secondItem="WvC-xh-4g1" secondAttribute="leadingMargin" constant="-20" id="tUp-05-pTF"/>
                         </constraints>
@@ -207,7 +207,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJg-El-2GO">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJg-El-2GO">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <connections>
                                     <segue destination="S3t-rh-DoX" kind="embed" id="PDs-yb-p6W"/>

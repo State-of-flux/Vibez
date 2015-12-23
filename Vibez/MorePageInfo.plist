@@ -18,6 +18,12 @@
 				<key>isInteractable</key>
 				<false/>
 			</dict>
+			<dict>
+				<key>name</key>
+				<string>Payment Methods</string>
+				<key>isInteractable</key>
+				<true/>
+			</dict>
 		</array>
 		<key>Filter</key>
 		<array>

@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *signUpButton;
-@property (weak, nonatomic) IBOutlet FBSDKLoginButton *FacebookLoginButton;
 @property (weak, nonatomic) IBOutlet UIImageView *imageViewLogo;
 @property (weak, nonatomic) IBOutlet UIView *viewPassword;
 @property (strong, nonatomic) MBProgressHUD *hud;

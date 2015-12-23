@@ -55,7 +55,7 @@
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
     
-    [self.searchBar setPlaceholder:@"Search by username or email"];
+    [self.searchBar setPlaceholder:@"Search by username"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
@@ -143,7 +143,7 @@
     Order *order = [fetchedResultsController objectAtIndexPath:indexPath];
 
     orderCell.ticketNameLabel.text = order.username;
-    orderCell.ticketDateLabel.text = order.email;
+//    orderCell.ticketDateLabel.text = order.;
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [factory setSize:35.0f];

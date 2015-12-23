@@ -1538,7 +1538,7 @@
 				INFOPLIST_FILE = Vibez/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = re.Piktu.Vibez;
 				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
@@ -1564,7 +1564,7 @@
 				INFOPLIST_FILE = Vibez/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "re.Piktu.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = re.Piktu.Vibez;
 				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
