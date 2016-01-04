@@ -284,7 +284,7 @@
     
     if ([[self venue] location]) {
         NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
-        [factory setColors:@[[UIColor pku_purpleColor], [UIColor pku_purpleColor]]];
+        [factory setColors:@[[UIColor whiteColor], [UIColor whiteColor]]];
         UIBarButtonItem *buttonMapMarker = [[UIBarButtonItem alloc] initWithImage:[factory createImageForIcon:NIKFontAwesomeIconMapMarker] style:UIBarButtonItemStylePlain target:self action:@selector(buttonLocationPressed)];
         [[self navigationItem] setRightBarButtonItem:buttonMapMarker];
     } else {

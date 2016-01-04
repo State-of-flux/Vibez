@@ -736,7 +736,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yba-Ob-kGG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                                    <rect key="frame" x="33" y="0.0" width="534" height="50"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                                     <state key="normal" title="By registering, you agree to Clubfeed's Terms and Conditions and Privacy Policy.">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -747,8 +747,8 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="yba-Ob-kGG" firstAttribute="leading" secondItem="zUk-Z0-gWL" secondAttribute="leadingMargin" constant="-8" id="DBT-Nm-gRj"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="yba-Ob-kGG" secondAttribute="trailing" constant="-8" id="gio-on-sAS"/>
+                                                <constraint firstItem="yba-Ob-kGG" firstAttribute="leading" secondItem="zUk-Z0-gWL" secondAttribute="leadingMargin" constant="25" id="DBT-Nm-gRj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="yba-Ob-kGG" secondAttribute="trailing" constant="25" id="gio-on-sAS"/>
                                                 <constraint firstItem="yba-Ob-kGG" firstAttribute="top" secondItem="zUk-Z0-gWL" secondAttribute="topMargin" constant="-8" id="n7s-XK-nTS"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="yba-Ob-kGG" secondAttribute="bottom" constant="-8" id="udn-yJ-LIG"/>
                                             </constraints>

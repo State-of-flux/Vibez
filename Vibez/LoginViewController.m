@@ -264,6 +264,7 @@
                  if(error.code == 101)
                  {
                      UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", @"Login Failed") message:NSLocalizedString(@"Username/Email or password incorrect", @"Username/Email or password incorrect") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                     [alert setTintColor:[UIColor pku_purpleColor]];
                      [alert show];
                  }
              }
@@ -278,8 +279,9 @@
 }
 
 - (void)internetErrorOccurred {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-    [alertView show];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+    [alert setTintColor:[UIColor pku_purpleColor]];
+    [alert show];
     self.loginButton.enabled = true;
     self.signUpButton.enabled = true;
 }
@@ -488,6 +490,7 @@
     [PFUser requestPasswordResetForEmail:email];
     
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sent" message:@"Please search your email now." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    [alert setTintColor:[UIColor pku_purpleColor]];
     [alert show];
 }
 

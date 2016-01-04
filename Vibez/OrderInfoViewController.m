@@ -208,8 +208,9 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([[self indexPathPricePerTicket] isEqual:indexPath]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"A small booking fee is applied to tickets to cover the cost of the transaction and support us! Look at our Terms and Conditions for more details.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"A small booking fee is applied to tickets to cover the cost of the transaction and support us! Look at our Terms and Conditions for more details.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
@@ -241,20 +242,23 @@
                         [self getTokenAndShowBrainTree];
                     } else {
                         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-                        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Problem", nil) message:NSLocalizedString(@"We ran out of tickets for this event! Sorry about that.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Fucks sake", nil) otherButtonTitles:nil, nil];
-                        [alertView show];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Problem", nil) message:NSLocalizedString(@"We ran out of tickets for this event! Sorry about that.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Fucks sake", nil) otherButtonTitles:nil, nil];
+                        [alert setTintColor:[UIColor pku_purpleColor]];
+                        [alert show];
                     }
                 }
             }];
         } else {
             [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-            [alertView show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
+            [alert show];
         }
     } else {
         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
@@ -273,6 +277,7 @@
     
     if (!event) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         return;
     }
@@ -319,13 +324,15 @@
          } else {
              if([(NSHTTPURLResponse *)response statusCode] == 0)
              {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alertView show];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alert setTintColor:[UIColor pku_purpleColor]];
+                 [alert show];
              }
              else if ([(NSHTTPURLResponse *)response statusCode] == 1)
              {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alertView show];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alert setTintColor:[UIColor pku_purpleColor]];
+                 [alert show];
              }
          }
          [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
@@ -359,8 +366,9 @@
                 } else {
                     NSLog(@"Error when decrementing quantity: %@", [error localizedDescription]);
                     
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                    [alertView show];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                    [alert setTintColor:[UIColor pku_purpleColor]];
+                    [alert show];
                 }
                 
                 [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
@@ -368,8 +376,9 @@
         } else {
             [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
             NSLog(@"Error: %@", [error localizedDescription]);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-            [alertView show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
+            [alert show];
         }
     }];
 }
@@ -501,10 +510,12 @@
                     else
                     {
                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                        [alert setTintColor:[UIColor pku_purpleColor]];
                         [alert show];
                     }
                 } else {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                    [alert setTintColor:[UIColor pku_purpleColor]];
                     [alert show];
                 }
                 
@@ -514,6 +525,7 @@
         else
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
             [alert show];
         }
     }

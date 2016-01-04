@@ -129,7 +129,12 @@
 -(void)setUsernameCell:(UITableViewCell *)cell
 {
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
-    [cell.detailTextLabel setText:[[PFUser currentUser] username]];
+    
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [cell.detailTextLabel setText:@"(Facebook Linked)"];
+    } else {
+        [cell.detailTextLabel setText:[[PFUser currentUser] username]];
+    }
 }
 
 -(void)setEmailCell:(UITableViewCell *)cell
@@ -336,8 +341,9 @@
         [self presentViewController:alertController animated:YES completion:nil];
         
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
