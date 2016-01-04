@@ -221,7 +221,7 @@
 		6C1C53301C19F7F40046B7D1 /* vibesBackgroundVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = vibesBackgroundVideo.mp4; sourceTree = "<group>"; };
 		6C1C53321C1A0B050046B7D1 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
 		6C1C53331C1A0B050046B7D1 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
-		6C1E55B11ACF08D9003965A0 /* Clubfeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clubfeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C1E55B11ACF08D9003965A0 /* Vibez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vibez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C1E55B51ACF08D9003965A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6C1E55B61ACF08D9003965A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6C1E55B81ACF08D9003965A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -485,7 +485,7 @@
 		6C1E55B21ACF08D9003965A0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6C1E55B11ACF08D9003965A0 /* Clubfeed.app */,
+				6C1E55B11ACF08D9003965A0 /* Vibez.app */,
 				6C1E55CA1ACF08D9003965A0 /* VibezTests.xctest */,
 			);
 			name = Products;
@@ -1132,7 +1132,7 @@
 			);
 			name = Vibez;
 			productName = Vibez;
-			productReference = 6C1E55B11ACF08D9003965A0 /* Clubfeed.app */;
+			productReference = 6C1E55B11ACF08D9003965A0 /* Vibez.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6C1E55C91ACF08D9003965A0 /* VibezTests */ = {
@@ -1539,7 +1539,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = re.Piktu.Vibez;
-				PRODUCT_NAME = Clubfeed;
+				PRODUCT_NAME = Vibez;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1565,7 +1565,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = re.Piktu.Vibez;
-				PRODUCT_NAME = Clubfeed;
+				PRODUCT_NAME = Vibez;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Vibez/Vibez-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";

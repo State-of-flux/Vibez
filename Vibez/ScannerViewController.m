@@ -111,22 +111,29 @@
             [self invalidTicket:nil];
         }
         
+        BOOL ticketFound = NO;
+        Ticket *ticketScanned;
+        
         for(Ticket *ticket in [self.controller managedObjects]) {
-            
+            if ([ticket.ticketID isEqualToString:code.stringValue]) {
+                ticketFound = YES;
+                ticketScanned = ticket;
+                break;
+            }
+        }
+        
+        if (ticketFound && ticketScanned) {
             // VALID TICKET, NOT SCANNED
-            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                [self validTicketFound:ticket];
+            if([ticketScanned.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketFound:ticketScanned];
             }
             
             // VALID TICKET, ALREADY SCANNED
-            else if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                    [self validTicketFoundAlreadyScanned:ticket];
+            else if([ticketScanned.hasBeenUsed isEqualToNumber:@1]) {
+                [self validTicketFoundAlreadyScanned:ticketScanned];
             }
-            
-            // INVALID TICKET
-            else {
-                [self invalidTicket:ticket];
-            }
+        } else {
+            [self invalidTicket:ticketScanned];
         }
     }
     // This code has already been scanned before, so it must either be a valid ticket that has already been scanned
@@ -138,22 +145,29 @@
             [self invalidTicket:nil];
         }
         
+        BOOL ticketFound = NO;
+        Ticket *ticketScanned;
+        
         for(Ticket *ticket in [self.controller managedObjects]) {
+            if ([ticket.ticketID isEqualToString:code.stringValue]) {
+                ticketFound = YES;
+                ticketScanned = ticket;
+                break;
+            }
+        }
+        
+        if (ticketFound && ticketScanned) {
+            // VALID TICKET, NOT SCANNED
+            if([ticketScanned.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketFound:ticketScanned];
+            }
             
             // VALID TICKET, ALREADY SCANNED
-            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                [self validTicketFoundAlreadyScanned:ticket];
+            else if([ticketScanned.hasBeenUsed isEqualToNumber:@1]) {
+                [self validTicketFoundAlreadyScanned:ticketScanned];
             }
-            
-            // VALID TICKET, NOT SCANNED, BUT HAS BEEN ON THE DEVICE SOMEHOW
-            else if ([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                [self validTicketNotScannedOnDevice:ticket];
-            }
-            
-            // INVALID TICKET
-            else {
-                [self invalidTicket:ticket];
-            }
+        } else {
+            [self invalidTicket:ticketScanned];
         }
     }
     
@@ -182,7 +196,7 @@
 }
 
 - (void)validTicketFoundAlreadyScanned:(Ticket *)ticket {
-    [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket already scanned", nil)];
+    [MBProgressHUD showInfoHUD:[self hud] target:self title:NSLocalizedString(@"Info", nil) message:NSLocalizedString(@"Ticket already scanned", nil)];
     //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
