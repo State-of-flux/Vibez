@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
+//    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
     
     self.viewSegmentedControl.clipsToBounds = YES;
     
@@ -40,21 +40,17 @@
     bottomBorder.borderWidth = 1;
     bottomBorder.frame = CGRectMake(-1, -1, CGRectGetWidth(self.viewSegmentedControl.frame), CGRectGetHeight(self.viewSegmentedControl.frame)+1);
     
-    //[self.viewSegmentedControl.layer addSublayer:bottomBorder];
-    
     eventVC = self.childViewControllers.lastObject;
     venueVC = self.childViewControllers.firstObject;
     self.currentVC = eventVC;
     
     user = [PFUser currentUser];
-    //self.navigationItem.title = @"Hunt for Vibes";
     
-    UIImageView *imageViewTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
-    [imageViewTitle setImage:[UIImage imageNamed:@"logoTitleView"]];
+    UIImageView *imageViewTitle = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 30)];
+    [imageViewTitle setImage:[UIImage imageNamed:@"Clubfeed_nooutline.png"]];
     [imageViewTitle setContentMode:UIViewContentModeScaleAspectFit];
     self.navigationItem.titleView = imageViewTitle;
-    
-    //[self addBorder:UIRectEdgeBottom color:[UIColor blackColor] thickness:0.3f toView:self.viewSegmentedControl];
+    //[[self navigationItem] setTitle:NSLocalizedString(@"CLUBFEED", nil)];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize

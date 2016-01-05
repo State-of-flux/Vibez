@@ -172,7 +172,6 @@
     }
     
     [self performSelector:@selector(unfreezeCaptureOnScanner) withObject:nil afterDelay:2.0f];
-    
 }
 
 - (void)unfreezeCaptureOnScanner {
@@ -191,28 +190,20 @@
     [ticket setHasBeenUsed:[NSNumber numberWithBool:YES]];
     [ticket saveToParse];
     [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket valid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)validTicketFoundAlreadyScanned:(Ticket *)ticket {
     [MBProgressHUD showInfoHUD:[self hud] target:self title:NSLocalizedString(@"Info", nil) message:NSLocalizedString(@"Ticket already scanned", nil)];
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)validTicketNotScannedOnDevice:(Ticket *)ticket {
     [ticket setHasBeenUsed:@1];
     [ticket saveToParse];
     [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket valid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)invalidTicket:(Ticket *)ticket {
-    
     [MBProgressHUD showFailureHUD:[self hud] target:self title:NSLocalizedString(@"Failed", nil) message:NSLocalizedString(@"Ticket invalid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:@"A refresh might be required" backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)refresh:(id)sender

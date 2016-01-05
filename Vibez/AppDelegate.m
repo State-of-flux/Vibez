@@ -51,6 +51,28 @@
     return YES;
 }
 
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    
+    if (state == UIApplicationStateActive) {
+        //When your app was active and it got push notification
+        NSLog(@"Notification received within the app.");
+    } else if (state == UIApplicationStateInactive || state == UIApplicationStateBackground) {
+        //When your app was in background and it got push notification
+        
+        if (![PFUser currentUser]) {
+           
+        } else {
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            if ([[[notif userInfo] valueForKey:@"id"] isEqualToString:@"eventReminder"]) {
+                //[NSUserDefaults setIsWeeklySummaryNotificationActive:YES];
+                [[appDelegate window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+            }
+        }
+    }
+}
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication

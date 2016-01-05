@@ -102,11 +102,11 @@
 - (void)createAndAddLogo {
     
     CGFloat widthScreen = [[self view] frame].size.width;
-    CGFloat widthLogo = 200.f;
+    CGFloat widthLogo = 250.f;
     CGFloat a = (widthScreen - widthLogo) / 2;
     
-    [self setImageViewLogo:[[UIImageView alloc] initWithFrame:CGRectMake(a, 50, widthLogo, 100)]];
-    [[self imageViewLogo] setImage:[UIImage imageNamed:@"logo"]];
+    [self setImageViewLogo:[[UIImageView alloc] initWithFrame:CGRectMake(a, 50, widthLogo, 125)]];
+    [[self imageViewLogo] setImage:[UIImage imageNamed:@"Clubfeed_trnsp.png"]];
     [[self imageViewLogo] setContentMode:UIViewContentModeScaleAspectFit];
     [[self view] addSubview:[self imageViewLogo]];
     [[self view] bringSubviewToFront:[self imageViewLogo]];

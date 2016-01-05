@@ -33,8 +33,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[self textFieldEmailUsername] setText:@"harry"];
-    [[self textFieldPassword] setText:@"pass123"];
+    [[self textFieldEmailUsername] setText:@"admin"];
+    [[self textFieldPassword] setText:@"admin123"];
 }
 
 - (void)setupTableView {

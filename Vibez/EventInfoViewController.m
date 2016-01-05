@@ -71,6 +71,7 @@
         [self.eventImageView setFrame:imgRect];
         [self.blurView setFrame:self.eventImageView.frame];
         [self.eventNameLabel setCenter:CGPointMake(self.eventImageView.frame.size.width/2, self.eventImageView.frame.size.height/2)];
+        
     }
 }
 
@@ -115,6 +116,8 @@
     
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    //CGRect temp = CGRectMake(CGRectGetMinX(self.eventImageView.frame), CGRectGetMinY(self.eventImageView.frame), CGRectGetWidth(self.eventImageView.frame) + 1, CGRectGetHeight(self.eventImageView.frame));
+    self.blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.blurView.frame = self.eventImageView.frame;
     
     [self.eventNameLabel setText:[[self event] name]];

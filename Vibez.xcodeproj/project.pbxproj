@@ -70,6 +70,8 @@
 		6C37D2451AE083ED0078154E /* VenueInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2441AE083ED0078154E /* VenueInfoViewController.m */; };
 		6C37D2481AE085130078154E /* EventInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D2471AE085130078154E /* EventInfoViewController.m */; };
 		6C37D2501AE087B30078154E /* BuyTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C37D24F1AE087B30078154E /* BuyTicketViewController.m */; };
+		6C3BCD311C3C2173000BAE87 /* Clubfeed_trnsp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C3BCD301C3C2173000BAE87 /* Clubfeed_trnsp.png */; };
+		6C3BCD331C3C27F3000BAE87 /* Clubfeed_nooutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C3BCD321C3C27F3000BAE87 /* Clubfeed_nooutline.png */; };
 		6C4FB7A81BB5C10E006AF4EE /* UIScrollView+TwitterCover.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */; };
 		6C53D14F1B864C8A0087A6BC /* Order+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D14E1B864C8A0087A6BC /* Order+Additions.m */; };
 		6C53D17F1B88E7640087A6BC /* UIViewController+NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C53D17E1B88E7640087A6BC /* UIViewController+NavigationController.m */; };
@@ -256,6 +258,8 @@
 		6C37D2471AE085130078154E /* EventInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventInfoViewController.m; sourceTree = "<group>"; };
 		6C37D24E1AE087B30078154E /* BuyTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTicketViewController.h; sourceTree = "<group>"; };
 		6C37D24F1AE087B30078154E /* BuyTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTicketViewController.m; sourceTree = "<group>"; };
+		6C3BCD301C3C2173000BAE87 /* Clubfeed_trnsp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clubfeed_trnsp.png; sourceTree = "<group>"; };
+		6C3BCD321C3C27F3000BAE87 /* Clubfeed_nooutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clubfeed_nooutline.png; sourceTree = "<group>"; };
 		6C4FB7A61BB5C10E006AF4EE /* UIScrollView+TwitterCover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TwitterCover.h"; sourceTree = "<group>"; };
 		6C4FB7A71BB5C10E006AF4EE /* UIScrollView+TwitterCover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TwitterCover.m"; sourceTree = "<group>"; };
 		6C53D14D1B864C8A0087A6BC /* Order+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Order+Additions.h"; sourceTree = "<group>"; };
@@ -566,6 +570,8 @@
 		6C3471631AE481A100FC789A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6C3BCD321C3C27F3000BAE87 /* Clubfeed_nooutline.png */,
+				6C3BCD301C3C2173000BAE87 /* Clubfeed_trnsp.png */,
 				6CE7B36F1BB9BB98000EB03D /* backArrow.png */,
 				6CB5B5771B5882D700EA9A09 /* vibesLogo.jpg */,
 				6CEF067E1B4CB7AF001F1E7C /* ticket.jpg */,
@@ -1214,6 +1220,7 @@
 				6C066FDE1B1BAEEF009EA34D /* tabbar_normal_background.png in Resources */,
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
+				6C3BCD311C3C2173000BAE87 /* Clubfeed_trnsp.png in Resources */,
 				6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */,
 				6C066FE31B1BAEEF009EA34D /* third_normal@2x.png in Resources */,
 				6C09294A1B7F8B6000851DA8 /* MorePageInfo.plist in Resources */,
@@ -1233,6 +1240,7 @@
 				6C066FDD1B1BAEEF009EA34D /* second_selected@2x.png in Resources */,
 				6CEF067F1B4CB7AF001F1E7C /* ticket.jpg in Resources */,
 				6C5C631B1BBC8CC0001A336A /* Order.plist in Resources */,
+				6C3BCD331C3C27F3000BAE87 /* Clubfeed_nooutline.png in Resources */,
 				6C1C532D1C18F7CC0046B7D1 /* OnboardingData.plist in Resources */,
 				6CE7B3721BB9BE6D000EB03D /* Montserrat-Light.otf in Resources */,
 				6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */,
