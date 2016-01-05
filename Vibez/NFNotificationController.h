@@ -14,5 +14,6 @@
 @property (strong, nonatomic) SQKManagedObjectController *controller;
 
 + (void)scheduleNotifications;
++ (void)createLocalNotification:(NSString *)message date:(NSDate *)date userInfo:(NSDictionary *)userInfo;
 
 @end

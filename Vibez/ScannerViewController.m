@@ -42,7 +42,7 @@
     //[self checkIfEventIsSelected];
     
     if (![Event eventIdForAdmin]) {
-        [[self buttonEventName] setTitle:@"No event selected" forState:UIControlStateNormal];
+        [[self buttonEventName] setTitle:@"SELECT EVENT" forState:UIControlStateNormal];
     } else {
         [self setupView];
     }
@@ -71,7 +71,7 @@
     
     self.uniqueCodes = [NSMutableArray array];
     
-    [self.buttonEventName setTitle:[Event eventNameForAdmin] forState:UIControlStateNormal];
+    [self.buttonEventName setTitle:[[Event eventNameForAdmin] uppercaseString] forState:UIControlStateNormal];
     
     if(![self scanner]) {
         [self startScanning];
@@ -111,22 +111,29 @@
             [self invalidTicket:nil];
         }
         
+        BOOL ticketFound = NO;
+        Ticket *ticketScanned;
+        
         for(Ticket *ticket in [self.controller managedObjects]) {
-            
+            if ([ticket.ticketID isEqualToString:code.stringValue]) {
+                ticketFound = YES;
+                ticketScanned = ticket;
+                break;
+            }
+        }
+        
+        if (ticketFound && ticketScanned) {
             // VALID TICKET, NOT SCANNED
-            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                [self validTicketFound:ticket];
+            if([ticketScanned.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketFound:ticketScanned];
             }
             
             // VALID TICKET, ALREADY SCANNED
-            else if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                    [self validTicketFoundAlreadyScanned:ticket];
+            else if([ticketScanned.hasBeenUsed isEqualToNumber:@1]) {
+                [self validTicketFoundAlreadyScanned:ticketScanned];
             }
-            
-            // INVALID TICKET
-            else {
-                [self invalidTicket:ticket];
-            }
+        } else {
+            [self invalidTicket:ticketScanned];
         }
     }
     // This code has already been scanned before, so it must either be a valid ticket that has already been scanned
@@ -138,27 +145,33 @@
             [self invalidTicket:nil];
         }
         
+        BOOL ticketFound = NO;
+        Ticket *ticketScanned;
+        
         for(Ticket *ticket in [self.controller managedObjects]) {
+            if ([ticket.ticketID isEqualToString:code.stringValue]) {
+                ticketFound = YES;
+                ticketScanned = ticket;
+                break;
+            }
+        }
+        
+        if (ticketFound && ticketScanned) {
+            // VALID TICKET, NOT SCANNED
+            if([ticketScanned.hasBeenUsed isEqualToNumber:@0]) {
+                [self validTicketFound:ticketScanned];
+            }
             
             // VALID TICKET, ALREADY SCANNED
-            if([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@1]) {
-                [self validTicketFoundAlreadyScanned:ticket];
+            else if([ticketScanned.hasBeenUsed isEqualToNumber:@1]) {
+                [self validTicketFoundAlreadyScanned:ticketScanned];
             }
-            
-            // VALID TICKET, NOT SCANNED, BUT HAS BEEN ON THE DEVICE SOMEHOW
-            else if ([ticket.ticketID isEqualToString:code.stringValue] && [ticket.hasBeenUsed isEqualToNumber:@0]) {
-                [self validTicketNotScannedOnDevice:ticket];
-            }
-            
-            // INVALID TICKET
-            else {
-                [self invalidTicket:ticket];
-            }
+        } else {
+            [self invalidTicket:ticketScanned];
         }
     }
     
     [self performSelector:@selector(unfreezeCaptureOnScanner) withObject:nil afterDelay:2.0f];
-    
 }
 
 - (void)unfreezeCaptureOnScanner {
@@ -177,28 +190,20 @@
     [ticket setHasBeenUsed:[NSNumber numberWithBool:YES]];
     [ticket saveToParse];
     [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket valid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)validTicketFoundAlreadyScanned:(Ticket *)ticket {
-    [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket already scanned", nil)];
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket has already been scanned"] message:nil backgroundColor:[UIColor pku_purpleColor] textColor:[UIColor whiteColor] time:1.0];
+    [MBProgressHUD showInfoHUD:[self hud] target:self title:NSLocalizedString(@"Info", nil) message:NSLocalizedString(@"Ticket already scanned", nil)];
 }
 
 - (void)validTicketNotScannedOnDevice:(Ticket *)ticket {
     [ticket setHasBeenUsed:@1];
     [ticket saveToParse];
     [MBProgressHUD showSuccessHUD:[self hud] target:self title:NSLocalizedString(@"Success", nil) message:NSLocalizedString(@"Ticket valid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket scanned"] message:nil backgroundColor:[UIColor pku_SuccessColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)invalidTicket:(Ticket *)ticket {
-    
     [MBProgressHUD showFailureHUD:[self hud] target:self title:NSLocalizedString(@"Failed", nil) message:NSLocalizedString(@"Ticket invalid", nil)];
-    
-    //[RKDropdownAlert title:[NSString stringWithFormat:@"Ticket does not exist or data is out of date"] message:@"A refresh might be required" backgroundColor:[UIColor redColor] textColor:[UIColor whiteColor] time:1.0];
 }
 
 - (void)refresh:(id)sender
@@ -234,8 +239,9 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 

@@ -91,6 +91,10 @@
     {
         [self setEmailCell:cell];
     }
+    else if([[[cell textLabel] text] isEqualToString:@"Payment Methods"])
+    {
+        [self setPaymentMethodsCell:cell];
+    }
     else if([[[cell textLabel] text] isEqualToString:@"Logout"])
     {
         [self setLogoutCell:cell];
@@ -125,13 +129,23 @@
 -(void)setUsernameCell:(UITableViewCell *)cell
 {
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
-    [cell.detailTextLabel setText:[[PFUser currentUser] username]];
+    
+    if ([PFFacebookUtils isLinkedWithUser:[PFUser currentUser]]) {
+        [cell.detailTextLabel setText:@"(Facebook Linked)"];
+    } else {
+        [cell.detailTextLabel setText:[[PFUser currentUser] username]];
+    }
 }
 
 -(void)setEmailCell:(UITableViewCell *)cell
 {
     [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
     [cell.detailTextLabel setText:[[PFUser currentUser] email]];
+}
+
+-(void)setPaymentMethodsCell:(UITableViewCell *)cell
+{
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconCreditCard]];
 }
 
 -(void)setFriendsCell:(UITableViewCell *)cell
@@ -166,7 +180,7 @@
 
 -(void)setAboutCell:(UITableViewCell *)cell
 {
-    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconInfo]];
+    [cell.imageView setImage:[factory createImageForIcon:NIKFontAwesomeIconInfoCircle]];
 }
 
 -(void)setShareTheVibesCell:(UITableViewCell *)cell
@@ -206,6 +220,10 @@
     if([[[cell textLabel] text] isEqualToString:@"Logout"])
     {
         [self logout];
+    }
+    else if([[[cell textLabel] text] isEqualToString:@"Payment Methods"])
+    {
+        [self paymentMethodsPressed];
     }
     else if([[[cell textLabel] text] isEqualToString:@"Link to Facebook"])
     {
@@ -323,9 +341,14 @@
         [self presentViewController:alertController animated:YES completion:nil];
         
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The Internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
+}
+
+- (void)paymentMethodsPressed {
+    NSLog(@"Payment Methods");
 }
 
 - (void)eventSelectedPressed {

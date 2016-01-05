@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <Reachability/Reachability.h>
 #import <Parse/Parse.h>
+#import <ParseFacebookUtilsV4/PFFacebookUtils.h>
 #import <Bolts/Bolts.h>
 #import "LoginViewController.h"
 #import "UIFont+PIK.h"
@@ -17,7 +18,8 @@
 #import <Reachability/Reachability.h>
 #import "NFNotificationController.h"
 #import "IntroductionViewController.h"
-
+#import <ActionSheetPicker-3.0/ActionSheetPicker.h>
+#import "Constants.h"
 
 @interface AppDelegate () {
     BOOL loggedIn;
@@ -31,12 +33,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupParse:launchOptions];
     [self setupBrainTree];
-    [self setupLookBack];
     [self setupAppearance];
     [self monitorReachability];
-    [NFNotificationController scheduleNotifications];
     
     if ([PFUser currentUser]) {
+        [NFNotificationController scheduleNotifications];
+        
         if(![[[PFUser currentUser] objectForKey:@"isAdmin"] boolValue]) {
             self.window.rootViewController = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController];
         } else {
@@ -49,23 +51,51 @@
     return YES;
 }
 
-- (void)setupLookBack {
-    //[Lookback setupWithAppToken:@"2uJt7XXBvSn5aApEL"];
-    //[Lookback sharedLookback].shakeToRecord = YES;
-    //[Lookback sharedLookback].feedbackBubbleVisible = YES;
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+    UIApplicationState state = [[UIApplication sharedApplication] applicationState];
+    
+    if (state == UIApplicationStateActive) {
+        //When your app was active and it got push notification
+        NSLog(@"Notification received within the app.");
+    } else if (state == UIApplicationStateInactive || state == UIApplicationStateBackground) {
+        //When your app was in background and it got push notification
+        
+        if (![PFUser currentUser]) {
+           
+        } else {
+            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            if ([[[notif userInfo] valueForKey:@"id"] isEqualToString:@"eventReminder"]) {
+                //[NSUserDefaults setIsWeeklySummaryNotificationActive:YES];
+                [[appDelegate window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+            }
+        }
+    }
 }
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-
-    return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+    
+    if([[FBSDKApplicationDelegate sharedInstance] application:application
+                                                       openURL:url
+                                             sourceApplication:sourceApplication
+                                                    annotation:annotation]) {
+        return YES;
+    }
+    
+    if ([[url scheme] localizedCaseInsensitiveCompare:pikBrainTreeURLScheme] == NSOrderedSame) {
+        return [Braintree handleOpenURL:url sourceApplication:sourceApplication];
+    }
+    
+    return NO;
 }
 
 -(void)setupBrainTree
 {
-    [Braintree setReturnURLScheme:@"com.Piktu.Vibez.payments"];
+    [Braintree setReturnURLScheme:pikBrainTreeURLScheme];
+    
     //    BraintreeEncryption * myEncryption = [[BraintreeEncryption alloc]initWithPublicKey:@"MIIBCgKCAQEAtxPMbigvYY9pe8JeHV2W/BVHFfy6n1JRU//36aQAV/Hc0DwyEwPE1lHZqMIph2vzmaBc4b0/Fa1RXo9BCYvrp+W/eqsIufPkiTXLi1J9l80Dj6cPfihv3z43vHcBo3fcz2BdfRm07lgTk1oqElwGZ3BPx3LKuntSaqWyAFvrBRt/djxynlMxwU0AWjrbtK1PzCw8R4DeOpweTXHs3CHU47tMD7IXrThEVwZOwKFThnwVsm0/CPXIYPjeOFM19HcsF8FPrkImcZKOPEquhmDCCGiFToQFqQaQFJ3Ny/jEaS7zCuaAme2t7WUvQc5pWN444Yj9ROSIb+xw7C5wmob6kQIDAQAB"];
 }
 
@@ -76,8 +106,8 @@
     //[Parse enableLocalDatastore];
     
     // Initialize Parse.
-    [Parse setApplicationId:@"l0l32W658tvwkjbkre94nNCwhSKijWaYTZxzgDYe"
-                  clientKey:@"WkogSkhJvUKFOkjHEaWVM9hkFOFUkJVKsqPjFtB7"];
+    [Parse setApplicationId:pikBrainTreeApplicationID
+                  clientKey:pikBrainTreeClientKey];
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
@@ -132,11 +162,15 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appDomain];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    // Unsubscribe from push notifications by removing the user association from the current installation.
-    [[PFInstallation currentInstallation] saveInBackground];
-    
     // Clear all caches
     [PFQuery clearAllCachedResults];
+    
+    // Unsubscribe from push notifications by removing the user association from the current installation.
+    //[[PFInstallation currentInstallation] removeObjectForKey:kPAPInstallationUserKey];
+    //[[PFInstallation currentInstallation] saveInBackground];
+    
+    // Cancel all notifications
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     // Log out
     [PFUser logOut];
@@ -146,11 +180,11 @@
     //UINavigationController *navController = (UINavigationController *)self.window.rootViewController;
     //[navController popToRootViewControllerAnimated:YES];
     
-    [self deleteAllObjects:@"Event"];
-    [self deleteAllObjects:@"Venue"];
-    [self deleteAllObjects:@"Ticket"];
-    [self deleteAllObjects:@"User"];
-    [self deleteAllObjects:@"Order"];
+    [self deleteAllObjectsWithName:@"Event"];
+    [self deleteAllObjectsWithName:@"Venue"];
+    [self deleteAllObjectsWithName:@"Ticket"];
+    [self deleteAllObjectsWithName:@"User"];
+    [self deleteAllObjectsWithName:@"Order"];
     
     loginViewController = nil;
     
@@ -159,7 +193,7 @@
     compblock(YES);
 }
 
-- (void)deleteAllObjects:(NSString *) entityDescription {
+- (void)deleteAllObjectsWithName:(NSString *) entityDescription {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:entityDescription inManagedObjectContext:[PIKContextManager mainContext]];
@@ -219,7 +253,7 @@
     [[UITabBar appearance] setBarTintColor:[UIColor pku_lightBlack]];
     [[UITabBar appearance] setTintColor:[UIColor pku_purpleColor]];
     [[UITabBar appearance] setTranslucent:NO];
-    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_montserratRegWithSize:12.0f]} forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes: @{ NSFontAttributeName : [UIFont pik_montserratRegWithSize:9.0f]} forState:UIControlStateNormal];
     
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: [UIFont pik_avenirNextRegWithSize:16.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
     
@@ -236,7 +270,7 @@
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTintColor:[UIColor whiteColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
-     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:18.0f]} forState:UIControlStateNormal];
+     setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
 }
 
 - (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize

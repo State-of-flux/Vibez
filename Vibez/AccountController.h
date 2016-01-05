@@ -8,13 +8,15 @@
 
 #import <Bolts/Bolts.h>
 #import <Foundation/Foundation.h>
+#import <Parse/Parse.h>
 
 @interface AccountController : NSObject
 
-+(NSArray *)FacebookPermissions;
+typedef void(^facebookAccountCompletionBlock)(BOOL succeeded, NSError *error);
 
 + (void)loginWithFacebook:(id)sender;
 + (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender;
++ (void)createNewUser:(PFUser *)user forFacebookWithBlock:(facebookAccountCompletionBlock)compblock;
 + (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender;
 + (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender;
 + (void)sendResetEmail:(NSString *)email;

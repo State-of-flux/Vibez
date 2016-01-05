@@ -37,11 +37,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setTopBarButtons:@"Event"];
+    [self setTopBarButtons:@"EVENT"];
     [self layoutSubviews];
     imageHeight = self.eventImageView.frame.size.height;
     [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
-
+    
     reachability = [Reachability reachabilityForInternetConnection];
     
     UIPickerView *picker = [[UIPickerView alloc] init];
@@ -71,6 +71,7 @@
         [self.eventImageView setFrame:imgRect];
         [self.blurView setFrame:self.eventImageView.frame];
         [self.eventNameLabel setCenter:CGPointMake(self.eventImageView.frame.size.width/2, self.eventImageView.frame.size.height/2)];
+        
     }
 }
 
@@ -99,7 +100,7 @@
     CGFloat height = self.view.frame.size.height;
     CGFloat width = self.view.frame.size.width;
     CGFloat heightWithoutNavOrTabOrStatus = (height - (self.getTicketsButton.frame.size.height));
-
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, heightWithoutNavOrTabOrStatus)];
     [self.view addSubview:self.scrollView];
     
@@ -115,6 +116,8 @@
     
     UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     self.blurView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    //CGRect temp = CGRectMake(CGRectGetMinX(self.eventImageView.frame), CGRectGetMinY(self.eventImageView.frame), CGRectGetWidth(self.eventImageView.frame) + 1, CGRectGetHeight(self.eventImageView.frame));
+    self.blurView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     self.blurView.frame = self.eventImageView.frame;
     
     [self.eventNameLabel setText:[[self event] name]];
@@ -211,7 +214,7 @@
     [[self getTicketsButton] setTintColor:[UIColor whiteColor]];
     [[self getTicketsButton] setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
     
-    if([[self.event quantity] isEqualToNumber:@0]) {
+    if([[[self event] quantity] integerValue] <= 0) {
         //[self.getTicketsButton setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket] forState:UIControlStateDisabled];
         [self.getTicketsButton setTintColor:[UIColor colorWithWhite:1.0f alpha:0.8f]];
         NSAttributedString *attrStringSoldOut = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"SOLD OUT", nil) attributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]}];
@@ -275,6 +278,7 @@
                 
             } else {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Venue couldn't be found, please try again later.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+                [alert setTintColor:[UIColor pku_purpleColor]];
                 [alert show];
             }
         }];
@@ -392,61 +396,86 @@
     // Grabbing the event here so it can be attached to the Order object.
     if([reachability isReachable])
     {
-        [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
-                                                rows:[[self arrayOfQuantities] copy]
-                                    initialSelection:0
-                                           doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                               //NSLog(@"Picker: %@, Index: %ld, value: %@",
-                                               //      picker, (long)selectedIndex, selectedValue);
-                                               
-                                               [self setQuantitySelected:[selectedValue integerValue]];
-                                               
-                                               if([self quantitySelected])
-                                               {
-                                                   [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
-                                                   
-                                                   [Ticket getAmountOfTicketsUserOwnsOnEvent:[self event] withBlock:^(int quantityOfTickets, NSError *error) {
-                                                       
-                                                       if (!error) {
-                                                           if((quantityOfTickets + [self quantitySelected]) <= 10)
-                                                           {
-                                                               [self createOrderAndProceed];
-                                                           }
-                                                           else
-                                                           {
-                                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                               [alert show];
-                                                           }
-                                                       } else {
-                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                           [alert show];
-                                                           
-                                                       }
-                                                       
-                                                       [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-                                                   }];
-                                               }
-                                               else
-                                               {
-                                                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                   [alert show];
-                                               }
-                                               
-                                           }
-                                         cancelBlock:^(ActionSheetStringPicker *picker) {
-                                             NSLog(@"Block Picker Canceled");
-                                         }
-                                              origin:sender];
+        ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:NSLocalizedString(@"How many tickets?", nil) rows:[[self arrayOfQuantities] copy] initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+            
+            [self setQuantitySelected:[selectedValue integerValue]];
+            
+            if([self quantitySelected])
+            {
+                [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Creating order", nil)];
+                
+                [Ticket getAmountOfTicketsUserOwnsOnEvent:[self event] withBlock:^(int quantityOfTickets, NSError *error) {
+                    
+                    if (!error) {
+                        if((quantityOfTickets + [self quantitySelected]) <= 10)
+                        {
+                            [self createOrderAndProceed];
+                        }
+                        else
+                        {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                            [alert setTintColor:[UIColor pku_purpleColor]];
+                            [alert show];
+                        }
+                    } else {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                        [alert setTintColor:[UIColor pku_purpleColor]];
+                        [alert show];
+                        
+                    }
+                    
+                    [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                }];
+            }
+            else
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                [alert setTintColor:[UIColor pku_purpleColor]];
+                [alert show];
+            }
+            
+        }
+                                                                             cancelBlock:^(ActionSheetStringPicker *picker) {
+                                                                                 NSLog(@"Block Picker Canceled");
+                                                                             }
+                                                                                  origin:sender];
+        
+        [picker setDoneButton:[self fetchDoneBarButton]];
+        [picker setCancelButton:[self fetchCancelDoneBarButton]];
+        [picker setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_lighterBlack], NSFontAttributeName:[UIFont pik_montserratRegWithSize:16.0f]}];
+        
+        UIView *view = [picker pickerView];
+        [view setBackgroundColor:[UIColor pku_lighterBlack]];
+        [picker setPickerView:view];
+        [picker setTapDismissAction:TapActionCancel];
+        [picker showActionSheetPicker];
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
-- (void)createOrderAndProceed {
+- (UIBarButtonItem *)fetchDoneBarButton {
+    UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonDone setTintColor:[UIColor pku_purpleColor]];
+    [buttonDone setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonDone;
+}
 
+- (UIBarButtonItem *)fetchCancelDoneBarButton {
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonCancel setTintColor:[UIColor pku_purpleColor]];
+    [buttonCancel setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonCancel;
+}
+
+- (void)createOrderAndProceed {
+    
     [PIKParseManager pfObjectForClassName:@"Event" remoteUniqueKey:@"objectId" uniqueValue:self.event.eventID success:^(PFObject *pfObject)
      {
          [self setEventPFObject:pfObject];
@@ -463,13 +492,15 @@
                  [self presentViewController:[orderModalVC withNavigationControllerWithOpaque] animated:YES completion:nil];
                  
              } else {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alertView show];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alert setTintColor:[UIColor pku_purpleColor]];
+                 [alert show];
              }
          }
          else
          {
              UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured whilst trying to find the event, please try again.", @"An error occured whilst trying to find the event, please try again.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay")  otherButtonTitles:nil, nil];
+             [alert setTintColor:[UIColor pku_purpleColor]];
              [alert show];
          }
          

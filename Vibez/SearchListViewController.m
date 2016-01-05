@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"Vibes List"];
+    [self.navigationItem setTitle:@"CLUBFEED LIST"];
 }
 
 @end

@@ -61,6 +61,7 @@
 - (void)setSearchBarAppearance {
     [self.searchBar setPlaceholder:@"Search for events"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
@@ -127,8 +128,9 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         [weakSelf.refreshControl endRefreshing];
     }
 }
@@ -192,7 +194,7 @@
         eventPriceString = [NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [overallPrice floatValue]];
     }
     
-    if([[event quantity] isEqualToNumber:@0]) {
+    if([[event quantity] integerValue] <= 0) {
         [[eventCell eventPriceLabel] setText:@"SOLD OUT"];
         [[eventCell eventPriceLabel] setTextColor:[UIColor redColor]];
     }

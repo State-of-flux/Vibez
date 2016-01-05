@@ -13,6 +13,8 @@
 
 @interface Event (Additions)
 
+typedef void(^eventCompletion)(BOOL succeeded, int value, NSError *error);
+
 +(void)importEvents:(NSArray *)events intoContext:(NSManagedObjectContext *)context;
 +(void)deleteInvalidEventsInContext:(NSManagedObjectContext *)context;
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock;
@@ -20,6 +22,8 @@
 +(NSArray *)allEventsInContext:(NSManagedObjectContext *)context;
 
 - (void)saveToParse;
+- (void)quantityRemainingFromParseWithBlock:(eventCompletion)compblock;
++ (void)quantityRemainingFromParseWithId:(NSString *)Id withBlock:(eventCompletion)compblock;
 
 + (NSString *)eventIdForAdmin;
 + (NSString *)eventNameForAdmin;

@@ -16,4 +16,6 @@
 + (void)showSuccessHUD:(MBProgressHUD *)hud target:(id)target title:(NSString *)title message:(NSString *)message;
 + (void)showFailureHUD:(MBProgressHUD *)hud target:(id)target title:(NSString *)title message:(NSString *)message;
 
++ (void)showInfoHUD:(MBProgressHUD *)hud target:(id)target title:(NSString *)title message:(NSString *)message;
+
 @end

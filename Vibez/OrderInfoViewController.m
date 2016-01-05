@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavBar:@"Order"];
+    [self setNavBar:@"ORDER"];
     [self setupView];
     [self setPaymentValues];
     
@@ -159,7 +159,9 @@
 }
 
 - (void)setEventCell:(UITableViewCell *)cell {
-    [[cell detailTextLabel] setText:[[[self order] objectForKey:@"event"] objectForKey:@"eventName"]];
+    if ([[[self order] objectForKey:@"event"] objectForKey:@"eventName"]) {
+        [[cell detailTextLabel] setText:[[[self order] objectForKey:@"event"] objectForKey:@"eventName"]];
+    }
 }
 
 - (void)setDateCell:(UITableViewCell *)cell {
@@ -170,8 +172,10 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:formatString];
     
-    NSString *dateString = [dateFormatter stringFromDate:[[self.order objectForKey:@"event"] objectForKey:@"eventDate"]];
-    [[cell detailTextLabel] setText:dateString];
+    if ([[self.order objectForKey:@"event"] objectForKey:@"eventDate"]) {
+        NSString *dateString = [dateFormatter stringFromDate:[[self.order objectForKey:@"event"] objectForKey:@"eventDate"]];
+        [[cell detailTextLabel] setText:dateString];
+    }
 }
 
 - (void)setPricePerTicketCell:(UITableViewCell *)cell {
@@ -182,7 +186,9 @@
 }
 
 - (void)setQuantityCell:(UITableViewCell *)cell {
-    [[cell detailTextLabel] setText:[[self.order objectForKey:@"quantity"] stringValue]];
+    if ([self.order objectForKey:@"quantity"]) {
+        [[cell detailTextLabel] setText:[[self.order objectForKey:@"quantity"] stringValue]];
+    }
 }
 
 - (void)setTotalCell:(UITableViewCell *)cell {
@@ -202,8 +208,9 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if ([[self indexPathPricePerTicket] isEqual:indexPath]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"A small booking fee is applied to tickets to cover the cost of the transaction and support us! Look at our Terms and Conditions for more details.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Information", nil) message:NSLocalizedString(@"A small booking fee is applied to tickets to cover the cost of the transaction and support us! Look at our Terms and Conditions for more details.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
@@ -219,45 +226,81 @@
 }
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
-    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Processing order", nil)];
+    
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Processing Order", nil) message:NSLocalizedString(@"Please wait...", nil)];
     
     if([reachability isReachable]) {
-        [self getTokenAndShowBrainTree];
+        [[self hud] setDetailsLabelText:NSLocalizedString(@"Checking quantities...", nil)];
+        
+        NSString *eventId = [[[self order] objectForKey:@"event"] objectForKey:@"eventID"];
+        
+        if ([eventId length] > 0) {
+            [Event quantityRemainingFromParseWithId:eventId withBlock:^(BOOL succeeded, int quantityRemaining, NSError *error) {
+                if (succeeded) {
+                    if ((quantityRemaining - [self quantity]) > 0) {
+                        [[self hud] setDetailsLabelText:NSLocalizedString(@"Getting token...", nil)];
+                        [self getTokenAndShowBrainTree];
+                    } else {
+                        [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Problem", nil) message:NSLocalizedString(@"We ran out of tickets for this event! Sorry about that.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Fucks sake", nil) otherButtonTitles:nil, nil];
+                        [alert setTintColor:[UIColor pku_purpleColor]];
+                        [alert show];
+                    }
+                }
+            }];
+        } else {
+            [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
+            [alert show];
+        }
     } else {
         [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please reconnect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
 - (void)showBrainTreeViewController {
     Braintree *braintree = [Braintree braintreeWithClientToken:[self clientToken]];
-    BTDropInViewController *dropInViewController = [braintree dropInViewControllerWithDelegate:self];
+    [self setDropInViewController:[braintree dropInViewControllerWithDelegate:self]];
     
-    dropInViewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-                                                             initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                             target:self
-                                                             action:@selector(userDidCancelPayment)];
+    [self dropInViewController].navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
+                                                                    initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                    target:self
+                                                                    action:@selector(userDidCancelPayment)];
     
-    [dropInViewController setTitle:NSLocalizedString(@"Payment", nil)];
+    [[self dropInViewController] setTitle:NSLocalizedString(@"PAYMENT", nil)];
     
     PFObject *event = [[self order] objectForKey:@"event"];
     
+    if (!event) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"Event could not be found, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
+        return;
+    }
+    
     //Customize the UI
-    [dropInViewController setSummaryTitle:[event objectForKey:@"eventName"]];
+    [[self dropInViewController] setSummaryTitle:[event objectForKey:@"eventName"]];
     
     NSString *description = [event objectForKey:@"eventDescription"];
     NSString *shortString = ([description length] > 155 ? [description substringToIndex:155] : description);
     
-    [dropInViewController setSummaryDescription:shortString];
-    [dropInViewController setDisplayAmount:[NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]]];
-    [dropInViewController setCallToActionText:NSLocalizedString(@"Pay for Tickets", nil)];
-    [self presentViewController:[dropInViewController withNavigationController]
+    [[self dropInViewController] setSummaryDescription:shortString];
+    [[self dropInViewController] setDisplayAmount:[NSString stringWithFormat:NSLocalizedString(@"£%.2f", @"Price of item"), [self.overallPrice floatValue]]];
+    [[self dropInViewController] setCallToActionText:NSLocalizedString(@"Pay for Tickets", nil)];
+    //[self dropInViewController];
+    [self presentViewController:[[self dropInViewController] withNavigationController]
                        animated:YES
                      completion:nil];
 }
 
 -(void)getTokenAndShowBrainTree {
+    
+    [[self hud] setDetailsLabelText:NSLocalizedString(@"Fetching token...", nil)];
+    
     // TODO: Switch this URL to your own authenticated API
     NSURL *clientTokenURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/token.php", kBTendpoint]];
     NSMutableURLRequest *clientTokenRequest = [NSMutableURLRequest requestWithURL:clientTokenURL];
@@ -281,13 +324,15 @@
          } else {
              if([(NSHTTPURLResponse *)response statusCode] == 0)
              {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alertView show];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alert setTintColor:[UIColor pku_purpleColor]];
+                 [alert show];
              }
              else if ([(NSHTTPURLResponse *)response statusCode] == 1)
              {
-                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                 [alertView show];
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was a problem while obtaining connecting to the payment processor, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                 [alert setTintColor:[UIColor pku_purpleColor]];
+                 [alert show];
              }
          }
          [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
@@ -295,6 +340,7 @@
 }
 
 - (void)dropInViewController:(__unused BTDropInViewController *)viewController didSucceedWithPaymentMethod:(BTPaymentMethod *)paymentMethod {
+    [MBProgressHUD showStandardHUD:[self hud] target:[[self dropInViewController] navigationController] title:NSLocalizedString(@"Authorising Payment", nil) message:NSLocalizedString(@"Please wait...", nil)];
     // Payment has succeeded, so now we can save all the orders to parse.
     [self postNonceToServer:[paymentMethod nonce]];
 }
@@ -302,7 +348,8 @@
 - (void)uploadOrderToParse {
     // Create the tickets and set them to the order, then save.
     [[self order] setObject:[Order createTicketsForOrder:[self order]] forKey:@"tickets"];
-    [[self order] saveEventually:^(BOOL succeeded, NSError * _Nullable error) {
+    
+    [[self order] saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
         if(succeeded) {
             PFObject *event = [[self order] objectForKey:@"event"];
             NSInteger quantity = [self quantity];
@@ -318,20 +365,30 @@
                     }];
                 } else {
                     NSLog(@"Error when decrementing quantity: %@", [error localizedDescription]);
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-                    [alertView show];
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+                    [alert setTintColor:[UIColor pku_purpleColor]];
+                    [alert show];
                 }
+                
+                [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
             }];
         } else {
+            [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
             NSLog(@"Error: %@", [error localizedDescription]);
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-            [alertView show];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
+            [alert show];
         }
     }];
 }
 
 - (void)dropInViewControllerDidCancel:(__unused BTDropInViewController *)viewController {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)dropInViewControllerWillComplete:(BTDropInViewController *)viewController {
+    NSLog(@"PAYMENT WILL COMPLETE");
 }
 
 -(void)userDidCancelPayment{
@@ -350,6 +407,9 @@
                              //NSLog(@"TX: %@", [tx objectForKey:@"id"]);
                              [self uploadOrderToParse];
                              NSLog(@"TRANSACTION SUCCESSFUL: %@", [[self overallPrice] stringValue]);
+                         } else {
+                             NSLog(@"TRANSACTION UNSUCCESSFUL");
+                             [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
                          }
                      }
                      
@@ -357,6 +417,7 @@
                      //self.transactionIDLabel.text = [[NSString alloc] initWithFormat:@"Transaction ID: %@", transactionID];
                  }
                  failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                     [MBProgressHUD hideStandardHUD:[self hud] target:[[self dropInViewController] navigationController]];
                      NSLog(@"Error: %@", [error localizedDescription]);
                      NSLog(@"Operation: %@", operation);
                  }];
@@ -421,57 +482,65 @@
 #pragma mark - UIPickerView Methods
 
 - (void)showQuantityPicker:(id)sender {
-    [ActionSheetStringPicker showPickerWithTitle:NSLocalizedString(@"How many tickets?", nil)
-                                            rows:[self.arrayOfQuantities copy]
-                                initialSelection:0
-                                       doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
-                                           
-                                           if ([selectedValue integerValue] == [[[self order] objectForKey:@"quantity"] integerValue]) {
-                                               return;
-                                           }
-                                           
-                                           [self setQuantitySelected:[selectedValue integerValue]];
-                                           
-                                           if([self quantitySelected])
-                                           {
-                                               [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Modifying order", nil)];
-                                               
-                                               [Ticket getAmountOfTicketsUserOwnsOnEventPFObject:[[self order] objectForKey:@"event"] withBlock:^(int quantityOfTickets, NSError *error) {
-                                                   
-                                                   if (!error) {
-                                                       if((quantityOfTickets + [self quantitySelected]) <= 10)
-                                                       {
-                                                           //[self createOrderAndProceed];
-                                                           NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
-                                                           [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-                                                           NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
-                                                           [[self order] setObject:quantityValue forKey:@"quantity"];
-                                                           [self setPaymentValues];
-                                                           [[self tableView] reloadData];
-                                                       }
-                                                       else
-                                                       {
-                                                           UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                           [alert show];
-                                                       }
-                                                   } else {
-                                                       UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                                       [alert show];
-                                                   }
-                                                   
-                                                   [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
-                                               }];
-                                           }
-                                           else
-                                           {
-                                               UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
-                                               [alert show];
-                                           }
-                                       }
-                                     cancelBlock:^(ActionSheetStringPicker *picker) {
-                                         NSLog(@"Block Picker Canceled");
-                                     } origin:sender];
+    ActionSheetStringPicker *picker = [[ActionSheetStringPicker alloc] initWithTitle:NSLocalizedString(@"How many tickets?", nil) rows:[self.arrayOfQuantities copy] initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        
+        if ([selectedValue integerValue] == [[[self order] objectForKey:@"quantity"] integerValue]) {
+            return;
+        }
+        
+        [self setQuantitySelected:[selectedValue integerValue]];
+        
+        if([self quantitySelected])
+        {
+            [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Loading", nil) message:NSLocalizedString(@"Modifying order", nil)];
+            
+            [Ticket getAmountOfTicketsUserOwnsOnEventPFObject:[[self order] objectForKey:@"event"] withBlock:^(int quantityOfTickets, NSError *error) {
+                
+                if (!error) {
+                    if((quantityOfTickets + [self quantitySelected]) <= 10)
+                    {
+                        //[self createOrderAndProceed];
+                        NSNumberFormatter *numFormatter = [[NSNumberFormatter alloc] init];
+                        [numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+                        NSNumber *quantityValue = [numFormatter numberFromString:selectedValue];
+                        [[self order] setObject:quantityValue forKey:@"quantity"];
+                        [self setPaymentValues];
+                        [[self tableView] reloadData];
+                    }
+                    else
+                    {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid", @"Invalid") message:[NSString stringWithFormat:NSLocalizedString(@"You can only buy up to 10 tickets per event. You currently have %ld.", nil), quantityOfTickets] delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                        [alert setTintColor:[UIColor pku_purpleColor]];
+                        [alert show];
+                    }
+                } else {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"A problem occurred while trying to count your tickets, please try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+                    [alert setTintColor:[UIColor pku_purpleColor]];
+                    [alert show];
+                }
+                
+                [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
+            }];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", @"Error") message:NSLocalizedString(@"An error occured, restarting the app my resolve this issue.", @"An error occured, restarting the app my resolve this issue.") delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", @"Okay") otherButtonTitles:nil, nil];
+            [alert setTintColor:[UIColor pku_purpleColor]];
+            [alert show];
+        }
+    }
+                                                                         cancelBlock:^(ActionSheetStringPicker *picker) {
+                                                                             NSLog(@"Block Picker Canceled");
+                                                                         } origin:sender];
+    [picker setDoneButton:[self fetchDoneBarButton]];
+    [picker setCancelButton:[self fetchCancelDoneBarButton]];
+    [picker setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor pku_lighterBlack], NSFontAttributeName:[UIFont pik_montserratRegWithSize:16.0f]}];
     
+    UIView *view = [picker pickerView];
+    [view setBackgroundColor:[UIColor pku_lighterBlack]];
+    [picker setPickerView:view];
+    [picker setTapDismissAction:TapActionCancel];
+    [picker showActionSheetPicker];
 }
 
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
@@ -490,6 +559,22 @@
     if (_delegate) {
         [_delegate paymentSuccessful:success];
     }
+}
+
+- (UIBarButtonItem *)fetchDoneBarButton {
+    UIBarButtonItem *buttonDone = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonDone setTintColor:[UIColor pku_purpleColor]];
+    [buttonDone setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonDone;
+}
+
+- (UIBarButtonItem *)fetchCancelDoneBarButton {
+    UIBarButtonItem *buttonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
+    [buttonCancel setTintColor:[UIColor pku_purpleColor]];
+    [buttonCancel setTitleTextAttributes:@{NSFontAttributeName:[UIFont pik_avenirNextRegWithSize:16.0f]} forState:UIControlStateNormal];
+    
+    return buttonCancel;
 }
 
 @end

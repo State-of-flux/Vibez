@@ -28,6 +28,7 @@
     if(![usernameTest evaluateWithObject:usernameString])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Username Invalid" message:@"Username must be between 3-25 alphanumerical characters." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         
         return NO;
@@ -43,6 +44,7 @@
     if(![emailTest evaluateWithObject:emailString])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Email Address Invalid" message:@"Please enter a valid email address." delegate:self cancelButtonTitle:@"Understood" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         
         return NO;
@@ -56,6 +58,7 @@
     if ([password length] < 6)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Short" message:@"Password must be a minimum of 6 characters." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         
         return NO;
@@ -64,6 +67,7 @@
     if ([password length] > 32)
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Password Too Long" message:@"Password must be a maximum of 32 characters." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         return NO;
     }
@@ -71,6 +75,7 @@
     if(![password isEqualToString:confirmPassword])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Passwords Do Not Match" message:@"Please enter matching passwords." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         return NO;
     }

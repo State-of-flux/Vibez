@@ -60,6 +60,7 @@
 - (void)setSearchBarAppearance {
     [self.searchBar setPlaceholder:@"Search for venues"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
@@ -105,8 +106,9 @@
              [weakSelf.refreshControl endRefreshing];
          }];
     } else {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         [weakSelf.refreshControl endRefreshing];
     }
 }

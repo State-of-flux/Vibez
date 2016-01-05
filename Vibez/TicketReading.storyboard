@@ -6,8 +6,8 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Montserrat-Bold.otf">
-            <string>Montserrat-Bold</string>
+        <mutableArray key="Montserrat-Regular.otf">
+            <string>Montserrat-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -74,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uP9-o7-QF3">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAZ-Lb-Q5g">
                                         <rect key="frame" x="8" y="12" width="60" height="60"/>
@@ -95,8 +95,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="x7Z-CN-sm3"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Montserrat-Bold" family="Montserrat" pointSize="18"/>
-                                        <state key="normal" title="No event selected">
+                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="18"/>
+                                        <state key="normal" title="NO EVENT SELECTED">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -140,7 +140,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uP9-o7-QF3" firstAttribute="top" secondItem="WvC-xh-4g1" secondAttribute="topMargin" id="N9T-ag-pw9"/>
-                            <constraint firstItem="yYl-8Q-e2v" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="bottom" id="l1X-BP-Qs7"/>
+                            <constraint firstItem="yYl-8Q-e2v" firstAttribute="top" secondItem="uP9-o7-QF3" secondAttribute="bottom" constant="-49" id="l1X-BP-Qs7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uP9-o7-QF3" secondAttribute="trailing" constant="-20" id="omM-1a-aSv"/>
                             <constraint firstItem="uP9-o7-QF3" firstAttribute="leading" secondItem="WvC-xh-4g1" secondAttribute="leadingMargin" constant="-20" id="tUp-05-pTF"/>
                         </constraints>
@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="407" y="-108"/>
         </scene>
-        <!--Search-->
+        <!--SEARCH-->
         <scene sceneID="fVE-tf-6ey">
             <objects>
                 <viewController storyboardIdentifier="SearchListViewController" id="FlD-JS-qNP" customClass="SearchListViewController" sceneMemberID="viewController">
@@ -185,7 +185,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="LfV-eq-U7F" secondAttribute="trailing" constant="-20" id="cc9-AW-aGM"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="58x-fk-Uet"/>
+                    <tabBarItem key="tabBarItem" title="SEARCH" id="58x-fk-Uet"/>
                     <navigationItem key="navigationItem" id="Sx3-3c-naT"/>
                     <connections>
                         <segue destination="4vw-c1-fcr" kind="show" identifier="listToUserInfoSegue" id="NtR-YH-JS8"/>
@@ -207,18 +207,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJg-El-2GO">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hJg-El-2GO">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <connections>
-                                    <segue destination="eF8-rG-M0N" kind="embed" id="vLW-qP-VAF"/>
+                                    <segue destination="S3t-rh-DoX" kind="embed" id="PDs-yb-p6W"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hJg-El-2GO" firstAttribute="leading" secondItem="50C-Xf-62B" secondAttribute="leadingMargin" constant="-16" id="03O-SO-8nZ"/>
+                            <constraint firstItem="hJg-El-2GO" firstAttribute="leading" secondItem="50C-Xf-62B" secondAttribute="leadingMargin" constant="-20" id="03O-SO-8nZ"/>
                             <constraint firstItem="hJg-El-2GO" firstAttribute="top" secondItem="izD-NY-22r" secondAttribute="bottom" id="50r-Gk-ITh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hJg-El-2GO" secondAttribute="trailing" constant="-16" id="54o-yb-5fc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hJg-El-2GO" secondAttribute="trailing" constant="-20" id="54o-yb-5fc"/>
                             <constraint firstItem="qX9-5i-QuP" firstAttribute="top" secondItem="hJg-El-2GO" secondAttribute="bottom" id="DTy-Bp-sar"/>
                         </constraints>
                     </view>
@@ -238,7 +237,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="xnX-MK-3i4" kind="relationship" relationship="rootViewController" id="oa0-rg-dgJ"/>
+                        <segue destination="xnX-MK-3i4" kind="relationship" relationship="rootViewController" id="Dix-L7-y3o"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ePe-FP-Mw9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,7 +325,7 @@
             <objects>
                 <tableViewController id="eF8-rG-M0N" customClass="MoreContainerViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="LRO-bn-Uny">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.17254901959999999" green="0.17254901959999999" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -355,7 +354,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.18039215689999999" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -366,10 +365,29 @@
                     </tableView>
                     <tabBarItem key="tabBarItem" systemItem="more" id="Ds3-9i-raN"/>
                     <navigationItem key="navigationItem" id="0o4-kO-nUX"/>
+                    <connections>
+                        <segue destination="GyF-Dh-keS" kind="show" identifier="goToAboutSegue" id="MIr-yh-qw8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M5a-8L-QqT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1890" y="1418"/>
+        </scene>
+        <!--MoreContainerViewController-->
+        <scene sceneID="vKo-HQ-8KJ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="MoreContainerViewController" id="S3t-rh-DoX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JmM-kl-xnv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1810.5" y="1906"/>
+        </scene>
+        <!--AboutTableViewController-->
+        <scene sceneID="cyO-5Q-wFg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="AboutTableViewController" id="GyF-Dh-keS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3EC-Dk-N0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2492.5" y="1418"/>
         </scene>
     </scenes>
 </document>

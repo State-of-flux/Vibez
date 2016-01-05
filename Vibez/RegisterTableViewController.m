@@ -78,12 +78,13 @@
 - (IBAction)buttonRegisterPressed:(id)sender {
     
     if(![reachability isReachable]){
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Registering", nil) message:nil];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Registering", nil) message:nil];
     
     if([self SignUpValidation])
     {
@@ -104,7 +105,7 @@
         }
     }
     
-    [MBProgressHUD hideStandardHUD:[self hud] target:self];
+    [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
     
     return NO;
 }
@@ -167,8 +168,9 @@
     //[[self buttonRegister] setEnabled:NO];
     
     if (![reachability isReachable]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         return;
     }
     

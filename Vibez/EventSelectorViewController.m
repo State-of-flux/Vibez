@@ -30,7 +30,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.navigationItem setTitle:@"Select an Event"];
+    [self.navigationItem setTitle:@"SELECT EVENT"];
     
     UIBarButtonItem *barButtonCancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleDone target:self action:@selector(cancelPressed)];
     

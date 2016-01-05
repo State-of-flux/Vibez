@@ -25,9 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavBar:@"Your Ticket"];
+    [self setNavBar:NSLocalizedString(@"YOUR TICKET", nil)];
     [self layoutSubviews];
-    [[self navigationItem] setBackBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil]];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self moveDot];
 }
 
 -(void)layoutSubviews
@@ -70,18 +75,20 @@
     [self.view addSubview:self.eventDateLabel];
     [self.view addSubview:self.qrImageView];
     
-    [self movingDot];
+    [self addDot];
 }
 
-- (void)movingDot {
-    UIView *dot = [[UIView alloc] initWithFrame:CGRectMake(self.eventDateLabel.frame.origin.x, CGRectGetMaxY(self.eventDateLabel.frame) - self.eventDateLabel.frame.size.height, 50, 50)];
-    [dot setBackgroundColor:[UIColor pku_purpleColor]];
-    [dot setAlpha:0.25];
-    [[dot layer] setCornerRadius:[dot frame].size.height/2];
+- (void)addDot {
+    [self setDot:[[UIView alloc] initWithFrame:CGRectMake(self.eventDateLabel.frame.origin.x, CGRectGetMaxY(self.eventDateLabel.frame) - self.eventDateLabel.frame.size.height, 50, 50)]];
+    [[self dot] setBackgroundColor:[UIColor pku_purpleColor]];
+    [[self dot] setAlpha:0.25];
+    [[[self dot] layer] setCornerRadius:[[self dot] frame].size.height/2];
     
-    
-    [[self view] addSubview:dot];
-    
+    [[self view] addSubview:[self dot]];
+}
+
+- (void)moveDot {
+
     CGPoint finishPoint = CGPointMake(CGRectGetMaxX(self.eventDateLabel.frame) - 25, CGRectGetMaxY(self.eventDateLabel.frame) - self.eventDateLabel.frame.size.height + 25);
     
     [UIView animateWithDuration:1.0
@@ -90,7 +97,7 @@
                      animations:^{
                          // do whatever animation you want, e.g.,
                          
-                         [dot setCenter:finishPoint];
+                         [[self dot] setCenter:finishPoint];
                      }
                      completion:NULL];
     

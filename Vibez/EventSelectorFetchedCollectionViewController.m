@@ -53,6 +53,7 @@
     
     [self.searchBar setPlaceholder:@"Search for your event"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
+    [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
     [self.searchBar setBackgroundColor:[UIColor pku_blackColor]];
     [self.searchBar setBarStyle:UIBarStyleBlack];
@@ -100,8 +101,9 @@
     }
     else
     {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
     }
 }
 
@@ -159,8 +161,9 @@
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              
-             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-             [alertView show];
+             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+             [alert setTintColor:[UIColor pku_purpleColor]];
+             [alert show];
              [self.hud setHidden:YES];
              [self.navigationController.navigationBar setUserInteractionEnabled:NO];
              [self.view setUserInteractionEnabled:YES];
@@ -170,11 +173,10 @@
      {
          NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
          
-         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
-         [alertView show];
+         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"A problem occured while trying to fetch the data, please try again later." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+         [alert setTintColor:[UIColor pku_purpleColor]];
+         [alert show];
          [self.hud setHidden:YES];
-         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-         [self.view setUserInteractionEnabled:YES];
      }];
 }
 
@@ -208,7 +210,6 @@
     
     [ticketCell.ticketNameLabel setText:[event name]];
     [ticketCell.ticketDateLabel setText:dateFormatString];
-    [ticketCell setBackgroundColor:[UIColor pku_lightBlack]];
     
     [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:event.image]
                               placeholderImage:[UIImage imageNamed:@"plug.jpg"]

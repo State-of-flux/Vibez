@@ -33,8 +33,8 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[self textFieldEmailUsername] setText:@"harry"];
-    [[self textFieldPassword] setText:@"pass123"];
+    [[self textFieldEmailUsername] setText:@"admin"];
+    [[self textFieldPassword] setText:@"admin123"];
 }
 
 - (void)setupTableView {
@@ -74,24 +74,26 @@
 
 - (IBAction)buttonLoginPressed:(id)sender {
     if (![reachability isReachable]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in....", nil) message:nil];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Logging in....", nil) message:nil];
     
     [AccountController loginWithUsernameOrEmail:[[self textFieldEmailUsername] text] andPassword:[[self textFieldPassword] text] sender:self];
 }
 
 - (IBAction)buttonLoginWithFacebookPressed:(id)sender {
     if (![reachability isReachable]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
-        [alertView show];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil) message:NSLocalizedString(@"The internet connection appears to be offline, please connect and try again.", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Okay", nil) otherButtonTitles:nil, nil];
+        [alert setTintColor:[UIColor pku_purpleColor]];
+        [alert show];
         return;
     }
     
-    [MBProgressHUD showStandardHUD:[self hud] target:self title:NSLocalizedString(@"Logging in...", nil) message:NSLocalizedString(@"with Facebook", nil)];
+    [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Logging in...", nil) message:NSLocalizedString(@"with Facebook", nil)];
     
     [AccountController loginWithFacebook:self];
 }
