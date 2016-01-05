@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6C1E55B01ACF08D9003965A0"
-               BuildableName = "Clubfeed.app"
+               BuildableName = "Vibez.app"
                BlueprintName = "Vibez"
                ReferencedContainer = "container:Vibez.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1E55B01ACF08D9003965A0"
-            BuildableName = "Clubfeed.app"
+            BuildableName = "Vibez.app"
             BlueprintName = "Vibez"
             ReferencedContainer = "container:Vibez.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1E55B01ACF08D9003965A0"
-            BuildableName = "Clubfeed.app"
+            BuildableName = "Vibez.app"
             BlueprintName = "Vibez"
             ReferencedContainer = "container:Vibez.xcodeproj">
          </BuildableReference>
@@ -99,7 +99,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6C1E55B01ACF08D9003965A0"
-            BuildableName = "Clubfeed.app"
+            BuildableName = "Vibez.app"
             BlueprintName = "Vibez"
             ReferencedContainer = "container:Vibez.xcodeproj">
          </BuildableReference>
