@@ -93,6 +93,11 @@
     NSLog(@"Calender pressed");
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refresh:nil];
+}
+
 - (void)refresh:(id)sender
 {
     [self.refreshControl beginRefreshing];
@@ -110,8 +115,11 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
-             [[self collectionView] reloadEmptyDataSet];
+             
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
+             });
              
              if(error)
              {

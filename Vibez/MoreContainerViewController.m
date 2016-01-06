@@ -115,7 +115,7 @@
     {
         [self setAboutCell:cell];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    else if([[[cell textLabel] text] isEqualToString:@"Share Clubfeed"])
     {
         [self setShareTheVibesCell:cell];
     }
@@ -241,7 +241,7 @@
     {
         [self aboutSelected];
     }
-    else if([[[cell textLabel] text] isEqualToString:@"Share the Vibes"])
+    else if([[[cell textLabel] text] isEqualToString:@"Share Clubfeed"])
     {
         [self shareTheVibes];
     }

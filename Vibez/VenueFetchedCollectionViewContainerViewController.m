@@ -57,6 +57,11 @@
     [self.collectionView setEmptyDataSetDelegate:self];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refresh:nil];
+}
+
 - (void)setSearchBarAppearance {
     [self.searchBar setPlaceholder:@"Search for venues"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
@@ -90,8 +95,10 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
-             [[self collectionView] reloadEmptyDataSet];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
+             });
              
              if(error)
              {

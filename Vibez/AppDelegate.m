@@ -51,7 +51,7 @@
     return YES;
 }
 
-- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notif {
+- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)localNotification {
     UIApplicationState state = [[UIApplication sharedApplication] applicationState];
     
     if (state == UIApplicationStateActive) {
@@ -63,12 +63,15 @@
         if (![PFUser currentUser]) {
            
         } else {
-            AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
             
-            if ([[[notif userInfo] valueForKey:@"id"] isEqualToString:@"eventReminder"]) {
+             [localNotification setApplicationIconBadgeNumber:0];
+            
+            //AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            //if ([[[notif userInfo] valueForKey:@"id"] isEqualToString:@"eventReminder"]) {
                 //[NSUserDefaults setIsWeeklySummaryNotificationActive:YES];
-                [[appDelegate window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
-            }
+            //    [[appDelegate window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
+            //}
         }
     }
 }

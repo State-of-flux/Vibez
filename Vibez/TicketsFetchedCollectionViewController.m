@@ -50,51 +50,6 @@
     return self;
 }
 
-//- (void) setupDataSource:(NSArray*)sortedDateArray
-//{
-//    self.tableViewSections = [NSMutableArray arrayWithCapacity:0];
-//    self.tableViewCells = [NSMutableDictionary dictionaryWithCapacity:0];
-//    
-//    NSCalendar* calendar = [NSCalendar currentCalendar];
-//    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-//    dateFormatter.locale = [NSLocale currentLocale];
-//    dateFormatter.timeZone = calendar.timeZone;
-//    [dateFormatter setDateFormat:@"MMMM YYYY"];
-//    
-//    NSUInteger dateComponents = NSYearCalendarUnit | NSMonthCalendarUnit;
-//    NSInteger previousYear = -1;
-//    NSInteger previousMonth = -1;
-//    NSMutableArray* tableViewCellsForSection = nil;
-//    for (NSDate* date in sortedDateArray)
-//    {
-//        NSDateComponents* components = [calendar components:dateComponents fromDate:date];
-//        NSInteger year = [components year];
-//        NSInteger month = [components month];
-//        if (year != previousYear || month != previousMonth)
-//        {
-//            NSString* sectionHeading = [dateFormatter stringFromDate:date];
-//            [self.tableViewSections addObject:sectionHeading];
-//            tableViewCellsForSection = [NSMutableArray arrayWithCapacity:0];
-//            [self.tableViewCells setObject:tableViewCellsForSection forKey:sectionHeading];
-//            previousYear = year;
-//            previousMonth = month;
-//        }
-//        [tableViewCellsForSection addObject:date];
-//    }
-//}
-
-- (void)stackTickets {
-//    NSMutableArray *ticketsStacked = [NSMutableArray array];
-//    
-//    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
-//    
-//    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
-//        if (ticket) {
-//            
-//        }
-//    }
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -115,16 +70,21 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-     factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-    //[self stackTickets];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self refresh:nil];
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.searchBar resignFirstResponder];
+    [[self searchBar] resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -144,7 +104,9 @@
              [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+             });
              
              if(error) {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
@@ -169,7 +131,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setTicketSelected:ticket];
     self.indexPathSelected = indexPath;
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
@@ -204,8 +166,6 @@
     ticketCell.ticketNameLabel.text = ticket.eventName;
     ticketCell.ticketDateLabel.text = dateFormatString;
     
-    //[ticketCell.isValidImage setImage:nil];
-    
     UIColor *color = [[UIColor alloc] init];
     
     if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
@@ -213,18 +173,20 @@
     } else {
         color = [UIColor redColor];
     }
-    
-    [factory setColors:@[color, color]];
-    [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
-    
-    [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                              placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-         if(error)
-         {
-             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [factory setColors:@[color, color]];
+        [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
+        
+        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                             if(error)
+                                             {
+                                                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                                             }
+                                         }];
+    });
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
