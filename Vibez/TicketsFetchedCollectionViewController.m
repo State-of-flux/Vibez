@@ -176,14 +176,17 @@
     ticketCell.ticketNameLabel.text = ticket.eventName;
     ticketCell.ticketDateLabel.text = dateFormatString;
     
-    UIColor *color = [[UIColor alloc] init];
+    NSLog(@"%@, %@", [ticket eventName], [ticket hasBeenUsed]);
     
-    if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
-        color = [UIColor greenColor];
-    } else {
-        color = [UIColor redColor];
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIColor *color = [[UIColor alloc] init];
+        
+        if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
+            color = [UIColor greenColor];
+        } else {
+            color = [UIColor redColor];
+        }
         
         [factory setColors:@[color, color]];
         [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
