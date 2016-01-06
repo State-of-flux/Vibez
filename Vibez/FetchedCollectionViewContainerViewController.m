@@ -41,11 +41,21 @@
         [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
-
         [self.collectionView setAlwaysBounceVertical:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"appDidBecomeActive"
+                                                   object:nil];
     }
     
     return self;
+}
+
+- (void)receivedNotification:(NSNotification *)notification {
+    if([[notification name] isEqualToString:@"appDidBecomeActive"]) {
+        [self refresh:self];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -318,6 +328,7 @@
 }
 
 -(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[self collectionView] setEmptyDataSetSource:nil];
     [[self collectionView] setEmptyDataSetDelegate:nil];
 }
