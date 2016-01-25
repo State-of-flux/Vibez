@@ -19,6 +19,7 @@
 @interface FetchedCollectionViewContainerViewController ()
 {
     Reachability *reachability;
+    BOOL isRefreshing;
 }
 @end
 
@@ -105,12 +106,15 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refresh:nil];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
 }
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
+    isRefreshing = YES;
     
     __weak typeof(self) weakSelf = self;
     
@@ -137,11 +141,15 @@
              }
              
              [weakSelf.refreshControl endRefreshing];
+             
+             isRefreshing = NO;
          }
                                   failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
+             
+             isRefreshing = NO;
          }];
     }
     else
@@ -150,6 +158,7 @@
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         [weakSelf.refreshControl endRefreshing];
+        isRefreshing = NO;
     }
 }
 
@@ -169,7 +178,7 @@
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
     [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+                                   [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
@@ -178,7 +187,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"endDate >= %@", [NSDate date]]];
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
@@ -189,7 +198,7 @@
 {
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)theItemCell;
     Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     if ([event name]) {
         [eventCell.eventNameLabel setText:[event name]];
     }
@@ -225,15 +234,21 @@
     [[eventCell eventPriceLabel] sizeToFit];
     [[eventCell eventPriceLabel] setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
     
-    // Here we use the new provided sd_setImageWithURL: method to load the web image
-    if ([eventCell eventImage]) {
-        [[eventCell eventImage] sd_setImageWithURL:[NSURL URLWithString:event.image]
-                                  placeholderImage:nil
-                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-         {
-             
-         }];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Here we use the new provided sd_setImageWithURL: method to load the web image
+        if ([event image]) {
+            [[eventCell eventImage] setImage:[UIImage imageWithData:[event imageData]]];
+            
+            [[eventCell eventImage] sd_setImageWithURL:[NSURL URLWithString:[event image]]
+                                      placeholderImage:nil
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+             {
+                 if(error) {
+                     NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                 }
+             }];
+        }
+    });
 }
 
 #pragma mark - UICollectionView Delegates

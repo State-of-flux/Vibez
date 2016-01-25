@@ -16,6 +16,7 @@
 @interface VenueFetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
 {
     Reachability *reachability;
+    BOOL isRefreshing;
 }
 @end
 
@@ -69,7 +70,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refresh:nil];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
 }
 
 - (void)setSearchBarAppearance {
@@ -90,7 +94,7 @@
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
+    isRefreshing = YES;
     
     __weak typeof(self) weakSelf = self;
     
@@ -116,17 +120,20 @@
              }
              
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }
                                   failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         [weakSelf.refreshControl endRefreshing];
+        isRefreshing = NO;
     }
 }
 
@@ -186,7 +193,9 @@
                                   placeholderImage:nil
                                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
          {
-             
+             if(error) {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
          }];
     }
 }

@@ -21,6 +21,7 @@
     Reachability *reachability;
     NIKFontAwesomeIconFactory *factory;
     NSDateFormatter* dateFormatter;
+    BOOL isRefreshing;
 }
 @end
 
@@ -84,12 +85,15 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-
+    //[[self collectionView] setContentInset:UIEdgeInsetsMake(44,0,0,0)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self refresh:nil];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -99,12 +103,12 @@
 
 - (void)refresh:(id)sender
 {
+    isRefreshing = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    
     if([reachability isReachable])
     {
-        [self.refreshControl beginRefreshing];
-        
-        __weak typeof(self) weakSelf = self;
-        
         [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects)
          {
              NSError *error;
@@ -116,6 +120,7 @@
              
              dispatch_async(dispatch_get_main_queue(), ^{
                  [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
              });
              
              if(error) {
@@ -123,10 +128,12 @@
              }
              
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }
                                               failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             isRefreshing = NO;
          }];
     }
     else
@@ -134,6 +141,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
+        isRefreshing = NO;
     }
 }
 
@@ -210,7 +218,8 @@
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"eventID" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES],
                                  [NSSortDescriptor sortDescriptorWithKey:@"ticketID" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
@@ -220,7 +229,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventEndDate >= %@", [NSDate date]]];
     //[subpredicates addObject:[self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"]];
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     

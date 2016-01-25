@@ -20,7 +20,7 @@
 
 @end
 
-@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface OrderInfoViewController : GlobalViewController <BTDropInViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) Braintree *braintree;
 @property (nonatomic, strong) MBProgressHUD *hud;
@@ -37,6 +37,8 @@
 @property (strong, nonatomic) UILabel *labelPriceTotalValue;
 @property (strong, nonatomic) UILabel *labelQuantityValue;
 @property (strong, nonatomic) UILabel *labelDateValue;
+
+@property (strong, nonatomic) UITextField *textFieldDiscount;
 
 @property (strong, nonatomic) NSDecimalNumber *price;
 @property (strong, nonatomic) NSDecimalNumber *bookingFee;

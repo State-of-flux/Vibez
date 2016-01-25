@@ -34,6 +34,13 @@
                   
                   PFFile* imageFile = dictionary[@"eventImage"];
                   managedObject.image = imageFile.url;
+                  
+//                  [imageFile getDataInBackgroundWithBlock:^(NSData * _Nullable data, NSError * _Nullable error) {
+//                      if (!error && data) {
+//                          [managedObject setImageData:[[NSData alloc] initWithData:data]];
+//                      }
+//                  }];
+
                   managedObject.eventID = dictionary[@"objectId"];
                   managedObject.price = dictionary[@"price"];
                   managedObject.name = dictionary[@"eventName"];
