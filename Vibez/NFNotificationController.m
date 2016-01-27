@@ -60,7 +60,6 @@
     [localNotification setSoundName:UILocalNotificationDefaultSoundName];
     [localNotification setUserInfo:userInfo];
     [localNotification setTimeZone:[NSTimeZone defaultTimeZone]];
-    [localNotification setApplicationIconBadgeNumber:1];
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     NSLog(@"%@ --- %@", message, [localNotification fireDate]);
 }

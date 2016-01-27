@@ -16,6 +16,7 @@
 @interface VenueFetchedCollectionViewContainerViewController () <SQKManagedObjectControllerDelegate>
 {
     Reachability *reachability;
+    BOOL isRefreshing;
 }
 @end
 
@@ -38,11 +39,21 @@
         [self.collectionView registerClass:[VenueCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([VenueCollectionViewCell class])];
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
-
         [self.collectionView setAlwaysBounceVertical:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"appDidBecomeActive"
+                                                   object:nil];
     }
     
     return self;
+}
+
+- (void)receivedNotification:(NSNotification *)notification {
+    if([[notification name] isEqualToString:@"appDidBecomeActive"]) {
+        [self refresh:nil];
+    }
 }
 
 - (void)viewDidLoad {
@@ -55,6 +66,14 @@
     
     [self.collectionView setEmptyDataSetSource:self];
     [self.collectionView setEmptyDataSetDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
 }
 
 - (void)setSearchBarAppearance {
@@ -75,7 +94,7 @@
 
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
+    isRefreshing = YES;
     
     __weak typeof(self) weakSelf = self;
     
@@ -90,8 +109,10 @@
              [Venue deleteInvalidVenuesInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
-             [[self collectionView] reloadEmptyDataSet];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
+             });
              
              if(error)
              {
@@ -99,17 +120,20 @@
              }
              
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }
                                   failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please reconnect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         [weakSelf.refreshControl endRefreshing];
+        isRefreshing = NO;
     }
 }
 
@@ -169,7 +193,9 @@
                                   placeholderImage:nil
                                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
          {
-             
+             if(error) {
+                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             }
          }];
     }
 }
@@ -287,6 +313,7 @@
 }
 
 -(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[self collectionView] setEmptyDataSetSource:nil];
     [[self collectionView] setEmptyDataSetDelegate:nil];
 }

@@ -19,6 +19,7 @@
 @interface FetchedCollectionViewContainerViewController ()
 {
     Reachability *reachability;
+    BOOL isRefreshing;
 }
 @end
 
@@ -41,11 +42,21 @@
         [self.collectionView registerClass:[EventCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([EventCollectionViewCell class])];
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
-
         [self.collectionView setAlwaysBounceVertical:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"appDidBecomeActive"
+                                                   object:nil];
     }
     
     return self;
+}
+
+- (void)receivedNotification:(NSNotification *)notification {
+    if([[notification name] isEqualToString:@"appDidBecomeActive"]) {
+        [self refresh:self];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
@@ -93,9 +104,17 @@
     NSLog(@"Calender pressed");
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
+}
+
 - (void)refresh:(id)sender
 {
-    [self.refreshControl beginRefreshing];
+    isRefreshing = YES;
     
     __weak typeof(self) weakSelf = self;
     
@@ -110,8 +129,10 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
-             [[self collectionView] reloadEmptyDataSet];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
+             });
              
              if(error)
              {
@@ -119,11 +140,15 @@
              }
              
              [weakSelf.refreshControl endRefreshing];
+             
+             isRefreshing = NO;
          }
                                   failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              [weakSelf.refreshControl endRefreshing];
+             
+             isRefreshing = NO;
          }];
     }
     else
@@ -132,6 +157,7 @@
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
         [weakSelf.refreshControl endRefreshing];
+        isRefreshing = NO;
     }
 }
 
@@ -151,7 +177,7 @@
     request = [Event sqk_fetchRequest]; //Create ticket additions
     
     [request setSortDescriptors:@[ [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+                                   [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
@@ -160,7 +186,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"startDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"endDate >= %@", [NSDate date]]];
     
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
@@ -171,9 +197,9 @@
 {
     EventCollectionViewCell *eventCell = (EventCollectionViewCell *)theItemCell;
     Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     if ([event name]) {
-        [eventCell.eventNameLabel setText:[event name]];
+        [[eventCell eventNameLabel] setText:[event name]];
     }
     
     if ([event startDate]) {
@@ -207,15 +233,21 @@
     [[eventCell eventPriceLabel] sizeToFit];
     [[eventCell eventPriceLabel] setCenter:CGPointMake(eventCell.frame.size.width/2, eventCell.frame.size.height - 15.0f)];
     
-    // Here we use the new provided sd_setImageWithURL: method to load the web image
-    if ([eventCell eventImage]) {
-        [[eventCell eventImage] sd_setImageWithURL:[NSURL URLWithString:event.image]
-                                  placeholderImage:nil
-                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
-         {
-             
-         }];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Here we use the new provided sd_setImageWithURL: method to load the web image
+        if ([event image]) {
+            [[eventCell eventImage] setImage:[UIImage imageWithData:[event imageData]]];
+            
+            [[eventCell eventImage] sd_setImageWithURL:[NSURL URLWithString:[event image]]
+                                      placeholderImage:nil
+                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL)
+             {
+                 if(error) {
+                     NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                 }
+             }];
+        }
+    });
 }
 
 #pragma mark - UICollectionView Delegates
@@ -310,6 +342,7 @@
 }
 
 -(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[self collectionView] setEmptyDataSetSource:nil];
     [[self collectionView] setEmptyDataSetDelegate:nil];
 }

@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"Map"];
+    [self.navigationItem setTitle:@"MAP"];
     
     PFGeoPoint *geoPoint = [[self venue] location];
     [self setLatCoord:[geoPoint latitude]];
@@ -50,7 +50,7 @@
     MKPointAnnotation *annotationVenue = [[MKPointAnnotation alloc] init];
     [annotationVenue setCoordinate:self.coordinateVenue];
     [annotationVenue setTitle:[[self venue] name]];
-    [annotationVenue setSubtitle:@"The Vibes await."];
+    [annotationVenue setSubtitle:@"Feed the Need."];
     [self.mapView addAnnotation:annotationVenue];
     [[self annotations] addObject:annotationVenue];
     [self.mapView selectAnnotation:annotationVenue animated:YES];

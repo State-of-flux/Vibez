@@ -21,6 +21,7 @@
     Reachability *reachability;
     NIKFontAwesomeIconFactory *factory;
     NSDateFormatter* dateFormatter;
+    BOOL isRefreshing;
 }
 @end
 
@@ -45,56 +46,21 @@
         [self.collectionView setDelegate:self];
         [self.collectionView setDataSource:self];
         [self.collectionView setAlwaysBounceVertical:YES];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(receivedNotification:)
+                                                     name:@"appDidBecomeActive"
+                                                   object:nil];
     }
-
+    
     return self;
 }
 
-//- (void) setupDataSource:(NSArray*)sortedDateArray
-//{
-//    self.tableViewSections = [NSMutableArray arrayWithCapacity:0];
-//    self.tableViewCells = [NSMutableDictionary dictionaryWithCapacity:0];
-//    
-//    NSCalendar* calendar = [NSCalendar currentCalendar];
-//    NSDateFormatter* dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-//    dateFormatter.locale = [NSLocale currentLocale];
-//    dateFormatter.timeZone = calendar.timeZone;
-//    [dateFormatter setDateFormat:@"MMMM YYYY"];
-//    
-//    NSUInteger dateComponents = NSYearCalendarUnit | NSMonthCalendarUnit;
-//    NSInteger previousYear = -1;
-//    NSInteger previousMonth = -1;
-//    NSMutableArray* tableViewCellsForSection = nil;
-//    for (NSDate* date in sortedDateArray)
-//    {
-//        NSDateComponents* components = [calendar components:dateComponents fromDate:date];
-//        NSInteger year = [components year];
-//        NSInteger month = [components month];
-//        if (year != previousYear || month != previousMonth)
-//        {
-//            NSString* sectionHeading = [dateFormatter stringFromDate:date];
-//            [self.tableViewSections addObject:sectionHeading];
-//            tableViewCellsForSection = [NSMutableArray arrayWithCapacity:0];
-//            [self.tableViewCells setObject:tableViewCellsForSection forKey:sectionHeading];
-//            previousYear = year;
-//            previousMonth = month;
-//        }
-//        [tableViewCellsForSection addObject:date];
-//    }
-//}
-
-- (void)stackTickets {
-//    NSMutableArray *ticketsStacked = [NSMutableArray array];
-//    
-//    NSArray* uniqueValues = [[[self fetchedResultsController] fetchedObjects] valueForKeyPath:[NSString stringWithFormat:@"@distinctUnionOfObjects.%@", @"eventID"]];
-//    
-//    for (Ticket *ticket in [[self fetchedResultsController] fetchedObjects]) {
-//        if (ticket) {
-//            
-//        }
-//    }
+- (void)receivedNotification:(NSNotification *)notification {
+    if([[notification name] isEqualToString:@"appDidBecomeActive"]) {
+        [self refresh:self];
+    }
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -115,26 +81,34 @@
                             action:@selector(refresh:)
                   forControlEvents:UIControlEventValueChanged];
     
-     factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
+    factory = [NIKFontAwesomeIconFactory barButtonItemIconFactory];
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"EEE dd MMM"];
-    //[self stackTickets];
+    //[[self collectionView] setContentInset:UIEdgeInsetsMake(44,0,0,0)];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (!isRefreshing) {
+        [self refresh:nil];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.searchBar resignFirstResponder];
+    [[self searchBar] resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
 {
+    isRefreshing = YES;
+    
+    __weak typeof(self) weakSelf = self;
+    
     if([reachability isReachable])
     {
-        [self.refreshControl beginRefreshing];
-        
-        __weak typeof(self) weakSelf = self;
-        
         [Ticket getTicketsForUserFromParseWithSuccessBlock:^(NSArray *objects)
          {
              NSError *error;
@@ -144,17 +118,22 @@
              [Ticket deleteInvalidTicketsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             [[self collectionView] reloadData];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [[self collectionView] reloadData];
+                 [[self collectionView] reloadEmptyDataSet];
+             });
              
              if(error) {
                  NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
              }
              
              [weakSelf.refreshControl endRefreshing];
+             isRefreshing = NO;
          }
                                               failureBlock:^(NSError *error)
          {
              NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+             isRefreshing = NO;
          }];
     }
     else
@@ -162,6 +141,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"The internet connection appears to be offline, please connect and try again." delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
         [alert setTintColor:[UIColor pku_purpleColor]];
         [alert show];
+        isRefreshing = NO;
     }
 }
 
@@ -169,7 +149,7 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];;
+    Ticket *ticket = [self.fetchedResultsController objectAtIndexPath:indexPath];
     [self setTicketSelected:ticket];
     self.indexPathSelected = indexPath;
     [self.parentViewController performSegueWithIdentifier:@"showTicketToDisplayTicketSegue" sender:self];
@@ -204,27 +184,30 @@
     ticketCell.ticketNameLabel.text = ticket.eventName;
     ticketCell.ticketDateLabel.text = dateFormatString;
     
-    //[ticketCell.isValidImage setImage:nil];
+    NSLog(@"%@, %@", [ticket eventName], [ticket hasBeenUsed]);
     
-    UIColor *color = [[UIColor alloc] init];
-    
-    if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
-        color = [UIColor greenColor];
-    } else {
-        color = [UIColor redColor];
-    }
-    
-    [factory setColors:@[color, color]];
-    [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
-    
-    [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
-                              placeholderImage:[UIImage imageNamed:@"plug.jpg"]
-                                     completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-         if(error)
-         {
-             NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
-         }
-     }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        UIColor *color = [[UIColor alloc] init];
+        
+        if ([[ticket hasBeenUsed] isEqualToNumber:@NO]) {
+            color = [UIColor greenColor];
+        } else {
+            color = [UIColor redColor];
+        }
+        
+        [factory setColors:@[color, color]];
+        [ticketCell.isValidImage setImage:[factory createImageForIcon:NIKFontAwesomeIconTicket]];
+        
+        [ticketCell.ticketImage sd_setImageWithURL:[NSURL URLWithString:ticket.image]
+                                  placeholderImage:[UIImage imageNamed:@"plug.jpg"]
+                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                                             if(error)
+                                             {
+                                                 NSLog(@"Error : %@. %s", error.localizedDescription, __PRETTY_FUNCTION__);
+                                             }
+                                         }];
+    });
 }
 
 - (NSFetchRequest *)fetchRequestForSearch:(NSString *)searchString
@@ -235,7 +218,8 @@
     request = [Ticket sqk_fetchRequest]; //Create ticket additions
     
     request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"eventDate" ascending:YES],
-                                 [NSSortDescriptor sortDescriptorWithKey:@"eventName" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"eventID" ascending:YES],
+                                 [NSSortDescriptor sortDescriptorWithKey:@"hasBeenUsed" ascending:YES],
                                  [NSSortDescriptor sortDescriptorWithKey:@"ticketID" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
@@ -245,7 +229,7 @@
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventName CONTAINS[cd] %@", searchString]];
     }
     
-    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]]];
+    [subpredicates addObject:[NSPredicate predicateWithFormat:@"eventEndDate >= %@", [NSDate date]]];
     //[subpredicates addObject:[self fetchRequestForSingleInstanceOfEntity:@"Ticket" groupedBy:@"eventID"]];
     [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
     
@@ -336,6 +320,7 @@
 }
 
 -(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[self collectionView] setEmptyDataSetSource:nil];
     [[self collectionView] setEmptyDataSetDelegate:nil];
 }

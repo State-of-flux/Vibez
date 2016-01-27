@@ -106,6 +106,8 @@
                 [cell setTag:102];
             } else if ([[[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"quantityId"]) {
                 [cell setTag:103];
+            } else if ([[[self.paymentData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"discountId"]) {
+                [cell setTag:104];
             }
             
             break;
@@ -114,7 +116,7 @@
             isInteractableCell = [[[self.totalData objectAtIndex:indexPath.row] objectForKey:@"isInteractable"] boolValue];
             
             if ([[[self.totalData objectAtIndex:indexPath.row] objectForKey:@"Id"] isEqualToString:@"totalId"]) {
-                [cell setTag:104];
+                [cell setTag:105];
             }
             
             break;
@@ -123,15 +125,6 @@
     }
     
     [cell.textLabel setText:name];
-    
-    if(isInteractableCell)
-    {
-        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-    }
-    else
-    {
-        [cell setUserInteractionEnabled:NO];
-    }
     
     if([cell tag] == 100)
     {
@@ -152,7 +145,20 @@
     }
     else if([cell tag] == 104)
     {
+        [self setDiscountCell:cell];
+    }
+    else if([cell tag] == 105)
+    {
         [self setTotalCell:cell];
+    }
+    
+    if(isInteractableCell)
+    {
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+    }
+    else if ([cell tag] != 104)
+    {
+        [cell setUserInteractionEnabled:NO];
     }
     
     return cell;
@@ -173,7 +179,7 @@
     [dateFormatter setDateFormat:formatString];
     
     if ([[self.order objectForKey:@"event"] objectForKey:@"eventDate"]) {
-        NSString *dateString = [dateFormatter stringFromDate:[[self.order objectForKey:@"event"] objectForKey:@"eventDate"]];
+        NSString *dateString = [dateFormatter stringFromDate:[[[self order] objectForKey:@"event"] objectForKey:@"eventDate"]];
         [[cell detailTextLabel] setText:dateString];
     }
 }
@@ -186,9 +192,35 @@
 }
 
 - (void)setQuantityCell:(UITableViewCell *)cell {
-    if ([self.order objectForKey:@"quantity"]) {
+    if ([[self order] objectForKey:@"quantity"]) {
         [[cell detailTextLabel] setText:[[self.order objectForKey:@"quantity"] stringValue]];
     }
+}
+
+- (void)setDiscountCell:(UITableViewCell *)cell {
+//    if ([[self order] objectForKey:@"discount"]) {
+//        [[cell detailTextLabel] setText:[[[self order] objectForKey:@"discount"] stringValue]];
+//    }
+    
+    [self setTextFieldDiscount:[[UITextField alloc] initWithFrame:CGRectMake(0, 0, 225, 44)]];
+    [[self textFieldDiscount] setValue:[UIColor colorWithRed:142.0f/255.0f green:142.0f/255.0f blue:147.0f/255.0f alpha:1.0f] forKeyPath:@"_placeholderLabel.textColor"];
+    [[self textFieldDiscount] setPlaceholder:@"e.g. 404AWZ091"];
+    [[self textFieldDiscount] setTextColor:[UIColor colorWithRed:142.0f/255.0f green:142.0f/255.0f blue:147.0f/255.0f alpha:1.0f]];
+    [[self textFieldDiscount] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
+    [[self textFieldDiscount] setTextAlignment:NSTextAlignmentRight];
+    [[self textFieldDiscount] setKeyboardAppearance:UIKeyboardAppearanceDark];
+    [[self textFieldDiscount] setDelegate:self];
+    [[self textFieldDiscount] setReturnKeyType:UIReturnKeyGo];
+    [[self textFieldDiscount] setTag:202];
+    [cell setAccessoryView:[self textFieldDiscount]];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([textField tag] == 202) {
+        [self buttonCheckoutPressed:self];
+    }
+    
+    return YES;
 }
 
 - (void)setTotalCell:(UITableViewCell *)cell {
@@ -226,6 +258,8 @@
 }
 
 - (IBAction)buttonCheckoutPressed:(id)sender {
+    
+    [self resignFirstResponder];
     
     [MBProgressHUD showStandardHUD:[self hud] target:[self navigationController] title:NSLocalizedString(@"Processing Order", nil) message:NSLocalizedString(@"Please wait...", nil)];
     

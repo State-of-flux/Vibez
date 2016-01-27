@@ -2,8 +2,8 @@
 //  Event+CoreDataProperties.h
 //  Vibez
 //
-//  Created by Harry Liddell on 18/11/2015.
-//  Copyright © 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 12/01/2016.
+//  Copyright © 2016 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSDecimalNumber *price;
 @property (nullable, nonatomic, retain) NSNumber *quantity;
 @property (nullable, nonatomic, retain) NSDate *startDate;
+@property (nullable, nonatomic, retain) NSData *imageData;
 @property (nullable, nonatomic, retain) NSSet<Venue *> *venues;
 
 @end
