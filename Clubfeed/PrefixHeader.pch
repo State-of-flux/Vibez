@@ -1,0 +1,19 @@
+//
+//  PrefixHeader.pch
+//  Vibez
+//
+//  Created by Harry Liddell on 10/06/2015.
+//  Copyright (c) 2015 Pikture. All rights reserved.
+//
+
+#ifndef Vibez_PrefixHeader_pch
+#define Vibez_PrefixHeader_pch
+
+#ifdef __OBJC__
+
+    #import "UIFont+PIK.h"
+    #import "UIColor+Piktu.h"
+
+#endif
+
+#endif
