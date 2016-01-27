@@ -129,7 +129,6 @@
              [Event deleteInvalidEventsInContext:newPrivateContext];
              [newPrivateContext save:&error];
              
-             
              dispatch_async(dispatch_get_main_queue(), ^{
                  [[self collectionView] reloadData];
                  [[self collectionView] reloadEmptyDataSet];
@@ -200,7 +199,7 @@
     Event *event = [fetchedResultsController objectAtIndexPath:indexPath];
     
     if ([event name]) {
-        [eventCell.eventNameLabel setText:[event name]];
+        [[eventCell eventNameLabel] setText:[event name]];
     }
     
     if ([event startDate]) {

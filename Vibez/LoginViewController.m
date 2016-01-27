@@ -11,7 +11,6 @@
 #import "AppDelegate.h"
 #import "PIKContextManager.h"
 #import "Ticket+Additions.h"
-#import "FLAnimatedImage.h"
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory.h>
 #import <FontAwesomeIconFactory/NIKFontAwesomeIconFactory+iOS.h>
 #import <Reachability/Reachability.h>
@@ -58,7 +57,6 @@
     maskLayer.path = maskPath.CGPath;
     view.layer.mask = maskLayer;
 }
-
 
 #define kOFFSET_FOR_KEYBOARD 80.0
 

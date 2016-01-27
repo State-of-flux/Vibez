@@ -76,7 +76,7 @@
 
 +(void)getAllFromParseWithSuccessBlock:(void (^)(NSArray *objects))successBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventDate >= %@", [NSDate date]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"eventEnd >= %@", [NSDate date]];
     
     [PIKParseManager getAllForClassName:NSStringFromClass([self class]) withPredicate:predicate withIncludeKey:@"venue"
                                 success:^(NSArray *objects) {

@@ -1131,6 +1131,7 @@
 				6C1E55AF1ACF08D9003965A0 /* Resources */,
 				5A59E8E09BDF5F4263C37312 /* Copy Pods Resources */,
 				779954E6F1C8BEF7AD2D8A60 /* Embed Pods Frameworks */,
+				6C0D12BE1C56CE760035274B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1281,6 +1282,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		6C0D12BE1C56CE760035274B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
 		};
 		779954E6F1C8BEF7AD2D8A60 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
