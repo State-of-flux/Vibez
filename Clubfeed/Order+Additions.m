@@ -34,7 +34,10 @@
                    managedObject.orderID = dictionary[@"objectId"];
                    managedObject.discount = dictionary[@"discount"];
                    managedObject.username = [dictionary[@"user"] objectForKey:@"username"];
+                   managedObject.firstName = [dictionary[@"user"] objectForKey:@"firstName"];
+                   managedObject.lastName = [dictionary[@"user"] objectForKey:@"lastName"];
                    managedObject.email = [dictionary[@"user"] objectForKey:@"email"];
+                   managedObject.fullName = [NSString stringWithFormat:@"%@ %@", [managedObject firstName], [managedObject lastName]];
                    managedObject.priceTotal = dictionary[@"priceTotal"];
                    [managedObject.tickets setByAddingObjectsFromArray:dictionary[@"tickets"]];
                    managedObject.quantity = dictionary[@"quantity"];

@@ -186,7 +186,19 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="SEARCH" id="58x-fk-Uet"/>
-                    <navigationItem key="navigationItem" id="Sx3-3c-naT"/>
+                    <navigationItem key="navigationItem" id="Sx3-3c-naT">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="SbB-6w-ahz">
+                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.1960784314" green="0.20000000000000001" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                            <segments>
+                                <segment title="Not Entered"/>
+                                <segment title="Entered"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <segue destination="4vw-c1-fcr" kind="show" identifier="listToUserInfoSegue" id="NtR-YH-JS8"/>
                     </connections>
@@ -299,7 +311,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G2D-de-fK3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1846" y="619.5"/>
+            <point key="canvasLocation" x="1846" y="645.5"/>
         </scene>
         <!--Event Selector Fetched Collection View Controller-->
         <scene sceneID="8uu-H7-cJM">

@@ -23,8 +23,7 @@
 
 @implementation SearchListFetchedCollectionViewController
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithCoder:(NSCoder *)coder {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.minimumLineSpacing = 0;
@@ -48,14 +47,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationItem setTitle:@"List"];
-    
     [self.collectionView registerClass:[UserCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([UserCollectionViewCell class])];
     
-    [self.collectionView setDelegate:self];
-    [self.collectionView setDataSource:self];
+    [[self collectionView] setDelegate:self];
+    [[self collectionView] setDataSource:self];
     
-    [self.searchBar setPlaceholder:@"Search by username"];
+    [self.searchBar setPlaceholder:@"Search by name"];
     [self.searchBar setBarTintColor:[UIColor pku_lightBlack]];
     [self.searchBar setTintColor:[UIColor pku_purpleColor]];
     [self.searchBar setTranslucent:NO];
@@ -71,7 +68,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.searchBar resignFirstResponder];
+    [[self searchBar] resignFirstResponder];
 }
 
 - (void)refresh:(id)sender
@@ -142,9 +139,9 @@
 {
     UserCollectionViewCell *orderCell = (UserCollectionViewCell *)cell;
     Order *order = [fetchedResultsController objectAtIndexPath:indexPath];
-
-    orderCell.ticketNameLabel.text = order.username;
-//    orderCell.ticketDateLabel.text = order.;
+    
+    [orderCell.ticketNameLabel setText:[order fullName]];
+    [orderCell.ticketDateLabel setText:[order username]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     [factory setSize:35.0f];
@@ -162,16 +159,18 @@
     //[request setReturnsDistinctResults:YES];
     //[request setPropertiesToFetch:@[@"user.username"]];
     
-    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"fullName" ascending:YES],
+                                [NSSortDescriptor sortDescriptorWithKey:@"username" ascending:YES],
+                                [NSSortDescriptor sortDescriptorWithKey:@"orderID" ascending:YES]];
     
     NSMutableSet *subpredicates = [NSMutableSet set];
     
-    if (searchString.length)
-    {
+    if ([searchString length]) {
+        [subpredicates addObject:[NSPredicate predicateWithFormat:@"fullName CONTAINS[cd] %@", searchString]];
         [subpredicates addObject:[NSPredicate predicateWithFormat:@"username CONTAINS[cd] %@", searchString]];
     }
     
-    [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:subpredicates.allObjects]];
+    [request setPredicate:[[NSCompoundPredicate alloc] initWithType:NSAndPredicateType subpredicates:[subpredicates allObjects]]];
     
     return request;
 }

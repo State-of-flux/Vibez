@@ -124,6 +124,7 @@
                 
             } else {
                 [user setObject:[result objectForKey:@"email"] forKey:@"email"];
+                [user setObject:[result objectForKey:@"dob"] forKey:@"dob"];
                 [user setObject:[NSArray array] forKey:@"friends"];
                 [user setObject:@"Sheffield" forKey:@"location"];
                 [user setObject:@YES forKey:@"isLinkedToFacebook"];
@@ -148,11 +149,15 @@
     [connection start];
 }
 
-+ (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender {
++ (void)signupWithEmail:(NSString *)email password:(NSString *)password firstName:(NSString *)firstName lastName:(NSString *)lastName dob:(NSDate *)dob sender:(id)sender {
+    
     PFUser *user = [PFUser user];
-    [user setUsername:[username lowercaseString]];
+    [user setUsername:[email lowercaseString]];
     [user setEmail:[email lowercaseString]];
     [user setPassword:password];
+    [user setObject:dob forKey:@"dob"];
+    [user setObject:[firstName capitalizedString] forKey:@"firstName"];
+    [user setObject:[lastName capitalizedString] forKey:@"lastName"];
     [user setObject:[NSArray array] forKey:@"friends"];
     [user setObject:@"Sheffield" forKey:@"location"];
     [user setObject:@NO forKey:@"isLinkedToFacebook"];
@@ -173,9 +178,9 @@
             [PIKDataLoader loadAllCustomerData:^(BOOL finished) {
                 if(finished)
                 {
+                    [MBProgressHUD showSuccessHUD:[sender hud] target:sender title:NSLocalizedString(@"Account Created", nil) message:NSLocalizedString(@"Welcome to Clubfeed.", nil)];
                     AppDelegate *appDelegateTemp = [[UIApplication sharedApplication]delegate];
                     [[appDelegateTemp window] setRootViewController:[[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateInitialViewController]];
-                    [MBProgressHUD showSuccessHUD:[sender hud] target:sender title:NSLocalizedString(@"Account Created", nil) message:NSLocalizedString(@"Welcome to Clubfeed.", nil)];
                 }
             }];
         }

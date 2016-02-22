@@ -118,7 +118,6 @@
 		6C8A74201B24D70100AAD04E /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74171B24D70100AAD04E /* rscode.c */; };
 		6C8A74211B24D70100AAD04E /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74191B24D70100AAD04E /* split.c */; };
 		6C8A74241B24DB0E00AAD04E /* DisplayTicketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */; };
-		6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6C8C05071BB9C525006406BC /* Ailerons.ttf */; };
 		6C8C10651C1A1A860053E15C /* RegisterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */; };
 		6C8C10681C1C951F0053E15C /* PIKDataLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C8C10671C1C951F0053E15C /* PIKDataLoader.m */; };
 		6C90C6501B38717100C82735 /* PIKContextManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C90C64F1B38717100C82735 /* PIKContextManager.m */; };
@@ -131,6 +130,9 @@
 		6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */ = {isa = PBXBuildFile; fileRef = 6C96DB9C1B7A83FF00B4CF2F /* background.gif */; };
 		6C98F9561BB30A83000356D6 /* AVSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */; };
 		6C9CD7D81BB9DB4D00C3996C /* ProfileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */; };
+		6CA05A7E1C5957510056D014 /* Meedori Sans Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CA05A7D1C5957510056D014 /* Meedori Sans Regular.ttf */; };
+		6CA05A7F1C5957550056D014 /* Meedori Sans Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CA05A7C1C59574B0056D014 /* Meedori Sans Light.ttf */; };
+		6CA05A801C5957570056D014 /* Meedori Sans Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6CA05A7B1C59574B0056D014 /* Meedori Sans Bold.ttf */; };
 		6CA0F7811B212C3900DF867D /* loginBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6CA0F7801B212C3900DF867D /* loginBG.jpg */; };
 		6CB4A4331B3CC9AB00121975 /* Event+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB4A4321B3CC9AB00121975 /* Event+Additions.m */; };
 		6CB5B5731B5835BD00EA9A09 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CB5B5721B5835BD00EA9A09 /* Constants.m */; };
@@ -348,7 +350,6 @@
 		6C8A741A1B24D70100AAD04E /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
 		6C8A74221B24DB0E00AAD04E /* DisplayTicketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayTicketViewController.h; sourceTree = "<group>"; };
 		6C8A74231B24DB0E00AAD04E /* DisplayTicketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayTicketViewController.m; sourceTree = "<group>"; };
-		6C8C05071BB9C525006406BC /* Ailerons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ailerons.ttf; sourceTree = "<group>"; };
 		6C8C10631C1A1A860053E15C /* RegisterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterTableViewController.h; sourceTree = "<group>"; };
 		6C8C10641C1A1A860053E15C /* RegisterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterTableViewController.m; sourceTree = "<group>"; };
 		6C8C10661C1C951F0053E15C /* PIKDataLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PIKDataLoader.h; sourceTree = "<group>"; };
@@ -371,6 +372,9 @@
 		6C98F9551BB30A83000356D6 /* AVSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVSegmentedControl.swift; sourceTree = "<group>"; };
 		6C9CD7D61BB9DB4D00C3996C /* ProfileListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileListViewController.h; sourceTree = "<group>"; };
 		6C9CD7D71BB9DB4D00C3996C /* ProfileListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileListViewController.m; sourceTree = "<group>"; };
+		6CA05A7B1C59574B0056D014 /* Meedori Sans Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Meedori Sans Bold.ttf"; sourceTree = "<group>"; };
+		6CA05A7C1C59574B0056D014 /* Meedori Sans Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Meedori Sans Light.ttf"; sourceTree = "<group>"; };
+		6CA05A7D1C5957510056D014 /* Meedori Sans Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Meedori Sans Regular.ttf"; sourceTree = "<group>"; };
 		6CA0F7801B212C3900DF867D /* loginBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginBG.jpg; sourceTree = "<group>"; };
 		6CB4A4311B3CC9AB00121975 /* Event+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Event+Additions.h"; sourceTree = "<group>"; };
 		6CB4A4321B3CC9AB00121975 /* Event+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Event+Additions.m"; sourceTree = "<group>"; };
@@ -1078,7 +1082,9 @@
 		6CEF066A1B49AF85001F1E7C /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				6C8C05071BB9C525006406BC /* Ailerons.ttf */,
+				6CA05A7B1C59574B0056D014 /* Meedori Sans Bold.ttf */,
+				6CA05A7C1C59574B0056D014 /* Meedori Sans Light.ttf */,
+				6CA05A7D1C5957510056D014 /* Meedori Sans Regular.ttf */,
 				6CE7B3711BB9BE34000EB03D /* Montserrat-Light.otf */,
 				6CEF066B1B49AFB0001F1E7C /* Montserrat-Bold.otf */,
 				6CEF066C1B49AFB0001F1E7C /* Montserrat-Regular.otf */,
@@ -1172,7 +1178,6 @@
 				TargetAttributes = {
 					6C1E55B01ACF08D9003965A0 = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = 8NDT7HW5TG;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
@@ -1213,13 +1218,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C1E55C01ACF08D9003965A0 /* Main.storyboard in Resources */,
-				6C8C05081BB9C557006406BC /* Ailerons.ttf in Resources */,
+				6CA05A801C5957570056D014 /* Meedori Sans Bold.ttf in Resources */,
 				6C066FD21B1BAEEF009EA34D /* first_normal.png in Resources */,
 				6C066FDA1B1BAEEF009EA34D /* second_normal.png in Resources */,
 				6C066FD91B1BAEEF009EA34D /* navigationbar_background@2x.png in Resources */,
 				6C8607DD1B99B286009F9C76 /* TicketReading.storyboard in Resources */,
 				6C066FDE1B1BAEEF009EA34D /* tabbar_normal_background.png in Resources */,
 				6C066FD61B1BAEEF009EA34D /* navigationbar_background_tall.png in Resources */,
+				6CA05A7E1C5957510056D014 /* Meedori Sans Regular.ttf in Resources */,
 				6C066FD71B1BAEEF009EA34D /* navigationbar_background_tall@2x.png in Resources */,
 				6C3BCD311C3C2173000BAE87 /* Clubfeed_trnsp.png in Resources */,
 				6CFEBDE31BA34F5600DCF1F6 /* MorePageInfoAdmin.plist in Resources */,
@@ -1235,6 +1241,7 @@
 				6C066FDC1B1BAEEF009EA34D /* second_selected.png in Resources */,
 				6C96DB9D1B7A83FF00B4CF2F /* background.gif in Resources */,
 				6C066FE11B1BAEEF009EA34D /* tabbar_selected_background@2x.png in Resources */,
+				6CA05A7F1C5957550056D014 /* Meedori Sans Light.ttf in Resources */,
 				6C066FE41B1BAEEF009EA34D /* third_selected.png in Resources */,
 				6C1C532F1C19F1FC0046B7D1 /* sample_iTunes.mov in Resources */,
 				6C1E55C21ACF08D9003965A0 /* Images.xcassets in Resources */,
@@ -1561,7 +1568,7 @@
 				INFOPLIST_FILE = Clubfeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.clubfeed.Clubfeed;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.Clubfeed.Clubfeed;
 				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Clubfeed/Clubfeed-Bridging-Header.h";
@@ -1587,7 +1594,7 @@
 				INFOPLIST_FILE = Clubfeed/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = uk.co.clubfeed.Clubfeed;
+				PRODUCT_BUNDLE_IDENTIFIER = uk.co.Clubfeed.Clubfeed;
 				PRODUCT_NAME = Clubfeed;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Clubfeed/Clubfeed-Bridging-Header.h";

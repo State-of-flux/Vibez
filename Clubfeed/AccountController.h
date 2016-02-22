@@ -17,7 +17,7 @@ typedef void(^facebookAccountCompletionBlock)(BOOL succeeded, NSError *error);
 + (void)loginWithFacebook:(id)sender;
 + (void)loginWithUsernameOrEmail:(NSString *)username andPassword:(NSString *)password sender:(id)sender;
 + (void)createNewUser:(PFUser *)user forFacebookWithBlock:(facebookAccountCompletionBlock)compblock;
-+ (void)signupWithUsername:(NSString *)username email:(NSString *)email password:(NSString *)password sender:(id)sender;
++ (void)signupWithEmail:(NSString *)email password:(NSString *)password firstName:(NSString *)firstName lastName:(NSString *)lastName dob:(NSDate *)dob sender:(id)sender;
 + (void)forgotPasswordWithEmail:(NSString *)email sender:(id)sender;
 + (void)sendResetEmail:(NSString *)email;
 + (void)linkOrUnlinkParseAccountFromFacebook;

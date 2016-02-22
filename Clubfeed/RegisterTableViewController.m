@@ -39,8 +39,10 @@
     [[self tableView] setTableFooterView:[UIView new]];
     [[self tableView] registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellIdentifier"];
     
+    [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewFirstName]];
+    [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewLastName]];
     [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewEmail]];
-    [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewUsername]];
+    [self addBorder:UIRectEdgeBottom color:[UIColor pku_greyColorWithAlpha:0.2f] thickness:0.5f view:[self contentViewDOB]];
     
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory textlessButtonIconFactory];
     
@@ -51,12 +53,17 @@
     
     [factory setSize:12.0f];
     [factory setColors:@[[UIColor pku_greyColor], [UIColor pku_greyColor]]];
+    
+    [[self imageViewFirstName] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
+    [[self imageViewLastName] setImage:[factory createImageForIcon:NIKFontAwesomeIconUserPlus]];
     [[self imageViewEmail] setImage:[factory createImageForIcon:NIKFontAwesomeIconEnvelope]];
-    [[self imageViewUsername] setImage:[factory createImageForIcon:NIKFontAwesomeIconUser]];
+    [[self imageViewDOB] setImage:[factory createImageForIcon:NIKFontAwesomeIconCalendar]];
     [[self imageViewPassword] setImage:[factory createImageForIcon:NIKFontAwesomeIconLock]];
     
+    [[self textFieldFirstName] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [[self textFieldLastName] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
     [[self textFieldEmail] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
-    [[self textFieldUsername] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [[self labelDOB] setTextColor:[UIColor pku_greyColor]];
     [[self textFieldPassword] setValue:[UIColor pku_greyColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     [[[self buttonTermsConditionsPrivacy] titleLabel] setNumberOfLines:2];
@@ -88,14 +95,13 @@
     
     if([self SignUpValidation])
     {
-        [AccountController signupWithUsername:[[self textFieldUsername] text] email:[[self textFieldEmail] text] password:[[self textFieldPassword] text] sender:self];
+        [AccountController signupWithEmail:[[self textFieldEmail] text] password:[[self textFieldPassword] text] firstName:[[self textFieldFirstName] text] lastName:[[self textFieldLastName] text] dob:[NSDate date] sender:self];
     }
 }
 
--(BOOL)SignUpValidation
-{
-    if([Validator isValidUsername:[[self textFieldUsername] text]])
-    {
+-(BOOL)SignUpValidation {
+    //if([Validator isValidUsername:[[self textFieldUsername] text]])
+    //{
         if([Validator isValidEmail:[[self textFieldEmail] text]])
         {
             if([Validator isValidPassword:[[self textFieldPassword] text] confirmPassword:[[self textFieldPassword] text]])
@@ -103,7 +109,7 @@
                 return YES;
             }
         }
-    }
+    //}
     
     [MBProgressHUD hideStandardHUD:[self hud] target:[self navigationController]];
     
@@ -120,20 +126,43 @@
 {
     switch ([textField tag]) {
         case 0:
-            [[self textFieldUsername] becomeFirstResponder];
+            [[self textFieldLastName] becomeFirstResponder];
             break;
         case 1:
-            [[self textFieldPassword] becomeFirstResponder];
+            [[self textFieldEmail] becomeFirstResponder];
             break;
         case 2:
+            // DOB becomes first responder
+            [self openDOBPicker];
+            break;
+        case 3:
+
+            break;
+        case 4:
             [self buttonRegisterPressed:self];
             break;
-            
         default:
             break;
     }
     
     return NO;
+}
+
+- (void)openDOBPicker {
+    [self setPickerDOB:[[ActionSheetDatePicker alloc] initWithTitle:NSLocalizedString(@"Date of Birth", nil)
+                                                                  datePickerMode:UIDatePickerModeDate
+                                                                    selectedDate:[NSDate date]
+                                                                     minimumDate:[NSDate date]
+                                                                     maximumDate:[NSDate date]
+                                                                          target:self
+                                                                          action:@selector(dobAction)
+                                                                          origin:[self contentViewDOB]]];
+    
+    
+}
+
+- (void)dobAction {
+    
 }
 
 - (CALayer *)addBorder:(UIRectEdge)edge color:(UIColor *)color thickness:(CGFloat)thickness view:(UIView *)view
@@ -194,7 +223,32 @@
         [[self textFieldPassword] setSecureTextEntry:NO];
     }
     
-//    [[self textFieldPassword] setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightRegular]];
+    //    [[self textFieldPassword] setFont:[UIFont systemFontOfSize:14.0f weight:UIFontWeightRegular]];
     [[self textFieldPassword] setFont:[UIFont pik_avenirNextRegWithSize:14.0f]];
 }
+
+- (IBAction)buttonDOBPressed:(id)sender {
+    [self openDOBPicker];
+}
+
+#define MAXLENGTH 40
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    if ([textField tag] == 0 || [textField tag] == 1) {
+        
+        NSUInteger oldLength = [textField.text length];
+        NSUInteger replacementLength = [string length];
+        NSUInteger rangeLength = range.length;
+        
+        NSUInteger newLength = oldLength - rangeLength + replacementLength;
+        
+        BOOL returnKey = [string rangeOfString: @"\n"].location != NSNotFound;
+        
+        return newLength <= MAXLENGTH || returnKey;
+    }
+    
+    return YES;
+}
+
 @end

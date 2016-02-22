@@ -1,8 +1,8 @@
 //
 //  Event+CoreDataProperties.m
-//  Vibez
+//  Clubfeed
 //
-//  Created by Harry Liddell on 12/01/2016.
+//  Created by Harry Liddell on 01/02/2016.
 //  Copyright © 2016 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -22,12 +22,12 @@
 @dynamic eventVenueLocation;
 @dynamic hasBeenUpdated;
 @dynamic image;
+@dynamic imageData;
 @dynamic lastEntry;
 @dynamic name;
 @dynamic price;
 @dynamic quantity;
 @dynamic startDate;
-@dynamic imageData;
 @dynamic venues;
 
 @end

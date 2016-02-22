@@ -1,9 +1,9 @@
 //
 //  Order+CoreDataProperties.h
-//  Vibez
+//  Clubfeed
 //
-//  Created by Harry Liddell on 18/11/2015.
-//  Copyright © 2015 Pikture. All rights reserved.
+//  Created by Harry Liddell on 01/02/2016.
+//  Copyright © 2016 Pikture. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) NSDecimalNumber *priceTotal;
 @property (nullable, nonatomic, retain) NSNumber *quantity;
 @property (nullable, nonatomic, retain) NSString *username;
+@property (nullable, nonatomic, retain) NSString *firstName;
+@property (nullable, nonatomic, retain) NSString *lastName;
+@property (nullable, nonatomic, retain) NSString *fullName;
 @property (nullable, nonatomic, retain) NSSet<Ticket *> *tickets;
 @property (nullable, nonatomic, retain) User *user;
 

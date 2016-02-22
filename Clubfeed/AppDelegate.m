@@ -34,7 +34,7 @@
     [self setupParse:launchOptions];
     [self setupBrainTree];
     [self setupAppearance];
-    [self monitorReachability];
+    //[self monitorReachability];
     
     if ([PFUser currentUser]) {
         [NFNotificationController scheduleNotifications];

@@ -36,6 +36,8 @@ PODS:
     - Braintree/UI (= 3.9.6)
     - Braintree/Venmo (= 3.9.6)
   - Braintree/API (3.9.6)
+  - Braintree/Apple-Pay (3.9.6):
+    - Braintree/Payments
   - Braintree/Coinbase (3.9.6):
     - Braintree/API
   - Braintree/Drop-In (3.9.6):
@@ -114,6 +116,7 @@ DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 1.5.1)
   - AFNetworking (~> 2.0)
   - Braintree (= 3.9.6)
+  - Braintree/Apple-Pay
   - CardIO
   - CLLocationManager-blocks
   - DateTools
