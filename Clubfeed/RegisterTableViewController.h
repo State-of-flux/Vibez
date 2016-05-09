@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelDOB;
 @property (strong, nonatomic) ActionSheetDatePicker *pickerDOB;
 
+@property (strong, nonatomic) NSDate *selectedDOB;
+
 @property (weak, nonatomic) IBOutlet UIView *contentViewFirstName;
 @property (weak, nonatomic) IBOutlet UIView *contentViewLastName;
 @property (weak, nonatomic) IBOutlet UIView *contentViewEmail;

@@ -12,6 +12,7 @@
 #import "AccountController.h"
 #import "Validator.h"
 #import <Reachability/Reachability.h>
+#import <DateTools/DateTools.h>
 
 @interface RegisterTableViewController (){
     Reachability *reachability;
@@ -149,16 +150,27 @@
 }
 
 - (void)openDOBPicker {
+    
+    NSDate *minDate = [NSDate date];
+    [minDate dateBySubtractingYears:18];
+    
+    NSDate *maxDate = [NSDate date];
+    [maxDate dateBySubtractingYears:120];
+    
+    if(![self selectedDOB]) {
+        [self setSelectedDOB:minDate];
+    }
+    
     [self setPickerDOB:[[ActionSheetDatePicker alloc] initWithTitle:NSLocalizedString(@"Date of Birth", nil)
                                                                   datePickerMode:UIDatePickerModeDate
-                                                                    selectedDate:[NSDate date]
-                                                                     minimumDate:[NSDate date]
-                                                                     maximumDate:[NSDate date]
+                                                                    selectedDate:[self selectedDOB]
+                                                                     minimumDate:minDate
+                                                                     maximumDate:maxDate
                                                                           target:self
                                                                           action:@selector(dobAction)
-                                                                          origin:[self contentViewDOB]]];
+                                                                          origin:[self buttonDOB]]];
     
-    
+    [[self pickerDOB] showActionSheetPicker];
 }
 
 - (void)dobAction {
